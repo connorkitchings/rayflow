@@ -1,3 +1,15 @@
+# [RayFlow]
+
+An agentic AI engine built to accelerate concert lighting programming and automate grandMA3 console workflows.
+
+## Overview
+This tool bridges the gap between show design logic and console execution. By utilizing agentic workflows, it automates tedious grandMA3 data tasks—including XML macro generation, sequence cue-stack construction, and fixture patching—allowing lighting designers to focus on the art of the look.
+
+## Tech Stack
+* Environment: Python (`uv`)
+* AI Core: Built with Claude Code, Codex, and Gemini CLI
+* Target: grandMA3 software / OSC / Art-Net / sACN workflows
+
 # Vibe Coding Template
 
 > **A lean, practical template for AI-assisted development supporting multiple AI coding tools.**
