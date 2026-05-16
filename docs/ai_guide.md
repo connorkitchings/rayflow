@@ -1,12 +1,12 @@
-# AI_GUIDE — Front Door for Agents & Humans
+# AI Guide — Front Door for Agents & Humans
 
 **Purpose.** This is the shortest path to doing real work in this repo. Read this page first, then jump via the links below. Keep changes small, testable, and linked to the schedule.
 
-Read-first order: [README](./README.md) → [Template Kickoff Guide](./docs/template_starting_guide.md) → [Project Brief](./docs/project_brief.md) → [Project Charter](./docs/project_charter.md) → [Implementation Schedule](./docs/implementation_schedule.md) → [Development Standards](./docs/development_standards.md) → [Runbook](./docs/runbook.md) → [Changelog](./CHANGELOG.md).
+Read-first order: README → [Getting Started](./getting_started.md) → [Project Brief](./project_brief.md) → [Project Charter](./project_charter.md) → [Implementation Schedule](./implementation_schedule.md) → [Development Standards](./development_standards.md) → [Runbook](./runbook.md).
 
-**Status Legend:** ☐ Not Started · ▶ In Progress · ✅ Done · ⚠ Risk/Blocked
+**Status Legend:** Not Started · In Progress · Done · Risk/Blocked
 
-**Last Updated:** 2025-11-04
+**Last Updated:** 2026-05-15
 
 ---
 
@@ -14,12 +14,12 @@ Read-first order: [README](./README.md) → [Template Kickoff Guide](./docs/temp
 
 ### Add a Feature
 
-1. Scan the **Implementation Schedule** and pick a Week/Task. Link it in your session log.
-2. Create a feature branch: `git checkout -b feature/<slug>`.
-3. Write tests and code in `src/…`. **No secrets or env literals in code**—use config/env files per standards.
+1. Scan the **Implementation Schedule** and pick a Phase/Task. Link it in your session log.
+2. Create a feature branch: `git checkout -b feat/<slug>`.
+3. Write tests and code in `src/rayflow/`. **No secrets or env literals in code**—use config/env files per standards.
 4. Run checks: `uv run ruff format . && uv run ruff check . && uv run pytest`.
-5. Update docs if behavior changes (Charter/KB/architecture as needed).
-6. **Close loop** with the Session End template; commit & open PR.
+5. Update docs if behavior changes (Charter/KB/guides as needed).
+6. **Close loop** with the Session End skill; commit & open PR.
 
 ### Fix a Bug / Investigate Failure
 
@@ -37,33 +37,32 @@ Read-first order: [README](./README.md) → [Template Kickoff Guide](./docs/temp
 4. **Unknown patterns:** Search `docs/knowledge_base.md` or recent session logs
 5. **Still stuck:** Document in session log; flag for human review
 6. **CI-only failures:** Open the failed job → read failing step logs → reproduce locally with the same command shown in CI
-7. **Pre-commit fails locally:** `pre-commit run --all-files` (install hooks with `pre-commit install` if missing), then re-run checks
-
-> Session templates: see `docs/ai_session_templates.md`.
+7. **Pre-commit fails locally:** Run ruff and pytest manually, then re-run checks
 
 ---
 
-## For AI Agents (Claude/GPT/etc.)
+## For AI Agents
 
-- **Always start a session:** Copy template from `docs/ai_session_templates.md` → new file in `session_logs/`
-- **Always end a session:** Fill exit template even if incomplete
+- **Always start a session:** Follow `.agent/skills/start-session/SKILL.md`
+- **Always end a session:** Follow `.agent/skills/end-session/SKILL.md`
 - **Link your work:** Reference schedule task, related PRs, or previous sessions
-- **Request review early:** If touching Safety zones or uncertain about approach
+- **Request review early:** If touching protocol implementations or uncertain about approach
 - **Prefer small PRs:** 1 task from schedule = 1 PR; easier to review and merge
 - **Design outputs as "next steps":** Each script/CLI should print what to do next on success/failure
-- **Context hygiene:** If chat history gets noisy, **summarize work-in-progress in the session log**, then **clear context** and resume from the log + current docs. This prevents stale instructions.
+- **Context hygiene:** If chat history gets noisy, **summarize work-in-progress in the session log**, then **clear context** and resume from the log + current docs.
 
 ---
 
 ## Repo Map (10-line tour)
 
-- `src/` — Source code (modules, flows, utils).
-- `docs/` — This guide + standards, checklists, schedule, charter, KB.
-- `session_logs/` — Daily work logs (start/end templates).
+- `src/rayflow/` — Source code (bridge, fixtures, visualizer, CLI).
+- `data/fixtures/` — GDTF fixture files.
+- `data/shows/` — Show configurations and MVR files.
+- `docs/` — This guide + standards, checklists, schedule, charter, KB, guides.
+- `session_logs/` — Daily work logs (start/end skills).
 - `scripts/` — One-off helpers and automation.
 - `.github/` — CI workflows and PR templates.
-- `notebooks/` — Exploratory analysis (clear outputs before commit).
-- `models/` & `reports/` — Generated artifacts (usually git-ignored).
+- `tests/` — Test suite.
 - `pyproject.toml` — Dependencies and tooling config.
 - `mkdocs.yml` — Docs site nav.
 
@@ -74,8 +73,8 @@ For full docs: `docs/index.md`.
 ## Quick Context Lookup (for mid-conversation)
 
 - **What are we building?** → `docs/project_charter.md` (Problem, Goals, Success Metrics)
-- **What's the current priority?** → `docs/implementation_schedule.md` (current week/sprint)
-- **What failed last time?** → Latest entry in `session_logs/YYYY-MM-DD_*.md`
+- **What's the current priority?** → `docs/implementation_schedule.md` (current phase/task)
+- **What failed last time?** → Latest entry in `session_logs/`
 - **Known issues/gotchas?** → `docs/knowledge_base.md`
 - **Code standards?** → `docs/development_standards.md`
 - **Why is CI red?** → Open the failing workflow in `.github/workflows/*`, read the failed step logs, and reproduce locally
@@ -88,8 +87,8 @@ For full docs: `docs/index.md`.
 # Install/Sync Dependencies
 uv sync
 
-# Install pre-commit hooks (first time)
-pre-commit install
+# Install lighting extras
+uv sync --extra lighting
 
 # Format & Lint
 uv run ruff format . && uv run ruff check .
@@ -110,11 +109,10 @@ mkdocs serve  # → http://127.0.0.1:8000
 
 ### Don't Touch Without Review
 
-- Secrets handling and credential management
-- Security configurations and authentication logic
-- Data contracts, schemas, and API interfaces
-- Database migrations and schema changes
-- Deployment configurations and infrastructure code
+- Network protocol implementations (Art-Net, sACN, OSC) without verification
+- GDTF parsing logic without testing against real fixture files
+- grandMA3 OSC commands without testing on the console
+- Dependency upgrades beyond patch versions
 
 ### Quality Bars
 
@@ -122,12 +120,12 @@ Follow these checklists from `docs/development_standards.md`:
 
 - **Pre-Commit:** Linting, formatting, type checks
 - **Pre-Merge:** Test coverage, documentation updates
-- **Security Review:** Credentials, data exposure, dependencies
+- **Protocol Verification:** Art-Net/sACN packets verified with network tools
 
 ### Escalation Triggers (stop & ask)
 
-- Schema/API change detected or required
-- Touching secrets, auth, or infra configs
+- Protocol implementation changes
+- Touching secrets, auth, or network configs
 - Test rewrite that alters public behavior
 - Dependency upgrades beyond patch version
 - Unclear acceptance criteria for a task
@@ -135,11 +133,9 @@ Follow these checklists from `docs/development_standards.md`:
 ### Non-Goals for AI Agents
 
 - **Architectural decisions** without human review
-- **Changing data schemas** or API contracts
-- **Deployment configuration** changes
-- **Dependency upgrades** beyond patch versions
-- **Refactoring** entire modules without explicit instruction
+- **Changing protocol specifications** without discussion
 - **Adding new external dependencies** without discussion
+- **Refactoring** entire modules without explicit instruction
 
 ---
 
@@ -148,8 +144,9 @@ Follow these checklists from `docs/development_standards.md`:
 1. **Committing secrets or credentials** — Always use environment variables; never hardcode
 2. **Skipping tests** — Every feature needs tests; every bug needs a regression test
 3. **Unclear commit messages** — Link to schedule task or issue; explain *why*, not just *what*
-4. **Breaking changes without docs** — Update Charter/KB/README if behavior changes
+4. **Breaking changes without docs** — Update Charter/KB/guides if behavior changes
 5. **Working without a session log** — Logs create continuity and catch abandoned work
+6. **Not verifying protocol packets** — Always verify Art-Net/sACN with network tools
 
 ---
 
@@ -158,16 +155,14 @@ Follow these checklists from `docs/development_standards.md`:
 All contributions must:
 
 - Be submitted via pull request
-- Follow the [pull request template](./.github/pull_request_template.md)
 - Reference a task from the Implementation Schedule
 - Include tests and updated documentation
 - Pass all pre-commit and CI checks
 
 ### Branch & PR Conventions
 
-- **Branch:** `feature/<slug>` or `fix/<slug>`
-- **PR title:** `feat: <scope> [schedule:weekX-taskY]` (or `fix:`/`docs:`/`chore:`)
-- **Labels:** `size:XS/S/M/L`, `risk:low/med/high`, `area:<module>`
+- **Branch:** `feat/<slug>` or `fix/<slug>`
+- **PR title:** `feat: <scope> [phase:X-taskY]` (or `fix:`/`docs:`/`chore:`)
 - **PR body:** link to session log + checklist items ticked
 
-For detailed guidelines, see [Development Standards & Workflow](./docs/development_standards.md)
+For detailed guidelines, see [Development Standards & Workflow](./development_standards.md)

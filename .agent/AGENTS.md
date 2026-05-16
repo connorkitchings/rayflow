@@ -33,81 +33,67 @@
 **Role**: Information gathering and analysis
 
 **Responsibilities**:
-- Find up-to-date information and cite sources
+- Find up-to-date information on lighting protocols, grandMA3 features, GDTF spec
 - Return concise brief with links and risks/gaps called out
-- Check ToS and robots.txt for external data sources
 - Verify data discrepancies across multiple sources
 - **Context budget**: ≤1.5k tokens initial, then targeted fetches
 
 **Key Files**:
-- `docs/knowledge_base.md` - Patterns, rate limits, gotchas
-- `docs/data/sources/` - Data source documentation
+- `docs/knowledge_base.md` - Protocol specs, rate limits, gotchas
+- `data/fixtures/` - GDTF fixture library
 
 ---
 
-### DataOps
+### FixtureEngineer
 
-**Role**: Data pipeline and database operations
+**Role**: GDTF fixture parsing, channel mapping, and patching
 
 **Responsibilities**:
-- Own ingestion CLIs, transforms, migrations, and CI diagnostics
-- Ensure idempotent upserts, retries with backoff
-- Implement parsers for external data sources
-- Manage database migrations
-- Monitor rate limits and respect ToS for all sources
+- Parse GDTF fixture files and extract channel definitions
+- Map DMX addresses to fixture channels (dimmer, pan, tilt, color, gobo)
+- Build and manage fixture library
+- Handle fixture patching to universes
 - **Context budget**: ≤2k tokens initial, then targeted fetches
 
 **Key Files**:
-- `src/data/` - Data access and ingestion
-- `alembic/` or migrations directory - Database migrations
-- `.agent/skills/database-migration/SKILL.md` - Migration workflow
-- `.agent/skills/data-ingestion/SKILL.md` - Ingestion workflow
-
-**Commands**:
-```bash
-# Database migrations
-alembic upgrade head
-alembic revision --autogenerate -m "description"
-
-# Data pipeline
-uv run python scripts/ingest_data.py
-```
+- `src/rayflow/fixtures/` - GDTF parsing and fixture management
+- `data/fixtures/` - GDTF fixture files
+- `.agent/skills/gdtf-fixture/SKILL.md` - GDTF workflow
 
 ---
 
-### Web/API
+### ProtocolBridge
 
-**Role**: API and frontend development
+**Role**: Art-Net, sACN, and OSC protocol implementation
 
 **Responsibilities**:
-- Implement API routes and frontend components
-- Add tests, pagination, and input validation
-- Implement rate limiting for public endpoints
-- Ensure proper CORS configuration
-- Add authentication where needed
+- Implement Art-Net send/receive (ArtDMX packets over UDP)
+- Implement sACN/E1.31 send/receive (multicast/unicast)
+- Implement OSC communication with grandMA3 onPC
+- Ensure proper universe addressing and channel mapping
 - **Context budget**: ≤2k tokens initial
 
 **Key Files**:
-- `src/api/` - API routes
-- `src/web/` or frontend directory - Frontend code
-- `docs/api/` - API documentation
-- `.agent/skills/api-endpoint/SKILL.md` - API workflow
+- `src/rayflow/bridge/` - Protocol bridge implementation
+- `.agent/skills/art-net-bridge/SKILL.md` - Art-Net/sACN workflow
+- `.agent/skills/ma3-workflow/SKILL.md` - grandMA3 OSC workflow
 
 ---
 
-### Curator (Optional)
+### VisualizerDev
 
-**Role**: Data quality and corrections management
+**Role**: Web-based 3D stage visualizer development
 
 **Responsibilities**:
-- Review correction requests and verify with sources
-- Manage data quality workflows
-- Resolve disputed data
-- **Context budget**: ≤1.5k tokens initial
+- Build Flask backend for DMX-to-WebSocket bridge
+- Implement Three.js 3D scene with stage, truss, fixtures
+- Map DMX channel values to visual properties (intensity, color, beam)
+- Implement camera controls and beam visualization
+- **Context budget**: ≤2k tokens initial
 
 **Key Files**:
-- Data quality documentation
-- Correction workflow docs
+- `src/rayflow/visualizer/` - Web visualizer implementation
+- `.agent/skills/dmx-universe/SKILL.md` - DMX universe management
 
 ---
 
@@ -116,9 +102,9 @@ uv run python scripts/ingest_data.py
 Use subagents to keep the main context window clean and focused.
 
 **When to use subagents:**
-- Research tasks that require deep diving into docs or code
-- Exploration of unfamiliar areas
-- Parallel analysis of multiple options
+- Research on lighting protocols, GDTF spec, grandMA3 OSC API
+- Exploration of Three.js patterns and examples
+- Parallel analysis of fixture channel mappings
 - Complex problems that benefit from focused, dedicated attention
 
 **Best practices:**
@@ -140,17 +126,17 @@ When routing a task, Navigator provides:
 2. **Links to relevant files** - File paths and line anchors
 3. **Constraints** - Timebox, scope, context budget
 4. **Expected artifacts** - Code paths, tests, docs to update
-5. **Rollback plan** - If applicable (especially for migrations/deployments)
+5. **Rollback plan** - If applicable
 
 **Example**:
 
 ```text
-Task: Implement user authentication endpoint
-DoD: POST /auth/login returns JWT token, tests pass
-Files: src/api/auth.py:1-50, src/models/user.py:20
-Constraints: ≤2hr, backend only, no schema changes
-Artifacts: Route handler, tests, API docs
-Rollback: Revert migration if needed
+Task: Implement Art-Net sender for universe 1
+DoD: Send DMX values to visualizer, packets verified with Wireshark
+Files: src/rayflow/bridge/artnet.py:1-50
+Constraints: ≤2hr, UDP only, no sACN
+Artifacts: Sender class, tests, usage example
+Rollback: Revert commit
 ```
 
 ---
@@ -175,6 +161,7 @@ Keep context minimal when routing tasks:
 5. **Link to schedule tasks** in commit messages and PRs
 6. **Session logs required** for all work (see start-session/end-session skills)
 7. **Pre-commit hooks** must pass before pushing
+8. **Test with real protocols** — verify Art-Net/sACN packets with network tools
 
 ---
 
@@ -200,18 +187,19 @@ The full set of 11 operating principles are documented in `.agent/PRINCIPLES.md`
 
 For detailed checklists, see `.agent/skills/CATALOG.md`:
 
-### Data Operations
-- **Database Migration**: Add/modify tables with migrations
-- **Data Ingestion**: Add source adapters
+### Lighting Protocols
+- **Art-Net Bridge**: Send/receive DMX via Art-Net
+- **DMX Universe**: Manage universes and channel mapping
 
-### API Development
-- **Add API Endpoint**: Route with schemas and tests
+### Fixture Management
+- **GDTF Fixture**: Load and parse GDTF fixture profiles
 
-### Frontend Development
-- **Create Component**: Component with tests and docs
+### Console Integration
+- **MA3 Workflow**: grandMA3 onPC OSC control
 
-### Infrastructure
-- **MCP Workflow**: MCP server integration with fallbacks
+### Session Management
+- **Start Session**: Initialize development session
+- **End Session**: Close session with logging
 
 **All skills**: See `.agent/skills/CATALOG.md`
 
@@ -223,7 +211,6 @@ For detailed checklists, see `.agent/skills/CATALOG.md`:
 - [ ] Tests added/updated; pytest green locally
 - [ ] Ruff format and lint clean (`uv run ruff format . && uv run ruff check .`)
 - [ ] Docs updated where relevant
-- [ ] If schema changed: migration included and documented
 - [ ] Session log updated with outcomes
 - [ ] No secrets or credentials in code
 - [ ] Pre-commit hooks pass
@@ -241,8 +228,6 @@ For detailed checklists, see `.agent/skills/CATALOG.md`:
 
 ### For Security/Data Integrity Issues
 
-- Follow incident steps in security documentation
-- Check runbook procedures
 - Never bypass authentication or validation
 - Log security events appropriately
 
@@ -267,8 +252,12 @@ For detailed checklists, see `.agent/skills/CATALOG.md`:
 - **Handoff packet**: Minimal set of links, goals, and constraints to start work
 - **DoD**: Definition of Done - acceptance criteria for task completion
 - **Session log**: Work log created using start-session and end-session skills
-- **Idempotent upsert**: Safe write operation that can be retried without duplicates
-- **MCP**: Model Context Protocol - for tool integration
+- **DMX**: Digital Multiplex — 512-channel lighting control protocol
+- **Art-Net**: DMX over UDP protocol (port 6454)
+- **sACN**: Streaming ACN / E1.31 — DMX over multicast UDP
+- **GDTF**: General Device Type Format — open fixture definition
+- **MVR**: My Virtual Rig — scene sharing format based on GDTF
+- **OSC**: Open Sound Control — network protocol for console control
 
 ---
 
@@ -286,14 +275,9 @@ For detailed checklists, see `.agent/skills/CATALOG.md`:
 **Technical Docs**:
 
 - `docs/architecture/` - Architecture decisions
-- `docs/data/` - Data documentation
-- `docs/api/` - API specifications
-
-**Process Docs**:
-
 - `.agent/skills/start-session/SKILL.md` - Session kickoff workflow
 - `.agent/skills/end-session/SKILL.md` - Session closing workflow
-- `.agent/workflows/workflow-orchestration.md` - Task management patterns
+- `.agent/workflows/health-check.md` - Pre-commit validation
 - `docs/development_standards.md` - Code quality standards
 
 ---

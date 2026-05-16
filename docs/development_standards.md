@@ -1,48 +1,23 @@
 # Development Standards & Workflow
 
-This document provides comprehensive standards, workflows, and best practices for development
-in the Vibe Coding System. It consolidates coding standards, review processes, and operational
-workflows into a single reference.
-
-> 📚 For a high-level overview and entry point to all documentation, see [README.md](../README.md).
+This document provides comprehensive standards, workflows, and best practices for development in RayFlow.
 
 ## Core Principles
 
 - **Keep It Lean:** Focus on a few core, high-signal documents
 - **Short Sprints:** Maintain momentum with weekly or bi-weekly cycles
 - **Context Discipline:** Only provide relevant documents to focus AI collaboration
-- **User-Centric:** Test with real users early and often
+- **User-Centric:** Test with real fixtures and real songs early and often
 - **AI as Co-Pilot:** Use AI for generation, review, and ideation, but always validate its output
 - **Continuous Documentation:** Documentation preserves context and decisions
-
-## Idempotence & Data Safety
-
-- **Idempotence is Mandatory:**
-  - Migrations MUST check for existence before creating tables/columns/indexes.
-  - Ingestion scripts MUST be re-runnable without duplicating data (use `upsert` or `merge`).
-- **Data Safety:**
-  - ALWAYS backup before destructive operations.
-  - Never run `drop_all` in production.
-
-## Performance Budgets (Dev Targets)
-
-- **API Response:** < 400ms p95 for list endpoints.
-- **Ingestion:** Hourly/daily jobs must finish within 10% of their frequency window.
-- **Database:** All queries in hot paths must hit an index.
-
-## State Management (Web)
-
-- **Prefer Server State:** Use tools like **TanStack Query** or **SWR** for data fetching.
-- **Avoid Overkill:** Do not reach for Redux or complex global stores unless absolutely necessary.
-- **Principle:** "Server State > Client State" keeps the frontend lean and logic in the API.
 
 ## Development Workflow
 
 ### Branch Strategy
 
-- **Main Branch:** `main` - Production-ready code only
-- **Feature Branches:** `feature/description` - Individual features or fixes
-- **Hotfix Branches:** `hotfix/description` - Critical production fixes
+- **Main Branch:** `main` — Production-ready code only
+- **Feature Branches:** `feat/description` — Individual features or fixes
+- **Hotfix Branches:** `hotfix/description` — Critical production fixes
 
 ### Pull Request Process
 
@@ -75,6 +50,15 @@ Python files should follow this order:
 5. Functions and classes
 6. `if __name__ == "__main__":` block for executable scripts
 
+### Protocol Testing Standards
+
+When implementing lighting protocols (Art-Net, sACN, OSC):
+
+- **Unit tests:** Test packet construction, parsing, and validation
+- **Integration tests:** Test end-to-end communication with grandMA3 onPC
+- **Network verification:** Use Wireshark/tcpdump to verify packet format
+- **Edge cases:** Test universe overflow, invalid addresses, malformed packets
+
 ### Code Review Guidelines
 
 #### First Pass: Understanding the Change
@@ -87,40 +71,23 @@ Python files should follow this order:
 
 - **Readability:** Easy to understand with clear variable/function names
 - **Style Guide:** Adheres to project style (ruff formatting/linting)
-- **Comments:** Well-commented, especially in complex areas
+- **Comments:** Well-commented, especially in complex areas (protocol implementations)
 - **Simplicity (KISS):** Not unnecessarily complex
 - **Don't Repeat Yourself (DRY):** No duplicated code
 
 #### Functionality and Correctness
 
 - **Logic:** Sound logic that correctly solves the problem
-- **Edge Cases:** Handles edge cases gracefully
+- **Edge Cases:** Handles edge cases gracefully (universe overflow, invalid GDTF)
 - **Error Handling:** Robust error handling, doesn't fail silently
-- **Security:** No security vulnerabilities, security tools run
+- **Security:** No security vulnerabilities, network safety considered
 
 #### Testing
 
 - **Test Coverage:** New tests cover changes with adequate coverage
 - **Test Quality:** Well-written, understandable tests
-- **Test Types:** Unit tests for logic, integration tests for workflows
+- **Test Types:** Unit tests for logic, integration tests for protocol workflows
 - **Performance:** No significant performance regressions
-
-## Notebook Governance
-
-### Standards for Jupyter Notebooks
-
-- **Naming Convention:** `YYYY-MM-DD_descriptive-name.ipynb`
-- **Structure:** Clear sections with markdown headers
-- **Documentation:** Each notebook should have purpose and usage instructions
-- **Version Control:** Clear outputs before committing
-- **Dependencies:** Document all required packages
-
-### Notebook Lifecycle
-
-1. **Exploration:** Initial data exploration and hypothesis testing
-2. **Analysis:** Structured analysis with clear methodology
-3. **Production:** Convert stable code to modules in `/src`
-4. **Archive:** Move completed notebooks to appropriate folders
 
 ## Quality Gates & Automation
 
@@ -132,7 +99,6 @@ Automated checks run before each commit:
 - Linting (ruff)
 - Type checking (mypy)
 - Security scanning (bandit)
-- Dependency scanning (safety)
 
 ### Continuous Integration
 
@@ -142,7 +108,6 @@ All pull requests trigger:
 - Code coverage reporting
 - Security vulnerability scanning
 - Documentation building
-- Performance benchmarking
 
 ## Documentation Standards
 
@@ -154,29 +119,27 @@ All pull requests trigger:
 - Keep lines under 100 characters
 - Use code blocks with appropriate language tags
 
-### API Documentation
+### Guide Documentation
 
-- All public APIs must have comprehensive documentation
-- Include examples for complex functions
-- Document all parameters and return values
-- Provide usage examples
+All guides in `docs/guides/` should follow this structure:
+
+1. **Purpose:** What the guide accomplishes
+2. **Prerequisites:** What you need before starting
+3. **Steps:** Numbered, actionable steps
+4. **Verification:** How to confirm it worked
+5. **Troubleshooting:** Common issues and solutions
+6. **Next Steps:** Where to go from here
 
 ## Deployment & Operations
 
 ### Environment Management
 
-- **Development:** Local development with hot reloading
-- **Staging:** Pre-production testing environment
-- **Production:** Live environment with monitoring
+- **Development:** Local development with grandMA3 onPC running locally
+- **Testing:** Test against grandMA3 onPC with sample fixtures
+- **Production:** Not applicable (personal practice tool)
 
 ### Monitoring & Observability
 
-- Application performance monitoring
-- Error tracking and alerting
-- Resource usage monitoring
-- User behavior analytics
-
----
-
-*This document consolidates development standards, code review guidelines, notebook governance,
-and operational workflows into a single reference for the Vibe Coding System.*
+- Application logging with structured output
+- Error tracking for protocol failures
+- Session logs for development history

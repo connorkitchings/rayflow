@@ -16,6 +16,38 @@
 
 > Lessons from user corrections. Each entry captures the mistake, the rule to prevent it, and the date.
 
+### [Date: 2026-05-15]
+
+**Mistake:**
+> Gave user manual MA3 clicking instructions ("look for this button, click that") instead of automating the setup. User got frustrated with "manual work."
+
+**Root Cause:**
+> Insufficient knowledge of MA3 onPC UI; MA Lighting docs were offline; .show file format is binary (blocked XML generation). Fell back to manual instructions as default, which is the wrong default for a CLI tool project.
+
+**Rule Added:**
+> **Automation-first for external tool integration.** If the tool can't be scripted, document the exact menu path once, then move on. Never make the user click through a multi-step UI process during a coding session. If a tool's docs are unavailable, research the binary/app structure before proposing file generation.
+
+**Example:**
+> Should have: (1) checked .show file format before proposing XML generation, (2) defaulted to tcpdump/loopback verification instead of MA3 visual verification, (3) treated MA3 config as one-time setup documented in a guide, not session-time work.
+
+---
+
+### [Date: 2026-05-15]
+
+**Mistake:**
+> Proposed generating XML show files without verifying the .show file format first. The format is binary (GMA3 header), not XML.
+
+**Root Cause:**
+> Assumed .show files were XML based on common practice (MA2 macros use XML). Didn't empiricially check before building a plan around it.
+
+**Rule Added:**
+> **Verify file format before proposing generation.** Read the first bytes of any target file format before designing code that produces it. `file <path>`, `xxd <path> | head -3`, and `head -c 50 <path>` take seconds.
+
+**Example:**
+> Should have: run `file` and `xxd` on the `.show` file FIRST, discovered it's binary, and pivoted to tcpdump + OSC approach immediately instead of proposing XML generation.
+
+---
+
 ### [Date: YYYY-MM-DD]
 
 **Mistake:**

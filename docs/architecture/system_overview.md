@@ -1,80 +1,79 @@
 # System Overview
 
-This document provides a high-level overview of the system architecture for a typical AI project. It is intended to be a starting point and should be adapted to fit the specific needs of your project.
+This document provides a high-level overview of the RayFlow system architecture.
 
 ## Architecture Diagram
 
 ```mermaid
 graph TD
-    subgraph "Data Sources"
-        A[External APIs]
-        B[Databases]
-        C[File Storage]
+    subgraph "RayFlow Tooling Layer"
+        A[GDTF Fixture Library]
+        B[Stage Builder]
+        C[AI Cue Generator]
+        D[Art-Net / sACN Bridge]
+        E[OSC Controller]
     end
 
-    subgraph "Data Platform"
-        D[Data Ingestion & ETL]
-        E[Data Warehouse]
-        F[Feature Store]
+    subgraph "grandMA3 onPC Layer"
+        F[Console Engine]
+        G[Built-in 3D Visualizer]
+        H[Video Recording]
     end
 
-    subgraph "ML Platform"
-        G[Experiment Tracking]
-        H[Model Training]
-        I[Model Registry]
+    subgraph "Output"
+        I[Programmed Show]
+        J[Recorded Video]
     end
 
-    subgraph "Serving"
-        J[API Server]
-        K[Batch Inference]
-    end
-
-    subgraph "Monitoring"
-        L[Data Quality Monitoring]
-        M[Model Performance Monitoring]
-    end
-
+    A --> B
     A --> D
     B --> D
-    C --> D
-    D --> E
+    B --> F
+    C --> E
+    D --> F
     E --> F
+    F --> G
     F --> H
-    G --> H
-    H --> I
-    I --> J
-    I --> K
-    J --> M
-    K --> M
-    E --> L
+    G --> J
+    H --> J
 ```
 
 ## Components
 
-### Data Sources
+### RayFlow Tooling Layer
 
-*   **External APIs:** Third-party services that provide data.
-*   **Databases:** Internal databases containing business data.
-*   **File Storage:** Cloud storage services like S3 or GCS for storing raw data.
+- **GDTF Fixture Library:** Parse and manage GDTF fixture profiles from gdtf-share.com. Extract channel definitions, physical properties, and wheel data.
+- **Stage Builder:** Create virtual stage rigs by patching fixtures to DMX universes and arranging them in 3D space. Export as MVR for import to grandMA3.
+- **AI Cue Generator:** Generate lighting cues from natural language descriptions (e.g., "warm verse build with slow color fade"). Uses LLM prompting to produce cue stacks.
+- **Art-Net / sACN Bridge:** Send and receive DMX values over the network. Communicate with grandMA3 onPC and external visualizers.
+- **OSC Controller:** Send commands to grandMA3 onPC via OSC for automation (store cues, trigger sequences, batch operations).
 
-### Data Platform
+### grandMA3 onPC Layer
 
-*   **Data Ingestion & ETL:** Pipelines for extracting, transforming, and loading data from various sources into the data warehouse.
-*   **Data Warehouse:** A central repository for structured and semi-structured data.
-*   **Feature Store:** A centralized repository for storing, sharing, and managing features for machine learning models.
+- **Console Engine:** The core lighting control software. Handles cue lists, executors, effects, and DMX output. Free for macOS with up to 4096 parameters.
+- **Built-in 3D Visualizer:** MA3 includes a 3D visualizer for previewing shows. Accepts MVR files for stage geometry and GDTF fixtures.
+- **Video Recording:** MA3 can record visualizer output for export as video — the primary output format for practice sessions.
 
-### ML Platform
+### Output
 
-*   **Experiment Tracking:** Tools for tracking experiments, including code, data, parameters, and metrics.
-*   **Model Training:** The process of training machine learning models on the prepared data.
-*   **Model Registry:** A central repository for storing, versioning, and managing trained models.
+- **Programmed Show:** A complete cue list with timing, effects, and fixture programming ready for playback.
+- **Recorded Video:** Video capture of the 3D visualizer showing the programmed show — used for review, portfolio, and sharing.
 
-### Serving
+## Data Flow
 
-*   **API Server:** A web server that exposes the trained model as an API for real-time inference.
-*   **Batch Inference:** The process of running inference on a large batch of data.
+1. **Load fixtures** from GDTF library → RayFlow parses and catalogs
+2. **Build stage** by patching fixtures to universes → RayFlow generates MVR
+3. **Import MVR** to grandMA3 onPC → Visualizer shows the rig
+4. **Program cues** manually or via AI → Cue list built in MA3
+5. **Record output** from visualizer → Video file exported
+6. **Review and iterate** → Adjust cues, re-record
 
-### Monitoring
+## Communication Protocols
 
-*   **Data Quality Monitoring:** Tools for monitoring the quality of the data used to train and evaluate models.
-*   **Model Performance Monitoring:** Tools for monitoring the performance of the model in production.
+| Protocol | Purpose | Direction |
+|----------|---------|-----------|
+| Art-Net | DMX over UDP | Bidirectional |
+| sACN (E1.31) | DMX over multicast UDP | Bidirectional |
+| OSC | Console remote control | RayFlow → MA3 |
+| MVR | Stage/rig file exchange | RayFlow → MA3 |
+| GDTF | Fixture definition | External → RayFlow |

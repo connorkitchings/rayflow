@@ -10,8 +10,11 @@
 # First time setup
 uv sync
 
-# Activate virtual environment (optional, uv handles this)
-source .venv/bin/activate
+# Install lighting extras (Art-Net, GDTF)
+uv sync --extra lighting
+
+# Install visualizer extras (Flask, WebSocket)
+uv sync --extra visualizer
 ```
 
 ---
@@ -32,10 +35,10 @@ uv run pytest -q
 uv run pytest -vv
 
 # Run specific test file
-uv run pytest tests/test_example.py
+uv run pytest tests/test_bridge.py
 
 # Run tests matching pattern
-uv run pytest -k "test_pattern"
+uv run pytest -k "test_artnet"
 ```
 
 ---
@@ -79,12 +82,12 @@ git status
 git add <files>
 
 # Commit with conventional commit format
-git commit -m "feat: add new feature"
-git commit -m "fix: resolve bug"
-git commit -m "docs: update documentation"
-git commit -m "test: add test coverage"
-git commit -m "refactor: improve code structure"
-git commit -m "chore: maintenance tasks"
+git commit -m "feat: add art-net sender"
+git commit -m "fix: resolve universe addressing bug"
+git commit -m "docs: update fixture guide"
+git commit -m "test: add dmx channel tests"
+git commit -m "refactor: simplify bridge module"
+git commit -m "chore: update dependencies"
 
 # Push to remote
 git push origin <branch-name>
@@ -127,21 +130,15 @@ uv sync
 uv pip list --outdated
 ```
 
-### Python Examples
+---
 
-```python
-# Fetch web content as Markdown
-from vibe_coding.utils.markdown_fetcher import fetch_markdown, MarkdownFetcherConfig
+## grandMA3 onPC
 
-# Basic usage
-result = fetch_markdown("https://example.com")
-print(result.content)
-
-# With configuration
-config = MarkdownFetcherConfig(method="ai", retain_images=True, timeout=60)
-result = fetch_markdown("https://example.com", config)
-print(f"Tokens: {result.metadata.token_count}")
-print(f"Method: {result.metadata.method_used}")
+```bash
+# grandMA3 onPC is a standalone macOS application
+# Download from: https://www.malighting.com/downloads/products/grandma3/
+# Default OSC port: 8000
+# Default Art-Net port: 6454
 ```
 
 ---
@@ -171,16 +168,14 @@ find . -type f -name "*.pyc" -delete
 ## Project Structure
 
 ```
-Vibe-Coding/
-├── .agent/              # AI session management
-├── .codex/              # Quick reference (this file)
-├── src/                 # Source code
-├── tests/               # Test suite
-├── docs/                # Documentation
-├── scripts/             # Utility scripts
-├── session_logs/        # Session history
-├── config/              # Configuration
-└── pyproject.toml       # Dependencies and tooling
+rayflow/
+├── src/rayflow/       # Source code (bridge, fixtures, visualizer)
+├── data/              # GDTF fixtures and show configs
+├── tests/             # Test suite
+├── docs/              # Documentation
+├── scripts/           # Utility scripts
+├── .agent/            # AI session management
+└── session_logs/      # Session history
 ```
 
 ---
@@ -190,7 +185,7 @@ Vibe-Coding/
 - `AGENTS.md` - AI agent guidance (read first)
 - `README.md` - Project overview
 - `.agent/CONTEXT.md` - Current project state
-- `.codex/MAP.md` - Full project tree
+- `.agent/skills/CATALOG.md` - Available workflows
 - `docs/implementation_schedule.md` - Current priorities
 - `session_logs/` - Recent work history
 

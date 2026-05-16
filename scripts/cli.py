@@ -13,10 +13,10 @@ Subcommands:
 """
 
 import typer
+from scripts.init_template import main as init_template_main
 
 from scripts.check_links import main as check_links_main
 from scripts.init_session import main as init_session_main
-from scripts.init_template import main as init_template_main
 
 app = typer.Typer(help="Vibe Coding Utility CLI")
 

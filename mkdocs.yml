@@ -1,5 +1,5 @@
-site_name: Vibe Coding Template
-site_description: A template for Vibe Coding data science projects.
+site_name: RayFlow
+site_description: Concert lighting design toolkit — grandMA3 onPC integration, Art-Net/sACN bridge, and 3D stage visualizer.
 
 theme:
   name: material
@@ -17,37 +17,35 @@ theme:
 nav:
   - 'Home': 'index.md'
   - 'Getting Started': 'getting_started.md'
-  - 'Project Overview':
+  - 'Project':
     - 'Project Brief': 'project_brief.md'
     - 'Project Charter': 'project_charter.md'
     - 'Implementation Schedule': 'implementation_schedule.md'
+  - 'Architecture':
+    - 'System Overview': 'architecture/system_overview.md'
+    - 'Two-Layer Design': 'architecture/two-layer-design.md'
+  - 'Guides':
+    - 'grandMA3 onPC Setup': 'guides/grandma3-setup.md'
+    - 'grandMA3 Learning Resources': 'guides/grandma3-learning-resources.md'
+    - 'First DMX': 'guides/first-dmx.md'
+    - 'Building a Rig': 'guides/building-a-rig.md'
+    - 'Recording a Show': 'guides/recording-a-show.md'
+  - 'AI Operations':
+    - 'AI Master Context': 'ai/MASTER_CONTEXT.md'
+    - 'MA3 Operations Reference': 'ai/MA3_OPERATIONS.md'
+    - 'MA3 Command Reference': 'ai/MA3_COMMAND_REFERENCE.md'
+    - 'Show Building Workflow': 'ai/SHOW_BUILDING_WORKFLOW.md'
+    - 'Fixture Ecosystem': 'ai/FIXTURE_ECOSYSTEM.md'
   - 'Development':
     - 'Development Standards': 'development_standards.md'
     - 'Checklists': 'checklists.md'
     - 'Troubleshooting': 'troubleshooting.md'
-  - 'Architecture':
-    - 'System Overview': 'architecture/system_overview.md'
-    - 'ADR': 'architecture/adr/adr-0001-template.md'
+    - 'AI Guide': 'ai_guide.md'
   - 'Operations':
     - 'Runbook': 'runbook.md'
     - 'Security & Privacy': 'security.md'
     - 'Knowledge Base': 'knowledge_base.md'
     - 'Glossary': 'glossary.md'
-  - 'Tools & Guides':
-    - 'CLI Tool Template': 'tools/cli_tool_template.md'
-    - 'CLI Agent Coding Guide': 'tools/cli_agent_coding_guide.md'
-    - 'MCP Tooling': 'tools/mcp_tooling.md'
-    - 'Pre-commit Hooks': 'tools/pre_commit_hooks.md'
-  - 'Reference':
-    - 'AI Guide': 'ai_guide.md'
-    - 'AI Session Templates': 'ai_session_templates.md'
 
 plugins:
   - search
-  - mkdocstrings:
-      handlers:
-        python:
-          paths: [src]
-          options:
-            show_root_heading: true
-            show_source: true

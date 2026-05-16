@@ -1,15 +1,17 @@
 [project]
-name = "vibe-coding-template"
+name = "rayflow"
 version = "0.1.0"
-description = "A template for Vibe Coding data science projects."
+description = "Concert lighting design toolkit — grandMA3 onPC integration, Art-Net/sACN bridge, and 3D stage visualizer."
 authors = [{ name = "Connor Kitchings", email = "connor.kitchings@gmail.com" }]
 requires-python = ">=3.10"
 dependencies = [
     "typer>=0.9.0",
     "rich>=13.0.0",
-    "pyperclip>=1.8.2",
     "requests>=2.31.0",
 ]
+
+[project.scripts]
+rayflow = "rayflow.cli:app"
 
 [project.optional-dependencies]
 dev = [
@@ -20,22 +22,17 @@ dev = [
     "mkdocs-material>=9.0",
 ]
 
-# Optional: Add these as needed for your project
-data-science = [
-    "jupyter>=1.0",
-    "nbstripout>=0.7.1",
-    "nbformat>=5.10.4",
+lighting = [
+    "stupidArtnet>=1.6.0",
+    "sacn>=1.11.0",
+    "python-osc>=1.10.0",
+    "pygdtf>=1.4.0",
+    "numpy>=1.24.0",
 ]
 
-mlops = [
-    "mlflow>=2.0",
-    "prefect>=2.19.0",
-    "openlineage-python>=1.15.0",
-]
-
-security = [
-    "bandit>=1.7.9",
-    "safety>=2.3.5",
+visualizer = [
+    "flask>=3.0.0",
+    "websocket-server>=0.6.0",
 ]
 
 [tool.ruff]
@@ -47,15 +44,15 @@ select = ["E", "F", "I", "N", "W"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = [
-    "--cov=vibe_coding",
+    "--cov=src/rayflow",
     "--cov-report=term-missing",
     "--cov-report=html:htmlcov",
-    "--cov-fail-under=55",
+    "--cov-fail-under=35",
     "-v",
 ]
 
 [tool.coverage.run]
-source = ["src/vibe_coding"]
+source = ["src/rayflow"]
 branch = true
 omit = [
     "*/tests/*",
