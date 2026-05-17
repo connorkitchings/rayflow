@@ -348,18 +348,33 @@ def compare_fixture_ma3(
     ma3_json: Optional[Path] = typer.Option(
         None, "--ma3-json", help="Manually captured MA3 observation JSON"
     ),
+    capture: Optional[Path] = typer.Option(
+        None,
+        "--capture",
+        help="Generate and save observation JSON to the given directory",
+    ),
     json_output: bool = typer.Option(
         False, "--json", help="Print machine-readable JSON output"
     ),
 ) -> None:
     """Build or compare a RayFlow patch report for grandMA3 validation."""
+    from rayflow.fixtures.library import FixtureLibrary
     from rayflow.fixtures.ma3_compare import (
         build_library_patch_report,
         compare_ma3_observation,
+        discover_observation,
+        generate_observation_file,
         load_ma3_observation,
     )
 
     try:
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+        parser = library.get(fixture_name)
+        if parser is None:
+            typer.echo(f"Error: Fixture not found: {fixture_name}", err=True)
+            raise typer.Exit(code=1)
+
         report = build_library_patch_report(
             fixture_name,
             fixture_dir=fixture_dir,
@@ -369,9 +384,29 @@ def compare_fixture_ma3(
             start_address=address,
         )
         comparison = None
-        if ma3_json is not None:
+
+        if capture is not None:
+            saved = generate_observation_file(
+                parser,
+                capture,
+                mode_index=mode_index,
+                mode_name=mode,
+                universe=universe,
+                start_address=address,
+            )
+            console.print(f"[green]Observation saved to {saved}[/green]")
+        elif ma3_json is not None:
             observation = load_ma3_observation(ma3_json)
             comparison = compare_ma3_observation(report, observation)
+        else:
+            obs_path = discover_observation(
+                fixture_dir,
+                parser.name,
+                mode_name=report.mode,
+            )
+            if obs_path is not None:
+                observation = load_ma3_observation(obs_path)
+                comparison = compare_ma3_observation(report, observation)
     except (
         FileNotFoundError,
         ValueError,
@@ -398,6 +433,79 @@ def compare_fixture_ma3(
         raise typer.Exit(code=1)
 
 
+@fixture_app.command("compare-all")
+def compare_all_fixtures(
+    fixture_dir: str = typer.Option(
+        "data/fixtures", "--dir", "-d", help="Fixture directory"
+    ),
+    universe: int = typer.Option(0, "--universe", "-u", help="DMX universe number"),
+    address: int = typer.Option(1, "--address", "-a", help="DMX start address"),
+    json_output: bool = typer.Option(
+        False, "--json", help="Print machine-readable JSON output"
+    ),
+) -> None:
+    """Compare all sample fixtures against grandMA3 observation files."""
+    from rayflow.fixtures.ma3_compare import compare_all_samples
+
+    try:
+        results = compare_all_samples(
+            fixture_dir,
+            universe=universe,
+            start_address=address,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if json_output:
+        console.print(
+            json_module.dumps(
+                [r.as_dict() for r in results], indent=2
+            )
+        )
+    else:
+        _print_compare_all_results(results)
+
+    if any(not r.matches for r in results):
+        raise typer.Exit(code=1)
+
+
+def _print_compare_all_results(
+    results: list,
+) -> None:
+    table = Table(title="Sample Fixture Comparison Results")
+    table.add_column("Fixture", style="cyan")
+    table.add_column("Mode")
+    table.add_column("Channels", justify="right")
+    table.add_column("Observation", style="green")
+    table.add_column("Result", style="bold")
+
+    for result in results:
+        obs_status = "found" if result.ma3 else "missing"
+        result_text = (
+            "[green]PASS[/green]" if result.matches else "[red]FAIL[/red]"
+        )
+        table.add_row(
+            result.rayflow.fixture,
+            result.rayflow.mode,
+            str(result.rayflow.channel_count),
+            obs_status,
+            result_text,
+        )
+
+    console.print(table)
+
+    failed = [r for r in results if not r.matches]
+    if failed:
+        console.print("\n[bold red]Mismatches:[/bold red]")
+        for result in failed:
+            console.print(
+                f"[bold]{result.rayflow.fixture} — {result.rayflow.mode}[/bold]"
+            )
+            for mismatch in result.mismatches:
+                console.print(f"  - {mismatch}")
+
+
 def _print_patch_report(report) -> None:
     console.print(
         f"[bold]{report.manufacturer} — {report.fixture}[/bold]\n"
@@ -411,6 +519,108 @@ def _print_patch_report(report) -> None:
     for attribute in report.attributes:
         table.add_row(attribute)
     console.print(table)
+
+
+@fixture_app.command("export-mvr")
+def export_mvr(
+    fixture_dir: str = typer.Option(
+        "data/fixtures", "--dir", "-d", help="Fixture directory"
+    ),
+    output: Path = typer.Option(
+        ..., "--output", "-o", help="Output MVR file path (.mvr)"
+    ),
+    scene_name: str = typer.Option(
+        "RayFlow Rig", "--scene", help="Scene name in MVR file"
+    ),
+    universe: int = typer.Option(0, "--universe", "-u", help="DMX universe number"),
+    positions_json: Optional[Path] = typer.Option(
+        None, "--positions", help="JSON file with fixture positions"
+    ),
+) -> None:
+    """Export patched fixtures from the library as an MVR file.
+
+    Patches all fixtures loaded from the fixture directory into a single
+    MVR file that can be imported into grandMA3 onPC.
+
+    Optional --positions JSON format:
+    [{"name": "Fixture Name", "x": 0, "y": 2, "z": 0, "pan": 0, "tilt": 0}]
+    """
+    from rayflow.fixtures.library import FixtureLibrary
+    from rayflow.fixtures.mvr_export import (
+        FixturePosition,
+        build_patch_entry,
+    )
+    from rayflow.fixtures.mvr_export import (
+        export_mvr as _export_mvr,
+    )
+
+    try:
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    positions: dict[str, FixturePosition] = {}
+    if positions_json is not None:
+        raw = json_module.loads(positions_json.read_text())
+        for entry in raw:
+            pos = FixturePosition(
+                name=entry["name"],
+                x=entry.get("x", 0),
+                y=entry.get("y", 0),
+                z=entry.get("z", 0),
+                pan=entry.get("pan", 0),
+                tilt=entry.get("tilt", 0),
+            )
+            positions[pos.name] = pos
+
+    patches = []
+    address = 1
+    for key in library.list_fixtures():
+        parser = library.get_exact(*_parse_fixture_key(key))
+        if parser is None:
+            continue
+        for mode_idx in range(parser.mode_count):
+            mode_name = parser.mode_names()[mode_idx]
+            channel_count = parser.get_channel_count(mode_idx)
+            pos = positions.get(parser.name, FixturePosition(name=parser.name))
+            patches.append(
+                build_patch_entry(
+                    name=parser.name,
+                    manufacturer=parser.manufacturer,
+                    fixture_type=f"{parser.manufacturer}@{parser.name}",
+                    dmx_mode=mode_name,
+                    universe=universe,
+                    address=address,
+                    position=pos,
+                )
+            )
+            address += channel_count
+            if address > 512:
+                typer.echo(
+                    "Warning: fixture patch exceeds 512 channels in universe", err=True
+                )
+                break
+
+    if not patches:
+        typer.echo("Error: No fixtures found to export", err=True)
+        raise typer.Exit(code=1)
+
+    saved = _export_mvr(patches, output, scene_name=scene_name)
+
+    console.print(f"[green]MVR file exported to {saved}[/green]")
+    console.print(f"  Fixtures: {len(patches)}")
+    console.print(f"  Scene: {scene_name}")
+    console.print(f"  Universe: {universe}")
+    console.print(f"  Address range: 1-{address - 1}")
+
+
+def _parse_fixture_key(key: str) -> tuple[str, str]:
+    if "@" in key:
+        manufacturer, name = key.split("@", 1)
+        return manufacturer, name
+    return "", key
 
 
 console_app = typer.Typer(help="grandMA3 onPC console control")

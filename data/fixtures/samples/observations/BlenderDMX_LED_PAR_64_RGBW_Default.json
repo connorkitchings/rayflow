@@ -1,0 +1,18 @@
+{
+  "source": "generated-from-manifest",
+  "description": "Expected grandMA3 observation for fixture patched at address 1, universe 0. Captured from manifest.json data. Replace with real MA3 captures when MA3 is running.",
+  "manufacturer": "BlenderDMX",
+  "fixture": "LED PAR 64 RGBW",
+  "mode": "Default",
+  "universe": 0,
+  "start_address": 1,
+  "end_address": 5,
+  "channel_count": 5,
+  "required_attributes": [
+    "Dimmer",
+    "ColorAdd_R",
+    "ColorAdd_G",
+    "ColorAdd_B",
+    "ColorAdd_W"
+  ]
+}

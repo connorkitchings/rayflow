@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -155,3 +156,167 @@ def compare_ma3_observation(
         ma3=ma3,
         mismatches=mismatches,
     )
+
+
+def generate_observation(
+    fixture: GdtfParser,
+    *,
+    mode_index: int = 0,
+    mode_name: str | None = None,
+    universe: int = 0,
+    start_address: int = 1,
+) -> dict[str, Any]:
+    """Generate an observation JSON dict from a parsed fixture.
+
+    Represents RayFlow's expected view of the fixture data in grandMA3 format.
+
+
+    This produces the same shape as a manually captured grandMA3 observation,
+    serving as a template for real MA3 capture or as expected-ground-truth data.
+    """
+    report = build_patch_report(
+        fixture,
+        mode_index=mode_index,
+        mode_name=mode_name,
+        universe=universe,
+        start_address=start_address,
+    )
+    observation: dict[str, Any] = {
+        "source": "generated-from-rayflow",
+        "description": (
+            f"RayFlow generated observation for {report.fixture} "
+            f"mode {report.mode} at address {report.start_address}. "
+            "Replace with real grandMA3 capture when MA3 is running."
+        ),
+        "manufacturer": report.manufacturer,
+        "fixture": report.fixture,
+        "mode": report.mode,
+        "universe": report.universe,
+        "start_address": report.start_address,
+        "end_address": report.end_address,
+        "channel_count": report.channel_count,
+        "required_attributes": report.attributes,
+    }
+    return observation
+
+
+def generate_observation_file(
+    fixture: GdtfParser,
+    output_dir: str | Path,
+    *,
+    mode_index: int = 0,
+    mode_name: str | None = None,
+    universe: int = 0,
+    start_address: int = 1,
+) -> Path:
+    """Generate and save an observation JSON file for a fixture."""
+    observation = generate_observation(
+        fixture,
+        mode_index=mode_index,
+        mode_name=mode_name,
+        universe=universe,
+        start_address=start_address,
+    )
+    safe_name = _observation_filename(
+        observation["manufacturer"],
+        observation["fixture"],
+        observation["mode"],
+    )
+    output_path = Path(output_dir) / f"{safe_name}.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(observation, indent=2) + "\n")
+    return output_path
+
+
+def discover_observation(
+    fixture_dir: str | Path,
+    fixture_name: str,
+    *,
+    mode_name: str | None = None,
+) -> Path | None:
+    """Discover an observation JSON file for a fixture in the observations directory."""
+    observations_dir = Path(fixture_dir) / "samples" / "observations"
+    if not observations_dir.exists():
+        return None
+
+    fixture_slug = _slugify(fixture_name).lower()
+    for obs_file in sorted(observations_dir.iterdir()):
+        if not obs_file.suffix == ".json":
+            continue
+        if fixture_slug not in _slugify(obs_file.stem).lower():
+            continue
+        if mode_name:
+            mode_slug = _slugify(mode_name).lower()
+            if mode_slug not in _slugify(obs_file.stem).lower():
+                continue
+        return obs_file
+    return None
+
+
+def compare_all_samples(
+    fixture_dir: str | Path,
+    *,
+    universe: int = 0,
+    start_address: int = 1,
+) -> list[Ma3ComparisonResult]:
+    """Compare all sample fixtures against discovered observation files.
+
+    Loads all fixtures from the samples directory, builds patch reports,
+    discovers matching observation files, and returns comparison results.
+    """
+    results: list[Ma3ComparisonResult] = []
+    samples_dir = Path(fixture_dir) / "samples"
+
+    library = FixtureLibrary(samples_dir)
+    library.load()
+
+    for key in library.list_fixtures():
+        fixture = library.get_exact(*_parse_key(key))
+        if fixture is None:
+            continue
+
+        for mode_idx in range(fixture.mode_count):
+            mode_name = fixture.mode_names()[mode_idx]
+            report = build_patch_report(
+                fixture,
+                mode_index=mode_idx,
+                universe=universe,
+                start_address=start_address,
+            )
+
+            obs_path = discover_observation(
+                fixture_dir,
+                fixture.name,
+                mode_name=mode_name,
+            )
+
+            if obs_path is None:
+                result = Ma3ComparisonResult(
+                    rayflow=report,
+                    ma3={},
+                    mismatches=["no observation file found"],
+                )
+            else:
+                observation = load_ma3_observation(obs_path)
+                result = compare_ma3_observation(report, observation)
+
+            results.append(result)
+
+    return results
+
+
+def _observation_filename(
+    manufacturer: str, fixture: str, mode: str
+) -> str:
+    return f"{_slugify(manufacturer)}_{_slugify(fixture)}_{_slugify(mode)}"
+
+
+def _slugify(value: str) -> str:
+    return re.sub(r"[^a-zA-Z0-9]+", "", value.replace(" ", ""))
+
+
+def _parse_key(key: str) -> tuple[str, str]:
+    if "@" in key:
+        manufacturer, name = key.split("@", 1)
+        return manufacturer, name
+    return "", key
