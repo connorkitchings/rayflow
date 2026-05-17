@@ -458,11 +458,7 @@ def compare_all_fixtures(
         raise typer.Exit(code=1)
 
     if json_output:
-        console.print(
-            json_module.dumps(
-                [r.as_dict() for r in results], indent=2
-            )
-        )
+        console.print(json_module.dumps([r.as_dict() for r in results], indent=2))
     else:
         _print_compare_all_results(results)
 
@@ -482,9 +478,7 @@ def _print_compare_all_results(
 
     for result in results:
         obs_status = "found" if result.ma3 else "missing"
-        result_text = (
-            "[green]PASS[/green]" if result.matches else "[red]FAIL[/red]"
-        )
+        result_text = "[green]PASS[/green]" if result.matches else "[red]FAIL[/red]"
         table.add_row(
             result.rayflow.fixture,
             result.rayflow.mode,
@@ -581,6 +575,7 @@ def export_mvr(
         parser = library.get_exact(*_parse_fixture_key(key))
         if parser is None:
             continue
+        gdtf_file = getattr(parser, "path", None)
         for mode_idx in range(parser.mode_count):
             mode_name = parser.mode_names()[mode_idx]
             channel_count = parser.get_channel_count(mode_idx)
@@ -594,6 +589,7 @@ def export_mvr(
                     universe=universe,
                     address=address,
                     position=pos,
+                    gdtf_file=gdtf_file,
                 )
             )
             address += channel_count

@@ -127,9 +127,7 @@ def test_build_mvr_scene_element_fixture_has_addressing():
 
     root = build_mvr_scene_element(patches)
 
-    fixture = root.find(
-        f".//{{{MVR_NS}}}Fixture"
-    )
+    fixture = root.find(f".//{{{MVR_NS}}}Fixture")
     assert fixture is not None
     assert fixture.get("name") == "PAR 1"
 

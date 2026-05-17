@@ -50,6 +50,9 @@ addopts = [
     "--cov-fail-under=35",
     "-v",
 ]
+markers = [
+    "integration: requires a running grandMA3 onPC instance (deselected by default)",
+]
 
 [tool.coverage.run]
 source = ["src/rayflow"]

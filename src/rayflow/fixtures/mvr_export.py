@@ -1,4 +1,5 @@
 """MVR (My Virtual Rig) export for grandMA3 import."""
+
 from __future__ import annotations
 
 import uuid
@@ -47,6 +48,7 @@ class FixturePatchEntry:
     address: int
     gdtf_uuid: str
     position: FixturePosition
+    gdtf_file: Path | None = None
 
 
 def build_mvr_scene_element(
@@ -90,6 +92,7 @@ def export_mvr(
 
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as archive:
         archive.writestr(MVR_XML_FILENAME, xml_content)
+        _embed_gdtf_files(archive, patches)
 
     return output_path
 
@@ -104,12 +107,14 @@ def build_patch_entry(
     address: int,
     gdtf_uuid: str | None = None,
     position: FixturePosition | None = None,
+    gdtf_file: str | Path | None = None,
 ) -> FixturePatchEntry:
     """Build a FixturePatchEntry from fixture data."""
     if gdtf_uuid is None:
         gdtf_uuid = str(uuid.uuid4())
     if position is None:
         position = FixturePosition(name=name)
+    resolved_file = Path(gdtf_file) if gdtf_file else None
     return FixturePatchEntry(
         name=name,
         manufacturer=manufacturer,
@@ -119,6 +124,7 @@ def build_patch_entry(
         address=address,
         gdtf_uuid=gdtf_uuid,
         position=position,
+        gdtf_file=resolved_file,
     )
 
 
@@ -128,28 +134,39 @@ def _add_user_data(root: ET.Element) -> None:
     user_data.set("createdBy", "RayFlow mvr_export")
 
 
-def _add_fixture(
-    parent: ET.Element, patch: FixturePatchEntry
+def _embed_gdtf_files(
+    archive: zipfile.ZipFile, patches: list[FixturePatchEntry]
 ) -> None:
+    written: set[str] = set()
+    for patch in patches:
+        if patch.gdtf_file and patch.gdtf_file.exists():
+            gdtf_name = patch.gdtf_file.name
+            if gdtf_name not in written:
+                archive.write(patch.gdtf_file, gdtf_name)
+                written.add(gdtf_name)
+
+
+def _add_fixture(parent: ET.Element, patch: FixturePatchEntry) -> None:
     fixture = ET.SubElement(parent, f"{{{MVR_NS}}}Fixture")
     fixture.set("name", patch.name)
-    fixture.set("gdtfSpec", patch.gdtf_uuid)
+    if patch.gdtf_file and patch.gdtf_file.exists():
+        fixture.set("gdtfSpec", patch.gdtf_file.name)
+    else:
+        fixture.set("gdtfSpec", patch.gdtf_uuid)
+    if patch.dmx_mode:
+        fixture.set("gdtfMode", patch.dmx_mode)
 
     _add_addressing(fixture, patch)
     _add_position(fixture, patch.position)
 
 
-def _add_addressing(
-    parent: ET.Element, patch: FixturePatchEntry
-) -> None:
+def _add_addressing(parent: ET.Element, patch: FixturePatchEntry) -> None:
     addressing = ET.SubElement(parent, f"{{{MVR_NS}}}Addressing")
     addressing.set("universe", str(patch.universe + 1))
     addressing.set("address", str(patch.address))
 
 
-def _add_position(
-    parent: ET.Element, position: FixturePosition
-) -> None:
+def _add_position(parent: ET.Element, position: FixturePosition) -> None:
     matrix = ET.SubElement(parent, f"{{{MVR_NS}}}Matrix")
     matrix.set("x", f"{position.x:.4f}")
     matrix.set("y", f"{position.y:.4f}")

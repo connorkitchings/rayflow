@@ -305,9 +305,7 @@ def compare_all_samples(
     return results
 
 
-def _observation_filename(
-    manufacturer: str, fixture: str, mode: str
-) -> str:
+def _observation_filename(manufacturer: str, fixture: str, mode: str) -> str:
     return f"{_slugify(manufacturer)}_{_slugify(fixture)}_{_slugify(mode)}"
 
 

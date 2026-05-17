@@ -941,8 +941,8 @@ Master panel to toggle ALL protocol inputs/outputs in one place:
 
 ### MVR Export (Visualizer Rig)
 **GUI:** Menu → Export → MVR → select components → Export
-**CLI:** Not directly available
-**RayFlow:** MVR export planned for Phase 4 (`MvrExporter` class referenced but not implemented)
+**CLI:** `rayflow fixture export-mvr -d data/fixtures/samples -o rig.mvr`
+**RayFlow:** `MvrExporter` in `src/rayflow/fixtures/mvr_export.py` — embeds GDTF files, scene hierarchy, fixture addressing, and 3D positions.
 
 ### Show File Backup
 **GUI:** Menu → Save Show As → choose location

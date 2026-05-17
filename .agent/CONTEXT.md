@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 4 — grandMA3 onPC Integration
+**Phase:** 4 — grandMA3 onPC Integration (COMPLETE)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -49,14 +49,16 @@ rayflow/
 - Checked-in real GDTF sample pack with manifest validation
 - GDTF channel mapping with attribute family classification
 - Phase 3 in-memory GDTF fixture patching with CLI inspection command
-- Phase 4 fixture comparison reports for manual grandMA3 observations
+- Phase 4 fixture comparison reports with real MA3 observation capture (14 modes)
 - Phase 4 dry-run-safe OSC command sender and feedback listener
 - Phase 4 cue stack command helpers with JSON batch input and nested CLI
+- Phase 4 MVR export with embedded GDTF files and mode info
+- Phase 4 integration tests (14 tests, requires running MA3)
 
 **Current Focus:**
-- Capture real grandMA3 fixture comparison observations for checked-in samples
-- Plan verified import/export helpers without generating unverified `.show` files
-- Keep fixture patching in-memory until the show/rig model is introduced
+- Phase 4 is complete — ready for Phase 5 (Web 3D Visualizer) or Phase 6 (AI-Assisted Lighting)
+- 203 total tests (189 unit + 14 integration), 84% coverage
+- Branch cleanup and merge pending before starting new phase
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)

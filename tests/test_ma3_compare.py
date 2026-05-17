@@ -143,7 +143,7 @@ def test_discover_observation_detects_ground_truth():
     obs_path = discover_observation("data/fixtures", "LED PAR", mode_name="Default")
 
     assert obs_path is not None
-    assert obs_path.name == "BlenderDMX_LED_PAR_64_RGBW_Default.json"
+    assert obs_path.name == "BlenderDMX_LEDPAR64RGBW_Default.json"
 
 
 def test_discover_observation_returns_none_for_missing():
@@ -178,7 +178,8 @@ def test_compare_all_samples_produces_results_per_mode():
     matching = [r for r in mmx_results if r.matches]
     missing = [r for r in mmx_results if "no observation" in str(r.mismatches)]
     attribute_mismatches = [
-        r for r in mmx_results
+        r
+        for r in mmx_results
         if not r.matches and any("required attribute" in m for m in r.mismatches)
     ]
     assert len(matching) + len(missing) + len(attribute_mismatches) == len(mmx_results)

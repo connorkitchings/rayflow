@@ -51,9 +51,9 @@
 | OSC connection | Connect to MA3 onPC | ✅ Done | Dry-run-safe About command plus optional feedback listener |
 | Command sender | Send MA3 commands via OSC | ✅ Done | `/cmd` sender, `--execute` gate, feedback capture |
 | Cue stack builder | Build cue sequences from Python | ✅ Done | Typed command builders, JSON cue stacks, dry-run-safe nested CLI |
-| Import/export helpers | Generate only verified MA3 import/export formats | ☐ Not Started | `.show` files are binary; verify exported formats before generating |
-| MVR export | Export rig to MVR format | ☐ Not Started | For 3D visualization |
-| Integration tests | Test against MA3 onPC | ☐ Not Started | Requires console running |
+| Import/export helpers | Generate only verified MA3 import/export formats | ✅ Done | MVR export with embedded GDTF files and mode info; observation capture script |
+| MVR export | Export rig to MVR format | ✅ Done | Embedded GDTF files, scene/layer hierarchy, fixture addressing, 3D positions |
+| Integration tests | Test against MA3 onPC | ✅ Done | 14 integration tests (OSC, fixture comparison, MVR export, Art-Net send) |
 
 ---
 
@@ -104,4 +104,4 @@
 
 ---
 
-*Last updated: 2026-05-16*
+*Last updated: 2026-05-17*
