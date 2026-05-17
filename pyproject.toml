@@ -1,7 +1,7 @@
 [project]
 name = "rayflow"
 version = "0.1.0"
-description = "Concert lighting design toolkit — grandMA3 onPC integration, Art-Net/sACN bridge, and 3D stage visualizer."
+description = "Concert lighting design toolkit — AI-assisted timecoded light shows for recorded music using grandMA3 onPC."
 authors = [{ name = "Connor Kitchings", email = "connor.kitchings@gmail.com" }]
 requires-python = ">=3.10"
 dependencies = [
@@ -28,6 +28,7 @@ lighting = [
     "python-osc>=1.10.0",
     "pygdtf>=1.4.0",
     "numpy>=1.24.0",
+    "pyyaml>=6.0",
 ]
 
 visualizer = [

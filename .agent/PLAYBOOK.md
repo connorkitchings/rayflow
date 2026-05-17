@@ -19,9 +19,10 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
 2. **GDTF First**: Load real fixtures from gdtf-share.com early — don't mock fixture data longer than necessary.
 3. **grandMA3 onPC as Source of Truth**: When in doubt about protocol behavior, test against grandMA3 onPC directly.
-4. **Web Visualizer as Independent Target**: The Three.js visualizer should work without grandMA3 — it receives Art-Net/sACN directly.
+4. **AI-as-Interface**: RayFlow's primary interface is through AI coding tools. Design data models and contracts to be AI-readable and AI-modifiable. The human directs; the AI translates to MA3 commands.
 5. **Continuous Context Maintenance**: Regularly run health checks and session handoff routines to ensure that the context files accurately reflect the current state of the architecture.
 6. **Automation-First MA3 Guidance**: Treat MA3 UI configuration as setup state to verify, not repeated manual work for the user. Prefer commands, exported files, tcpdump/Wireshark checks, or small RayFlow helpers before asking for click-through steps.
+7. **Context-First AI**: Always provide the AI with the full rig definition, fixture capabilities, and current show state before requesting changes. See `docs/ai_interaction_contract.md`.
 
 ## [SUCCESS_PATTERNS]
 - **Incremental Protocol Testing**: Send one DMX value, verify it arrives, then expand to full universe.

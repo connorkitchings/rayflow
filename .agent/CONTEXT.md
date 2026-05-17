@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 4 — grandMA3 onPC Integration (COMPLETE)
+**Phase:** 5 — Show & Rig Framework (COMPLETE)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -54,16 +54,28 @@ rayflow/
 - Phase 4 cue stack command helpers with JSON batch input and nested CLI
 - Phase 4 MVR export with embedded GDTF files and mode info
 - Phase 4 integration tests (14 tests, requires running MA3)
+- Phase 5 architecture document and AI interaction contract
+- Phase 5 data models (11 dataclasses with validation, presets, rig templates, show overrides)
+- Phase 5 YAML serialization with round-trip support
+- Phase 5 CLI commands (rig create/list/info/copy/add-fixture/add-preset/export-mvr, show create/list/info/add-section/add-cue/add-preset-override/export-mvr)
+- Phase 5 AI context bundle command (`show context --json`)
+- Phase 5 prompt template for AI sessions
+- Phase 5 full test suite (296 tests, 84% coverage)
 
 **Current Focus:**
-- Phase 4 is complete — ready for Phase 5 (Web 3D Visualizer) or Phase 6 (AI-Assisted Lighting)
-- 203 total tests (189 unit + 14 integration), 84% coverage
-- Branch cleanup and merge pending before starting new phase
+- Ready for Phase 6 (AI Show Builder) — audio section import, vibe generation, cue generation, interactive direction
+- 296 total tests (259 unit + 37 CLI/context), 84% coverage
+- Working tree clean
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)
 - Use version 2.3 manual pages for UI/protocol guidance unless the installed app changes
 - Before giving manual grandMA3 UI instructions, verify they apply to 2.3.2.0 and prefer RayFlow automation or network verification where possible
+
+**Project Direction:**
+- RayFlow's unique value: AI-assisted show design, not a console or visualizer
+- MA3 onPC provides the console and 3D visualizer; RayFlow provides the design intelligence layer
+- Workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → push to MA3 → export as timecoded show
 
 ## 🔄 Post-Session Protocol
 

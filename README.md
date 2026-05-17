@@ -1,25 +1,31 @@
 # RayFlow
 
-Concert lighting design toolkit — grandMA3 onPC integration, Art-Net/sACN bridge, and 3D stage visualizer.
+AI-assisted lighting design toolkit — create timecoded light shows for recorded music using grandMA3 onPC.
 
 ## Overview
 
-RayFlow bridges the gap between show design logic and console execution. It provides Python tooling for concert lighting programming, automating grandMA3 workflows, and visualizing stage designs — allowing lighting designers to focus on the art of the look.
+RayFlow bridges the gap between creative intent and console execution. It provides Python tooling for concert lighting programming, automating grandMA3 workflows, and an AI interaction layer that lets you direct show design in natural language. grandMA3 onPC serves as the console and 3D visualizer; RayFlow manages rigs, generates creative direction, and translates your ideas into concrete lighting cues.
 
 ## Architecture
 
 ```
+┌─────────────────┐     Natural Language      ┌──────────────────┐
+│  Designer       │◄─────────────────────────►│  AI Coding Tool  │
+│  (You)          │                            │  (Claude/Codex)  │
+└─────────────────┘                            └────────┬─────────┘
+                                                        │
+                                                        ▼
 ┌─────────────────┐     Art-Net / sACN / OSC     ┌──────────────────┐
-│  grandMA3 onPC  │◄────────────────────────────►│  RayFlow Bridge  │
-│  (macOS)        │                               │  (Python)        │
+│  grandMA3 onPC  │◄────────────────────────────►│  RayFlow CLI     │
+│  (Console+Viz)  │                               │  (Python)        │
 └─────────────────┘                               └────────┬─────────┘
-         │                                                  │
-         │  GDTF / MVR                                      │  WebSocket
-         ▼                                                  ▼
-┌─────────────────┐                               ┌──────────────────┐
-│  Built-in 3D    │                               │  Web Visualizer  │
-│  Visualizer     │                               │  (Three.js)      │
-└─────────────────┘                               └──────────────────┘
+          ▲                                                  │
+          │  GDTF / MVR                                      │
+          │                                                  ▼
+          │                                         ┌──────────────────┐
+          │                                         │  GDTF Library    │
+          │                                         │  Show/Rig Data   │
+          └─────────────────────────────────────────└──────────────────┘
 ```
 
 ## Tech Stack
@@ -29,7 +35,8 @@ RayFlow bridges the gap between show design logic and console execution. It prov
 | Console | grandMA3 onPC 2.3.2.0 | Verified local baseline, macOS native |
 | Bridge | Python | Art-Net, sACN (E1.31), OSC protocols |
 | Fixtures | GDTF | Open fixture definition standard |
-| Visualizer | Web (Three.js) | Browser-based 3D stage visualization |
+| Data | YAML + JSON | Show/rig serialization, AI-readable |
+| AI Interface | LLM API | Any LLM via AI coding tools |
 | Package mgmt | uv | High-performance Python package manager |
 
 ## Quick Start
@@ -51,12 +58,14 @@ uv run rayflow --help
 rayflow/
 ├── src/rayflow/
 │   ├── bridge/          # Art-Net / sACN protocol bridge
-│   ├── fixtures/        # GDTF fixture loading and parsing
-│   ├── visualizer/      # Web-based 3D stage visualizer
+│   ├── fixtures/        # GDTF fixture loading, parsing, MVR export
+│   ├── console/         # grandMA3 onPC OSC control and cue builders
+│   ├── shows/           # Show & rig data models (Phase 5)
 │   └── cli.py           # CLI entry point
 ├── data/
 │   ├── fixtures/        # GDTF fixture library
-│   └── shows/           # Show configurations
+│   ├── rigs/            # Rig definitions (fixtures, presets, venue)
+│   └── shows/           # Show definitions (song, cues, vibe)
 ├── tests/               # Test suite
 ├── docs/                # Project documentation
 ├── scripts/             # Session management utilities
@@ -77,16 +86,17 @@ rayflow/
 2. Install the macOS version. RayFlow currently targets grandMA3 onPC 2.3.2.0.
 3. Run in standalone mode or connect to RayFlow via Art-Net/OSC.
 4. Enable Art-Net input or OSC input in the show before expecting RayFlow traffic to affect MA3.
-5. Use the built-in 3D visualizer or connect to the RayFlow web visualizer.
+5. Use the built-in 3D visualizer to preview your shows.
 
 ## AI-Assisted Development
 
-This project uses AI coding tools (Claude Code, Gemini CLI, Codex, OpenCode).
+This project uses AI coding tools (Claude Code, Gemini CLI, Codex, OpenCode) as the primary interface for show design.
 
-- Start here: `AGENTS.md`
-- Project state: `.agent/CONTEXT.md`
-- Available skills: `.agent/skills/CATALOG.md`
-- Never work on `main` — always use feature branches
+- **AI Interaction Contract**: `docs/ai_interaction_contract.md` — How AI tools work with RayFlow
+- **Phase 5 Architecture**: `docs/phase5_architecture.md` — Show & rig data model design
+- **Project state**: `.agent/CONTEXT.md`
+- **Available skills**: `.agent/skills/CATALOG.md`
+- **Never work on `main`** — always use feature branches
 
 ## Contributing
 

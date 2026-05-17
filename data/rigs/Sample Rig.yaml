@@ -1,0 +1,35 @@
+name: "Sample Rig"
+venue:
+  name: "Small Club"
+  dimensions: [12, 6, 4]
+fixtures:
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Zones"
+    label: "Spiider 1"
+    universe: 0
+    start_address: 1
+    position: {x: -2, y: 4, z: 1, pan: 0, tilt: 0}
+    channels: "1"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Front Left PAR 1"
+    universe: 0
+    start_address: 13
+    position: {x: -3, y: 3, z: 0, pan: 0, tilt: 0}
+    channels: "2"
+presets:
+  warm_wash:
+    name: "Warm Wash"
+    description: "Warm amber wash across all front fixtures"
+    attributes:
+      dimmer: "80"
+      color: "Warm Amber"
+    channels: "2"
+    tags: ["warm", "wash", "front"]
+  blackout:
+    name: "Blackout"
+    description: "All fixtures off"
+    attributes:
+      dimmer: "0"
+    channels: "1 Thru 20"
+    tags: ["blackout"]

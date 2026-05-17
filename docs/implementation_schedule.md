@@ -57,39 +57,55 @@
 
 ---
 
-## Phase 5: Web 3D Visualizer
+## Phase 5: Show & Rig Framework
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| Flask server | Backend for visualizer | ☐ Not Started | Serve frontend, receive DMX |
-| Three.js scene | 3D stage environment | ☐ Not Started | Stage, truss, floor |
-| Fixture rendering | 3D models for fixtures | ☐ Not Started | Basic geometry from GDTF |
-| DMX → light mapping | Update visuals from DMX | ☐ Not Started | WebSocket real-time |
-| Camera controls | Orbit, pan, zoom | ☐ Not Started | Three.js OrbitControls |
-| Beam visualization | Light beams and cones | ☐ Not Started | Volumetric effect |
-| Visualizer tests | Frontend + backend tests | ☐ Not Started | |
+| Architecture document | Phase 5 data model and design decisions | ✅ Done | `docs/phase5_architecture.md` |
+| AI interaction contract | Framework for AI tooling | ✅ Done | `docs/ai_interaction_contract.md` |
+| Rig data model | `Rig`, `Venue`, `FixtureSlot`, `Preset` dataclasses | ☐ Not Started | YAML/JSON serialization |
+| Show data model | `Show`, `Song`, `Section`, `Cue`, `Vibe` dataclasses | ☐ Not Started | Links rig to audio |
+| Rig CLI | `rayflow rig create/list/patch/export` | ☐ Not Started | Manage rigs, export to MVR |
+| Show CLI | `rayflow show create/list/context` | ☐ Not Started | Manage shows, load context bundle |
+| Preset system | Named presets with attribute families | ☐ Not Started | Dimmer, position, color, beam, focus, gobo |
+| Tests | Full test suite for models and CLI | ☐ Not Started | |
+| Docs | Rig/show data model documentation | ☐ Not Started | |
 
 ---
 
-## Phase 6: AI-Assisted Lighting
+## Phase 6: AI Show Builder
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| Natural language cues | "Warm wash on stage left" → DMX | ☐ Not Started | LLM prompt engineering |
-| Look generation | AI suggests lighting looks | ☐ Not Started | Based on genre, mood, venue |
-| Cue stack automation | Auto-generate show structure | ☐ Not Started | Verse, chorus, bridge patterns |
-| Fixture recommendation | Suggest fixtures for a look | ☐ Not Started | From GDTF library |
+| Audio section import | Import section markers from external tool | ☐ Not Started | JSON format |
+| Vibe generation | AI suggests color palettes and organizing principles | ☐ Not Started | LLM prompt + structured output |
+| Cue generation | AI generates cues per section based on vibe | ☐ Not Started | Produces cues compatible with show model |
+| Interactive direction | User directs AI: "more energy here", "change to cool colors" | ☐ Not Started | Conversational loop |
+| MA3 push | Push generated cues to MA3 via existing OSC | ☐ Not Started | Reuses `console/cue.py` |
+| Tests | Unit + integration tests | ☐ Not Started | |
+
+---
+
+## Phase 7: Export & Playback
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| MA3 show export | Export cues/rig to MA3-importable format | ☐ Not Started | MVR + cue data |
+| Timecode integration | MA3 timecode triggers for cue playback | ☐ Not Started | Research MA3 timecode API |
+| Show library | Versioned show storage | ☐ Not Started | |
+| Tests | | ☐ Not Started | |
 
 ---
 
 ## Milestones
 
 - **M1: Foundation Complete** — Phase 1 done, package structure ready
-- **M2: First Light** — Phase 2 done, DMX flowing from Python to visualizer
+- **M2: First Light** — Phase 2 done, DMX flowing from Python to MA3
 - **M3: Real Fixtures** — Phase 3 done, GDTF fixtures loaded and patched
 - **M4: Console Connected** — Phase 4 done, grandMA3 onPC controlled from Python
-- **M5: Visual Stage** — Phase 5 done, full 3D visualization working
-- **M6: AI Designer** — Phase 6 done, AI-assisted look generation
+- **M5: Show Framework** — Phase 5 done, rig and show data model with CLI
+- **M6: AI Designer** — Phase 6 done, AI-assisted show building working
+- **M7: Timecoded Playback** — Phase 7 done, MA3-native show export with timecode
 
 ---
 
@@ -97,10 +113,11 @@
 
 | Risk | Impact | Mitigation | Status |
 |------|--------|------------|--------|
-| grandMA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
 | GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
-| Three.js learning curve | Medium | Use examples, start simple | ☐ Open |
-| Scope creep on visualizer | High | Phase 5 is MVP: basic geometry first | ☐ Open |
+| AI prompt quality | High | Iterate on prompt templates, provide rich context bundles | ☐ Open |
+| MA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
+| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ☐ Open |
+| Scope creep on AI features | High | Phase 6 is MVP: cue generation from vibe first | ☐ Open |
 
 ---
 
