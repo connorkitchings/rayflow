@@ -1,6 +1,6 @@
 # Agent Playbook
 
-This playbook maintains the evolving knowledge, strategic constraints, and execution patterns for this repository. It acts as the dynamic memory for the Agentic Context Engineering (ACE) framework.
+This playbook maintains the evolving knowledge, strategic constraints, and execution patterns for RayFlow. It acts as the dynamic memory for the Agentic Context Engineering (ACE) framework.
 
 ## [RULES]
 1. **Branch Protection**: NEVER commit directly to `main`. Always check `git branch` and create a feature branch.
@@ -12,18 +12,22 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 7. **Architecture Before Code**: Always produce an architecture document first, even if you have a solution in mind. Use it to challenge and refine the AI's design.
 8. **Challenge Over-Engineering**: Question every complexity addition. Simplicity is a strategic choice, not a limitation.
 9. **Human Validates Before Implementation**: Explicit human checkpoint before proceeding to code generation.
+10. **Protocol Verification**: Always verify Art-Net/sACN packets with network tools (Wireshark, tcpdump) before marking protocol work complete.
+11. **grandMA3 Version Pinning**: Before giving grandMA3 onPC UI instructions, verify the installed app version and use the matching MA manual version. Current local baseline is grandMA3 onPC 2.3.2.0.
 
 ## [STRATEGIES]
-1. **Template Adaptation & Initialization**: When setting up a new project from this template, first execute setup scripts, adapt the Context Router (`.agent/CONTEXT.md`), and selectively prune boilerplate code (e.g., in `notebooks/` and `models/`).
-2. **Multi-Tool Synergy**: Write deterministic, self-contained scripts and follow strict formatting (`ruff`) to ensure the codebase remains navigable and modifiable by any supported AI CLI (Gemini, Claude Code, Codex).
-3. **Continuous Context Maintenance**: Regularly run health checks and session handoff routines to ensure that the context files accurately reflect the current state of the architecture.
+1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
+2. **GDTF First**: Load real fixtures from gdtf-share.com early — don't mock fixture data longer than necessary.
+3. **grandMA3 onPC as Source of Truth**: When in doubt about protocol behavior, test against grandMA3 onPC directly.
+4. **Web Visualizer as Independent Target**: The Three.js visualizer should work without grandMA3 — it receives Art-Net/sACN directly.
+5. **Continuous Context Maintenance**: Regularly run health checks and session handoff routines to ensure that the context files accurately reflect the current state of the architecture.
+6. **Automation-First MA3 Guidance**: Treat MA3 UI configuration as setup state to verify, not repeated manual work for the user. Prefer commands, exported files, tcpdump/Wireshark checks, or small RayFlow helpers before asking for click-through steps.
 
 ## [SUCCESS_PATTERNS]
-- **Markdown Ingestion**: Leverage the integrated `markdown.new` URL-to-Markdown utility for fetching clean documentation over raw web scraping.
-- **Workflow Automation**: Use `uv run scripts/vibe_sync.py start|end` to correctly manage session context and logs.
-- **Incremental Validation**: Run `make validate` locally before triggering CI/CD workflows to prevent noisy pipeline failures.
+- **Incremental Protocol Testing**: Send one DMX value, verify it arrives, then expand to full universe.
+- **GDTF Parsing**: Start with simple dimmer-only fixtures, then add moving lights with pan/tilt/color.
+- **OSC Command Verification**: Send `About` command first to verify grandMA3 connection before complex macros.
 - **Human-AI Collaboration Loop**: Prompt → Generate → Review → Feedback → Iterate. Human remains the final arbiter at every phase.
-- **Specialized Review Agents**: Use the 10 specialized review agents for thorough, focused reviews on specific aspects of code, architecture, or process.
 
 ## [REVIEW AGENTS]
 
@@ -36,7 +40,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 | 3 | Security Reviewer | Secrets, auth, injection, exposure | Before commits with security impact |
 | 4 | Over-Engineering Detector | Complexity, unnecessary abstraction | During code review |
 | 5 | Edge Case Challenger | Breaking scenarios, failure modes | After architecture design |
-| 6 | Data Quality Reviewer | Data integrity, validation, consistency | Data-related changes |
+| 6 | Protocol Reviewer | Art-Net/sACN/OSC correctness | Protocol implementation changes |
 | 7 | Testing Reviewer | Coverage, test quality, edge cases | Before any PR |
 | 8 | Performance Reviewer | Bottlenecks, scaling, latency | Before release |
 | 9 | Modularity Reviewer | Separation of concerns, coupling | Code organization concerns |
@@ -55,7 +59,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 **Always run:**
 - Planning Orchestrator: New features/projects
 - Architecture Reviewer: Significant design decisions
-- Security Reviewer: Before production deployment
+- Protocol Reviewer: Any Art-Net/sACN/OSC implementation
 
 **Run as needed:**
 - Edge Case Challenger: After architecture design

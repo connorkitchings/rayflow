@@ -1,165 +1,107 @@
-# Template Improvements - Implementation Schedule
-
-This schedule tracks the comprehensive improvements made to the Vibe Coding Template (Feb 2026).
+# RayFlow — Implementation Schedule
 
 **Status Legend:** ☐ Not Started · ▶ In Progress · ✅ Done · ⚠ Risk/Blocked
 
 ---
 
-## Overview
+## Phase 1: Project Foundation
 
-**Project:** Vibe Coding Template v2.0+ Improvements  
-**Type:** Template Enhancement  
-**Duration:** Completed Feb 2026  
-**Team:** Connor Kitchings + AI Assistant  
-**Dependencies:** GitHub Actions, MkDocs, Python 3.10+
-
----
-
-## Phase 1: Critical Foundation Fixes ✅ COMPLETE
-
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 1.1 | Consolidate duplicate AGENTS.md files | AI Assistant | Single source of truth in `.agent/AGENTS.md` | ✅ Done | Root AGENTS.md is now a redirect |
-| 1.2 | Fix health-check path mismatches (.sh → .md) | AI Assistant | All references updated to .md extension | ✅ Done | Updated 10+ files across codebase |
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Update pyproject.toml | rayflow package, lighting deps | ✅ Done | sacn, python-osc, artnet, gdtf-parser |
+| Rewrite README.md | Project overview | ✅ Done | Architecture diagram, quick start |
+| Rewrite project charter | Goals, scope, architecture | ✅ Done | Lighting domain focus |
+| Update agent guidance | CONTEXT, AGENTS, CATALOG | ✅ Done | Lighting-specific roles and skills |
+| Create src/rayflow/ structure | Package skeleton | ✅ Done | bridge/, fixtures/, visualizer/, cli.py |
+| Create data/ structure | Fixture and show directories | ✅ Done | data/fixtures/, data/shows/ |
 
 ---
 
-## Phase 2: Documentation & Consistency ✅ COMPLETE
+## Phase 2: Art-Net / sACN Bridge
 
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 2.1 | Resolve template variables with dual approach | AI Assistant | Customization guide + example values | ✅ Done | Added table of variables to replace |
-| 2.2 | Fix version inconsistencies (3.11+ → 3.10+) | AI Assistant | All docs consistent with pyproject.toml | ✅ Done | Fixed 4 files |
-| 2.3 | Document pre-commit hooks | AI Assistant | `docs/tools/pre_commit_hooks.md` | ✅ Done | Comprehensive guide with examples |
-| 2.4 | Align session log templates | AI Assistant | vibe_sync.py uses template format | ✅ Done | Enhanced session log generation |
-
----
-
-## Phase 3: Example Code & Structure ✅ COMPLETE
-
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 3.1 | Create minimal module structure | AI Assistant | Working example code in src/vibe_coding/ | ✅ Done | Config + logging utilities |
-| 3.2 | Complete skills library | AI Assistant | web-init and context-audit skills | ✅ Done | Full SKILL.md documentation |
-| 3.3 | Create unit tests | AI Assistant | tests/test_config.py with fixtures | ✅ Done | Comprehensive test coverage |
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| DMX universe model | Universe data structure | ✅ Done | 512 channels, universe addressing, conflict detection |
+| Art-Net sender | Send DMX via Art-Net | ✅ Done | ArtDMX packets, universe targeting, input validation |
+| Art-Net receiver | Receive DMX from console | ✅ Done | Listen on port 6454 |
+| sACN sender | Send DMX via sACN | ✅ Done | Using sacn library, fixed channel indexing |
+| sACN receiver | Receive DMX via sACN | ✅ Done | Multicast or unicast |
+| Bridge CLI | `rayflow bridge send/recv/status` commands | ✅ Done | Wired to real bridge classes, rich output |
+| Bridge tests | Unit + integration tests | ✅ Done | 75 tests, 83% coverage |
 
 ---
 
-## Phase 4: CI/CD & Tooling ✅ COMPLETE
+## Phase 3: GDTF Fixture Support
 
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 4.1 | Implement GitHub Actions workflows | AI Assistant | `.github/workflows/ci.yml` + docs.yml | ✅ Done | Full CI pipeline with 5 jobs |
-| 4.2 | Create generic CI validation script | AI Assistant | `scripts/validate_template.py` | ✅ Done | Platform-independent validation |
-| 4.3 | Configure MkDocs navigation | AI Assistant | Updated `mkdocs.yml` with proper nav | ✅ Done | Organized into sections |
-
----
-
-## Phase 5: CLI Enhancements ⏸️ DEFERRED
-
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 5.1 | Add validation flag to vibe_sync | AI Assistant | `--validate` option for session logs | ⏸️ Deferred | Can be added later if needed |
-| 5.2 | Add git integration features | AI Assistant | `--git-suggestions` for commit messages | ⏸️ Deferred | Nice-to-have feature |
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| GDTF parser | Load .gdtf.zip files | ✅ Done | Validates ZIP, parses description.xml, extracts modes/channels |
+| Fixture library | Manage loaded fixtures | ✅ Done | Catalog, search, by manufacturer, fixture summaries |
+| Channel mapping | Map DMX addresses to channels | ✅ Done | Concrete address maps with family classification and bounds checks |
+| Fixture patching | Assign fixtures to universes | ✅ Done | In-memory GDTF-aware patches with channel maps and CLI smoke command |
+| Sample fixtures | Checked-in real fixture samples | ✅ Done | 3 public GDTF samples with manifest and hashes |
+| Fixture tests | Parser, library, and sample tests | ✅ Done | Real samples validated offline |
 
 ---
 
-## Phase 6: Process & Documentation 🔄 IN PROGRESS
+## Phase 4: grandMA3 onPC Integration
 
-| Phase | Task | Owner | Deliverable | Status | Notes |
-|-------|------|-------|-------------|--------|-------|
-| 6.1 | Update implementation schedule | AI Assistant | This document reflecting template status | ✅ Done | Replaced Week 1-6 with actual work |
-| 6.2 | Create template testing guide | AI Assistant | `docs/template_testing_guide.md` | ▶ In Progress | Testing validation steps |
-| 6.3 | Create template maintenance guide | AI Assistant | `CONTRIBUTING_TEMPLATE.md` | ⏸️ Deferred | Can add if template gets contributors |
-| 6.4 | Fix outdated schedule references | AI Assistant | Update docs referencing old schedule | ▶ In Progress | Check README, CONTEXT.md |
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| OSC connection | Connect to MA3 onPC | ✅ Done | Dry-run-safe About command plus optional feedback listener |
+| Command sender | Send MA3 commands via OSC | ✅ Done | `/cmd` sender, `--execute` gate, feedback capture |
+| Cue stack builder | Build cue sequences from Python | ✅ Done | Typed command builders, JSON cue stacks, dry-run-safe nested CLI |
+| Import/export helpers | Generate only verified MA3 import/export formats | ✅ Done | MVR export with embedded GDTF files and mode info; observation capture script |
+| MVR export | Export rig to MVR format | ✅ Done | Embedded GDTF files, scene/layer hierarchy, fixture addressing, 3D positions |
+| Integration tests | Test against MA3 onPC | ✅ Done | 14 integration tests (OSC, fixture comparison, MVR export, Art-Net send) |
+
+---
+
+## Phase 5: Web 3D Visualizer
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Flask server | Backend for visualizer | ☐ Not Started | Serve frontend, receive DMX |
+| Three.js scene | 3D stage environment | ☐ Not Started | Stage, truss, floor |
+| Fixture rendering | 3D models for fixtures | ☐ Not Started | Basic geometry from GDTF |
+| DMX → light mapping | Update visuals from DMX | ☐ Not Started | WebSocket real-time |
+| Camera controls | Orbit, pan, zoom | ☐ Not Started | Three.js OrbitControls |
+| Beam visualization | Light beams and cones | ☐ Not Started | Volumetric effect |
+| Visualizer tests | Frontend + backend tests | ☐ Not Started | |
+
+---
+
+## Phase 6: AI-Assisted Lighting
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Natural language cues | "Warm wash on stage left" → DMX | ☐ Not Started | LLM prompt engineering |
+| Look generation | AI suggests lighting looks | ☐ Not Started | Based on genre, mood, venue |
+| Cue stack automation | Auto-generate show structure | ☐ Not Started | Verse, chorus, bridge patterns |
+| Fixture recommendation | Suggest fixtures for a look | ☐ Not Started | From GDTF library |
 
 ---
 
 ## Milestones
 
-- **✅ Phase 1 Complete (Critical Fixes)**  
-  All duplicate files removed, path references fixed
-
-- **✅ Phase 2 Complete (Documentation)**  
-  Template variables documented, versions consistent, pre-commit hooks explained
-
-- **✅ Phase 3 Complete (Code Examples)**  
-  Working config and logging modules with tests
-
-- **✅ Phase 4 Complete (CI/CD)**  
-  GitHub Actions workflows, validation script, MkDocs config
-
-- **🔄 Phase 6 In Progress (Process)**  
-  Documentation updates, testing guide
+- **M1: Foundation Complete** — Phase 1 done, package structure ready
+- **M2: First Light** — Phase 2 done, DMX flowing from Python to visualizer
+- **M3: Real Fixtures** — Phase 3 done, GDTF fixtures loaded and patched
+- **M4: Console Connected** — Phase 4 done, grandMA3 onPC controlled from Python
+- **M5: Visual Stage** — Phase 5 done, full 3D visualization working
+- **M6: AI Designer** — Phase 6 done, AI-assisted look generation
 
 ---
 
-## Risks Encountered
+## Risks
 
-| Risk | Impact | Resolution | Status |
+| Risk | Impact | Mitigation | Status |
 |------|--------|------------|--------|
-| Large number of files to update | Time-intensive | Systematic approach with grep | ✅ Resolved |
-| CI workflow dependencies | May fail initially | Created validation script first | ✅ Resolved |
-| Test dependencies optional | Tests fail on fresh clone | Documented in pyproject.toml | ✅ Resolved |
-| Phase 5 scope creep | Could delay completion | Deferred CLI enhancements | ✅ Resolved |
+| grandMA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
+| GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
+| Three.js learning curve | Medium | Use examples, start simple | ☐ Open |
+| Scope creep on visualizer | High | Phase 5 is MVP: basic geometry first | ☐ Open |
 
 ---
 
-## Change Log
-
-| Date | Change | Reason | Owner |
-|------|--------|--------|-------|
-| 2026-02-11 | Initial improvement plan | Review identified 15 improvement opportunities | AI Assistant |
-| 2026-02-11 | Phase 1-4 completed | All critical, documentation, code, and CI work done | AI Assistant |
-| 2026-02-11 | Phase 5 deferred | Nice-to-have features, not blocking | AI Assistant |
-| 2026-02-11 | Schedule updated | Reflect actual template improvements vs generic project plan | AI Assistant |
-
----
-
-## Roll-up Kanban
-
-### Backlog (Future Enhancements)
-
-- Add more domain-specific skills (MLOps, web dev)
-- Create video walkthrough of template
-- Add interactive setup script
-- Template versioning and migration guide
-- Multi-language support examples
-
-### In Progress
-
-- Template testing guide
-- Final documentation sweep
-
-### Done ✅
-
-- Phase 1: Critical fixes
-- Phase 2: Documentation improvements
-- Phase 3: Example code and tests
-- Phase 4: CI/CD and validation
-- Phase 6.1: Updated this schedule
-
----
-
-## Success Metrics
-
-- ✅ All 15 improvement opportunities addressed or deferred
-- ✅ Template validation script passes
-- ✅ All documentation links work
-- ✅ Example code runs and tests pass
-- ✅ CI workflows defined and ready
-- ✅ No duplicate AGENTS.md confusion
-- ✅ All version references consistent
-
----
-
-**Next Steps:**
-1. Complete Phase 6.2 (template testing guide)
-2. Run final validation
-3. Update CONTEXT.md with completed status
-4. Create session log documenting all improvements
-
----
-
-*This document replaces the generic project schedule with actual template maintenance work completed in Feb 2026.*
+*Last updated: 2026-05-17*

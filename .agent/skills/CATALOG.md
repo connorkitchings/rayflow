@@ -22,28 +22,54 @@
 
 ---
 
-## Development Skills
+## Lighting Protocol Skills
 
-### database-migration
-**Path**: `.agent/skills/database-migration/SKILL.md`
-**Purpose**: Create and apply database migrations safely using Alembic
-**Triggers**: "migration", "schema change", "database update", "alembic"
-**Outputs**: Migration file, rollback plan, test verification
-**Use when**: Modifying database schema, adding tables/columns
+### art-net-bridge
+**Path**: `.agent/skills/art-net-bridge/SKILL.md`
+**Purpose**: Send and receive DMX via Art-Net protocol
+**Triggers**: "art-net", "send dmx", "receive dmx", "artdmx", "udp lighting"
+**Outputs**: Art-Net sender/receiver implementation, packet verification
+**Use when**: Implementing Art-Net communication, testing DMX output
 
-### data-ingestion
-**Path**: `.agent/skills/data-ingestion/SKILL.md`
-**Purpose**: Implement data ingestion adapters for external sources
-**Triggers**: "ingestion", "data source", "adapter", "etl", "pipeline"
-**Outputs**: Ingestion adapter, validation logic, CLI script
-**Use when**: Adding new data sources, building ETL pipelines
+### dmx-universe
+**Path**: `.agent/skills/dmx-universe/SKILL.md`
+**Purpose**: Manage DMX universes, channel addressing, and patching
+**Triggers**: "universe", "dmx address", "channel map", "patch fixture"
+**Outputs**: Universe data structures, channel mapping logic
+**Use when**: Working with DMX addressing, fixture patching, channel allocation
 
-### api-endpoint
-**Path**: `.agent/skills/api-endpoint/SKILL.md`
-**Purpose**: Create new API endpoint with validation and tests
-**Triggers**: "new endpoint", "API route", "create endpoint", "fastapi", "flask"
-**Outputs**: Route handler, schemas, tests, API documentation
-**Use when**: Adding REST API endpoints
+---
+
+## Fixture Management Skills
+
+### gdtf-fixture
+**Path**: `.agent/skills/gdtf-fixture/SKILL.md`
+**Purpose**: Load, parse, and manage GDTF fixture profiles
+**Triggers**: "gdtf", "fixture", "load profile", "channel definition", "parse gdtf"
+**Outputs**: Parsed fixture data, channel definitions, fixture library entries
+**Use when**: Adding new fixtures, parsing GDTF files, building fixture library
+
+---
+
+## Console Integration Skills
+
+### ma3-workflow
+**Path**: `.agent/skills/ma3-workflow/SKILL.md`
+**Purpose**: grandMA3 onPC integration via OSC and verified import/export workflows
+**Triggers**: "grandma3", "ma3", "osc control", "macro", "cue stack"
+**Outputs**: OSC commands, cue stack builders, verified import/export workflows
+**Use when**: Controlling grandMA3 onPC, verifying MA3 workflows, building cue sequences
+
+---
+
+## Utility Skills
+
+### context-audit
+**Path**: `.agent/skills/context-audit/`
+**Purpose**: Audit and optimize context loading
+**Triggers**: "audit context", "context size", "optimize loading"
+**Outputs**: Context usage report, optimization recommendations
+**Use when**: Context budget is exceeded or session is slow
 
 ### doc-writer
 **Path**: `.agent/skills/doc-writer/SKILL.md`
@@ -59,31 +85,6 @@
 **Outputs**: Test file with fixtures and comprehensive coverage
 **Use when**: Adding tests for features or bug fixes
 
-### mcp-workflow
-**Path**: `.agent/skills/mcp-workflow/SKILL.md`
-**Purpose**: Use MCP servers with fallback CLI commands
-**Triggers**: "mcp", "deployment", "deploy", "railway", "vercel"
-**Outputs**: Deployment commands or MCP operations
-**Use when**: Deploying to cloud platforms, managing infrastructure
-
----
-
-## Utility Skills
-
-### context-audit
-**Path**: `.agent/skills/context-audit/`
-**Purpose**: Audit and optimize context loading
-**Triggers**: "audit context", "context size", "optimize loading"
-**Outputs**: Context usage report, optimization recommendations
-**Use when**: Context budget is exceeded or session is slow
-
-### web-init
-**Path**: `.agent/skills/web-init/`
-**Purpose**: Initialize web project structure
-**Triggers**: "init web", "create web app", "setup frontend"
-**Outputs**: Web project scaffold
-**Use when**: Starting new web project
-
 ---
 
 ## Workflow References
@@ -94,23 +95,11 @@
 **Triggers**: "health check", "validate", "pre-commit"
 **Use when**: Before creating commits or PRs
 
-### test-ci
-**Path**: `.agent/workflows/test-ci.md`
-**Purpose**: Run CI tests locally before pushing
-**Triggers**: "test ci", "ci simulation", "pre-push"
-**Use when**: Before pushing to remote, debugging CI failures
-
-### release-checklist
-**Path**: `.agent/workflows/release-checklist.md`
-**Purpose**: Prepare and execute production releases
-**Triggers**: "release", "deploy production", "create release"
-**Use when**: Preparing for production deployment
-
 ### session-handoff
 **Path**: `.agent/workflows/session-handoff.md`
-**Purpose**: Transfer session context between AI coding tools using cli-continues
-**Triggers**: "handoff", "switch tool", "continue session", "cross-tool", "rate limit"
-**Use when**: Switching between Claude, Copilot, Gemini, Codex, OpenCode, Droid, or Cursor
+**Purpose**: Transfer session context between AI coding tools
+**Triggers**: "handoff", "switch tool", "continue session", "cross-tool"
+**Use when**: Switching between Claude, Gemini, Codex, OpenCode
 
 ---
 
@@ -178,7 +167,7 @@ Skills should be:
 - **Versioned** when major changes occur
 - **Tested** regularly to ensure accuracy
 
-**Ownership**: Skills are maintained by the team. Anyone can propose updates via PR.
+**Ownership**: Skills are maintained by the project. Anyone can propose updates via PR.
 
 ---
 

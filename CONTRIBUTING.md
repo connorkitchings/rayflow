@@ -1,4 +1,4 @@
-# Vibe Coding Template - Contributing Guide
+# RayFlow — Contributing Guide
 
 > **Purpose:** Guidelines for contributing to this project.
 
@@ -11,16 +11,20 @@
 - Python 3.10+
 - [uv](https://github.com/astral-sh/uv) package manager
 - Git
+- grandMA3 onPC (macOS) — for console integration testing
 
 ### Setup
 
 ```bash
 # Clone repository
 git clone <repo-url>
-cd <repo-name>
+cd rayflow
 
 # Install dependencies
 uv sync
+
+# Install lighting extras
+uv sync --extra lighting
 
 # Run tests to verify setup
 uv run pytest
@@ -78,10 +82,11 @@ Follow `.agent/skills/end-session/SKILL.md` to document work.
 git add <files>
 
 # Commit with conventional format
-git commit -m "feat: add new feature
+git commit -m "feat: add art-net sender
 
-- Detailed change 1
-- Detailed change 2
+- Implemented ArtDMX packet construction
+- Added universe targeting
+- Verified with Wireshark
 
 Refs: #issue-number"
 
@@ -118,9 +123,9 @@ Commit types:
 ### Testing
 
 - Write unit tests for logic
-- Write integration tests for workflows
+- Write integration tests for protocol workflows
 - Aim for >80% coverage
-- Test edge cases
+- Test edge cases (universe overflow, invalid channels)
 
 ### Documentation
 
@@ -164,7 +169,7 @@ Include:
 - What happened
 - What you expected
 - Steps to reproduce
-- Environment details
+- Environment details (Python version, OS, grandMA3 version)
 - Error messages/logs
 
 ### Feature Requests
@@ -181,13 +186,13 @@ Include:
 
 ```
 .
-├── src/              # Source code
+├── src/rayflow/      # Source code (bridge, fixtures, visualizer)
+├── data/             # GDTF fixtures and show configs
 ├── tests/            # Test suite
 ├── docs/             # Documentation
 ├── scripts/          # Utility scripts
 ├── .agent/           # AI workflows
-├── session_logs/     # Session history
-└── config/           # Configuration
+└── session_logs/     # Session history
 ```
 
 ---

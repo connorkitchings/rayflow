@@ -1,146 +1,141 @@
 # Project Charter
 
-This document is the single source of truth for project goals, scope, and technical context.
-It should be updated as the project evolves, especially the DECISION LOG.
-
-> 📚 For a high-level entry point and links to all documentation, see [README.md](../README.md).
+This document is the single source of truth for RayFlow's goals, scope, and technical context.
 
 ## Project Overview
 
-**Project Name:** Vibe Coding Data Science Template
+**Project Name:** RayFlow
 
-**Project Vision:** Deliver a reusable, well-governed starter kit that lets data science teams launch new projects with proven automation, observability, and collaboration patterns in hours instead of weeks.
+**Project Vision:** A personal toolkit for exploring concert lighting design — combining grandMA3 onPC as a console emulator with Python-based protocol bridges and a web 3D visualizer for testing looks, cues, and stage designs.
 
-**Technical Goal:** Ship a v1.0 template release by 2026-01-31 with automated CI checks, runnable Prefect pipeline examples, and living documentation that meets the quality gates in `docs/checklists.md`.
-
-**Repository:** https://github.com/connorkitchings/Vibe-Coding
+**Technical Goal:** Build a working Art-Net/sACN bridge that can send DMX to a visualizer, load GDTF fixtures, and integrate with grandMA3 onPC via OSC — all controllable from a Python CLI.
 
 ## Users & User Stories
 
 ### Primary Persona
 
-**Target User:** Data science tech leads responsible for bootstrapping analytics or ML projects across teams.
+**Target User:** Lighting designers and students learning concert lighting programming.
 
-- **Name:** Dana Data Lead
-- **Role:** Principal Data Scientist / Platform Lead
-- **Pain Points:** Rebuilding boilerplate for every effort, inconsistent tooling, lack of governance for AI-assisted collaboration.
-- **Goals:** Stand up new projects quickly with consistent quality bars, reuse automation, and keep human/AI contributors aligned.
+- **Name:** Connor (designer/learner)
+- **Role:** Lighting designer exploring show programming
+- **Pain Points:** Need hardware console for practice, expensive visualizers, no easy way to test looks without a real rig
+- **Goals:** Practice lighting programming on a computer, visualize stage designs, automate repetitive console tasks
 
 ### Core User Stories
 
-As a data platform lead, I want a reusable template so that new projects begin with consistent tooling and governance.
-
-**Story 1:** As Dana, I want to clone the template and immediately run linting/tests so that I can confirm the scaffolding works before customizing it.
+**Story 1:** As a lighting designer, I want to send DMX from Python to a 3D visualizer so that I can test lighting looks without physical fixtures.
 
 - Priority: Must-have
 
-**Story 2:** As Dana, I want example Prefect flows and docs so that I can demo the end-to-end pipeline to stakeholders within the first week.
+**Story 2:** As a learner, I want to load GDTF fixture profiles so that I can work with real-world fixture data.
+
+- Priority: Must-have
+
+**Story 3:** As a programmer, I want to control grandMA3 onPC via OSC so that I can automate cue sequences and test workflows.
+
+- Priority: Should-have
+
+**Story 4:** As a designer, I want AI assistance in generating cue stacks and lighting looks so that I can explore creative ideas faster.
 
 - Priority: Should-have
 
 ## Features & Scope
 
-**Core Features:** Production-grade repository scaffold, automated CI pipeline, sample Prefect flows, modular data/model scripts, and documentation/guardrails for blended AI + human development.
-
-For detailed documentation on specific features, data contracts, and models, refer to the `docs/api/`, `docs/data/`, and `docs/models/` directories respectively.
-
-
 ### Must-Have (MVP)
 
-**Feature A:** Hardened repository skeleton with CI, linting, and testing ready to fork.
+**Feature A:** Art-Net/sACN bridge — send and receive DMX universes from Python
 
 - User Story: Story 1
-- Implementation: Track in `docs/implementation_schedule.md` Week 1–2
-- User Impact: High
+- Implementation: Phase 2
 
-**Feature B:** Example data pipeline (ingest → feature engineering → model baseline) orchestrated by Prefect with logging.
+**Feature B:** GDTF fixture parser — load and manage fixture definitions
 
 - User Story: Story 2
-- Implementation: Track in `docs/implementation_schedule.md` Week 2–3
-- User Impact: Medium
+- Implementation: Phase 3
+
+**Feature C:** Web 3D visualizer — browser-based stage visualization receiving live DMX
+
+- User Story: Story 1
+- Implementation: Phase 5
 
 ### Should-Have (Post-MVP)
 
-**Feature C:** Optional UI/CLI showcase for template consumers to demo end-to-end flow.
+**Feature D:** grandMA3 onPC OSC integration — remote control and automation
 
-- Implementation: `docs/implementation_schedule.md` Week 4 item “Prepare CLI/UI stub”
+- User Story: Story 3
+- Implementation: Phase 4
+
+**Feature E:** AI-assisted cue generation — natural language to cue stack
+
+- User Story: Story 4
+- Implementation: Phase 6
 
 ### Out of Scope
 
-- Production deployment pipelines for domain-specific applications.
-- Managing secrets or environment-specific infrastructure.
-- Building bespoke models beyond the illustrative baseline packaged with the template.
+- Hardware DMX output (USB-DMX interfaces)
+- Full grandMA3 console replacement
+- Production show playback
+- Multi-user collaborative programming
 
 ## Architecture
 
 ### High-Level Summary
 
-The template centers on a Prefect-orchestrated data workflow wrapped in reusable Python modules. Developers (human or AI) invoke CLI scripts or flows that pull data sources, transform features, and persist artifacts. Observability is provided through structured logging and CI automation, while MkDocs surfaces documentation.
+RayFlow has three main components: a Python protocol bridge (Art-Net/sACN/OSC), a GDTF fixture library, and a web-based 3D visualizer. grandMA3 onPC runs alongside as the console emulator, communicating via network protocols.
 
 ### System Diagram
 
 ```mermaid
 graph TD
-    Dev[Developer / AI Agent] --> CLI[CLI & Prefect Flow Entrypoints]
-    CLI --> PIPE[Data & Feature Pipelines]
-    PIPE --> ART[(Artifact Store / Models)]
-    PIPE --> DOCS[Docs & Session Logs]
-    CLI --> CI[CI Pipeline]
-    CI --> BADGE[Quality Gates]
+    User[Lighting Designer] --> CLI[RayFlow CLI]
+    CLI --> Bridge[Art-Net / sACN Bridge]
+    CLI --> OSC[OSC Controller]
+    Bridge --> Viz[Web 3D Visualizer]
+    OSC --> MA3[grandMA3 onPC]
+    MA3 -->|Art-Net/sACN| Bridge
+    MA3 -->|OSC| OSC
+    CLI --> GDTF[GDTF Fixture Library]
+    GDTF --> Viz
 ```
-
-### Folder Structure
-
-- `/src`: Contains the main source code for the project.
-- `/docs`: Contains all project documentation, including planning, guides, and logs.
-- `/notebooks`: Contains Jupyter notebooks for experimentation and analysis.
-- `/data`: Contains raw, interim, and processed data (not versioned by Git).
-- `/tests`: Contains all unit, integration, and functional tests.
 
 ## Technology Stack
 
 | Category | Technology | Version | Notes |
 |----------|------------|---------|-------|
-| Package Management | uv | 0.4.x | High-performance Python package manager and resolver |
+| Package Management | uv | latest | Python package manager |
 | Core Language | Python | 3.10+ | Primary programming language |
-| Linting & Formatting | Ruff | 0.5.x | Combines linting, formatting, and import sorting |
-| Experiment Tracking | MLflow | 2.x | Included as optional dependency for downstream projects |
-| Data Lineage | OpenLineage | 1.15+ | Enables lineage capture when pipelines are extended |
-| Testing | Pytest | 8.x | Framework for writing and running tests |
-| Documentation | MkDocs + Material | 1.6 / 9.x | Static site generator for project documentation |
-| Orchestration | Prefect | 2.19+ | Workflow orchestration and scheduling |
+| Console | grandMA3 onPC | 2.3.2.0 baseline | macOS native, locally verified |
+| Art-Net | artnet / custom | — | DMX over UDP |
+| sACN | sacn | 1.0+ | E1.31 streaming |
+| OSC | python-osc | 1.8+ | Remote console control |
+| Fixtures | GDTF | — | Open fixture format |
+| Visualizer | Three.js + Flask | — | Browser-based 3D |
+| Linting | Ruff | 0.5+ | Format and lint |
+| Testing | Pytest | 8.x | Test framework |
+| Documentation | MkDocs + Material | — | Project docs |
 
 ## Risks & Assumptions
 
 ### Key Assumptions
 
-**User Behavior:** We assume template adopters will customize flows and modules within 1–2 days of cloning rather than treating the repo as a static showcase.
-
-- Validation: Gather feedback from early adopters via retro notes in `session_logs/` after onboarding.
-
-**Technical:** We assume Prefect 2.x and uv-managed environments remain compatible across supported operating systems.
-
-- Validation: Run example flows and CI pipeline on GitHub Actions and local macOS/Linux during Week 1–2.
+- grandMA3 onPC remains free and available for macOS
+- Art-Net and sACN protocols are stable and well-documented
+- GDTF fixture library is available from gdtf-share.com
 
 ### Technical Risks
 
 | Risk | Probability | Impact | Mitigation |
 |------|-------------|--------|------------|
-| Template falls out of sync with Vibe Coding standards | Medium | Medium | Review quarterly against `docs/development_standards.md` and update changelog |
-| CI pipeline becomes brittle due to upstream tool changes | Medium | High | Pin critical tooling versions, monitor CI failures, and document fixes in KB |
-| Lack of real data sources limits usefulness of examples | Medium | Medium | Provide synthetic datasets and clear extension guides in docs |
-
+| grandMA3 onPC macOS compatibility breaks | Low | High | Test on each new release |
+| Art-Net library unmaintained | Medium | Medium | Build minimal custom implementation as fallback |
+| GDTF parsing complexity | Medium | Medium | Start with common fixture types, expand iteratively |
+| Web visualizer performance | Medium | Low | Use Three.js instancing, limit fixture count initially |
 
 ## Decision Log
 
 | Date       | Decision                                    | Context / Drivers                                           | Impact / Follow-up                                    |
 |------------|---------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------|
-| YYYY-MM-DD | Example: Adopt uv-managed toolchain in prod | Align local + CI environments before first feature sprint   | Update `docs/runbook.md` and notify DevEx maintainers |
-
-*Replace the sample row during kickoff and append new entries chronologically.*
-
-
----
-
-*This document consolidates the project definition, technical context, and scope appendix into a
-single source of truth.*
+| 2026-05-15 | grandMA3 onPC as console emulator           | Free, macOS native, industry standard                       | Primary console for all development                   |
+| 2026-05-15 | Web-based 3D visualizer (Three.js)          | Cross-platform, no install, easy to extend                  | Separate from grandMA3 built-in viz                   |
+| 2026-05-15 | Python for protocol bridge                  | Rich ecosystem (sacn, python-osc), AI-friendly              | Core of all lighting communication                    |
+| 2026-05-15 | GDTF as fixture standard                    | Open, supported by grandMA3, manufacturer-backed            | All fixtures use GDTF format                          |

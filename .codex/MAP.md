@@ -7,7 +7,7 @@
 ## Root Level
 
 ```
-Vibe-Coding/
+rayflow/
 ├── AGENTS.md                   # Multi-tool AI guidance (read first)
 ├── CLAUDE.md                   # Redirect to AGENTS.md
 ├── GEMINI.md                   # Redirect to AGENTS.md
@@ -15,7 +15,6 @@ Vibe-Coding/
 ├── CHANGELOG.md                # Version history
 ├── pyproject.toml              # Dependencies and tooling
 ├── mkdocs.yml                  # Documentation config
-├── prefect.yaml                # Workflow orchestration (optional)
 └── .pre-commit-config.yaml     # Pre-commit hooks
 ```
 
@@ -26,19 +25,24 @@ Vibe-Coding/
 ```
 .agent/                         # Active session management
 ├── CONTEXT.md                  # Entry point (project snapshot)
+├── PLAYBOOK.md                 # Dynamic memory and patterns
+├── PRINCIPLES.md               # 11 operating principles
 ├── skills/                     # Reusable task workflows
 │   ├── CATALOG.md              # Skills index
 │   ├── start-session/
 │   │   └── SKILL.md            # Session initialization
-│   └── end-session/
-│       └── SKILL.md            # Session closing
+│   ├── end-session/
+│   │   └── SKILL.md            # Session closing
+│   ├── art-net-bridge/
+│   │   └── SKILL.md            # Art-Net send/receive
+│   ├── dmx-universe/
+│   │   └── SKILL.md            # DMX universe management
+│   ├── gdtf-fixture/
+│   │   └── SKILL.md            # GDTF fixture parsing
+│   └── ma3-workflow/
+│       └── SKILL.md            # grandMA3 onPC integration
 └── workflows/                  # Automation scripts
     └── health-check.md         # Pre-commit validation
-
-.codex/                         # Read-only context cache
-├── README.md                   # Purpose explanation
-├── MAP.md                      # This file
-└── QUICKSTART.md               # Essential commands
 ```
 
 ---
@@ -46,11 +50,32 @@ Vibe-Coding/
 ## Source Code
 
 ```
-src/
-└── vibe_coding/
+src/rayflow/
+├── __init__.py
+├── cli.py                      # CLI entry point (typer)
+├── bridge/                     # Art-Net / sACN protocol bridge
+│   ├── __init__.py
+│   ├── artnet.py               # Art-Net sender/receiver
+│   └── sacn.py                 # sACN/E1.31 sender/receiver
+├── fixtures/                   # GDTF fixture handling
+│   ├── __init__.py
+│   ├── parser.py               # GDTF file parser
+│   ├── library.py              # Fixture library management
+│   └── patch.py                # Fixture patching to universes
+└── visualizer/                 # Web 3D stage visualizer
     ├── __init__.py
-    └── utils/
-        └── agent_logging.py    # Logging utilities
+    ├── server.py               # Flask backend
+    └── static/                 # Three.js frontend
+```
+
+---
+
+## Data
+
+```
+data/
+├── fixtures/                   # GDTF fixture files (.gdtf.zip)
+└── shows/                      # Show configurations
 ```
 
 ---
@@ -60,21 +85,10 @@ src/
 ```
 tests/
 ├── __init__.py
-├── api/
-│   ├── __init__.py
-│   └── test_endpoints.py
-├── core/
-│   ├── __init__.py
-│   └── test_config.py
-├── data/
-│   ├── __init__.py
-│   ├── test_make_dataset.py
-│   └── test_process_features.py
-└── models/
-    ├── __init__.py
-    ├── test_evaluate_model.py
-    ├── test_predict_model.py
-    └── test_train_model.py
+├── test_bridge.py              # Art-Net/sACN bridge tests
+├── test_fixtures.py            # GDTF parser tests
+├── test_visualizer.py          # Visualizer tests
+└── test_cli.py                 # CLI tests
 ```
 
 ---
@@ -85,7 +99,6 @@ tests/
 docs/
 ├── index.md                    # Documentation hub
 ├── project_charter.md          # Project vision and goals
-├── project_brief.md            # Executive summary
 ├── implementation_schedule.md  # Current priorities
 ├── development_standards.md    # Coding standards
 ├── checklists.md               # Quality gates
@@ -94,41 +107,10 @@ docs/
 ├── security.md                 # Security guidelines
 ├── glossary.md                 # Project terminology
 ├── getting_started.md          # Onboarding guide
-├── template_starting_guide.md  # Template adaptation
-├── ai_guide.md                 # AI tool guidance (legacy)
-├── ai_session_templates.md     # Session templates (legacy)
 ├── architecture/
 │   ├── system_overview.md      # Architecture overview
-│   ├── data_modeling.md        # Data architecture
-│   ├── ai_docs_organization_guide.md
 │   └── adr/                    # Architecture decisions
-├── api/
-│   ├── README.md
-│   └── openapi.yaml            # API specification
-├── data/
-│   ├── contracts.md            # Data contracts
-│   └── dictionary.md           # Data dictionary
-├── models/
-│   ├── model_card.md           # Model documentation
-│   └── experiment_plan.md      # Experiment tracking
-├── guides/
-│   ├── silo_architecture.md    # Data silo pattern
-│   └── web_architecture.md     # Web architecture
-├── workflows/
-│   ├── feature_development.md
-│   ├── bugfix_troubleshooting.md
-│   ├── data_pipeline_changes.md
-│   ├── model_training_and_eval.md
-│   └── deployment_and_rollbacks.md
-├── tools/
-│   ├── mcp_tooling.md          # MCP integration
-│   ├── cli_tool_template.md    # CLI tool guide
-│   └── cli_agent_coding_guide.md
-└── archive/
-    ├── v1.0.0_implementation_summary.md
-    ├── v1.1.0_enhancements_summary.md
-    ├── implementation_checklist.md
-    └── enhancements_completed.md
+└── archive/                    # Archived docs
 ```
 
 ---
@@ -138,10 +120,7 @@ docs/
 ```
 scripts/
 ├── cli.py                      # CLI interface
-├── init_session.py             # Session initialization
-├── init_template.py            # Template setup
-├── check_links.py              # Documentation link checker
-└── test_notebooks.py           # Notebook testing
+└── init_session.py             # Session initialization
 ```
 
 ---
@@ -152,43 +131,7 @@ scripts/
 session_logs/
 ├── README.md                   # Logging guidelines
 ├── TEMPLATE.md                 # Session log template
-├── log_template.md             # Alternative template
 └── YYYY-MM-DD/                 # Daily session logs
-    ├── 01.md
-    ├── 02.md
-    └── ...
-```
-
----
-
-## Configuration
-
-```
-config/
-├── github/                     # GitHub templates
-│   ├── PULL_REQUEST_TEMPLATE.md
-│   └── ISSUE_TEMPLATE/
-│       ├── bug_report.md
-│       ├── feature_request.md
-│       └── improvement.md
-└── (other config files)
-```
-
----
-
-## Legacy Structure (To Be Removed)
-
-```
-.agents/                        # Old agent structure
-├── AGENTS.md                   # Superseded by /AGENTS.md
-├── prompts/
-│   ├── navigator.md
-│   ├── dataops.md
-│   └── specialist.md
-└── skills/
-    ├── CATALOG.md
-    ├── context-audit.py
-    └── web_init.py
 ```
 
 ---
@@ -202,7 +145,7 @@ config/
 4. `session_logs/` - Review last 3-5 logs
 
 ### During Development
-- `src/` - Source code
+- `src/rayflow/` - Source code
 - `tests/` - Test suite
 - `docs/implementation_schedule.md` - Current priorities
 - `.agent/skills/CATALOG.md` - Available workflows
@@ -220,5 +163,5 @@ config/
 
 ---
 
-**Last Updated**: 2026-02-11
+**Last Updated**: 2026-05-15
 **Update Frequency**: When major structural changes occur

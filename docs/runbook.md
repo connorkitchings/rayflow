@@ -1,19 +1,19 @@
 # Runbook
 
-This runbook documents how to operate and troubleshoot the **Vibe Coding Data Science Template** in its default state. When the template becomes a named project, extend each section with environment-specific details per the [Template Kickoff Guide](./template_starting_guide.md).
+This runbook documents how to operate and troubleshoot RayFlow in its default state.
 
 ## Table of Contents
 
 - [Monitoring](#monitoring)
 - [Common Issues & Troubleshooting](#common-issues--troubleshooting)
-- [Deployment & Rollback](#deployment--rollback)
+- [grandMA3 onPC Operations](#grandma3-onpc-operations)
 - [Contact & Escalation](#contact--escalation)
 
 ## Monitoring
 
-- **CI Pipeline:** GitHub Actions workflow `.github/workflows/ci.yml` runs linting, security scans, and tests on every push/PR. Treat red builds as the primary health signal while the template is being tailored.
-- **Prefect Flows (local):** When running `prefect server start`, use Prefect Orion UI (default `http://127.0.0.1:4200`) to inspect flow runs from `src/vibe_coding/flows/`.
-- **Structured Logs:** Application scripts use `vibe_coding.utils.logging` which logs to stdout with timestamps and module names. Redirect output to files during longer runs for later analysis.
+- **CI Pipeline:** GitHub Actions workflow runs linting, security scans, and tests on every push/PR. Treat red builds as the primary health signal.
+- **Structured Logs:** Application scripts log to stdout with timestamps and module names. Redirect output to files during longer runs for later analysis.
+- **grandMA3 onPC:** Monitor the console's network and In & Out status to verify Art-Net, sACN, and OSC connections. Current RayFlow baseline is grandMA3 onPC 2.3.2.0.
 
 ## Common Issues & Troubleshooting
 
@@ -25,23 +25,54 @@ This runbook documents how to operate and troubleshoot the **Vibe Coding Data Sc
 **Troubleshooting Steps:**
 1. Verify Python 3.10+ is installed: `python3 --version`.
 2. Clear the `.venv` (if created) and rerun `uv sync`.
-3. On macOS/Linux, ensure `uv` binary is on the PATH (`which uv`).
+3. On macOS, ensure `uv` binary is on the PATH (`which uv`).
 
 **Resolution:**
 Re-run `uv sync` after environment correction. Consult `pyproject.toml` to confirm dependency pins remain intact.
 
-### Issue: Prefect example flow fails to start
+### Issue: Art-Net connection fails
 
 **Symptoms:**
-- CLI prints connection errors (e.g., `Failed to connect to Orion API`).
+- DMX values sent from RayFlow don't reach grandMA3 onPC.
+- No response in the 3D visualizer.
 
 **Troubleshooting Steps:**
-1. Ensure `prefect server start` is running in a separate terminal.
-2. Export `PREFECT_API_URL=http://127.0.0.1:4200/api`.
-3. Rerun `python src/vibe_coding/flows/example_flow.py`.
+1. Ensure grandMA3 onPC is running and a show is loaded.
+2. Confirm an Art-Net input row is enabled for the target local universe.
+3. Verify universe number matches (MA3 may use 1-based universes).
+4. Use Wireshark to confirm packets: `wireshark -i lo0 -f "udp port 6454"`.
+5. Check macOS firewall isn't blocking port 6454.
 
 **Resolution:**
-Restart the Prefect server and flow once configuration variables are set. Document any persistent errors in `docs/knowledge_base.md`.
+Enable Art-Net in grandMA3 Network Setup, verify universe alignment, and ensure no firewall blocks.
+
+### Issue: OSC commands not executing
+
+**Symptoms:**
+- RayFlow sends OSC commands but grandMA3 doesn't respond.
+
+**Troubleshooting Steps:**
+1. Verify OSC input is enabled in the In & Out / OSC configuration.
+2. Check port number (default: 8000).
+3. Verify allowed IP addresses include your Mac's IP.
+4. Test with a simple command: `About`.
+
+**Resolution:**
+Enable OSC in grandMA3, verify port and IP settings, and ensure command syntax is valid.
+
+### Issue: GDTF fixture fails to parse
+
+**Symptoms:**
+- RayFlow throws an error when loading a .gdtf.zip file.
+
+**Troubleshooting Steps:**
+1. Verify the file is a valid ZIP archive: `unzip -t <file.gdtf.zip>`.
+2. Check that `Device.xml` exists inside the archive.
+3. Re-download from gdtf-share.com if the file is corrupted.
+4. Try parsing a known-good fixture first.
+
+**Resolution:**
+Replace corrupted GDTF file with a fresh download from gdtf-share.com.
 
 ### Issue: CI pipeline red due to lint/test failure
 
@@ -56,15 +87,42 @@ Restart the Prefect server and flow once configuration variables are set. Docume
 **Resolution:**
 Keep local checks green before pushing to avoid repeated CI failures.
 
-## Deployment & Rollback
+## grandMA3 onPC Operations
 
-The template does not ship production deployments. When converting to a real project:
+### Starting a Session
 
-- Document deployment targets (staging/prod) and release commands here.
-- Record rollback steps (e.g., revert tags, redeploy previous container).
-- Link to automation scripts or external runbooks once created.
+1. Launch grandMA3 onPC
+2. Open or create a show
+3. Verify network and In & Out settings for Art-Net, sACN, and OSC
+4. Open the 3D visualizer
+
+### Stopping a Session
+
+1. Save the show: `Store Show`
+2. Close the 3D visualizer
+3. Exit grandMA3 onPC
+4. Note any changes made for the session log
+
+### Backup a Show
+
+1. Go to `Backup` → `Save Backup`
+2. Choose a location outside the repo (e.g., `~/Documents/MA3 Backups/`)
+3. Name with date: `rayflow_practice_2026-05-15.ma3backup`
+
+### Import MVR File
+
+1. Go to `Import` → `MVR`
+2. Select the `.mvr` file from `data/shows/`
+3. Verify fixtures appear in the 3D visualizer
+
+### Record Visualizer Output
+
+1. Open the 3D visualizer
+2. Go to `Setup` → `Recording` → `Screen Capture`
+3. Set format (MP4) and resolution (1920x1080)
+4. Start recording, play the sequence, stop when done
 
 ## Contact & Escalation
 
 - **Primary Maintainer:** Connor Kitchings (`connorkitchings` on GitHub).
-- **Escalation Path:** If adoption teams encounter issues beyond the template scope, open an issue in the repository and notify the DevEx Guild for triage.
+- **Escalation Path:** If encountering issues beyond the current scope, open an issue in the repository with detailed logs and session context.

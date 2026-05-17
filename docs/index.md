@@ -1,17 +1,25 @@
-# Vibe Coding Documentation
+# RayFlow Documentation
 
-For project overview, setup instructions, and getting started, see the [main README.md](../README.md).
-
-This documentation site contains the detailed guides and templates for project development:
+For project overview and setup instructions, see the project README.
 
 ## Navigation
 
-- **[Template Kickoff Guide](./template_starting_guide.md)** - Convert this repository from template to real project
-- **[Project Charter](./project_charter.md)** - Project goals, scope, and technical context
-- **[Implementation Schedule](./implementation_schedule.md)** - Current project timeline and milestones
-- **[Development Standards & Workflow](./development_standards.md)** - Coding standards,
-  review process, and workflow
-- **[Checklists](./checklists.md)** - Quality gates and review checklists
-- **[Knowledge Base](./knowledge_base.md)** - Project decisions and accumulated knowledge
-- **[AI Session Templates](./ai_session_templates.md)** - Templates for starting and ending AI
-  development sessions
+- **[Getting Started](./getting_started.md)** — Install grandMA3 onPC, set up RayFlow, send your first DMX
+- **[Project Brief](./project_brief.md)** — Project goals, scope, and timeline
+- **[Project Charter](./project_charter.md)** — Detailed technical context and architecture
+- **[Implementation Schedule](./implementation_schedule.md)** — Current project timeline and milestones
+- **[System Overview](./architecture/system_overview.md)** — How the components fit together
+- **[Two-Layer Design](./architecture/two-layer-design.md)** — Architecture deep dive
+- **[Development Standards](./development_standards.md)** — Coding standards and workflow
+- **[Checklists](./checklists.md)** — Quality gates and review checklists
+- **[Knowledge Base](./knowledge_base.md)** — Protocol specs, patterns, and accumulated knowledge
+- **[Troubleshooting](./troubleshooting.md)** — Common issues and solutions
+- **[Glossary](./glossary.md)** — Lighting industry terms and project acronyms
+
+## Guides
+
+- **[grandMA3 onPC Setup](./guides/grandma3-setup.md)** — Install and configure grandMA3 on macOS
+- **[grandMA3 Learning Resources](./guides/grandma3-learning-resources.md)** — Version-specific MA3 reference sources and tutorial links
+- **[First DMX](./guides/first-dmx.md)** — Send your first DMX values from Python
+- **[Building a Rig](./guides/building-a-rig.md)** — Create a virtual stage with GDTF fixtures
+- **[Recording a Show](./guides/recording-a-show.md)** — Program cues for a song and export video

@@ -1,0 +1,148 @@
+# Building a Rig — Create a Virtual Stage
+
+This guide walks through creating a virtual stage with GDTF fixtures that you can import into grandMA3 onPC.
+
+## Prerequisites
+
+- grandMA3 onPC installed and running
+- RayFlow installed with lighting extras
+- Basic understanding of DMX addressing (see [Glossary](../glossary.md))
+
+## Step 1: Choose Your Fixtures
+
+Browse [gdtf-share.com](https://www.gdtf-share.com/) for fixtures. Good starting fixtures:
+
+- **LED PAR** — Simple, few channels, great for learning
+- **Moving Head** — Pan/tilt, color, gobo — more complex but visually impressive
+- **Hazer/Fog** — Atmospheric effect, adds depth to the visualizer
+- **Blinder/Strobe** — High-impact effect for dynamic moments
+
+Download the `.gdtf.zip` files and place them in `data/fixtures/`.
+
+RayFlow also includes a small checked-in sample pack for development:
+
+```bash
+uv run rayflow fixture list --dir data/fixtures/samples
+uv run rayflow fixture info "LED PAR" --dir data/fixtures/samples
+```
+
+## Step 2: Load Fixtures into RayFlow
+
+```python
+from rayflow.fixtures.parser import GDTFParser
+
+# Parse a GDTF file
+parser = GDTFParser("data/fixtures/chauvet_dj_slimpar_pro_h_usb.gdtf.zip")
+fixture = parser.parse()
+
+print(f"Fixture: {fixture.name}")
+print(f"Manufacturer: {fixture.manufacturer}")
+print(f"DMX Mode: {fixture.dmx_mode}")
+print(f"Channels: {fixture.channel_count}")
+```
+
+## Step 3: Plan Your DMX Addresses
+
+Each fixture needs a starting DMX address. Plan carefully to avoid overlaps:
+
+| Fixture | Channels | Start Address | End Address |
+|---------|----------|---------------|-------------|
+| LED PAR 1 | 4 | 1 | 4 |
+| LED PAR 2 | 4 | 5 | 8 |
+| LED PAR 3 | 4 | 9 | 12 |
+| LED PAR 4 | 4 | 13 | 16 |
+| Moving Head 1 | 16 | 17 | 32 |
+| Moving Head 2 | 16 | 33 | 48 |
+| Hazer | 1 | 49 | 49 |
+
+Total: 49 channels used in Universe 1.
+
+## Step 4: Create the Rig
+
+```python
+from rayflow.fixtures.library import FixtureLibrary
+from rayflow.fixtures.patch import DmxUniverse
+
+# Create a fixture library
+library = FixtureLibrary()
+library.load("data/fixtures/")
+
+# Create a universe and patch fixtures
+universe = DmxUniverse(universe_number=0)
+universe.patch_fixture(library.get("LED PAR"), address=1)
+universe.patch_fixture(library.get("LED PAR"), address=5)
+universe.patch_fixture(library.get("LED PAR"), address=9)
+universe.patch_fixture(library.get("LED PAR"), address=13)
+universe.patch_fixture(library.get("Moving Head"), address=17)
+universe.patch_fixture(library.get("Moving Head"), address=33)
+universe.patch_fixture(library.get("Hazer"), address=49)
+
+print(f"Universe 0: {universe.used_channels}/512 channels used")
+```
+
+## Step 5: Arrange Fixtures in 3D Space
+
+Define positions for each fixture on your virtual stage:
+
+```python
+from rayflow.fixtures.patch import FixturePosition
+
+positions = [
+    FixturePosition("LED PAR 1", x=-3, y=3, z=0, pan=0, tilt=90),
+    FixturePosition("LED PAR 2", x=-1, y=3, z=0, pan=0, tilt=90),
+    FixturePosition("LED PAR 3", x=1, y=3, z=0, pan=0, tilt=90),
+    FixturePosition("LED PAR 4", x=3, y=3, z=0, pan=0, tilt=90),
+    FixturePosition("Moving Head 1", x=-2, y=0, z=2, pan=0, tilt=0),
+    FixturePosition("Moving Head 2", x=2, y=0, z=2, pan=0, tilt=0),
+    FixturePosition("Hazer", x=0, y=4, z=-2, pan=0, tilt=0),
+]
+```
+
+Coordinates:
+- **X:** Left (-) to right (+) in meters
+- **Y:** Height from floor in meters
+- **Z:** Front (+) to back (-) in meters
+- **Pan/Tilt:** Default orientation in degrees
+
+## Step 6: Export as MVR
+
+```python
+from rayflow.fixtures.patch import MvrExporter
+
+exporter = MvrExporter(universe, positions)
+exporter.save("data/shows/my_first_rig.mvr")
+```
+
+## Step 7: Import to grandMA3 onPC
+
+1. In grandMA3 onPC, go to **Import** → **MVR**
+2. Select `data/shows/my_first_rig.mvr`
+3. The fixtures will appear in the 3D visualizer at their positions
+4. Verify all fixtures are patched correctly
+
+## Step 8: Test the Rig
+
+```bash
+# Light all PARs to full
+uv run rayflow bridge send --universe 0 --channel 1 --value 255
+uv run rayflow bridge send --universe 0 --channel 5 --value 255
+uv run rayflow bridge send --universe 0 --channel 9 --value 255
+uv run rayflow bridge send --universe 0 --channel 13 --value 255
+
+# Move the first moving head
+uv run rayflow bridge send --universe 0 --channel 17 --value 128
+uv run rayflow bridge send --universe 0 --channel 18 --value 64
+```
+
+## Tips for Building Rigs
+
+- **Start simple:** 4 PARs and 1 moving head is enough to learn
+- **Think about the song:** What kind of lighting does the music need?
+- **Symmetry helps:** Evenly spaced fixtures are easier to program
+- **Height matters:** Fixtures at different heights create depth
+- **Save your work:** Keep rig configs in `data/shows/` for reuse
+
+## Next Steps
+
+- **[Recording a Show](./recording-a-show.md)** — Program cues for a song and export video
+- **[grandMA3 Setup](./grandma3-setup.md)** — Learn more about the console

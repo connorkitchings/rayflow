@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "notes": [
+    "GDTF Share is the preferred source for production fixture files, but its public API requires an authenticated user session.",
+    "These checked-in samples use public fixture files from open-source GDTF tooling repositories so tests remain reproducible offline.",
+    "Robe_Robin_iSpiiderX.gdtf is packaged from pyGDTF's real test1.xml fixture description with description.xml as the archive entry."
+  ],
+  "samples": [
+    {
+      "manufacturer": "BlenderDMX",
+      "model": "LED PAR 64 RGBW",
+      "category": "LED PAR / RGBW wash",
+      "source_url": "https://raw.githubusercontent.com/open-stage/python-gdtf/master/tests/BlenderDMX%40LED_PAR_64_RGBW%40v0.3.gdtf",
+      "filename": "BlenderDMX_LED_PAR_64_RGBW.gdtf",
+      "sha256": "90f946f25f3a448234029d1ba32c1ea4641ade7049ec24501bd2e9fd90a525fe",
+      "expected_mode_names": ["Default"],
+      "expected_min_channel_counts": {
+        "Default": 5
+      },
+      "expected_attributes": ["Dimmer", "ColorAdd_R", "ColorAdd_G", "ColorAdd_B", "ColorAdd_W"]
+    },
+    {
+      "manufacturer": "Robe Lighting",
+      "model": "Robin MMX Blade",
+      "category": "Moving head spot/profile",
+      "source_url": "https://raw.githubusercontent.com/MomentFactory/Omniverse-MVR-GDTF-converter/main/exts/mf.ov.gdtf/sample/Robe_Lighting%40Robin_MMX_Blade%402023-07-25__Beam_revision.gdtf",
+      "filename": "Robe_Robin_MMX_Blade.gdtf",
+      "sha256": "dd5b9e989e1b1eef8e5db37deddc79a5a49b342bfae46157feaad609c84c8ef1",
+      "expected_mode_names": ["Mode 1 - Standard", "Mode 2 - Reduced", "Mode 3 - 8 bit"],
+      "expected_min_channel_counts": {
+        "Mode 1 - Standard": 45,
+        "Mode 2 - Reduced": 39,
+        "Mode 3 - 8 bit": 37
+      },
+      "expected_attributes": ["Dimmer", "Pan", "Tilt", "Color1", "Gobo1", "Zoom"]
+    },
+    {
+      "manufacturer": "Robe Lighting",
+      "model": "Robin iSpiiderX",
+      "category": "Multi-pixel wash fallback",
+      "source_url": "https://raw.githubusercontent.com/open-stage/python-gdtf/master/tests/test1.xml",
+      "filename": "Robe_Robin_iSpiiderX.gdtf",
+      "sha256": "97d3ac6612b76eb6329e05fe553d0e83c3adbc1bb07fe7a4ce493e7453fd798f",
+      "expected_mode_names": ["Mode 10 - Pattern full RGBW", "Mode 5 - Wash", "Mode 2 - Basic"],
+      "expected_min_channel_counts": {
+        "Mode 10 - Pattern full RGBW": 123,
+        "Mode 5 - Wash": 27,
+        "Mode 2 - Basic": 27
+      },
+      "expected_attributes": ["Dimmer", "Pan", "Tilt", "ColorAdd_R", "ColorAdd_G", "ColorAdd_B", "Zoom"]
+    }
+  ]
+}
