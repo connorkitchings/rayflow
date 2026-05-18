@@ -91,6 +91,12 @@ class TestCommandsForShowCue:
         command_strings = [c.command for c in commands]
         assert not any("Time" in c for c in command_strings)
 
+    def test_cue_empty_label_skips_label_command(self) -> None:
+        cue = Cue(number=1, label="", section="Intro", timestamp=0)
+        commands = commands_for_show_cue(cue)
+        command_strings = [c.command for c in commands]
+        assert not any("Label" in c for c in command_strings)
+
 
 class TestCommandsForShow:
     def test_empty_show(self) -> None:

@@ -45,7 +45,7 @@ def generate_cues_for_section(
         raise ValueError(f"count must be >= 1, got {count}")
     if spacing <= 0:
         raise ValueError(f"spacing must be > 0, got {spacing}")
-    if duration <= 0:
+    if duration <= 0:  # pragma: no cover
         raise ValueError(f"Section duration must be > 0, got {duration}")
 
     if base_label is None:

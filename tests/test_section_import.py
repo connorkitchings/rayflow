@@ -149,6 +149,66 @@ class TestParseSectionImport:
         with pytest.raises(json.JSONDecodeError):
             parse_section_import(path)
 
+    def test_parse_non_numeric_duration(self, tmp_path: Path) -> None:
+        path = _make_sections_json(tmp_path, duration="abc")
+        with pytest.raises(ValueError, match="duration must be a number"):
+            parse_section_import(path)
+
+    def test_parse_zero_bpm_raises(self, tmp_path: Path) -> None:
+        path = _make_sections_json(tmp_path, bpm=0)
+        with pytest.raises(ValueError, match="bpm must be positive"):
+            parse_section_import(path)
+
+    def test_parse_blank_section_name_raises(self, tmp_path: Path) -> None:
+        path = _make_sections_json(
+            tmp_path,
+            sections=[
+                {"name": "   ", "start": 0, "end": 10},
+            ],
+        )
+        with pytest.raises(ValueError, match="name"):
+            parse_section_import(path)
+
+    def test_parse_non_numeric_section_start(self, tmp_path: Path) -> None:
+        path = _make_sections_json(
+            tmp_path,
+            sections=[
+                {"name": "S", "start": "abc", "end": 10},
+            ],
+        )
+        with pytest.raises(ValueError, match="start must be a number"):
+            parse_section_import(path)
+
+    def test_parse_non_numeric_section_end(self, tmp_path: Path) -> None:
+        path = _make_sections_json(
+            tmp_path,
+            sections=[
+                {"name": "S", "start": 0, "end": "abc"},
+            ],
+        )
+        with pytest.raises(ValueError, match="end must be a number"):
+            parse_section_import(path)
+
+    def test_parse_non_numeric_section_energy(self, tmp_path: Path) -> None:
+        path = _make_sections_json(
+            tmp_path,
+            sections=[
+                {"name": "S", "start": 0, "end": 10, "energy": "high"},
+            ],
+        )
+        with pytest.raises(ValueError, match="energy must be a number"):
+            parse_section_import(path)
+
+    def test_parse_blank_mood_normalized(self, tmp_path: Path) -> None:
+        path = _make_sections_json(
+            tmp_path,
+            sections=[
+                {"name": "S", "start": 0, "end": 10, "mood": "   "},
+            ],
+        )
+        result = parse_section_import(path)
+        assert result.sections[0].mood is None
+
     def test_parse_real_sample(self) -> None:
         path = Path("data/shows/samples/all_in_time_sections.json")
         result = parse_section_import(path)

@@ -226,6 +226,30 @@ class TestUpdateCue:
         with pytest.raises(ValueError, match=">= 0"):
             update_cue(show, 1, fade_time=-1)
 
+    def test_update_channels(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        update_cue(show, 1, channels="1 Thru 4")
+        assert show.cues[0].channels == "1 Thru 4"
+
+    def test_update_follow_time(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        update_cue(show, 1, follow_time=1.5)
+        assert show.cues[0].follow_time == 1.5
+
+    def test_update_notes(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        update_cue(show, 1, notes="Test note")
+        assert show.cues[0].notes == "Test note"
+
+    def test_update_section(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        update_cue(show, 1, section="Verse")
+        assert show.cues[0].section == "Verse"
+
 
 class TestRemoveCue:
     def test_remove_existing(self) -> None:

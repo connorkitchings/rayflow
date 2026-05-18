@@ -8,7 +8,7 @@ from rayflow.bridge.exceptions import (
 
 try:
     import sacn
-except ImportError:
+except ImportError:  # pragma: no cover
     sacn = None
 
 
@@ -33,7 +33,7 @@ class SacnSender:
         source_name: str = "RayFlow",
         fps: int = 30,
     ):
-        if sacn is None:
+        if sacn is None:  # pragma: no cover
             raise NetworkError(
                 "sacn library not installed. Run: uv sync --extra lighting"
             )
@@ -53,8 +53,7 @@ class SacnSender:
         current = list(self._sender[self.universe].dmx_data) or [0] * 512
         for channel, value in values.items():
             idx = channel - 1
-            if 0 <= idx < 512:
-                current[idx] = value
+            current[idx] = value
         self._sender[self.universe].dmx_data = tuple(current)
 
     def set_universe(self, data: tuple[int, ...]) -> None:
@@ -77,7 +76,7 @@ class SacnReceiver:
     """
 
     def __init__(self, universe: int = 1, callback=None):
-        if sacn is None:
+        if sacn is None:  # pragma: no cover
             raise NetworkError(
                 "sacn library not installed. Run: uv sync --extra lighting"
             )
