@@ -218,6 +218,10 @@ data/fixtures/*.gdtf.zip
 data/shows/*.xml
 data/shows/*.ma3
 
+# grandMA3/onPC web remote caches if launched from the repository root
+DawnCache/
+GPUCache/
+
 # grandMA3 onPC
 *.ma3show
 *.ma3backup

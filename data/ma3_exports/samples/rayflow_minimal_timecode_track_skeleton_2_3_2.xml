@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GMA3 DataVersion="2.3.2.0">
+    <Timecode Name="RayFlow Minimal" Guid="FE CB 11 D4 C1 7F 73 5B BC 0F 4B 8A 49 AD 38 46" Duration="10.00" LoopCount="0" TCSlot="-1" AutoStop="No" SwitchOff="Keep Playbacks" TimeDisplayFormat="Default" FrameReadout="Default">
+        <TrackGroup Play="" Rec="">
+            <MarkerTrack Name="Marker" Guid="FE CB 11 D4 93 D7 5A 4D 71 96 33 8F F4 97 BE 42"/>
+            <Track Guid="FE CB 11 D4 7E C3 75 08 26 1D 1C 94 F6 97 BE 42" Play="" Rec="">
+                <TimeRange Guid="FE CB 11 D4 22 79 09 6D DB A3 04 99 F6 97 BE 42" Duration="To End" Play="" Rec=""/>
+            </Track>
+            <Track Guid="FE CB 11 D4 87 12 9D 07 90 2A ED 9D F9 97 BE 42" Play="" Rec="">
+                <TimeRange Guid="FE CB 11 D4 30 49 AA 5A 45 B1 D5 A2 F9 97 BE 42" Duration="To End" Play="" Rec=""/>
+            </Track>
+        </TrackGroup>
+    </Timecode>
+</GMA3>

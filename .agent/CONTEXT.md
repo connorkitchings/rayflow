@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 5 — Show & Rig Framework (COMPLETE)
+**Phase:** 6 — AI Show Builder (COMPLETE)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -57,15 +57,22 @@ rayflow/
 - Phase 5 architecture document and AI interaction contract
 - Phase 5 data models (11 dataclasses with validation, presets, rig templates, show overrides)
 - Phase 5 YAML serialization with round-trip support
-- Phase 5 CLI commands (rig create/list/info/copy/add-fixture/add-preset/export-mvr, show create/list/info/add-section/add-cue/add-preset-override/export-mvr)
+- Phase 5 CLI commands (rig create/list/info/copy/add-fixture/add-preset/export-mvr, show create/list/info/add-section/add-cue/add-preset-override/context/export-mvr)
 - Phase 5 AI context bundle command (`show context --json`)
 - Phase 5 prompt template for AI sessions
 - Phase 5 full test suite (296 tests, 84% coverage)
+- Phase 6 audio section import (`show import-sections`, `section_import.py`, JSON schema)
+- Phase 6 vibe generation (`show set-vibe`, `Vibe.from_dict()`, enhanced prompt template)
+- Phase 6 cue generation helpers (`cue_generator.py`, `show generate-cues/update-cue/delete-cue/renumber`)
+- Phase 6 interactive direction (`show set-song-meta/update-section/delete-section/batch-update-cues`)
+- Phase 6 MA3 push integration (`show push-to-ma3/push-section`, `push.py`)
+- Phase 6 80 new tests (section import, cue generator, push, CLI)
 
 **Current Focus:**
-- Ready for Phase 6 (AI Show Builder) — audio section import, vibe generation, cue generation, interactive direction
-- 296 total tests (259 unit + 37 CLI/context), 84% coverage
-- Working tree clean
+- Ready for Phase 7 (Export & Playback) — MA3 show export, timecode integration, show library
+- LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
+
+**Active Branch:** `feat/phase6-ai-show-builder`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)

@@ -239,6 +239,23 @@ class TestSacnReceiver:
         receiver.join_multicast()
         mock_sacn_lib["receiver"].join_multicast.assert_called_with(1)
 
+    def test_receiver_with_callback(self, mock_sacn_lib):
+        def _cb(data):
+            pass
+
+        SacnReceiver(universe=1, callback=_cb)
+        mock_sacn_lib["receiver"].listen_on.assert_called_once()
+
+    def test_get_possible_universes(self, mock_sacn_lib):
+        receiver = SacnReceiver(universe=1)
+        receiver.get_possible_universes()
+        mock_sacn_lib["receiver"].get_possible_universes.assert_called_once()
+
+    def test_stop(self, mock_sacn_lib):
+        receiver = SacnReceiver(universe=1)
+        receiver.stop()
+        mock_sacn_lib["receiver"].stop.assert_called_once()
+
 
 class TestDmxUniverse:
     """Tests for DMX universe and fixture patching."""

@@ -256,6 +256,63 @@ class TestVibe:
         assert v.movement_style == "slow sweep"
         assert v.mood_keywords == ["cinematic"]
 
+    def test_from_dict(self) -> None:
+        data = {
+            "palette": {
+                "name": "Warm",
+                "colors": ["#FF6600", "#FF3366"],
+                "description": "Warm tones",
+            },
+            "intensity_curve": "low → high",
+            "movement_style": "slow sweep",
+            "beam_style": "tight beams",
+            "mood_keywords": ["cinematic", "emotional"],
+            "description": "Full vibe",
+        }
+        vibe = Vibe.from_dict(data)
+        assert vibe.palette.name == "Warm"
+        assert vibe.palette.colors == ["#FF6600", "#FF3366"]
+        assert vibe.intensity_curve == "low → high"
+        assert vibe.movement_style == "slow sweep"
+        assert vibe.beam_style == "tight beams"
+        assert vibe.mood_keywords == ["cinematic", "emotional"]
+        assert vibe.description == "Full vibe"
+
+    def test_from_dict_minimal(self) -> None:
+        data = {
+            "palette": {"name": "Simple", "colors": ["#FFFFFF"], "description": ""},
+            "intensity_curve": "flat",
+            "movement_style": "static",
+        }
+        vibe = Vibe.from_dict(data)
+        assert vibe.beam_style is None
+        assert vibe.mood_keywords == []
+
+    def test_from_dict_missing_colors_raises(self) -> None:
+        data = {
+            "palette": {"name": "Bad", "colors": [], "description": ""},
+            "intensity_curve": "flat",
+            "movement_style": "static",
+        }
+        with pytest.raises(ValueError, match="at least one color"):
+            Vibe.from_dict(data)
+
+    def test_from_dict_missing_intensity_raises(self) -> None:
+        data = {
+            "palette": {"name": "Test", "colors": ["#FFF"], "description": ""},
+            "movement_style": "static",
+        }
+        with pytest.raises(ValueError, match="intensity_curve"):
+            Vibe.from_dict(data)
+
+    def test_from_dict_missing_movement_raises(self) -> None:
+        data = {
+            "palette": {"name": "Test", "colors": ["#FFF"], "description": ""},
+            "intensity_curve": "flat",
+        }
+        with pytest.raises(ValueError, match="movement_style"):
+            Vibe.from_dict(data)
+
 
 class TestCue:
     def test_valid(self) -> None:

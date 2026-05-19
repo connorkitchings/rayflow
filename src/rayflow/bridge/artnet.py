@@ -9,7 +9,7 @@ from rayflow.bridge.exceptions import (
 
 try:
     from stupidArtnet import StupidArtnet, StupidArtnetServer
-except ImportError:
+except ImportError:  # pragma: no cover
     StupidArtnet = None
     StupidArtnetServer = None
 
@@ -31,7 +31,7 @@ class ArtNetSender:
     """
 
     def __init__(self, target_ip: str = "127.0.0.1", universe: int = 0):
-        if StupidArtnet is None:
+        if StupidArtnet is None:  # pragma: no cover
             raise NetworkError(
                 "stupidArtnet library not installed. Run: uv sync --extra lighting"
             )
@@ -82,7 +82,7 @@ class ArtNetReceiver:
     """
 
     def __init__(self, universe: int = 0, callback=None):
-        if StupidArtnetServer is None:
+        if StupidArtnetServer is None:  # pragma: no cover
             raise NetworkError(
                 "stupidArtnet library not installed. Run: uv sync --extra lighting"
             )

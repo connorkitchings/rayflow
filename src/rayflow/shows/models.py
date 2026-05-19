@@ -295,6 +295,30 @@ class Vibe:
             result["description"] = self.description
         return result
 
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> Vibe:
+        """Create a Vibe from a dictionary, with validation."""
+        palette_data = data.get("palette", {})
+        palette = ColorPalette(
+            name=palette_data.get("name", "Unnamed"),
+            colors=palette_data.get("colors", []),
+            description=palette_data.get("description", ""),
+        )
+        if not palette.colors:
+            raise ValueError("Vibe palette must have at least one color")
+        if not data.get("intensity_curve"):
+            raise ValueError("Vibe must have an intensity_curve")
+        if not data.get("movement_style"):
+            raise ValueError("Vibe must have a movement_style")
+        return cls(
+            palette=palette,
+            intensity_curve=data["intensity_curve"],
+            movement_style=data["movement_style"],
+            beam_style=data.get("beam_style"),
+            mood_keywords=data.get("mood_keywords", []),
+            description=data.get("description", ""),
+        )
+
 
 @dataclass
 class Cue:

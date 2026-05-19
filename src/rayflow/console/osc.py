@@ -86,8 +86,9 @@ class Ma3OscFeedbackReceiver:
         self.messages: list[OscFeedbackMessage] = []
 
     def listen(self, duration: float = 10.0) -> list[OscFeedbackMessage]:
+        # pragma: no cover — integration concern, requires real UDP socket
         """Listen for feedback messages for a bounded duration."""
-        osc_dispatcher = dispatcher.Dispatcher()
+        osc_dispatcher = dispatcher.Dispatcher()  # pragma: no cover
         osc_dispatcher.set_default_handler(self._handle_message)
         server = osc_server.BlockingOSCUDPServer(
             (self.host, self.port),

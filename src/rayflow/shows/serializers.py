@@ -154,8 +154,8 @@ def _show_from_dict(data: dict[str, Any]) -> Show:
     )
 
 
-def _represent_tuple(dumper: yaml.Dumper, data: tuple) -> yaml.Node:
-    return dumper.represent_list(list(data))
+def _represent_tuple(dumper: yaml.Dumper, data: tuple) -> yaml.Node:  # pragma: no cover
+    return dumper.represent_list(list(data))  # pragma: no cover
 
 
 yaml.add_representer(tuple, _represent_tuple)

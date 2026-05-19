@@ -63,13 +63,13 @@
 |------|-------------|--------|-------|
 | Architecture document | Phase 5 data model and design decisions | ✅ Done | `docs/phase5_architecture.md` |
 | AI interaction contract | Framework for AI tooling | ✅ Done | `docs/ai_interaction_contract.md` |
-| Rig data model | `Rig`, `Venue`, `FixtureSlot`, `Preset` dataclasses | ☐ Not Started | YAML/JSON serialization |
-| Show data model | `Show`, `Song`, `Section`, `Cue`, `Vibe` dataclasses | ☐ Not Started | Links rig to audio |
-| Rig CLI | `rayflow rig create/list/patch/export` | ☐ Not Started | Manage rigs, export to MVR |
-| Show CLI | `rayflow show create/list/context` | ☐ Not Started | Manage shows, load context bundle |
-| Preset system | Named presets with attribute families | ☐ Not Started | Dimmer, position, color, beam, focus, gobo |
-| Tests | Full test suite for models and CLI | ☐ Not Started | |
-| Docs | Rig/show data model documentation | ☐ Not Started | |
+| Rig data model | `Rig`, `Venue`, `FixtureSlot`, `Preset` dataclasses | ✅ Done | 11 dataclasses with validation, presets, rig templates, show overrides |
+| Show data model | `Show`, `Song`, `Section`, `Cue`, `Vibe` dataclasses | ✅ Done | Links rig to audio, preset overrides |
+| Rig CLI | `rayflow rig create/list/info/copy/add-fixture/add-preset/export-mvr` | ✅ Done | Manage rigs, export to MVR |
+| Show CLI | `rayflow show create/list/info/add-section/add-cue/add-preset-override/context/export-mvr` | ✅ Done | Manage shows, load context bundle |
+| Preset system | Named presets with attribute families | ✅ Done | Dimmer, position, color, beam, focus, gobo |
+| Tests | Full test suite for models and CLI | ✅ Done | 296 tests (259 unit + 37 CLI/context), 84% coverage |
+| Docs | Rig/show data model documentation | ✅ Done | `docs/phase5_architecture.md`, `docs/ai_interaction_contract.md`, `docs/prompts/show_builder.md` |
 
 ---
 
@@ -77,12 +77,13 @@
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| Audio section import | Import section markers from external tool | ☐ Not Started | JSON format |
-| Vibe generation | AI suggests color palettes and organizing principles | ☐ Not Started | LLM prompt + structured output |
-| Cue generation | AI generates cues per section based on vibe | ☐ Not Started | Produces cues compatible with show model |
-| Interactive direction | User directs AI: "more energy here", "change to cool colors" | ☐ Not Started | Conversational loop |
-| MA3 push | Push generated cues to MA3 via existing OSC | ☐ Not Started | Reuses `console/cue.py` |
-| Tests | Unit + integration tests | ☐ Not Started | |
+| Audio section import | Import section markers from external tool | ✅ Done | `show import-sections`, JSON schema, sample file |
+| Vibe generation | AI suggests color palettes and organizing principles | ✅ Done | `show set-vibe`, `Vibe.from_dict()`, enhanced prompt template |
+| Cue generation | AI generates cues per section based on vibe | ✅ Done | `cue_generator.py`, `show generate-cues`, `show update-cue`, `show delete-cue`, `show renumber` |
+| Interactive direction | User directs AI: "more energy here", "change to cool colors" | ✅ Done | `show set-song-meta`, `show update-section`, `show delete-section`, `show batch-update-cues` |
+| MA3 push | Push generated cues to MA3 via existing OSC | ✅ Done | `show push-to-ma3`, `show push-section` |
+| Tests | Unit + integration tests | ✅ Done | 80 new tests (section import, cue generator, push, CLI) |
+| Docs | Updated prompts and Phase 6 completion docs | ✅ Done | `docs/prompts/show_builder.md`, `docs/implementation_schedule.md` |
 
 ---
 
@@ -90,8 +91,8 @@
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| MA3 show export | Export cues/rig to MA3-importable format | ☐ Not Started | MVR + cue data |
-| Timecode integration | MA3 timecode triggers for cue playback | ☐ Not Started | Research MA3 timecode API |
+| MA3 show export | Export cues/rig to MA3-importable format | ☐ Not Started | MVR + cue data; sequence path already available via OSC push |
+| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | Track skeleton XML captured and documented; next step is an event-bearing MA3 2.3.2.0 Timecode export with Sequence target and cue events |
 | Show library | Versioned show storage | ☐ Not Started | |
 | Tests | | ☐ Not Started | |
 
@@ -121,4 +122,4 @@
 
 ---
 
-*Last updated: 2026-05-17*
+*Last updated: 2026-05-18*

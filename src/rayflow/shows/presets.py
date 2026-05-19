@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from rayflow.fixtures.parser import GdtfParser
 
 ATTRIBUTE_FAMILIES: frozenset[str] = frozenset(

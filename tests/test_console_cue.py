@@ -130,3 +130,18 @@ def test_load_cue_stack_requires_cues(tmp_path):
 
     with pytest.raises(ValueError, match="at least one cue"):
         load_cue_stack(path)
+
+
+def test_set_cue_time_negative_fade():
+    with pytest.raises(ValueError, match="fade must be >= 0"):
+        set_cue_time(1, -1.0)
+
+
+def test_cue_step_requires_both_channels_and_at():
+    step = CueStep(cue=1, label="Test", channels="1", at=None)
+    with pytest.raises(ValueError, match="both channels and at"):
+        commands_for_cue_step(step)
+
+    step2 = CueStep(cue=1, label="Test", channels=None, at="Full")
+    with pytest.raises(ValueError, match="both channels and at"):
+        commands_for_cue_step(step2)
