@@ -1,0 +1,89 @@
+# Session Log — 2026-05-19 (Session 01)
+
+## TL;DR
+- **Goal**: Start with Option 4, Phase 6 hardening, followed by Option 1, Phase 7 MA3-native export/playback research.
+- **Accomplished**: Verified Phase 6 branch health, confirmed grandMA3 onPC 2.3.2.0, researched MA3-native Timecode and Import/Export path, added Phase 7 research note.
+- **Blockers**: No implementation blockers for Phase 6; Phase 7 implementation should wait for a real MA3 2.3.2.0 Timecode XML export capture.
+- **Next**: Capture a minimal MA3 Timecode XML export, then implement `show export-timecode`.
+- **Branch**: `feat/phase6-ai-show-builder`
+
+**Tags**: ["phase6-hardening", "phase7", "timecode", "ma3-native", "research"]
+
+---
+
+## Context
+
+- **User Request**: "Let's start with option 4, followed by option 1. I think MA3-native is fine for now."
+- **Skills Used**: `start-session`, `ma3-workflow`
+- **Working Tree at Start**: Clean
+
+## Work Completed
+
+### Phase 6 Hardening
+
+- Confirmed active branch: `feat/phase6-ai-show-builder`
+- Confirmed three Phase 6 commits on top of Phase 5:
+  - `62498b1 feat: complete Phase 6 — AI Show Builder`
+  - `b0ac8ea refactor: split cli.py, improve coverage to 85%, capture lessons`
+  - `aa0e1a2 docs: add session log for Phase 6 completion and refactoring`
+- Ran local quality gates:
+  - `uv run ruff check .` — passed
+  - `uv run ruff format --check .` — passed, 63 files already formatted
+  - `uv run pytest -q` — 412 passed
+
+### Phase 7 Research
+
+- Verified installed grandMA3 onPC version: `2.3.2.0`
+- Reviewed local MA3 AI docs:
+  - `docs/ai/MASTER_CONTEXT.md`
+  - `docs/ai/MA3_OPERATIONS.md`
+  - `docs/ai/MA3_COMMAND_REFERENCE.md`
+  - `docs/ai/SHOW_BUILDING_WORKFLOW.md`
+- Checked repository for existing MA3 Timecode/XML exports; none found.
+- Verified official MA3 manual pages for:
+  - Timecode keyword
+  - Timecode show creation
+  - Tracks and event targets
+  - Timecode slots and external connections
+  - Import and Export keywords
+  - Import/Export object workflow
+
+## Files Changed
+
+- Created `docs/phase7_export_playback_research.md`
+- Updated `docs/implementation_schedule.md`
+- Created this session log
+
+## Decisions Made
+
+1. **MA3-native remains the Phase 7 target.** RayFlow should prepare MA3 sequences and timecode objects, not act as the playback scheduler.
+2. **Do not synthesize Timecode XML yet.** MA3 Import/Export uses XML for smaller show objects, and Timecodes are listed as an exportable object type, but the schema must be captured from MA3 2.3.2.0 before generating files.
+3. **Internal timecode first.** MVP should target internal MA3 timecode playback; external SMPTE/MIDI/ArtTimeCode slots can come later.
+4. **Timecode slot setup is environment state.** MA documents that timecode slot settings are not part of the show file, so RayFlow should verify or document slot setup rather than assume it travels with exports.
+
+## Issues Encountered
+
+- The previous Phase 6 log reported coverage around 85%, but the current full test run reports total coverage at 82.40%. Tests still pass and the configured threshold is 35%. Treat 82.40% as the current measured value unless a config difference is found.
+
+## Next Steps
+
+1. In MA3 2.3.2.0, create a minimal Timecode show with one sequence target and two cue events.
+2. Export it with a command like `Export Timecode 1 "rayflow_minimal_timecode"`.
+3. Save a sanitized XML sample if license-safe.
+4. Document the XML schema mapping in `docs/research/ma3_timecode_xml_2_3_2.md`.
+5. Implement `rayflow show export-timecode <show> --output <path.xml> --sequence <n> --fps <rate>` after the schema is verified.
+
+## Verification
+
+```bash
+uv run ruff check .
+uv run ruff format --check .
+uv run pytest -q
+```
+
+All passed before docs edits. `uv run ruff check .` was re-run after docs edits and passed.
+
+---
+
+**Session Owner**: Codex
+**User**: Connor Kitchings
