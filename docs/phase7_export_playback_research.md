@@ -112,6 +112,8 @@ Expected deliverables:
 - A schema map from XML fields to RayFlow `Show` and `Cue`.
 - A test fixture based on the captured XML.
 
+Capture update: A real MA3 2.3.2.0 Timecode track skeleton export is now captured in `data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml` and documented in `docs/research/ma3_timecode_xml_2_3_2.md`. It proves Timecode, TrackGroup, Track, and TimeRange XML shape, but it does not include a Sequence target or cue events. Keep `show export-timecode` blocked until an event-bearing export is captured.
+
 Follow-up research found that MA3 2.3 documents command-line support for Timecode pool object creation, properties, playback, and export/import, but not for track group, track, target, or event creation. Treat Timecode Viewer event creation as the smallest currently verified manual capture step until an exported XML schema or MA command probe proves otherwise.
 
 ### Slice 2: Sequence Build Hardening

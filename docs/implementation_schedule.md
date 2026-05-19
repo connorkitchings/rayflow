@@ -92,7 +92,7 @@
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
 | MA3 show export | Export cues/rig to MA3-importable format | ☐ Not Started | MVR + cue data; sequence path already available via OSC push |
-| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | Research complete in `docs/phase7_export_playback_research.md`; next step is capturing real MA3 2.3.2.0 Timecode XML |
+| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | Track skeleton XML captured and documented; next step is an event-bearing MA3 2.3.2.0 Timecode export with Sequence target and cue events |
 | Show library | Versioned show storage | ☐ Not Started | |
 | Tests | | ☐ Not Started | |
 
