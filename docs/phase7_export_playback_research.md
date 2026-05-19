@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-19
 **Target:** grandMA3 onPC 2.3.2.0
-**Status:** Research spike complete; implementation should begin with MA3 export capture.
+**Status:** Research spike complete; implementation should begin with MA3 export capture. Follow-up command automation research is captured in `docs/research/ma3_timecode_command_automation_2026-05-19.md`.
 
 ## Goal
 
@@ -111,6 +111,8 @@ Expected deliverables:
 - Sanitized fixture XML sample under `data/ma3_exports/samples/` if license-safe.
 - A schema map from XML fields to RayFlow `Show` and `Cue`.
 - A test fixture based on the captured XML.
+
+Follow-up research found that MA3 2.3 documents command-line support for Timecode pool object creation, properties, playback, and export/import, but not for track group, track, target, or event creation. Treat Timecode Viewer event creation as the smallest currently verified manual capture step until an exported XML schema or MA command probe proves otherwise.
 
 ### Slice 2: Sequence Build Hardening
 

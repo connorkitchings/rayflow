@@ -48,11 +48,34 @@
   - Import and Export keywords
   - Import/Export object workflow
 
+### Follow-Up: Timecode Command Automation
+
+- Committed the initial Phase 7 research checkpoint:
+  - `0b93fb9 docs: capture Phase 7 export playback research`
+- Inspected local MA3 library folders:
+  - `~/MALightingTechnology/gma3_library/datapools/timecodes`
+  - `~/MALightingTechnology/gma3_library/datapools/sequences`
+- Both folders were empty, so no local Timecode XML was available to reverse-engineer.
+- Sent non-destructive OSC `/cmd` probes:
+  - `About`
+  - `List Timecode`
+  - `Help Timecode`
+  - `ChangeDestination Timecodes`
+  - `List`
+  - `Help TimecodeSlot`
+  - `Help RunningTimecode`
+  - `Help Export`
+- All probes sent successfully to `127.0.0.1:8000`; no OSC feedback was received.
+- Documented the command automation boundary in `docs/research/ma3_timecode_command_automation_2026-05-19.md`.
+
 ## Files Changed
 
 - Created `docs/phase7_export_playback_research.md`
 - Updated `docs/implementation_schedule.md`
 - Created this session log
+- Created `docs/research/ma3_timecode_command_automation_2026-05-19.md`
+- Updated `docs/phase7_export_playback_research.md` with the command automation follow-up
+- Updated this session log with the follow-up research
 
 ## Decisions Made
 
@@ -60,18 +83,22 @@
 2. **Do not synthesize Timecode XML yet.** MA3 Import/Export uses XML for smaller show objects, and Timecodes are listed as an exportable object type, but the schema must be captured from MA3 2.3.2.0 before generating files.
 3. **Internal timecode first.** MVP should target internal MA3 timecode playback; external SMPTE/MIDI/ArtTimeCode slots can come later.
 4. **Timecode slot setup is environment state.** MA documents that timecode slot settings are not part of the show file, so RayFlow should verify or document slot setup rather than assume it travels with exports.
+5. **Track/event creation is not command-line verified.** MA documents command-line support for Timecode pool objects and properties, but track groups, tracks, targets, and events remain documented as Timecode Viewer operations.
 
 ## Issues Encountered
 
 - The previous Phase 6 log reported coverage around 85%, but the current full test run reports total coverage at 82.40%. Tests still pass and the configured threshold is 35%. Treat 82.40% as the current measured value unless a config difference is found.
+- `uv run rayflow ...` probes initially failed in the sandbox because uv could not access `/Users/connorkitchings/.cache/uv/sdists-v9/.git`. Re-running the non-destructive probes outside the sandbox resolved the uv cache issue.
+- MA3 OSC feedback was not received, and `lsof -nP -iUDP:8000` did not show a visible listener. The live probe result is inconclusive until MA3 is running with OSC input and feedback configured.
 
 ## Next Steps
 
-1. In MA3 2.3.2.0, create a minimal Timecode show with one sequence target and two cue events.
-2. Export it with a command like `Export Timecode 1 "rayflow_minimal_timecode"`.
-3. Save a sanitized XML sample if license-safe.
-4. Document the XML schema mapping in `docs/research/ma3_timecode_xml_2_3_2.md`.
-5. Implement `rayflow show export-timecode <show> --output <path.xml> --sequence <n> --fps <rate>` after the schema is verified.
+1. Start MA3 with a throwaway show and OSC feedback configured if further command probes are needed.
+2. Create a minimal Timecode show with one sequence target and two cue events.
+3. Export it with a command like `Export Timecode 1 "rayflow_minimal_timecode"`.
+4. Save a sanitized XML sample if license-safe.
+5. Document the XML schema mapping in `docs/research/ma3_timecode_xml_2_3_2.md`.
+6. Implement `rayflow show export-timecode <show> --output <path.xml> --sequence <n> --fps <rate>` after the schema is verified.
 
 ## Verification
 
