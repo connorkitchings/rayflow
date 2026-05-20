@@ -10,14 +10,7 @@ from typing import Optional
 import typer
 
 from rayflow._cli_shared import console
-
-
-def _show_dir_path(dir: str) -> Path:
-    return Path(dir)
-
-
-def _show_path(name: str, directory: Path) -> Path:
-    return directory / f"{name}.yaml"
+from rayflow.cli_show_paths import show_dir_path, show_path
 
 
 def register_show_edit_commands(show_app: typer.Typer) -> None:
@@ -61,8 +54,8 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.models import Vibe
         from rayflow.shows.serializers import load_show, save_show
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
@@ -103,9 +96,9 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
             typer.echo(f"Error: {e}", err=True)
             raise typer.Exit(code=1)
 
-        show = load_show(show_path)
+        show = load_show(path)
         show.vibe = vibe
-        save_show(show, show_path)
+        save_show(show, path)
         console.print(f"[green]Vibe set[/green] on {show_name}")
         console.print(f"  Palette: {vibe.palette.name}")
         console.print(f"  Colors: {', '.join(vibe.palette.colors)}")
@@ -128,7 +121,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         """Update song metadata on a show."""
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -182,7 +175,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         """Update a song section's fields."""
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -233,7 +226,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         """Remove a song section from a show."""
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -275,7 +268,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.models import Section
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -307,19 +300,19 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
             typer.echo(f"Error: File not found: {json_file}", err=True)
             raise typer.Exit(code=1)
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
         try:
-            show = load_show(show_path)
+            show = load_show(path)
             import_sections_to_song(json_file, song=show.song)
         except (ValueError, json_module.JSONDecodeError) as e:
             typer.echo(f"Error: {e}", err=True)
             raise typer.Exit(code=1)
 
-        save_show(show, show_path)
+        save_show(show, path)
         section_count = len(show.song.sections)
         console.print(
             f"[green]Imported sections[/green] from {json_file.name} to {show_name}"
@@ -355,7 +348,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.models import Preset
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)

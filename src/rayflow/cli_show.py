@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json as json_module
-from pathlib import Path
 
 import typer
 from rich.table import Table
@@ -15,16 +14,9 @@ from rayflow.cli_show_cues import register_show_cue_commands
 from rayflow.cli_show_edit import register_show_edit_commands
 from rayflow.cli_show_export import register_show_export_commands
 from rayflow.cli_show_library import register_show_library_commands
+from rayflow.cli_show_paths import show_dir_path, show_path
 
 show_app = typer.Typer(help="Show definition management")
-
-
-def _show_dir_path(dir: str) -> Path:
-    return Path(dir)
-
-
-def _show_path(name: str, directory: Path) -> Path:
-    return directory / f"{name}.yaml"
 
 
 register_show_cue_commands(show_app)
@@ -53,7 +45,7 @@ def show_create(
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
 
-    target = _show_path(name, _show_dir_path(show_dir))
+    target = show_path(name, show_dir_path(show_dir))
     saved = save_show(show, target)
     console.print(f"[green]Show created:[/green] {saved}")
     console.print(f"  Rig: {rig}")
@@ -67,7 +59,7 @@ def show_list(
     """List all show definitions."""
     from rayflow.shows.serializers import load_show
 
-    directory = _show_dir_path(show_dir)
+    directory = show_dir_path(show_dir)
     files = list_yaml_files(directory)
     if not files:
         console.print("[dim]No shows found[/dim]")
@@ -103,7 +95,7 @@ def show_info(
     """Show show details."""
     from rayflow.shows.serializers import load_show
 
-    path = _show_path(name, _show_dir_path(show_dir))
+    path = show_path(name, show_dir_path(show_dir))
     if not path.exists():
         typer.echo(f"Error: Show not found: {name}", err=True)
         raise typer.Exit(code=1)
@@ -185,12 +177,12 @@ def show_context(
     from rayflow.shows.context import build_context_bundle
     from rayflow.shows.serializers import load_rig, load_show
 
-    show_path = _show_path(show_name, _show_dir_path(show_dir))
-    if not show_path.exists():
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
         typer.echo(f"Error: Show not found: {show_name}", err=True)
         raise typer.Exit(code=1)
 
-    show = load_show(show_path)
+    show = load_show(path)
 
     rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
     if not rig_path.exists():

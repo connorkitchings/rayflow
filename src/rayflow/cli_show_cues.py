@@ -4,20 +4,12 @@
 from __future__ import annotations
 
 import json as json_module
-from pathlib import Path
 from typing import Optional
 
 import typer
 
 from rayflow._cli_shared import console
-
-
-def _show_dir_path(dir: str) -> Path:
-    return Path(dir)
-
-
-def _show_path(name: str, directory: Path) -> Path:
-    return directory / f"{name}.yaml"
+from rayflow.cli_show_paths import show_dir_path, show_path
 
 
 def register_show_cue_commands(show_app: typer.Typer) -> None:
@@ -47,7 +39,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.models import Cue
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -108,7 +100,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.cue_generator import update_cue
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -151,7 +143,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.cue_generator import remove_cue
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -180,7 +172,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.cue_generator import auto_number_cues
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -214,7 +206,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.cue_generator import generate_cues_for_section
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
@@ -281,7 +273,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.cue_generator import batch_update_cues
         from rayflow.shows.serializers import load_show, save_show
 
-        path = _show_path(show_name, _show_dir_path(show_dir))
+        path = show_path(show_name, show_dir_path(show_dir))
         if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)

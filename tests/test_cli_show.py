@@ -12,6 +12,43 @@ runner = CliRunner()
 SAMPLE_FIXTURE_DIR = Path("data/fixtures/samples")
 
 
+SHOW_COMMANDS = [
+    "add-cue",
+    "add-preset-override",
+    "add-section",
+    "batch-update-cues",
+    "context",
+    "create",
+    "delete-cue",
+    "delete-section",
+    "diff",
+    "export",
+    "export-mvr",
+    "generate-cues",
+    "import-sections",
+    "info",
+    "list",
+    "push-section",
+    "push-to-ma3",
+    "renumber",
+    "restore",
+    "save",
+    "set-song-meta",
+    "set-vibe",
+    "update-cue",
+    "update-section",
+    "versions",
+]
+
+
+def test_show_help_registers_all_commands() -> None:
+    result = runner.invoke(app, ["show", "--help"])
+
+    assert result.exit_code == 0
+    for command in SHOW_COMMANDS:
+        assert command in result.output
+
+
 def _copy_samples(tmp_path: Path) -> Path:
     dest = tmp_path / "fixtures"
     dest.mkdir()

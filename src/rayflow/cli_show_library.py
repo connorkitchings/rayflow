@@ -3,21 +3,13 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Optional
 
 import typer
 from rich.table import Table
 
 from rayflow._cli_shared import console
-
-
-def _show_dir_path(dir: str) -> Path:
-    return Path(dir)
-
-
-def _show_path(name: str, directory: Path) -> Path:
-    return directory / f"{name}.yaml"
+from rayflow.cli_show_paths import show_dir_path, show_path
 
 
 def register_show_library_commands(show_app: typer.Typer) -> None:
@@ -37,14 +29,14 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         """Save a versioned snapshot of a show."""
         from rayflow.shows.library import save_show_version
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
         try:
             saved = save_show_version(
-                show_path,
+                path,
                 library_dir=library_dir,
                 message=message,
             )
@@ -101,7 +93,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         """Restore a saved show version."""
         from rayflow.shows.library import restore_show_version
 
-        target = _show_path(show_name, _show_dir_path(show_dir))
+        target = show_path(show_name, show_dir_path(show_dir))
         try:
             restored = restore_show_version(
                 show_name,
@@ -134,7 +126,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.library import diff_show_version
 
         current_path = (
-            None if other_version else _show_path(show_name, _show_dir_path(show_dir))
+            None if other_version else show_path(show_name, show_dir_path(show_dir))
         )
         try:
             diff = diff_show_version(

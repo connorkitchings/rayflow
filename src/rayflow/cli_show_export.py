@@ -9,14 +9,7 @@ import typer
 
 from rayflow._cli_shared import console
 from rayflow.cli_rig import _rig_dir_path, _rig_path
-
-
-def _show_dir_path(dir: str) -> Path:
-    return Path(dir)
-
-
-def _show_path(name: str, directory: Path) -> Path:
-    return directory / f"{name}.yaml"
+from rayflow.cli_show_paths import show_dir_path, show_path
 
 
 def register_show_export_commands(show_app: typer.Typer) -> None:
@@ -46,12 +39,12 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.push import commands_for_show
         from rayflow.shows.serializers import load_rig, load_show
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
-        show = load_show(show_path)
+        show = load_show(path)
         rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
         if not rig_path.exists():
             typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
@@ -111,12 +104,12 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.push import commands_for_show
         from rayflow.shows.serializers import load_rig, load_show
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
-        show = load_show(show_path)
+        show = load_show(path)
         rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
         if not rig_path.exists():
             typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
@@ -177,12 +170,12 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.export_bundle import export_show_bundle
         from rayflow.shows.serializers import load_rig, load_show
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
-        show = load_show(show_path)
+        show = load_show(path)
 
         rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
         if not rig_path.exists():
@@ -231,12 +224,12 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         from rayflow.shows.export_bundle import build_mvr_patches
         from rayflow.shows.serializers import load_rig, load_show
 
-        show_path = _show_path(show_name, _show_dir_path(show_dir))
-        if not show_path.exists():
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
             typer.echo(f"Error: Show not found: {show_name}", err=True)
             raise typer.Exit(code=1)
 
-        show = load_show(show_path)
+        show = load_show(path)
 
         rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
         if not rig_path.exists():
