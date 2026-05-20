@@ -72,11 +72,12 @@ rayflow/
 - Phase 7 show library (`show save/versions/restore/diff` with versioned YAML snapshots)
 
 **Current Focus:**
+- CLI organization — splitting `cli_show.py` into focused modules
 - Phase 7 (Export & Playback) — timecode schema capture
 - ⚠ Timecode integration blocked: event-bearing MA3 Timecode XML schema not yet captured
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
-**Active Branch:** `codex/phase7-ma3-show-export`
+**Active Branch:** `codex/split-show-cli`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)
