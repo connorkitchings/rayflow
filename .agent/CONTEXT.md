@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 6 — AI Show Builder (COMPLETE)
+**Phase:** 7 — Export & Playback (IN PROGRESS)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -67,12 +67,15 @@ rayflow/
 - Phase 6 interactive direction (`show set-song-meta/update-section/delete-section/batch-update-cues`)
 - Phase 6 MA3 push integration (`show push-to-ma3/push-section`, `push.py`)
 - Phase 6 80 new tests (section import, cue generator, push, CLI)
+- Phase 7 Slice 2: Sequence build hardening (`store_sequence`, `label_sequence`, `delete_sequence`, `clear_all`; `--sequence` on push commands)
+- Phase 7 MA3 show export bundle (`show export` with MVR, OSC command list, README, metadata)
 
 **Current Focus:**
-- Ready for Phase 7 (Export & Playback) — MA3 show export, timecode integration, show library
+- Phase 7 (Export & Playback) — show library, timecode schema capture
+- ⚠ Timecode integration blocked: event-bearing MA3 Timecode XML schema not yet captured
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
-**Active Branch:** `feat/phase6-ai-show-builder`
+**Active Branch:** `codex/phase7-ma3-show-export`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)

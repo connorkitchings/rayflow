@@ -222,7 +222,8 @@ presets: {}
             ],
         )
         assert result.exit_code == 0
-        assert "no cues to push" in result.output.lower()
+        assert "Delete Sequence 1" in result.output
+        assert "Store Sequence 1" in result.output
 
 
 class TestShowPushSection:
@@ -854,6 +855,181 @@ cues: []
             ],
         )
         assert result.exit_code == 1
+
+
+class TestShowExportBundle:
+    def test_show_export_bundle(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Export Rig.yaml").write_text(
+            """name: "Export Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 1 - Zones"
+    label: "Spiider 1"
+    universe: 0
+    start_address: 1
+    position: {x: -2, y: 4, z: 1, pan: 0, tilt: 0}
+    channels: "1"
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "First Look"
+    section: "Intro"
+    timestamp: 0
+    fade_time: 2.0
+"""
+        )
+        output_dir = tmp_path / "bundle"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Export Show",
+                "--output-dir",
+                str(output_dir),
+                "--sequence",
+                "7",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "MA3 show export created" in result.output
+        assert "Sequence: 7" in result.output
+        assert (output_dir / "rig.mvr").exists()
+        commands = (output_dir / "ma3_push_commands.txt").read_text()
+        assert "Delete Sequence 7" in commands
+        assert "Store Sequence 7" in commands
+        assert "Store Cue 1" in commands
+        readme = (output_dir / "README.md").read_text()
+        assert "Import `rig.mvr` into grandMA3" in readme
+        assert "dry-run OSC command list for Sequence 7" in readme
+        assert "--execute" in readme
+        metadata = json.loads((output_dir / "metadata.json").read_text())
+        assert metadata["show"] == "Export Show"
+        assert metadata["rig"] == "Export Rig"
+        assert metadata["sequence"] == 7
+        assert metadata["cue_count"] == 1
+
+    def test_show_export_bundle_missing_show(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Missing Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--dir",
+                str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show not found" in result.output
+
+    def test_show_export_bundle_missing_rig(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Bad Show.yaml").write_text(
+            """name: "Bad Show"
+rig_name: "Missing Rig"
+song:
+  title: "Song"
+  artist: "Artist"
+  duration: 180
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Bad Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--dir",
+                str(show_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Rig not found" in result.output
+
+    def test_show_export_bundle_invalid_sequence(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Export Rig.yaml").write_text(
+            """name: "Export Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 1 - Zones"
+    label: "Spiider 1"
+    universe: 0
+    start_address: 1
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Export Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--sequence",
+                "0",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "sequence must be > 0" in result.output
 
 
 class TestShowSetVibe:

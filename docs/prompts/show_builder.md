@@ -230,6 +230,7 @@ rayflow show batch-update-cues <show_name> --section "Intro" --delete
 ### MA3 Integration
 - `rayflow show push-to-ma3 <show> [--execute]`
 - `rayflow show push-section <show> --section <name> [--execute]`
+- `rayflow show export <show> --output-dir <path> [--sequence <N>]`
 - `rayflow show export-mvr <show> --output <path.mvr>`
 - `rayflow console cmd <command> [--execute]`
 

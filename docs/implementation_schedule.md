@@ -91,10 +91,11 @@
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| MA3 show export | Export cues/rig to MA3-importable format | ☐ Not Started | MVR + cue data; sequence path already available via OSC push |
-| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | Track skeleton XML captured and documented; next step is an event-bearing MA3 2.3.2.0 Timecode export with Sequence target and cue events |
+| Sequence build hardening | `--sequence` option on push commands, sequence labeling | ✅ Done | `store_sequence`, `label_sequence`, `delete_sequence`, `clear_all` builders; CLI `--sequence` default 1 |
+| MA3 show export | Export cues/rig to MA3-importable format | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, and metadata bundle |
+| Timecode integration | MA3 timecode triggers for cue playback | ⚠ Blocked | Track skeleton captured; event-bearing XML requires manual MA3 Timecode Viewer setup |
 | Show library | Versioned show storage | ☐ Not Started | |
-| Tests | | ☐ Not Started | |
+| Tests | Export/playback regression coverage | ▶ In Progress | Sequence and MA3 show export tests added; timecode/show library tests pending |
 
 ---
 
@@ -117,9 +118,9 @@
 | GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
 | AI prompt quality | High | Iterate on prompt templates, provide rich context bundles | ☐ Open |
 | MA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
-| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ☐ Open |
+| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ⚠ Blocked — event XML schema unknown |
 | Scope creep on AI features | High | Phase 6 is MVP: cue generation from vibe first | ☐ Open |
 
 ---
 
-*Last updated: 2026-05-18*
+*Last updated: 2026-05-20*
