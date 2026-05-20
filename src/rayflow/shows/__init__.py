@@ -1,6 +1,14 @@
 """Show & Rig data models for AI-assisted lighting design."""
 
 from rayflow.shows.context import build_context_bundle
+from rayflow.shows.library import (
+    SavedShowVersion,
+    ShowVersion,
+    diff_show_version,
+    list_show_versions,
+    restore_show_version,
+    save_show_version,
+)
 from rayflow.shows.models import (
     ColorPalette,
     Cue,
@@ -34,15 +42,21 @@ __all__ = [
     "Section",
     "SectionImportResult",
     "Show",
+    "SavedShowVersion",
+    "ShowVersion",
     "Song",
     "Venue",
     "Vibe",
     "build_context_bundle",
+    "diff_show_version",
     "import_sections_to_song",
+    "list_show_versions",
     "load_rig",
     "load_show",
     "parse_section_import",
+    "restore_show_version",
     "resolve_presets",
     "save_rig",
     "save_show",
+    "save_show_version",
 ]

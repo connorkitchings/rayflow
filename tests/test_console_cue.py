@@ -8,14 +8,18 @@ from rayflow.console.cue import (
     CueStack,
     CueStep,
     channel_at,
+    clear_all,
     clear_programmer,
     commands_for_cue_stack,
     commands_for_cue_step,
+    delete_sequence,
     go_sequence,
     label_cue,
+    label_sequence,
     load_cue_stack,
     set_cue_time,
     store_cue,
+    store_sequence,
 )
 
 
@@ -145,3 +149,35 @@ def test_cue_step_requires_both_channels_and_at():
     step2 = CueStep(cue=1, label="Test", channels=None, at="Full")
     with pytest.raises(ValueError, match="both channels and at"):
         commands_for_cue_step(step2)
+
+
+class TestSequenceCommands:
+    def test_store_sequence(self) -> None:
+        assert store_sequence(1).command == "Store Sequence 1"
+        assert store_sequence(5).command == "Store Sequence 5"
+
+    def test_label_sequence(self) -> None:
+        cmd = label_sequence(1, "My Show")
+        assert cmd.command == 'Label Sequence 1 "My Show"'
+
+    def test_delete_sequence(self) -> None:
+        assert delete_sequence(3).command == "Delete Sequence 3"
+
+    def test_clear_all(self) -> None:
+        assert clear_all().command == "ClearAll"
+
+    def test_store_sequence_validation(self) -> None:
+        with pytest.raises(ValueError):
+            store_sequence(0)
+        with pytest.raises(ValueError):
+            store_sequence(-1)
+
+    def test_label_sequence_validation(self) -> None:
+        with pytest.raises(ValueError):
+            label_sequence(0, "Show")
+        with pytest.raises(ValueError):
+            label_sequence(1, "")
+
+    def test_delete_sequence_validation(self) -> None:
+        with pytest.raises(ValueError):
+            delete_sequence(0)

@@ -85,6 +85,136 @@ def show_list(
     console.print(table)
 
 
+@show_app.command("save")
+def show_save_version(
+    show_name: str = typer.Argument(..., help="Show name"),
+    message: Optional[str] = typer.Option(None, "--message", "-m", help="Version note"),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    library_dir: str = typer.Option(
+        "data/show_library", "--library-dir", help="Show library directory"
+    ),
+) -> None:
+    """Save a versioned snapshot of a show."""
+    from rayflow.shows.library import save_show_version
+
+    show_path = _show_path(show_name, _show_dir_path(show_dir))
+    if not show_path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    try:
+        saved = save_show_version(
+            show_path,
+            library_dir=library_dir,
+            message=message,
+        )
+    except (FileExistsError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    console.print(f"[green]Saved show version[/green] {saved.metadata.version_id}")
+    console.print(f"  Show: {saved.metadata.show_name}")
+    console.print(f"  Snapshot: {saved.show_path}")
+    console.print(f"  Metadata: {saved.metadata_path}")
+
+
+@show_app.command("versions")
+def show_versions(
+    show_name: str = typer.Argument(..., help="Show name"),
+    library_dir: str = typer.Option(
+        "data/show_library", "--library-dir", help="Show library directory"
+    ),
+) -> None:
+    """List saved versions for a show."""
+    from rayflow.shows.library import list_show_versions
+
+    versions = list_show_versions(show_name, library_dir=library_dir)
+    if not versions:
+        console.print(f"[dim]No saved versions for {show_name}[/dim]")
+        return
+
+    table = Table(title=f"Show Versions: {show_name}")
+    table.add_column("Version", style="cyan")
+    table.add_column("Created")
+    table.add_column("Cues", justify="right")
+    table.add_column("Message")
+    for version in versions:
+        table.add_row(
+            version.version_id,
+            version.created_at,
+            str(version.cue_count),
+            version.message or "",
+        )
+    console.print(table)
+
+
+@show_app.command("restore")
+def show_restore_version(
+    show_name: str = typer.Argument(..., help="Show name"),
+    version: str = typer.Option(..., "--version", help="Version ID to restore"),
+    force: bool = typer.Option(False, "--force", help="Overwrite changed show file"),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    library_dir: str = typer.Option(
+        "data/show_library", "--library-dir", help="Show library directory"
+    ),
+) -> None:
+    """Restore a saved show version."""
+    from rayflow.shows.library import restore_show_version
+
+    target = _show_path(show_name, _show_dir_path(show_dir))
+    try:
+        restored = restore_show_version(
+            show_name,
+            version,
+            target_path=target,
+            library_dir=library_dir,
+            force=force,
+        )
+    except (FileNotFoundError, FileExistsError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    console.print(f"[green]Restored show version[/green] {version}")
+    console.print(f"  Show: {show_name}")
+    console.print(f"  Path: {restored}")
+
+
+@show_app.command("diff")
+def show_diff_version(
+    show_name: str = typer.Argument(..., help="Show name"),
+    version: str = typer.Option(..., "--version", help="Version ID to diff from"),
+    other_version: Optional[str] = typer.Option(
+        None, "--other-version", help="Optional second saved version"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    library_dir: str = typer.Option(
+        "data/show_library", "--library-dir", help="Show library directory"
+    ),
+) -> None:
+    """Show a unified YAML diff against a saved show version."""
+    from rayflow.shows.library import diff_show_version
+
+    current_path = (
+        None if other_version else _show_path(show_name, _show_dir_path(show_dir))
+    )
+    try:
+        diff = diff_show_version(
+            show_name,
+            version,
+            current_path=current_path,
+            other_version_id=other_version,
+            library_dir=library_dir,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if diff:
+        typer.echo(diff, nl=False)
+    else:
+        console.print("[dim]No differences[/dim]")
+
+
 @show_app.command("info")
 def show_info(
     name: str = typer.Argument(..., help="Show name"),
@@ -853,6 +983,7 @@ def show_push_to_ma3(
     execute: bool = typer.Option(
         False, "--execute", help="Actually send OSC commands to MA3"
     ),
+    sequence: int = typer.Option(1, "--sequence", help="Target MA3 sequence number"),
     ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
     port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
@@ -881,8 +1012,9 @@ def show_push_to_ma3(
 
     rig = load_rig(rig_path)
     presets = resolve_presets(rig, show)
-    commands = commands_for_show(show, presets)
+    commands = commands_for_show(show, presets, sequence=sequence)
 
+    seq_label = show.song.title
     if not commands:
         console.print(f"[dim]Show {show_name} has no cues to push[/dim]")
         return
@@ -892,6 +1024,7 @@ def show_push_to_ma3(
             f"[bold yellow]Dry run[/bold yellow] — {len(commands)} OSC commands "
             f"for {show_name}:"
         )
+        console.print(f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")')
         for cmd in commands:
             console.print(f"  {cmd.command}")
         console.print(
@@ -905,7 +1038,8 @@ def show_push_to_ma3(
     for cmd in commands:
         client.send(cmd.command)
     console.print(
-        f"[bold green]Sent[/bold green] {len(commands)} OSC commands to {ip}:{port}"
+        f"[bold green]Sent[/bold green] {len(commands)} OSC commands "
+        f"to Sequence {sequence} on {ip}:{port}"
     )
 
 
@@ -916,6 +1050,7 @@ def show_push_section(
     execute: bool = typer.Option(
         False, "--execute", help="Actually send OSC commands to MA3"
     ),
+    sequence: int = typer.Option(1, "--sequence", help="Target MA3 sequence number"),
     ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
     port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
@@ -939,8 +1074,9 @@ def show_push_section(
 
     rig = load_rig(rig_path)
     presets = resolve_presets(rig, show)
-    commands = commands_for_show(show, presets, section=section)
+    commands = commands_for_show(show, presets, section=section, sequence=sequence)
 
+    seq_label = show.song.title
     if not commands:
         console.print(f"[dim]Show {show_name} has no cues in section '{section}'[/dim]")
         return
@@ -950,6 +1086,7 @@ def show_push_section(
             f"[bold yellow]Dry run[/bold yellow] — {len(commands)} OSC commands "
             f"for section '{section}' in {show_name}:"
         )
+        console.print(f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")')
         for cmd in commands:
             console.print(f"  {cmd.command}")
         console.print(
@@ -963,7 +1100,8 @@ def show_push_section(
     for cmd in commands:
         client.send(cmd.command)
     console.print(
-        f"[bold green]Sent[/bold green] {len(commands)} OSC commands to {ip}:{port}"
+        f"[bold green]Sent[/bold green] {len(commands)} OSC commands "
+        f"to Sequence {sequence} on {ip}:{port}"
     )
 
 
@@ -998,25 +1136,21 @@ def show_context(
     typer.echo(json_module.dumps(bundle, indent=2))
 
 
-@show_app.command("export-mvr")
-def show_export_mvr(
+@show_app.command("export")
+def show_export(
     show_name: str = typer.Argument(..., help="Show name"),
-    output: Path = typer.Option(..., "--output", "-o", help="Output MVR file path"),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", "-o", help="Output bundle directory"
+    ),
+    sequence: int = typer.Option(1, "--sequence", help="Target MA3 sequence number"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
     fixture_dir: str = typer.Option(
         "data/fixtures", "--fixture-dir", help="Fixture directory"
     ),
 ) -> None:
-    """Export a show's rig as an MVR file."""
-    from rayflow.fixtures.library import FixtureLibrary
-    from rayflow.fixtures.mvr_export import (
-        FixturePosition,
-        build_patch_entry,
-    )
-    from rayflow.fixtures.mvr_export import (
-        export_mvr as _export_mvr,
-    )
+    """Export a dry-run-safe MA3 bundle for a show."""
+    from rayflow.shows.export_bundle import export_show_bundle
     from rayflow.shows.serializers import load_rig, load_show
 
     show_path = _show_path(show_name, _show_dir_path(show_dir))
@@ -1034,51 +1168,63 @@ def show_export_mvr(
     rig = load_rig(rig_path)
 
     try:
-        library = FixtureLibrary(fixture_dir)
-        library.load()
+        bundle = export_show_bundle(
+            show,
+            rig,
+            output_dir=output_dir,
+            fixture_dir=fixture_dir,
+            sequence=sequence,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    console.print(f"[green]MA3 show export created[/green] at {bundle.output_dir}")
+    console.print(f"  MVR: {bundle.mvr_path}")
+    console.print(f"  Commands: {bundle.commands_path}")
+    console.print(f"  README: {bundle.readme_path}")
+    console.print(f"  Metadata: {bundle.metadata_path}")
+    console.print(f"  Sequence: {sequence}")
+    console.print(f"  Fixtures: {bundle.fixture_count}")
+    console.print(f"  OSC commands: {bundle.command_count}")
+
+
+@show_app.command("export-mvr")
+def show_export_mvr(
+    show_name: str = typer.Argument(..., help="Show name"),
+    output: Path = typer.Option(..., "--output", "-o", help="Output MVR file path"),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures", "--fixture-dir", help="Fixture directory"
+    ),
+) -> None:
+    """Export a show's rig as an MVR file."""
+    from rayflow.fixtures.mvr_export import (
+        export_mvr as _export_mvr,
+    )
+    from rayflow.shows.export_bundle import build_mvr_patches
+    from rayflow.shows.serializers import load_rig, load_show
+
+    show_path = _show_path(show_name, _show_dir_path(show_dir))
+    if not show_path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(show_path)
+
+    rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(rig_path)
+
+    try:
+        patches = build_mvr_patches(rig, fixture_dir)
     except (FileNotFoundError, ValueError) as e:
         typer.echo(f"Error loading fixtures: {e}", err=True)
         raise typer.Exit(code=1)
-
-    patches = []
-    address = 1
-    for slot in rig.fixtures:
-        parser = library.get(slot.fixture_name)
-        if parser is None:
-            typer.echo(
-                f"Warning: Fixture not found: {slot.fixture_name}, skipping",
-                err=True,
-            )
-            continue
-
-        mode_idx = 0
-        mode_names = parser.mode_names()
-        if slot.mode in mode_names:
-            mode_idx = mode_names.index(slot.mode)
-
-        channel_count = parser.get_channel_count(mode_idx)
-        pos = FixturePosition(
-            name=slot.label,
-            x=slot.position.x,
-            y=slot.position.y,
-            z=slot.position.z,
-            pan=slot.position.pan,
-            tilt=slot.position.tilt,
-        )
-        gdtf_file = getattr(parser, "path", None)
-        patches.append(
-            build_patch_entry(
-                name=slot.label,
-                manufacturer=parser.manufacturer,
-                fixture_type=f"{parser.manufacturer}@{parser.name}",
-                dmx_mode=slot.mode,
-                universe=slot.universe,
-                address=address,
-                position=pos,
-                gdtf_file=gdtf_file,
-            )
-        )
-        address += channel_count
 
     if not patches:
         typer.echo("Error: No valid fixtures to export", err=True)

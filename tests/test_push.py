@@ -1,5 +1,7 @@
 """Tests for push-to-MA3 functionality."""
 
+import pytest
+
 from rayflow.shows.models import Cue, Preset, Section, Show, Song
 from rayflow.shows.push import commands_for_show, commands_for_show_cue
 
@@ -153,3 +155,74 @@ class TestCommandsForShow:
         commands = commands_for_show(show, presets)
         command_strings = [c.command for c in commands]
         assert "Channel 1 Thru 512 At 80" in command_strings
+
+    def test_with_sequence_prepends_setup_commands(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        commands = commands_for_show(show, {}, sequence=1)
+        command_strings = [c.command for c in commands]
+        assert command_strings[0] == "Delete Sequence 1"
+        assert command_strings[1] == "Store Sequence 1"
+        assert command_strings[2] == 'Label Sequence 1 "Test"'
+        assert command_strings[3] == "ClearAll"
+        assert "Store Cue 1" in command_strings
+
+    def test_with_sequence_uses_song_title_as_label(self) -> None:
+        song = Song(title="My Lighting Show", artist="Artist", duration=120.0)
+        show = Show(name="Test", rig_name="Rig", song=song)
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        commands = commands_for_show(show, {}, sequence=3)
+        command_strings = [c.command for c in commands]
+        assert command_strings[0] == "Delete Sequence 3"
+        assert command_strings[1] == "Store Sequence 3"
+        assert command_strings[2] == 'Label Sequence 3 "My Lighting Show"'
+
+    def test_with_sequence_and_section_filter(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        commands = commands_for_show(show, {}, section="Intro", sequence=1)
+        command_strings = [c.command for c in commands]
+        assert command_strings[0] == "Delete Sequence 1"
+        assert "Store Cue 1" in command_strings
+
+    def test_sequence_setup_before_cues(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        commands = commands_for_show(show, {}, sequence=2)
+        command_strings = [c.command for c in commands]
+        setup_indices = [
+            command_strings.index("Delete Sequence 2"),
+            command_strings.index("Store Sequence 2"),
+            command_strings.index('Label Sequence 2 "Test"'),
+            command_strings.index("ClearAll"),
+        ]
+        cue_index = command_strings.index("Store Cue 1")
+        assert all(i < cue_index for i in setup_indices)
+
+    def test_sequence_validation(self) -> None:
+        show = _make_show()
+        with pytest.raises(ValueError, match="sequence must be > 0"):
+            commands_for_show(show, {}, sequence=0)
+        with pytest.raises(ValueError, match="sequence must be > 0"):
+            commands_for_show(show, {}, sequence=-1)
+
+    def test_no_sequence_produces_no_setup_commands(self) -> None:
+        show = _make_show()
+        show.add_cue(Cue(number=1, label="A", section="Intro", timestamp=0))
+        commands = commands_for_show(show, {})
+        command_strings = [c.command for c in commands]
+        assert "Delete Sequence" not in command_strings
+        assert "Store Sequence" not in command_strings
+        assert "Label Sequence" not in command_strings
+        assert "ClearAll" not in command_strings
+
+    def test_empty_show_with_sequence_still_has_setup(self) -> None:
+        show = _make_show()
+        commands = commands_for_show(show, {}, sequence=1)
+        command_strings = [c.command for c in commands]
+        assert command_strings == [
+            "Delete Sequence 1",
+            "Store Sequence 1",
+            'Label Sequence 1 "Test"',
+            "ClearAll",
+        ]

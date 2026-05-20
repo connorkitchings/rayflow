@@ -124,6 +124,270 @@ cues: []
         assert "New Artist" in result.output
 
 
+class TestShowLibrary:
+    def test_save_show_version(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Library Show.yaml").write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues:
+  - number: 1
+    label: "First"
+    section: "Intro"
+    timestamp: 0
+"""
+        )
+        library_dir = tmp_path / "library"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--message",
+                "ready",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Saved show version" in result.output
+        metadata_files = list(library_dir.glob("library-show/*/metadata.json"))
+        assert len(metadata_files) == 1
+        metadata = json.loads(metadata_files[0].read_text())
+        assert metadata["show_name"] == "Library Show"
+        assert metadata["message"] == "ready"
+        assert metadata["cue_count"] == 1
+
+    def test_versions_lists_saved_versions(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Library Show.yaml").write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--message",
+                "snapshot",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "versions",
+                "Library Show",
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Show Versions" in result.output
+        assert "snapshot" in result.output
+
+    def test_restore_refuses_changed_show_without_force(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        show_path = show_dir / "Library Show.yaml"
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+        version = json.loads(
+            next(library_dir.glob("library-show/*/metadata.json")).read_text()
+        )["version_id"]
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Changed Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Library Show",
+                "--version",
+                version,
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "pass --force" in result.output
+
+        forced = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Library Show",
+                "--version",
+                version,
+                "--force",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert forced.exit_code == 0
+        assert "Restored show version" in forced.output
+        assert "Library Song" in show_path.read_text()
+
+    def test_diff_show_version(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        show_path = show_dir / "Library Show.yaml"
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+        version = json.loads(
+            next(library_dir.glob("library-show/*/metadata.json")).read_text()
+        )["version_id"]
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Changed Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "diff",
+                "Library Show",
+                "--version",
+                version,
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "--- Library Show@" in result.output
+        assert '-  title: "Library Song"' in result.output
+        assert '+  title: "Changed Song"' in result.output
+
+    def test_save_missing_show(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Missing",
+                "--dir",
+                str(tmp_path),
+                "--library-dir",
+                str(tmp_path / "library"),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show not found" in result.output
+
+    def test_restore_missing_version(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Missing",
+                "--version",
+                "20260520T120000Z",
+                "--dir",
+                str(tmp_path),
+                "--library-dir",
+                str(tmp_path / "library"),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show version not found" in result.output
+
+
 class TestShowPushToMa3:
     def test_push_dry_run(self, tmp_path: Path) -> None:
         show_dir = tmp_path / "shows"
@@ -222,7 +486,8 @@ presets: {}
             ],
         )
         assert result.exit_code == 0
-        assert "no cues to push" in result.output.lower()
+        assert "Delete Sequence 1" in result.output
+        assert "Store Sequence 1" in result.output
 
 
 class TestShowPushSection:
@@ -854,6 +1119,181 @@ cues: []
             ],
         )
         assert result.exit_code == 1
+
+
+class TestShowExportBundle:
+    def test_show_export_bundle(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Export Rig.yaml").write_text(
+            """name: "Export Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 1 - Zones"
+    label: "Spiider 1"
+    universe: 0
+    start_address: 1
+    position: {x: -2, y: 4, z: 1, pan: 0, tilt: 0}
+    channels: "1"
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "First Look"
+    section: "Intro"
+    timestamp: 0
+    fade_time: 2.0
+"""
+        )
+        output_dir = tmp_path / "bundle"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Export Show",
+                "--output-dir",
+                str(output_dir),
+                "--sequence",
+                "7",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "MA3 show export created" in result.output
+        assert "Sequence: 7" in result.output
+        assert (output_dir / "rig.mvr").exists()
+        commands = (output_dir / "ma3_push_commands.txt").read_text()
+        assert "Delete Sequence 7" in commands
+        assert "Store Sequence 7" in commands
+        assert "Store Cue 1" in commands
+        readme = (output_dir / "README.md").read_text()
+        assert "Import `rig.mvr` into grandMA3" in readme
+        assert "dry-run OSC command list for Sequence 7" in readme
+        assert "--execute" in readme
+        metadata = json.loads((output_dir / "metadata.json").read_text())
+        assert metadata["show"] == "Export Show"
+        assert metadata["rig"] == "Export Rig"
+        assert metadata["sequence"] == 7
+        assert metadata["cue_count"] == 1
+
+    def test_show_export_bundle_missing_show(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Missing Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--dir",
+                str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show not found" in result.output
+
+    def test_show_export_bundle_missing_rig(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Bad Show.yaml").write_text(
+            """name: "Bad Show"
+rig_name: "Missing Rig"
+song:
+  title: "Song"
+  artist: "Artist"
+  duration: 180
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Bad Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--dir",
+                str(show_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Rig not found" in result.output
+
+    def test_show_export_bundle_invalid_sequence(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Export Rig.yaml").write_text(
+            """name: "Export Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 1 - Zones"
+    label: "Spiider 1"
+    universe: 0
+    start_address: 1
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export",
+                "Export Show",
+                "--output-dir",
+                str(tmp_path / "bundle"),
+                "--sequence",
+                "0",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "sequence must be > 0" in result.output
 
 
 class TestShowSetVibe:

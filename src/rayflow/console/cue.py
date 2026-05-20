@@ -76,6 +76,30 @@ def clear_programmer() -> Ma3Command:
     return Ma3Command(command="Clear")
 
 
+def clear_all() -> Ma3Command:
+    """Build a ClearAll command — stronger reset than Clear."""
+    return Ma3Command(command="ClearAll")
+
+
+def store_sequence(sequence: int) -> Ma3Command:
+    """Build a Store Sequence command."""
+    _validate_positive_int("sequence", sequence)
+    return Ma3Command(command=f"Store Sequence {sequence}")
+
+
+def label_sequence(sequence: int, label: str) -> Ma3Command:
+    """Build a Label Sequence command."""
+    _validate_positive_int("sequence", sequence)
+    label = _validate_non_empty("label", label)
+    return Ma3Command(command=f'Label Sequence {sequence} "{label}"')
+
+
+def delete_sequence(sequence: int) -> Ma3Command:
+    """Build a Delete Sequence command."""
+    _validate_positive_int("sequence", sequence)
+    return Ma3Command(command=f"Delete Sequence {sequence}")
+
+
 def commands_for_cue_step(step: CueStep) -> list[Ma3Command]:
     """Build commands for one cue step in deterministic order."""
     _validate_positive_int("cue", step.cue)
