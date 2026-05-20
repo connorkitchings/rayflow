@@ -70,13 +70,14 @@ rayflow/
 - Phase 7 Slice 2: Sequence build hardening (`store_sequence`, `label_sequence`, `delete_sequence`, `clear_all`; `--sequence` on push commands)
 - Phase 7 MA3 show export bundle (`show export` with MVR, OSC command list, README, metadata)
 - Phase 7 show library (`show save/versions/restore/diff` with versioned YAML snapshots)
+- CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 
 **Current Focus:**
 - Phase 7 (Export & Playback) — timecode schema capture
 - ⚠ Timecode integration blocked: event-bearing MA3 Timecode XML schema not yet captured
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
-**Active Branch:** `codex/phase7-ma3-show-export`
+**Active Branch:** `main`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)
