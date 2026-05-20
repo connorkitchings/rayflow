@@ -64,9 +64,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
                 f"[bold yellow]Dry run[/bold yellow] — {len(commands)} OSC commands "
                 f"for {show_name}:"
             )
-            console.print(
-                f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")'
-            )
+            console.print(f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")')
             for cmd in commands:
                 console.print(f"  {cmd.command}")
             console.print(
@@ -131,9 +129,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
                 f"[bold yellow]Dry run[/bold yellow] — {len(commands)} OSC commands "
                 f"for section '{section}' in {show_name}:"
             )
-            console.print(
-                f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")'
-            )
+            console.print(f'  [bold]Target:[/bold] Sequence {sequence} ("{seq_label}")')
             for cmd in commands:
                 console.print(f"  {cmd.command}")
             console.print(
@@ -208,9 +204,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
     @show_app.command("export-mvr")
     def show_export_mvr(
         show_name: str = typer.Argument(..., help="Show name"),
-        output: Path = typer.Option(
-            ..., "--output", "-o", help="Output MVR file path"
-        ),
+        output: Path = typer.Option(..., "--output", "-o", help="Output MVR file path"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
         rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
         fixture_dir: str = typer.Option(

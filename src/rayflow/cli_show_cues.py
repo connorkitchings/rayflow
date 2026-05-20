@@ -180,9 +180,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         show = load_show(path)
         auto_number_cues(show)
         save_show(show, path)
-        console.print(
-            f"[green]Renumbered[/green] {len(show.cues)} cues in {show_name}"
-        )
+        console.print(f"[green]Renumbered[/green] {len(show.cues)} cues in {show_name}")
 
     @show_app.command("generate-cues")
     def show_generate_cues(

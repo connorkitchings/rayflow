@@ -326,8 +326,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
             energy_str = f", energy={sec.energy:.2f}" if sec.energy is not None else ""
             mood_str = f", mood={sec.mood}" if sec.mood else ""
             console.print(
-                f"    {sec.name}: "
-                f"{sec.start:.1f}s-{sec.end:.1f}s{energy_str}{mood_str}"
+                f"    {sec.name}: {sec.start:.1f}s-{sec.end:.1f}s{energy_str}{mood_str}"
             )
 
     @show_app.command("add-preset-override")
