@@ -223,6 +223,10 @@ rayflow show batch-update-cues <show_name> --section "Intro" --delete
 - `rayflow show renumber <show>`
 - `rayflow show generate-cues <show> --section <name> --preset <name> --count <N> --spacing <s> [--fade <s>]`
 - `rayflow show batch-update-cues <show> [--section <name>] [--attributes '{...}'] [--set-fade <s>] [--delete]`
+- `rayflow show save <show> [--message <text>]`
+- `rayflow show versions <show>`
+- `rayflow show restore <show> --version <id> [--force]`
+- `rayflow show diff <show> --version <id> [--other-version <id>]`
 
 ### Vibe Management
 - `rayflow show set-vibe <show> [--vibe-json <file>] [--palette-name <name> --colors '[...]' --intensity <curve> --movement <style>]`

@@ -69,9 +69,10 @@ rayflow/
 - Phase 6 80 new tests (section import, cue generator, push, CLI)
 - Phase 7 Slice 2: Sequence build hardening (`store_sequence`, `label_sequence`, `delete_sequence`, `clear_all`; `--sequence` on push commands)
 - Phase 7 MA3 show export bundle (`show export` with MVR, OSC command list, README, metadata)
+- Phase 7 show library (`show save/versions/restore/diff` with versioned YAML snapshots)
 
 **Current Focus:**
-- Phase 7 (Export & Playback) — show library, timecode schema capture
+- Phase 7 (Export & Playback) — timecode schema capture
 - ⚠ Timecode integration blocked: event-bearing MA3 Timecode XML schema not yet captured
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 

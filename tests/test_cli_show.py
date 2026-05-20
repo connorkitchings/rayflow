@@ -124,6 +124,270 @@ cues: []
         assert "New Artist" in result.output
 
 
+class TestShowLibrary:
+    def test_save_show_version(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Library Show.yaml").write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues:
+  - number: 1
+    label: "First"
+    section: "Intro"
+    timestamp: 0
+"""
+        )
+        library_dir = tmp_path / "library"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--message",
+                "ready",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Saved show version" in result.output
+        metadata_files = list(library_dir.glob("library-show/*/metadata.json"))
+        assert len(metadata_files) == 1
+        metadata = json.loads(metadata_files[0].read_text())
+        assert metadata["show_name"] == "Library Show"
+        assert metadata["message"] == "ready"
+        assert metadata["cue_count"] == 1
+
+    def test_versions_lists_saved_versions(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Library Show.yaml").write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--message",
+                "snapshot",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "versions",
+                "Library Show",
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Show Versions" in result.output
+        assert "snapshot" in result.output
+
+    def test_restore_refuses_changed_show_without_force(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        show_path = show_dir / "Library Show.yaml"
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+        version = json.loads(
+            next(library_dir.glob("library-show/*/metadata.json")).read_text()
+        )["version_id"]
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Changed Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Library Show",
+                "--version",
+                version,
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "pass --force" in result.output
+
+        forced = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Library Show",
+                "--version",
+                version,
+                "--force",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert forced.exit_code == 0
+        assert "Restored show version" in forced.output
+        assert "Library Song" in show_path.read_text()
+
+    def test_diff_show_version(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        show_path = show_dir / "Library Show.yaml"
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Library Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+        library_dir = tmp_path / "library"
+        save_result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Library Show",
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+        assert save_result.exit_code == 0
+        version = json.loads(
+            next(library_dir.glob("library-show/*/metadata.json")).read_text()
+        )["version_id"]
+        show_path.write_text(
+            """name: "Library Show"
+rig_name: "Test Rig"
+song:
+  title: "Changed Song"
+  artist: "Artist"
+  duration: 245.0
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "diff",
+                "Library Show",
+                "--version",
+                version,
+                "--dir",
+                str(show_dir),
+                "--library-dir",
+                str(library_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "--- Library Show@" in result.output
+        assert '-  title: "Library Song"' in result.output
+        assert '+  title: "Changed Song"' in result.output
+
+    def test_save_missing_show(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "save",
+                "Missing",
+                "--dir",
+                str(tmp_path),
+                "--library-dir",
+                str(tmp_path / "library"),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show not found" in result.output
+
+    def test_restore_missing_version(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "restore",
+                "Missing",
+                "--version",
+                "20260520T120000Z",
+                "--dir",
+                str(tmp_path),
+                "--library-dir",
+                str(tmp_path / "library"),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Show version not found" in result.output
+
+
 class TestShowPushToMa3:
     def test_push_dry_run(self, tmp_path: Path) -> None:
         show_dir = tmp_path / "shows"
