@@ -1,10 +1,21 @@
 # RayFlow
 
-AI-assisted lighting design toolkit — create timecoded light shows for recorded music using grandMA3 onPC.
+AI-assisted lighting design toolkit for recorded music and grandMA3 onPC.
 
 ## Overview
 
-RayFlow bridges the gap between creative intent and console execution. It provides Python tooling for concert lighting programming, automating grandMA3 workflows, and an AI interaction layer that lets you direct show design in natural language. grandMA3 onPC serves as the console and 3D visualizer; RayFlow manages rigs, generates creative direction, and translates your ideas into concrete lighting cues.
+RayFlow bridges the gap between creative intent and console execution. It
+provides Python tooling for concert lighting programming, automating grandMA3
+workflows, and an AI interaction layer that lets you direct show design in
+natural language. grandMA3 onPC serves as the console and 3D visualizer;
+RayFlow manages rigs, generates creative direction, and translates your ideas
+into concrete lighting cues.
+
+RayFlow can currently build and version show YAML, generate cue programming
+commands, export an MA3-ready bundle with MVR plus OSC command text, and push
+cues to grandMA3 over OSC. Native MA3 Timecode XML generation is intentionally
+blocked until an event-bearing grandMA3 2.3.2.0 Timecode export is captured and
+verified.
 
 ## Architecture
 
@@ -52,6 +63,36 @@ uv sync --extra lighting
 uv run rayflow --help
 ```
 
+## Current Workflow
+
+RayFlow's usable workflow today does not require Timecode XML:
+
+```bash
+# Inspect existing rigs and shows
+uv run rayflow rig list
+uv run rayflow show list
+
+# Create a versioned snapshot before changing a show
+uv run rayflow show save "My Show" --message "before cue polish"
+
+# Export an MA3 review bundle: MVR rig, OSC command list, README, metadata
+uv run rayflow show export "My Show" --output-dir exports/my-show --sequence 1
+
+# Review the same MA3 programming path without sending OSC
+uv run rayflow show push-to-ma3 "My Show" --sequence 1
+
+# Send cues to grandMA3 only when the dry-run looks correct
+uv run rayflow show push-to-ma3 "My Show" --sequence 1 --execute
+```
+
+Show snapshots are local YAML versions:
+
+```bash
+uv run rayflow show versions "My Show"
+uv run rayflow show diff "My Show" --version 20260520T120000Z
+uv run rayflow show restore "My Show" --version 20260520T120000Z --force
+```
+
 ## Project Structure
 
 ```
@@ -60,7 +101,7 @@ rayflow/
 │   ├── bridge/          # Art-Net / sACN protocol bridge
 │   ├── fixtures/        # GDTF fixture loading, parsing, MVR export
 │   ├── console/         # grandMA3 onPC OSC control and cue builders
-│   ├── shows/           # Show & rig data models (Phase 5)
+│   ├── shows/           # Show/rig models, exports, snapshots
 │   └── cli.py           # CLI entry point
 ├── data/
 │   ├── fixtures/        # GDTF fixture library

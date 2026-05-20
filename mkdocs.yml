@@ -27,6 +27,7 @@ nav:
   - 'Guides':
     - 'grandMA3 onPC Setup': 'guides/grandma3-setup.md'
     - 'grandMA3 Learning Resources': 'guides/grandma3-learning-resources.md'
+    - 'Current Workflow': 'guides/current-workflow.md'
     - 'First DMX': 'guides/first-dmx.md'
     - 'Building a Rig': 'guides/building-a-rig.md'
     - 'Recording a Show': 'guides/recording-a-show.md'
