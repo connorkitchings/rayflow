@@ -70,11 +70,14 @@ rayflow/
 - Phase 7 Slice 2: Sequence build hardening (`store_sequence`, `label_sequence`, `delete_sequence`, `clear_all`; `--sequence` on push commands)
 - Phase 7 MA3 show export bundle (`show export` with MVR, OSC command list, README, metadata)
 - Phase 7 show library (`show save/versions/restore/diff` with versioned YAML snapshots)
+- Phase 7 MA3 Timecode XML generation from captured `CmdEvent` / `RealtimeCmd` export shape
+- Phase 7 clean MA3 Timecode XML import/re-export validation against grandMA3 onPC 2.3.2.0
+- Phase 7 internal Timecode playback clock validation via `Top Timecode 1` / `Go Timecode 1` and re-exported `Cursor`
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 
 **Current Focus:**
 - Phase 7 (Export & Playback) — timecode import/playback validation
-- ⚠ Timecode integration partially unblocked: event-bearing MA3 Timecode XML schema captured locally; MA3 import/playback validation still pending
+- ⚠ Timecode integration mostly unblocked: event-bearing MA3 Timecode XML imports cleanly and internal playback advances, but final cue-fire observation in the Timecode Viewer/current-cue UI is still pending
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
 **Active Branch:** `main`

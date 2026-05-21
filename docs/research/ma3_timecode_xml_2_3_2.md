@@ -170,6 +170,26 @@ Set Sequence 1 Cue 1 CueFade "4"
 
 MA3 rejected direct RayFlow color values such as `Channel 2 At #FF9933` and rejects channels if the show has no patched channel/fixture objects. Until fixture-aware color mapping is implemented, RayFlow's MA3 push path should send safe dimmer/intensity values only.
 
+## Live Playback Probe
+
+On 2026-05-21, RayFlow drove the imported Timecode object through OSC:
+
+```text
+Top Timecode 1
+Go Timecode 1
+Export Timecode 1 "rayflow_timecode_after_playback"
+```
+
+The post-playback export added `Cursor="37.40"` to Timecode 1. This proves
+MA3 accepted playback control for the imported Timecode object and advanced its
+internal cursor past the first three event timestamps: `0.000`, `15.000`, and
+`30.000`.
+
+`Export Sequence 1` before and after playback was byte-identical, so MA3
+sequence XML export does not expose runtime current-cue state. The remaining
+acceptance check is a visual Timecode Viewer/current-cue observation that the
+`Goto` events fire Sequence 1 cues during playback.
+
 ## Automation Findings
 
 - MA3 command-line export works for Timecode pool objects.
@@ -179,10 +199,10 @@ MA3 rejected direct RayFlow color values such as `Channel 2 At #FF9933` and reje
 
 ## Next Required Validation
 
-Use RayFlow to generate a timecode XML, import it into MA3, and confirm that cue events fire correctly during playback:
+Use RayFlow to generate a timecode XML, import it into MA3, start Timecode playback, and confirm in the Timecode Viewer/current-cue UI that cue events fire correctly:
 
 ```text
 rayflow show export-timecode <show> --output /tmp/timecode.xml --sequence 1
 ```
 
-Then import `/tmp/timecode.xml` into a clean Timecode Pool object and validate event playback against the Timecode Viewer. Capture any MA3 re-export after playback validation and compare it with RayFlow's generated file.
+Then import `/tmp/timecode.xml` into a clean Timecode Pool object and validate event playback against the Timecode Viewer. A post-playback re-export should show `Cursor` movement after `Go Timecode 1`; final acceptance also needs visible cue advancement.
