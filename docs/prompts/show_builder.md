@@ -223,6 +223,8 @@ rayflow show batch-update-cues <show_name> --section "Intro" --delete
 - `rayflow show renumber <show>`
 - `rayflow show generate-cues <show> --section <name> --preset <name> --count <N> --spacing <s> [--fade <s>]`
 - `rayflow show batch-update-cues <show> [--section <name>] [--attributes '{...}'] [--set-fade <s>] [--delete]`
+
+### Show Library (Versioning)
 - `rayflow show save <show> [--message <text>]`
 - `rayflow show versions <show>`
 - `rayflow show restore <show> --version <id> [--force]`
@@ -232,9 +234,10 @@ rayflow show batch-update-cues <show_name> --section "Intro" --delete
 - `rayflow show set-vibe <show> [--vibe-json <file>] [--palette-name <name> --colors '[...]' --intensity <curve> --movement <style>]`
 
 ### MA3 Integration
-- `rayflow show push-to-ma3 <show> [--execute]`
-- `rayflow show push-section <show> --section <name> [--execute]`
-- `rayflow show export <show> --output-dir <path> [--sequence <N>]`
+- `rayflow show push-to-ma3 <show> [--execute] [--sequence <N>]` — push cues to MA3 sequence (default: 1)
+- `rayflow show push-section <show> --section <name> [--execute] [--sequence <N>]`
+- `rayflow show export <show> --output-dir <path> [--sequence <N>]` — export MVR + OSC commands + timecode XML + README bundle
+- `rayflow show export-timecode <show> --output <path.xml> [--sequence <N>]` — export MA3-format timecode XML
 - `rayflow show export-mvr <show> --output <path.mvr>`
 - `rayflow console cmd <command> [--execute]`
 

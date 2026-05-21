@@ -93,9 +93,9 @@
 |------|-------------|--------|-------|
 | Sequence build hardening | `--sequence` option on push commands, sequence labeling | ✅ Done | `store_sequence`, `label_sequence`, `delete_sequence`, `clear_all` builders; CLI `--sequence` default 1 |
 | MA3 show export | Export cues/rig to MA3-importable format | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, and metadata bundle |
-| Timecode integration | MA3 timecode triggers for cue playback | ⚠ Blocked | Track skeleton captured; event-bearing XML requires manual MA3 Timecode Viewer setup |
+| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | `timecode_export.py` generates GMA3 XML; schema inferred from 2.3.2.0 skeleton — requires MA3 import validation |
 | Show library | Versioned show storage | ✅ Done | `show save/versions/restore/diff`; local YAML snapshots with metadata |
-| Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, and show library tests added; timecode tests pending |
+| Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, show library, and timecode tests added; MA3 schema validation pending |
 
 ---
 
@@ -123,4 +123,4 @@
 
 ---
 
-*Last updated: 2026-05-20*
+*Last updated: 2026-05-20 (timecode_export.py implemented; MA3 validation pending)*

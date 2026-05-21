@@ -30,6 +30,7 @@ from rayflow.shows.section_import import (
     parse_section_import,
 )
 from rayflow.shows.serializers import load_rig, load_show, save_rig, save_show
+from rayflow.shows.timecode_export import export_timecode_xml
 
 __all__ = [
     "ATTRIBUTE_FAMILIES",
@@ -59,4 +60,5 @@ __all__ = [
     "save_rig",
     "save_show",
     "save_show_version",
+    "export_timecode_xml",
 ]
