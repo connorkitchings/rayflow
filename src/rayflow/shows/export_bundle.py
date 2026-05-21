@@ -12,6 +12,7 @@ from rayflow.fixtures.mvr_export import FixturePosition, build_patch_entry
 from rayflow.fixtures.mvr_export import export_mvr as write_mvr
 from rayflow.shows.models import Rig, Show, resolve_presets
 from rayflow.shows.push import commands_for_show
+from rayflow.shows.timecode_export import export_timecode_xml
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,7 @@ class ShowExportBundle:
     commands_path: Path
     readme_path: Path
     metadata_path: Path
+    timecode_path: Path
     command_count: int
     fixture_count: int
 
@@ -57,9 +59,15 @@ def export_show_bundle(
         encoding="utf-8",
     )
 
+    timecode_path = target_dir / "timecode.xml"
+    timecode_xml = export_timecode_xml(show, sequence=sequence)
+    timecode_path.write_text(timecode_xml, encoding="utf-8-sig")
+
     readme_path = target_dir / "README.md"
     readme_path.write_text(
-        _bundle_readme(show, rig, sequence, commands_path.name, mvr_path.name),
+        _bundle_readme(
+            show, rig, sequence, commands_path.name, mvr_path.name, timecode_path.name
+        ),
         encoding="utf-8",
     )
 
@@ -80,6 +88,7 @@ def export_show_bundle(
         "files": {
             "mvr": mvr_path.name,
             "commands": commands_path.name,
+            "timecode": timecode_path.name,
             "readme": readme_path.name,
         },
     }
@@ -91,6 +100,7 @@ def export_show_bundle(
         commands_path=commands_path,
         readme_path=readme_path,
         metadata_path=metadata_path,
+        timecode_path=timecode_path,
         command_count=len(commands),
         fixture_count=len(patches),
     )
@@ -146,6 +156,7 @@ def _bundle_readme(
     sequence: int,
     commands_filename: str,
     mvr_filename: str,
+    timecode_filename: str,
 ) -> str:
     return f"""# RayFlow MA3 Show Export: {show.name}
 
@@ -155,6 +166,8 @@ Generated for grandMA3 onPC 2.3.2.0.
 
 - `{mvr_filename}` — MVR rig export for MA3 patch and 3D import.
 - `{commands_filename}` — dry-run OSC command list for Sequence {sequence}.
+- `{timecode_filename}` — MA3 Timecode XML based on captured MA3 2.3.2.0
+  event exports; validate import/playback before use.
 - `metadata.json` — bundle metadata for automation and review.
 
 ## Import Workflow
@@ -169,7 +182,9 @@ Generated for grandMA3 onPC 2.3.2.0.
 
    `rayflow show push-to-ma3 "{show.name}" --sequence {sequence} --execute`
 
-This bundle does not include Timecode XML. RayFlow Timecode export remains
-blocked until an event-bearing grandMA3 2.3.2.0 Timecode XML sample is captured
-and verified.
+5. Import `{timecode_filename}` into grandMA3 via *Import → Timecode Pool*
+   and validate the events against the Timecode Viewer.
+
+> **Note:** The Timecode XML follows captured MA3 2.3.2.0 event exports. Verify
+> import/playback in MA3 before relying on it for show playback.
 """

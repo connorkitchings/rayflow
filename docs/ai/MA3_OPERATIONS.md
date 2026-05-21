@@ -789,6 +789,17 @@ Rate 1                                       — Reset rate
 
 **Event Columns:** Time, AbsTime, Token (Go+, Pause, Flash, etc.), Cue Destination, Fade Override, Execute Command
 
+**RayFlow Timecode XML:**
+```bash
+rayflow show export-timecode "<show>" --output /tmp/timecode.xml --sequence 1
+```
+
+RayFlow's generated Timecode XML is based on local grandMA3 onPC 2.3.2.0
+event-bearing exports. It writes UTF-8 with BOM and maps each cue to a
+sequence-targeted `Goto` event using decimal-second timestamps. Import the XML
+into the Timecode Pool, then verify event positions and playback in the
+Timecode Viewer before using it for a finished show.
+
 ---
 
 ## 9. Network Protocols

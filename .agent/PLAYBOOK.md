@@ -14,6 +14,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 9. **Human Validates Before Implementation**: Explicit human checkpoint before proceeding to code generation.
 10. **Protocol Verification**: Always verify Art-Net/sACN packets with network tools (Wireshark, tcpdump) before marking protocol work complete.
 11. **grandMA3 Version Pinning**: Before giving grandMA3 onPC UI instructions, verify the installed app version and use the matching MA manual version. Current local baseline is grandMA3 onPC 2.3.2.0.
+12. **Capture Before Generating MA3 XML**: Before implementing any MA3 import/export XML generator, first capture a real MA3 export with the target objects and events. Treat local MA3-exported XML as source-of-truth and document any fields RayFlow intentionally omits.
 
 ## [STRATEGIES]
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.

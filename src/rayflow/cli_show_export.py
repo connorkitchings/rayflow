@@ -195,6 +195,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         console.print(f"[green]MA3 show export created[/green] at {bundle.output_dir}")
         console.print(f"  MVR: {bundle.mvr_path}")
         console.print(f"  Commands: {bundle.commands_path}")
+        console.print(f"  Timecode: {bundle.timecode_path}")
         console.print(f"  README: {bundle.readme_path}")
         console.print(f"  Metadata: {bundle.metadata_path}")
         console.print(f"  Sequence: {sequence}")
@@ -246,3 +247,49 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         console.print(f"[green]MVR exported[/green] to {saved}")
         console.print(f"  Fixtures: {len(patches)}")
         console.print(f"  Scene: {rig.name}")
+
+    @show_app.command("export-timecode")
+    def show_export_timecode(
+        show_name: str = typer.Argument(..., help="Show name"),
+        output: Path = typer.Option(
+            ..., "--output", "-o", help="Output timecode XML file path"
+        ),
+        sequence: int = typer.Option(
+            1, "--sequence", help="Target MA3 sequence / executor number"
+        ),
+        show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    ) -> None:
+        """Export a MA3 Timecode XML for the show's cue timestamps.
+
+        Generates a GMA3-format Timecode XML where each cue fires a Goto event
+        on the target sequence at the cue's timestamp.  Import into grandMA3 via
+        Import -> Timecode Pool.
+
+        WARNING: The event schema is based on captured MA3 2.3.2.0 exports.
+        Validate imported event playback before relying on it for a show.
+        """
+        from rayflow.shows.serializers import load_show
+        from rayflow.shows.timecode_export import export_timecode_xml
+
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
+            typer.echo(f"Error: Show not found: {show_name}", err=True)
+            raise typer.Exit(code=1)
+
+        show = load_show(path)
+
+        try:
+            xml_str = export_timecode_xml(show, sequence=sequence)
+        except ValueError as e:
+            typer.echo(f"Error: {e}", err=True)
+            raise typer.Exit(code=1)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        # MA3 strictly requires a UTF-8 BOM, which utf-8-sig provides
+        output.write_text(xml_str, encoding="utf-8-sig")
+
+        cue_count = len(show.cues)
+        console.print(f"[green]Timecode XML exported[/green] to {output}")
+        console.print(f"  Show: {show_name}")
+        console.print(f"  Sequence/Executor: {sequence}")
+        console.print(f"  Cue events: {cue_count}")
+        console.print("  [yellow]Validate import/playback in MA3 before use[/yellow]")

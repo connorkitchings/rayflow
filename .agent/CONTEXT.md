@@ -73,8 +73,8 @@ rayflow/
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 
 **Current Focus:**
-- Phase 7 (Export & Playback) — timecode schema capture
-- ⚠ Timecode integration blocked: event-bearing MA3 Timecode XML schema not yet captured
+- Phase 7 (Export & Playback) — timecode import/playback validation
+- ⚠ Timecode integration partially unblocked: event-bearing MA3 Timecode XML schema captured locally; MA3 import/playback validation still pending
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
 **Active Branch:** `main`

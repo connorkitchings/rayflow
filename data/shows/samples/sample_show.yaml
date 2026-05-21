@@ -1,0 +1,215 @@
+name: "All In Time Demo"
+rig_name: "Sample Rig"
+
+song:
+  title: "All In Time"
+  artist: "Demo Artist"
+  duration: 210.0
+  bpm: 120
+  sections:
+    - name: "Intro"
+      start: 0.0
+      end: 30.0
+      energy: 0.2
+      mood: "ambient, building anticipation"
+    - name: "Verse 1"
+      start: 30.0
+      end: 75.0
+      energy: 0.45
+      mood: "mellow, introspective"
+    - name: "Chorus 1"
+      start: 75.0
+      end: 105.0
+      energy: 0.85
+      mood: "uplifting, wide"
+    - name: "Verse 2"
+      start: 105.0
+      end: 150.0
+      energy: 0.5
+      mood: "reflective, building"
+    - name: "Outro"
+      start: 150.0
+      end: 210.0
+      energy: 0.15
+      mood: "fading, peaceful"
+
+vibe:
+  palette:
+    name: "Warm to Cool Arc"
+    colors:
+      - "#FF9933"
+      - "#FF6600"
+      - "#3366FF"
+      - "#00CCFF"
+    description: "Warm amber intro building to cool blue chorus"
+  intensity_curve: "low → medium → high → medium → low"
+  movement_style: "static in verses, slow sweep in chorus"
+  beam_style: "wide wash"
+  mood_keywords: ["intimate", "concert", "emotional"]
+  description: "A warm-to-cool emotional arc — the intro and outro sit in amber warmth, the chorus opens up into bright cool blue."
+
+cues:
+  # ── Intro ──────────────────────────────────────────
+  - number: 1
+    label: "Intro Open"
+    section: "Intro"
+    timestamp: 0.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "20"
+      color: "#FF9933"
+    fade_time: 4.0
+
+  - number: 2
+    label: "Intro Build"
+    section: "Intro"
+    timestamp: 15.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "35"
+      color: "#FF6600"
+    fade_time: 3.0
+
+  # ── Verse 1 ────────────────────────────────────────
+  - number: 3
+    label: "Verse 1 Open"
+    section: "Verse 1"
+    timestamp: 30.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "50"
+      color: "#FF9933"
+    fade_time: 2.0
+
+  - number: 4
+    label: "Verse 1 Mid"
+    section: "Verse 1"
+    timestamp: 48.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "55"
+      color: "#FF8833"
+    fade_time: 2.0
+
+  - number: 5
+    label: "Verse 1 Swell"
+    section: "Verse 1"
+    timestamp: 62.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "65"
+      color: "#FF6600"
+    fade_time: 1.5
+
+  # ── Chorus 1 ───────────────────────────────────────
+  - number: 6
+    label: "Chorus 1 Hit"
+    section: "Chorus 1"
+    timestamp: 75.0
+    attributes:
+      dimmer: "Full"
+      color: "#3366FF"
+    fade_time: 0.5
+
+  - number: 7
+    label: "Chorus 1 Mid-A"
+    section: "Chorus 1"
+    timestamp: 80.0
+    attributes:
+      dimmer: "Full"
+      color: "#00CCFF"
+    fade_time: 1.0
+
+  - number: 8
+    label: "Chorus 1 Mid-B"
+    section: "Chorus 1"
+    timestamp: 87.0
+    attributes:
+      dimmer: "Full"
+      color: "#3366FF"
+    fade_time: 1.0
+
+  - number: 9
+    label: "Chorus 1 Close"
+    section: "Chorus 1"
+    timestamp: 97.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "70"
+      color: "#9933FF"
+    fade_time: 2.5
+
+  # ── Verse 2 ────────────────────────────────────────
+  - number: 10
+    label: "Verse 2 Open"
+    section: "Verse 2"
+    timestamp: 105.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "55"
+      color: "#FF9933"
+    fade_time: 2.0
+
+  - number: 11
+    label: "Verse 2 Build"
+    section: "Verse 2"
+    timestamp: 130.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "70"
+      color: "#FF6600"
+    fade_time: 1.5
+
+  - number: 12
+    label: "Verse 2 Peak"
+    section: "Verse 2"
+    timestamp: 145.0
+    attributes:
+      dimmer: "80"
+      color: "#FF3366"
+    fade_time: 1.0
+
+  # ── Outro ──────────────────────────────────────────
+  - number: 13
+    label: "Outro Drop"
+    section: "Outro"
+    timestamp: 150.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "40"
+      color: "#FF9933"
+    fade_time: 3.0
+
+  - number: 14
+    label: "Outro Fade"
+    section: "Outro"
+    timestamp: 175.0
+    preset: "warm_wash"
+    attributes:
+      dimmer: "20"
+      color: "#FF8833"
+    fade_time: 5.0
+
+  - number: 15
+    label: "Blackout"
+    section: "Outro"
+    timestamp: 208.0
+    preset: "blackout"
+    fade_time: 2.0
+
+# Show-level preset overrides (warm_wash boosted for demo)
+preset_overrides:
+  warm_wash:
+    name: "Warm Wash"
+    description: "Show-level override: slightly brighter than rig default"
+    attributes:
+      dimmer: "85"
+      color: "Warm Amber"
+    channels: "2"
+    tags: ["warm", "wash", "override"]
+
+notes: >
+  Demo show for RayFlow. Illustrates the full data model: rig reference,
+  5-section song structure, vibe with colour palette, 15 cues across sections,
+  and a show-level preset override.
+  Run: rayflow show context "All In Time Demo" --json
