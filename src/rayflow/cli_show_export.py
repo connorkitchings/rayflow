@@ -261,13 +261,12 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
     ) -> None:
         """Export a MA3 Timecode XML for the show's cue timestamps.
 
-        Generates a GMA3-format Timecode XML where each cue fires a Go+ on the
-        target sequence at the cue's timestamp.  Import into grandMA3 via
+        Generates a GMA3-format Timecode XML where each cue fires a Goto event
+        on the target sequence at the cue's timestamp.  Import into grandMA3 via
         Import -> Timecode Pool.
 
-        WARNING: The event schema is inferred from MA3 2.3.2.0 patterns.
-        Validate the imported XML in the MA3 Timecode Viewer before relying on
-        it for playback.
+        WARNING: The event schema is based on captured MA3 2.3.2.0 exports.
+        Validate imported event playback before relying on it for a show.
         """
         from rayflow.shows.serializers import load_show
         from rayflow.shows.timecode_export import export_timecode_xml
@@ -279,15 +278,18 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
         show = load_show(path)
 
-        xml_str = export_timecode_xml(show, sequence=sequence)
+        try:
+            xml_str = export_timecode_xml(show, sequence=sequence)
+        except ValueError as e:
+            typer.echo(f"Error: {e}", err=True)
+            raise typer.Exit(code=1)
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(xml_str, encoding="utf-8")
+        # MA3 strictly requires a UTF-8 BOM, which utf-8-sig provides
+        output.write_text(xml_str, encoding="utf-8-sig")
 
         cue_count = len(show.cues)
         console.print(f"[green]Timecode XML exported[/green] to {output}")
         console.print(f"  Show: {show_name}")
         console.print(f"  Sequence/Executor: {sequence}")
         console.print(f"  Cue events: {cue_count}")
-        console.print(
-            "  [yellow]Schema is inferred — validate in MA3 Timecode Viewer[/yellow]"
-        )
+        console.print("  [yellow]Validate import/playback in MA3 before use[/yellow]")

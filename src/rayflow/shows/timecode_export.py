@@ -1,15 +1,14 @@
 """MA3 Timecode XML export.
 
 Generates a grandMA3 2.3.2.0-compatible GMA3 Timecode XML document from a
-RayFlow Show.  Each cue in the show maps to one timecode event that fires a
-"Go+" on the target sequence at the cue's timestamp.
+RayFlow Show.  Each cue in the show maps to one timecode event that performs
+a ``Goto`` on the target sequence at the cue's timestamp.
 
 .. warning::
-    The event schema is inferred from the MA3 2.3.2.0 Timecode track skeleton
-    captured on 2026-05-19 plus MA3 documentation patterns.  The generated XML
-    **must be validated against a running grandMA3 onPC instance** before the
-    timecode blocker is considered fully resolved.  See:
-    data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml
+    The event schema is based on local grandMA3 onPC 2.3.2.0 exports captured
+    from ``~/MALightingTechnology/gma3_library/datapools/timecodes/findme2.xml``.
+    The generated XML still needs import/playback validation in MA3 before the
+    Phase 7 timecode milestone is considered fully closed.
 """
 
 from __future__ import annotations
@@ -45,7 +44,8 @@ def export_timecode_xml(
         The MA3 sequence (executor) number that receives Go+ events.
         Defaults to 1.
     frame_rate:
-        Frames per second used for the timecode display.  Defaults to 30.
+        Reserved for future frame-display support.  MA3 stores event times as
+        decimal seconds in exported Timecode XML.
 
     Returns
     -------
@@ -63,6 +63,7 @@ def export_timecode_xml(
 
     root = _build_root(show, cues, sequence=sequence, frame_rate=frame_rate)
     indent(root, space="    ")
+
     xml_bytes = tostring(root, encoding="unicode", xml_declaration=False)
     header = '<?xml version="1.0" encoding="UTF-8"?>\n'
     return header + xml_bytes + "\n"
@@ -83,30 +84,6 @@ def _new_guid() -> str:
     return " ".join(f"{b:02X}" for b in raw)
 
 
-def _seconds_to_tc(seconds: float) -> str:
-    """Convert a float seconds value to MA3 HH:MM:SS.mmm format.
-
-    Examples
-    --------
-    >>> _seconds_to_tc(0.0)
-    '00:00:00.000'
-    >>> _seconds_to_tc(90.5)
-    '00:01:30.500'
-    >>> _seconds_to_tc(3661.25)
-    '01:01:01.250'
-    """
-    if seconds < 0:
-        raise ValueError(f"seconds must be >= 0, got {seconds}")
-    total_ms = round(seconds * 1000)
-    ms = total_ms % 1000
-    total_s = total_ms // 1000
-    secs = total_s % 60
-    total_m = total_s // 60
-    mins = total_m % 60
-    hours = total_m // 60
-    return f"{hours:02d}:{mins:02d}:{secs:02d}.{ms:03d}"
-
-
 def _build_root(
     show: Show,
     cues: list[Cue],
@@ -117,7 +94,7 @@ def _build_root(
     """Build the full GMA3 XML element tree."""
     root = Element("GMA3", {"DataVersion": "2.3.2.0"})
 
-    # Duration: use song duration; MA3 accepts decimal seconds.
+    # Duration and event times are exported by MA3 as decimal seconds.
     duration = f"{show.song.duration:.2f}"
     name = show.name[:64]  # MA3 pool name length limit (observed: ~64 chars)
 
@@ -146,8 +123,6 @@ def _build_root(
         {"Name": "Marker", "Guid": _new_guid()},
     )
 
-    # Cue-trigger track — one Track per sequence target.
-    # Based on MA3 pattern: a single Track holds all events for one executor.
     _build_cue_track(track_group, cues, sequence=sequence, duration=show.song.duration)
 
     return root
@@ -160,12 +135,13 @@ def _build_cue_track(
     sequence: int,
     duration: float,
 ) -> None:
-    """Add a Track element with one Event per cue."""
+    """Add a Sequence-targeted Track element with one CmdEvent per cue."""
     track = SubElement(
         track_group,
         "Track",
         {
             "Guid": _new_guid(),
+            "Target": f"ShowData.DataPools.Default.Sequences.{sequence}",
             "Play": "",
             "Rec": "",
         },
@@ -184,22 +160,42 @@ def _build_cue_track(
         },
     )
 
-    # One Event per cue.  MA3 event attributes (inferred from MA3 2.3 docs):
-    #   Time     — timecode position in HH:MM:SS.mmm
-    #   Action   — "Go+" fires the next cue in the sequence
-    #   Executor — executor number (= sequence number in default page layout)
-    #
-    # NOTE: This schema is inferred.  Validate by importing into MA3 and
-    # checking that the Timecode Viewer shows events at the correct times.
+    cmd_sub_track = SubElement(time_range, "CmdSubTrack")
+
+    # Captured MA3 event exports use CmdEvent + RealtimeCmd records with
+    # decimal-second Time values and cue destinations encoded in thousandths.
     for cue in cues:
-        SubElement(
-            time_range,
-            "Event",
+        cmd_event = SubElement(
+            cmd_sub_track,
+            "CmdEvent",
             {
-                "Guid": _new_guid(),
-                "Time": _seconds_to_tc(cue.timestamp),
-                "Action": "Go+",
-                "Executor": str(sequence),
-                "CueName": cue.label,
+                "Name": "Goto",
+                "Time": f"{cue.timestamp:.3f}",
+                "CueDestination": f"Cue {cue.number}",
+            },
+        )
+        SubElement(
+            cmd_event,
+            "RealtimeCmd",
+            {
+                "Type": "Key",
+                "Source": "Original",
+                "UserProfile": "0",
+                "User": "0",
+                "Status": "On",
+                "IsRealtime": "0",
+                "IsXFade": "0",
+                "IgnoreFollow": "0",
+                "IgnoreCommand": "0",
+                "Assert": "0",
+                "IgnoreNetwork": "0",
+                "FromTriggerNode": "0",
+                "IgnoreExecTime": "0",
+                "IssuedByTimecode": "0",
+                "FromLocalHardwareFader": "1",
+                "IgnoreExecXFade": "0",
+                "IsExecXFade": "0",
+                "ExecToken": "Goto",
+                "ValCueDestination": f"0.5.0.{cue.number * 1000}",
             },
         )

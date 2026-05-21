@@ -1,6 +1,7 @@
 """CLI tests for show management commands."""
 
 import json
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from typer.testing import CliRunner
@@ -1221,6 +1222,11 @@ cues:
         assert "MA3 show export created" in result.output
         assert "Sequence: 7" in result.output
         assert (output_dir / "rig.mvr").exists()
+        timecode_path = output_dir / "timecode.xml"
+        assert timecode_path.read_bytes().startswith(b"\xef\xbb\xbf")
+        timecode = ET.fromstring(timecode_path.read_text(encoding="utf-8-sig"))
+        assert timecode.find(".//Track").attrib["Target"].endswith(".7")
+        assert timecode.find(".//CmdEvent").attrib["Name"] == "Goto"
         commands = (output_dir / "ma3_push_commands.txt").read_text()
         assert "Delete Sequence 7" in commands
         assert "Store Sequence 7" in commands
@@ -1234,6 +1240,87 @@ cues:
         assert metadata["rig"] == "Export Rig"
         assert metadata["sequence"] == 7
         assert metadata["cue_count"] == 1
+
+    def test_show_export_timecode_writes_ma3_xml_with_bom(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "First Look"
+    section: "Intro"
+    timestamp: 0
+    fade_time: 2.0
+"""
+        )
+        output_path = tmp_path / "timecode.xml"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-timecode",
+                "Export Show",
+                "--output",
+                str(output_path),
+                "--sequence",
+                "4",
+                "--dir",
+                str(show_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Timecode XML exported" in result.output
+        assert output_path.read_bytes().startswith(b"\xef\xbb\xbf")
+        root = ET.fromstring(output_path.read_text(encoding="utf-8-sig"))
+        assert root.attrib["DataVersion"] == "2.3.2.0"
+        assert root.find(".//Track").attrib["Target"].endswith(".4")
+        event = root.find(".//CmdEvent")
+        assert event.attrib["Name"] == "Goto"
+        assert event.attrib["Time"] == "0.000"
+
+    def test_show_export_timecode_rejects_invalid_sequence(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Export Show.yaml").write_text(
+            """name: "Export Show"
+rig_name: "Export Rig"
+song:
+  title: "Export Song"
+  artist: "Artist"
+  duration: 180
+cues: []
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-timecode",
+                "Export Show",
+                "--output",
+                str(tmp_path / "timecode.xml"),
+                "--sequence",
+                "0",
+                "--dir",
+                str(show_dir),
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "sequence must be > 0" in result.output
 
     def test_show_export_bundle_missing_show(self, tmp_path: Path) -> None:
         result = runner.invoke(

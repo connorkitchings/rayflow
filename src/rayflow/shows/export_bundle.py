@@ -61,7 +61,7 @@ def export_show_bundle(
 
     timecode_path = target_dir / "timecode.xml"
     timecode_xml = export_timecode_xml(show, sequence=sequence)
-    timecode_path.write_text(timecode_xml, encoding="utf-8")
+    timecode_path.write_text(timecode_xml, encoding="utf-8-sig")
 
     readme_path = target_dir / "README.md"
     readme_path.write_text(
@@ -166,7 +166,8 @@ Generated for grandMA3 onPC 2.3.2.0.
 
 - `{mvr_filename}` — MVR rig export for MA3 patch and 3D import.
 - `{commands_filename}` — dry-run OSC command list for Sequence {sequence}.
-- `{timecode_filename}` — MA3 Timecode XML (inferred schema; validate before use).
+- `{timecode_filename}` — MA3 Timecode XML based on captured MA3 2.3.2.0
+  event exports; validate import/playback before use.
 - `metadata.json` — bundle metadata for automation and review.
 
 ## Import Workflow
@@ -184,6 +185,6 @@ Generated for grandMA3 onPC 2.3.2.0.
 5. Import `{timecode_filename}` into grandMA3 via *Import → Timecode Pool*
    and validate the events against the Timecode Viewer.
 
-> **Note:** The Timecode XML uses an inferred event schema. Verify in MA3 before
-> relying on it for show playback.
+> **Note:** The Timecode XML follows captured MA3 2.3.2.0 event exports. Verify
+> import/playback in MA3 before relying on it for show playback.
 """

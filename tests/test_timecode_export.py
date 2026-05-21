@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import pytest
 
 from rayflow.shows.models import Cue, Show, Song
-from rayflow.shows.timecode_export import _seconds_to_tc, export_timecode_xml
+from rayflow.shows.timecode_export import export_timecode_xml
 
 # ---------------------------------------------------------------------------
 # Helpers / fixtures
@@ -26,48 +26,6 @@ def _make_show(
 def _parse(xml_str: str) -> ET.Element:
     """Parse XML string and return root element."""
     return ET.fromstring(xml_str)
-
-
-# ---------------------------------------------------------------------------
-# _seconds_to_tc
-# ---------------------------------------------------------------------------
-
-
-class TestSecondsToTc:
-    def test_zero(self):
-        assert _seconds_to_tc(0.0) == "00:00:00.000"
-
-    def test_sub_second(self):
-        assert _seconds_to_tc(0.5) == "00:00:00.500"
-
-    def test_whole_seconds(self):
-        assert _seconds_to_tc(90.0) == "00:01:30.000"
-
-    def test_fractional_seconds(self):
-        assert _seconds_to_tc(90.5) == "00:01:30.500"
-
-    def test_minutes_and_seconds(self):
-        assert _seconds_to_tc(75.25) == "00:01:15.250"
-
-    def test_over_one_hour(self):
-        assert _seconds_to_tc(3661.25) == "01:01:01.250"
-
-    def test_millisecond_precision(self):
-        # 1 ms
-        assert _seconds_to_tc(0.001) == "00:00:00.001"
-
-    def test_rounding(self):
-        # 0.9999 seconds should round to 1.000
-        result = _seconds_to_tc(0.9999)
-        assert result == "00:00:01.000"
-
-    def test_negative_raises(self):
-        with pytest.raises(ValueError, match="seconds must be >= 0"):
-            _seconds_to_tc(-1.0)
-
-    def test_song_duration(self):
-        # Typical 3:30 song
-        assert _seconds_to_tc(210.0) == "00:03:30.000"
 
 
 # ---------------------------------------------------------------------------
@@ -177,6 +135,11 @@ class TestTrackStructure:
         assert tr is not None
         assert tr.attrib["Duration"] == "To End"
 
+    def test_cmd_sub_track_present(self):
+        show = _make_show()
+        root = _parse(export_timecode_xml(show))
+        assert root.find(".//CmdSubTrack") is not None
+
 
 # ---------------------------------------------------------------------------
 # export_timecode_xml — Events (cue mapping)
@@ -187,14 +150,14 @@ class TestTimecodeEvents:
     def test_empty_show_has_no_events(self):
         show = _make_show(cues=[])
         root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
+        events = root.findall(".//CmdEvent")
         assert len(events) == 0
 
     def test_single_cue_produces_one_event(self):
         cue = Cue(number=1, label="Intro", section="Intro", timestamp=10.0)
         show = _make_show(cues=[cue])
         root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
+        events = root.findall(".//CmdEvent")
         assert len(events) == 1
 
     def test_three_cues_produce_three_events(self):
@@ -205,7 +168,7 @@ class TestTimecodeEvents:
         ]
         show = _make_show(cues=cues)
         root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
+        events = root.findall(".//CmdEvent")
         assert len(events) == 3
 
     def test_event_times_match_cue_timestamps(self):
@@ -216,11 +179,11 @@ class TestTimecodeEvents:
         ]
         show = _make_show(cues=cues)
         root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
+        events = root.findall(".//CmdEvent")
         times = {e.attrib["Time"] for e in events}
-        assert "00:00:00.000" in times
-        assert "00:01:15.000" in times
-        assert "00:01:30.500" in times
+        assert "0.000" in times
+        assert "75.000" in times
+        assert "90.500" in times
 
     def test_events_are_sorted_by_timestamp(self):
         # Pass cues out of order; XML events should be sorted.
@@ -231,41 +194,52 @@ class TestTimecodeEvents:
         ]
         show = _make_show(cues=cues)
         root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
-        times = [e.attrib["Time"] for e in events]
+        events = root.findall(".//CmdEvent")
+        times = [float(e.attrib["Time"]) for e in events]
         assert times == sorted(times)
 
-    def test_event_action_is_go_plus(self):
+    def test_event_action_is_goto(self):
         cue = Cue(number=1, label="Hit", section="S", timestamp=5.0)
         show = _make_show(cues=[cue])
         root = _parse(export_timecode_xml(show))
-        event = root.find(".//Event")
-        assert event.attrib["Action"] == "Go+"
+        event = root.find(".//CmdEvent")
+        assert event.attrib["Name"] == "Goto"
+        assert event.attrib["CueDestination"] == "Cue 1"
+
+    def test_event_has_captured_realtime_command_shape(self):
+        cue = Cue(number=2, label="Hit", section="S", timestamp=5.0)
+        show = _make_show(cues=[cue])
+        root = _parse(export_timecode_xml(show))
+        realtime_cmd = root.find(".//CmdEvent/RealtimeCmd")
+        assert realtime_cmd is not None
+        assert realtime_cmd.attrib == {
+            "Type": "Key",
+            "Source": "Original",
+            "UserProfile": "0",
+            "User": "0",
+            "Status": "On",
+            "IsRealtime": "0",
+            "IsXFade": "0",
+            "IgnoreFollow": "0",
+            "IgnoreCommand": "0",
+            "Assert": "0",
+            "IgnoreNetwork": "0",
+            "FromTriggerNode": "0",
+            "IgnoreExecTime": "0",
+            "IssuedByTimecode": "0",
+            "FromLocalHardwareFader": "1",
+            "IgnoreExecXFade": "0",
+            "IsExecXFade": "0",
+            "ExecToken": "Goto",
+            "ValCueDestination": "0.5.0.2000",
+        }
 
     def test_event_executor_matches_sequence(self):
         cue = Cue(number=1, label="Hit", section="S", timestamp=5.0)
         show = _make_show(cues=[cue])
         root = _parse(export_timecode_xml(show, sequence=3))
-        event = root.find(".//Event")
-        assert event.attrib["Executor"] == "3"
-
-    def test_event_cue_name_matches_label(self):
-        cue = Cue(number=1, label="Chorus Hit", section="Chorus", timestamp=45.0)
-        show = _make_show(cues=[cue])
-        root = _parse(export_timecode_xml(show))
-        event = root.find(".//Event")
-        assert event.attrib["CueName"] == "Chorus Hit"
-
-    def test_all_events_have_unique_guids(self):
-        cues = [
-            Cue(number=i, label=f"Cue {i}", section="S", timestamp=float(i * 10))
-            for i in range(1, 11)
-        ]
-        show = _make_show(cues=cues)
-        root = _parse(export_timecode_xml(show))
-        events = root.findall(".//Event")
-        guids = [e.attrib["Guid"] for e in events]
-        assert len(guids) == len(set(guids))
+        track = root.find(".//Track")
+        assert track.attrib["Target"] == "ShowData.DataPools.Default.Sequences.3"
 
 
 # ---------------------------------------------------------------------------
@@ -293,15 +267,15 @@ class TestExportTimecodeXmlValidation:
         cue = Cue(number=1, label="Hit", section="S", timestamp=5.0)
         show = _make_show(cues=[cue])
         root = _parse(export_timecode_xml(show))
-        event = root.find(".//Event")
-        assert event.attrib["Executor"] == "1"
+        track = root.find(".//Track")
+        assert track.attrib["Target"] == "ShowData.DataPools.Default.Sequences.1"
 
     def test_sequence_5_in_executor(self):
         cue = Cue(number=1, label="Hit", section="S", timestamp=5.0)
         show = _make_show(cues=[cue])
         root = _parse(export_timecode_xml(show, sequence=5))
-        event = root.find(".//Event")
-        assert event.attrib["Executor"] == "5"
+        track = root.find(".//Track")
+        assert track.attrib["Target"] == "ShowData.DataPools.Default.Sequences.5"
 
     def test_show_name_truncated_to_64_chars(self):
         long_name = "A" * 100

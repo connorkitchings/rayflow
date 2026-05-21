@@ -2,15 +2,16 @@
 
 **Date:** 2026-05-19  
 **grandMA3 onPC version:** 2.3.2.0  
-**Fixture:** `data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml`
+**Initial fixture:** `data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml`  
+**Event-bearing local capture:** `~/MALightingTechnology/gma3_library/datapools/timecodes/findme2.xml`
 
 ## Result
 
-A real MA3 2.3.2.0 Timecode export was captured, but it is a track skeleton, not the final event-bearing fixture required for `rayflow show export-timecode`.
+A real MA3 2.3.2.0 Timecode export was initially captured as a track skeleton. A later local export, `findme2.xml`, captured event-bearing `CmdEvent` / `RealtimeCmd` records and is now the source of truth for RayFlow's first timecode XML generator.
 
-The captured object proves the top-level Timecode, TrackGroup, MarkerTrack, Track, and TimeRange XML shape. It does not yet prove the event XML schema, cue target reference format, or Go+ cue action encoding.
+The combined captures prove the top-level Timecode, TrackGroup, MarkerTrack, Track, TimeRange, `CmdSubTrack`, `CmdEvent`, and `RealtimeCmd` shape used by grandMA3 onPC 2.3.2.0. Import/playback validation is still required before the Phase 7 timecode milestone is considered complete.
 
-Keep `show export-timecode` blocked until a Timecode export containing at least two cue events is captured and documented.
+`show export-timecode` may generate XML from the captured schema, but every generated file should still be validated in MA3 before relying on it for playback.
 
 ## Capture Commands
 
@@ -96,19 +97,40 @@ Captured child objects:
 | `Track` | Contains `Guid`, `Play=""`, and `Rec=""`; target assignment was not captured. |
 | `TimeRange` | Contains `Guid`, `Duration="To End"`, `Play=""`, and `Rec=""`; events are expected to be children of this element per MA3 docs. |
 
-## Event Schema Gap
+## Event Schema Capture
 
-MA's Timecode docs state that events are children of `TimeRange`, and that manually created cue events only trigger correctly when the Timecode show's Playback and Record setting is `Manual Events`.
+The local `findme2.xml` export captured both `Go+` command events and a sequence-targeted `Goto` event. RayFlow uses the `Goto` form because each cue timestamp maps to an explicit cue number.
 
-The captured XML does not contain:
+Captured `Goto` structure:
 
-- Track target reference to `Sequence 1`.
-- Event timestamp attributes.
-- Event token/action encoding for `Go+`.
-- Cue destination/reference encoding.
-- Playback and Record setting serialization.
+```xml
+<Track Target="ShowData.DataPools.Default.Sequences.Default" Play="" Rec="">
+    <TimeRange Duration="To End" Play="" Rec="">
+        <CmdSubTrack>
+            <CmdEvent Name="Goto" Time="6.150" CueDestination="Cue 1">
+                <RealtimeCmd Type="Key" Source="Original" UserProfile="0"
+                    User="1" Status="On" IsRealtime="0" IsXFade="0"
+                    IgnoreFollow="0" IgnoreCommand="0" Assert="0"
+                    IgnoreNetwork="0" FromTriggerNode="0" IgnoreExecTime="0"
+                    IssuedByTimecode="0" FromLocalHardwareFader="1"
+                    IgnoreExecXFade="0" IsExecXFade="0"
+                    Object="13.13.0.5.0" ExecToken="Goto"
+                    ValCueDestination="0.5.0.1000"/>
+            </CmdEvent>
+        </CmdSubTrack>
+    </TimeRange>
+</Track>
+```
 
-Without those fields, RayFlow cannot safely generate importable Timecode XML.
+RayFlow's generated XML intentionally keeps the captured command shape but omits the captured `Object` field because it appears to be a show-local object reference. Sequence targeting remains configurable through the `Track Target` attribute.
+
+Captured details used by RayFlow:
+
+- Time values are decimal seconds, such as `Time="6.150"`, not `HH:MM:SS.mmm`.
+- Sequence tracks use `Target="ShowData.DataPools.Default.Sequences.<sequence>"`.
+- Cue triggers are `CmdEvent Name="Goto"` with `CueDestination="Cue <number>"`.
+- `RealtimeCmd` uses `ExecToken="Goto"` and `ValCueDestination="0.5.0.<cue_number * 1000>"`.
+- MA3 exports Timecode XML as UTF-8 with BOM; RayFlow writes timecode XML with `utf-8-sig`.
 
 ## Automation Findings
 
@@ -117,21 +139,12 @@ Without those fields, RayFlow cannot safely generate importable Timecode XML.
 - The MA3 2.3 manual still documents event creation through Timecode Viewer UI, not a command-line event creation syntax.
 - A direct WebSocket command injection helper was tested against MA3 Web Remote after Playwright stalled, but it did not produce additional exports; it is not a reliable path yet.
 
-## Next Required Capture
+## Next Required Validation
 
-Use the MA3 Timecode Viewer with Setup active to create the missing event-bearing fixture:
-
-1. Open or create `RayFlow Minimal`.
-2. Set duration to `10s`.
-3. Keep source/internal timecode as the MVP target.
-4. Create one Track Group.
-5. Create one Track targeting `Sequence 1`.
-6. Ensure Playback and Record is `Manual Events`.
-7. Add two `Go+` cue events at `00:00:01:00` and `00:00:05:00`.
-8. Export:
+Use RayFlow to generate a timecode XML, import it into MA3, and confirm that cue events appear and fire correctly:
 
 ```text
-Export Timecode "RayFlow Minimal" "rayflow_minimal_timecode_events"
+rayflow show export-timecode <show> --output /tmp/timecode.xml --sequence 1
 ```
 
-Then copy the export into `data/ma3_exports/samples/` and update this note with the event element mapping.
+Then import `/tmp/timecode.xml` into the Timecode Pool and validate event playback against the Timecode Viewer. If MA3 rewrites the imported XML, capture the re-export and compare it with RayFlow's generated file.
