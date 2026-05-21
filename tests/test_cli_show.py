@@ -1241,9 +1241,7 @@ cues:
         assert metadata["sequence"] == 7
         assert metadata["cue_count"] == 1
 
-    def test_show_export_timecode_writes_ma3_xml_with_bom(
-        self, tmp_path: Path
-    ) -> None:
+    def test_show_export_timecode_writes_ma3_xml_with_bom(self, tmp_path: Path) -> None:
         show_dir = tmp_path / "shows"
         show_dir.mkdir()
         (show_dir / "Export Show.yaml").write_text(
