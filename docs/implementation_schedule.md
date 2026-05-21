@@ -93,9 +93,9 @@
 |------|-------------|--------|-------|
 | Sequence build hardening | `--sequence` option on push commands, sequence labeling | ✅ Done | `store_sequence`, `label_sequence`, `delete_sequence`, `clear_all` builders; CLI `--sequence` default 1 |
 | MA3 show export | Export cues/rig to MA3-importable format | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, and metadata bundle |
-| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | `timecode_export.py` generates GMA3 XML from event-bearing MA3 2.3.2.0 XML capture; requires MA3 import/playback validation |
+| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | `timecode_export.py` generates GMA3 XML from event-bearing MA3 2.3.2.0 XML capture; clean import/re-export validated after target Sequence cues exist |
 | Show library | Versioned show storage | ✅ Done | `show save/versions/restore/diff`; local YAML snapshots with metadata |
-| Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, show library, and timecode tests added; MA3 import/playback validation pending |
+| Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, show library, and timecode tests added; live playback observation still pending |
 
 ---
 
@@ -118,9 +118,9 @@
 | GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
 | AI prompt quality | High | Iterate on prompt templates, provide rich context bundles | ☐ Open |
 | MA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
-| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ⚠ Validation pending — event XML schema captured locally; import/playback still needs MA3 verification |
+| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ⚠ Playback pending — clean XML import/re-export validated; visual playback still needs observation |
 | Scope creep on AI features | High | Phase 6 is MVP: cue generation from vibe first | ☐ Open |
 
 ---
 
-*Last updated: 2026-05-21 (event-bearing MA3 timecode XML captured; import/playback validation pending)*
+*Last updated: 2026-05-21 (MA3 timecode XML clean import/re-export validated; playback observation pending)*

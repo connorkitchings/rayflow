@@ -24,9 +24,15 @@ from rayflow.console.cue import (
 
 
 def test_basic_command_builders():
-    assert store_cue(1).command == "Store Cue 1"
+    assert store_cue(1).command == "Store Cue 1 /Overwrite /NoConfirmation"
+    assert (
+        store_cue(1, sequence=3).command
+        == "Store Sequence 3 Cue 1 /Overwrite /NoConfirmation"
+    )
     assert label_cue(1, "Intro").command == 'Label Cue 1 "Intro"'
-    assert set_cue_time(1, 2.5).command == "Cue 1 Time 2.5"
+    assert label_cue(1, "Intro", sequence=3).command == 'Label Sequence 3 Cue 1 "Intro"'
+    assert set_cue_time(1, 2.5).command == "Cue 1 CueFade 2.5"
+    assert set_cue_time(1, 2.5, sequence=3).command == "Sequence 3 Cue 1 CueFade 2.5"
     assert go_sequence(2).command == "Go Sequence 2"
     assert channel_at("1 Thru 8", "Full").command == "Channel 1 Thru 8 At Full"
     assert clear_programmer().command == "Clear"
@@ -62,9 +68,9 @@ def test_cue_step_command_order():
 
     assert commands == [
         "Channel 1 Thru 8 At Full",
-        "Store Cue 1",
+        "Store Cue 1 /Overwrite /NoConfirmation",
         'Label Cue 1 "Intro"',
-        "Cue 1 Time 2.5",
+        "Cue 1 CueFade 2.5",
         "Clear",
     ]
 
@@ -83,11 +89,11 @@ def test_cue_stack_generates_deterministic_commands():
 
     assert commands == [
         "Channel 1 At Full",
-        "Store Cue 1",
+        "Store Cue 1 /Overwrite /NoConfirmation",
         "Clear",
         "Channel 2 At 50",
-        "Store Cue 2",
-        "Cue 2 Time 1.5",
+        "Store Cue 2 /Overwrite /NoConfirmation",
+        "Cue 2 CueFade 1.5",
     ]
 
 
@@ -153,15 +159,19 @@ def test_cue_step_requires_both_channels_and_at():
 
 class TestSequenceCommands:
     def test_store_sequence(self) -> None:
-        assert store_sequence(1).command == "Store Sequence 1"
-        assert store_sequence(5).command == "Store Sequence 5"
+        assert (
+            store_sequence(1).command == "Store Sequence 1 /Overwrite /NoConfirmation"
+        )
+        assert (
+            store_sequence(5).command == "Store Sequence 5 /Overwrite /NoConfirmation"
+        )
 
     def test_label_sequence(self) -> None:
         cmd = label_sequence(1, "My Show")
         assert cmd.command == 'Label Sequence 1 "My Show"'
 
     def test_delete_sequence(self) -> None:
-        assert delete_sequence(3).command == "Delete Sequence 3"
+        assert delete_sequence(3).command == "Delete Sequence 3 /NoConfirmation"
 
     def test_clear_all(self) -> None:
         assert clear_all().command == "ClearAll"

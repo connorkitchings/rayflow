@@ -132,6 +132,44 @@ Captured details used by RayFlow:
 - `RealtimeCmd` uses `ExecToken="Goto"` and `ValCueDestination="0.5.0.<cue_number * 1000>"`.
 - MA3 exports Timecode XML as UTF-8 with BOM; RayFlow writes timecode XML with `utf-8-sig`.
 
+## Live Round-Trip Validation
+
+On 2026-05-21, RayFlow generated and imported a 15-event sample Timecode XML into grandMA3 onPC 2.3.2.0 after first creating the target Sequence 1 cues through OSC.
+
+The first import attempt over an existing Timecode object accepted timestamps but stripped the target and cue destination fields on re-export. A clean import path worked:
+
+```text
+Delete Timecode 1 /NoConfirmation
+Import Timecode Library "rayflow_sample_timecode.xml" At Timecode 1
+Export Timecode 1 "rayflow_sample_timecode_roundtrip_3"
+```
+
+The successful re-export preserved:
+
+- Track target rewritten by MA3 to the resolved sequence name:
+  `ShowData.DataPools.Default.Sequences.All In Time`.
+- All 15 `CmdEvent Name="Goto"` events.
+- Cue destinations rewritten from `Cue <n>` to cue labels, such as `Intro Open`.
+- `ExecToken="Goto"` and `ValCueDestination="0.5.0.<cue_number * 1000>"` for every cue.
+- Times above 60 seconds rewritten to MA3's display format, such as `1m02.000`.
+
+Validated automation requirements:
+
+- OSC command input must be enabled with `Receive=Yes`, `ReceiveCommand=Yes`, UDP port `8000`.
+- RayFlow must target the MA3 interface IP when loopback is not active, for example `10.0.0.241`.
+- Target sequence cues must exist before importing the Timecode XML.
+- Import Timecode into a clean Timecode slot; delete the old Timecode object first when replacing it.
+
+During cue-stack setup, MA3 accepted explicit sequence-targeted cue commands:
+
+```text
+Store Sequence 1 Cue 1 /Overwrite /NoConfirmation
+Label Sequence 1 Cue 1 "Intro Open"
+Set Sequence 1 Cue 1 CueFade "4"
+```
+
+MA3 rejected direct RayFlow color values such as `Channel 2 At #FF9933` and rejects channels if the show has no patched channel/fixture objects. Until fixture-aware color mapping is implemented, RayFlow's MA3 push path should send safe dimmer/intensity values only.
+
 ## Automation Findings
 
 - MA3 command-line export works for Timecode pool objects.
@@ -141,10 +179,10 @@ Captured details used by RayFlow:
 
 ## Next Required Validation
 
-Use RayFlow to generate a timecode XML, import it into MA3, and confirm that cue events appear and fire correctly:
+Use RayFlow to generate a timecode XML, import it into MA3, and confirm that cue events fire correctly during playback:
 
 ```text
 rayflow show export-timecode <show> --output /tmp/timecode.xml --sequence 1
 ```
 
-Then import `/tmp/timecode.xml` into the Timecode Pool and validate event playback against the Timecode Viewer. If MA3 rewrites the imported XML, capture the re-export and compare it with RayFlow's generated file.
+Then import `/tmp/timecode.xml` into a clean Timecode Pool object and validate event playback against the Timecode Viewer. Capture any MA3 re-export after playback validation and compare it with RayFlow's generated file.

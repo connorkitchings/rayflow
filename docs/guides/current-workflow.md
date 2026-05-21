@@ -98,6 +98,12 @@ When the command list looks correct and MA3 OSC input is configured:
 uv run rayflow show push-to-ma3 "My Show" --sequence 1 --execute
 ```
 
+For local onPC testing, use the MA3 interface IP if loopback is not active:
+
+```bash
+uv run rayflow show push-to-ma3 "My Show" --sequence 1 --ip 10.0.0.241 --execute
+```
+
 To push only one section:
 
 ```bash
@@ -105,12 +111,35 @@ uv run rayflow show push-section "My Show" --section "Chorus" --sequence 1
 uv run rayflow show push-section "My Show" --section "Chorus" --sequence 1 --execute
 ```
 
+## 6. Export And Import Timecode
+
+RayFlow generates MA3 Timecode XML for shows with cue timestamps:
+
+```bash
+uv run rayflow show export-timecode "My Show" \
+  --output ~/MALightingTechnology/gma3_library/datapools/timecodes/my_show_timecode.xml \
+  --sequence 1
+```
+
+Before importing Timecode XML, push the target sequence cues first. For a clean
+replacement in MA3:
+
+```text
+Delete Timecode 1 /NoConfirmation
+Import Timecode Library "my_show_timecode.xml" At Timecode 1
+```
+
 ## Current Boundary
 
-RayFlow does not yet generate importable MA3 Timecode XML. The current MA3-native
-path is:
+RayFlow's Timecode XML has clean import/re-export validation against grandMA3
+onPC 2.3.2.0, but final playback observation is still pending. The current
+MA3-native path is:
 
 1. Import the MVR rig.
 2. Push or review sequence/cue commands.
-3. Use MA3-native playback manually until the Timecode event XML schema is
-   captured.
+3. Import Timecode XML into a clean Timecode pool object.
+4. Verify event playback in the Timecode Viewer.
+
+The push path currently sends safe dimmer/intensity values only. Color palette
+values are preserved in RayFlow show data, but fixture-aware color mapping is a
+separate implementation step.

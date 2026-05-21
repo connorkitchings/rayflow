@@ -428,7 +428,7 @@ class TestConsoleCommands:
         assert result.exit_code == 0
         assert "Dry run" in result.output
         assert "Store Cue 1" in result.output
-        assert "Cue 1 Time 2.5" in result.output
+        assert "Cue 1 CueFade 2.5" in result.output
 
     @patch("rayflow.console.osc.Ma3OscClient")
     def test_console_cue_store_execute(self, mock_client_cls):
@@ -442,8 +442,8 @@ class TestConsoleCommands:
 
         assert result.exit_code == 0
         assert [call.args[0] for call in mock_client.send.call_args_list] == [
-            "Store Cue 1",
-            "Cue 1 Time 2.5",
+            "Store Cue 1 /Overwrite /NoConfirmation",
+            "Cue 1 CueFade 2.5",
         ]
 
     def test_console_sequence_go_dry_run(self):
@@ -490,7 +490,7 @@ class TestConsoleCommands:
         assert "Demo Stack" in result.output
         assert "Channel 1 Thru 8 At Full" in result.output
         assert "Store Cue 1" in result.output
-        assert "Cue 1 Time 2.5" in result.output
+        assert "Cue 1 CueFade 2.5" in result.output
         assert "Clear" in result.output
 
     @patch("rayflow.console.osc.Ma3OscClient")
@@ -528,10 +528,10 @@ class TestConsoleCommands:
         assert result.exit_code == 0
         assert [call.args[0] for call in mock_client.send.call_args_list] == [
             "Channel 1 At Full",
-            "Store Cue 1",
+            "Store Cue 1 /Overwrite /NoConfirmation",
             "Clear",
             "Channel 2 At 50",
-            "Store Cue 2",
+            "Store Cue 2 /Overwrite /NoConfirmation",
         ]
 
     def test_console_cue_stack_rejects_bad_json(self, tmp_path):

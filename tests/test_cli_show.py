@@ -483,7 +483,7 @@ presets:
         )
         assert result.exit_code == 0
         assert "Dry run" in result.output
-        assert "Store Cue 1" in result.output
+        assert "Store Sequence 1 Cue 1 /Overwrite /NoConfirmation" in result.output
         assert "Channel 1 Thru 4 At 80" in result.output
 
     def test_push_empty_show(self, tmp_path: Path) -> None:
@@ -524,8 +524,8 @@ presets: {}
             ],
         )
         assert result.exit_code == 0
-        assert "Delete Sequence 1" in result.output
-        assert "Store Sequence 1" in result.output
+        assert "Delete Sequence 1 /NoConfirmation" in result.output
+        assert "Store Sequence 1 /Overwrite /NoConfirmation" in result.output
 
 
 class TestShowPushSection:
@@ -585,8 +585,8 @@ presets: {}
         )
         assert result.exit_code == 0
         assert "Dry run" in result.output
-        assert "Store Cue 1" in result.output
-        assert "Store Cue 2" not in result.output
+        assert "Store Sequence 1 Cue 1 /Overwrite /NoConfirmation" in result.output
+        assert "Store Sequence 1 Cue 2 /Overwrite /NoConfirmation" not in result.output
 
 
 class TestShowUpdateSection:
@@ -1228,9 +1228,9 @@ cues:
         assert timecode.find(".//Track").attrib["Target"].endswith(".7")
         assert timecode.find(".//CmdEvent").attrib["Name"] == "Goto"
         commands = (output_dir / "ma3_push_commands.txt").read_text()
-        assert "Delete Sequence 7" in commands
+        assert "Delete Sequence 7 /NoConfirmation" in commands
         assert "Store Sequence 7" in commands
-        assert "Store Cue 1" in commands
+        assert "Store Sequence 7 Cue 1 /Overwrite /NoConfirmation" in commands
         readme = (output_dir / "README.md").read_text()
         assert "Import `rig.mvr` into grandMA3" in readme
         assert "dry-run OSC command list for Sequence 7" in readme

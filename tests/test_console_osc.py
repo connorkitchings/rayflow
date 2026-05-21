@@ -51,7 +51,7 @@ def test_ma3_osc_client_helper_methods_use_cmd_endpoint(mock_client_cls):
         "At 50",
         "Channel 1 Thru 8 At Full",
         "Clear",
-        "Cue 3 Time 1.5",
+        "Cue 3 CueFade 1.5",
     ]
 
 

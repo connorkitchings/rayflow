@@ -37,25 +37,52 @@ class CueStack:
     cues: list[CueStep]
 
 
-def store_cue(cue: int, label: str | None = None) -> Ma3Command:
+def store_cue(
+    cue: int,
+    label: str | None = None,
+    *,
+    sequence: int | None = None,
+) -> Ma3Command:
     """Build a Store Cue command."""
     _validate_positive_int("cue", cue)
-    return Ma3Command(command=f"Store Cue {cue}", label=label)
+    target = f"Sequence {sequence} Cue {cue}" if sequence is not None else f"Cue {cue}"
+    if sequence is not None:
+        _validate_positive_int("sequence", sequence)
+    return Ma3Command(
+        command=f"Store {target} /Overwrite /NoConfirmation",
+        label=label,
+    )
 
 
-def label_cue(cue: int, label: str) -> Ma3Command:
+def label_cue(
+    cue: int,
+    label: str,
+    *,
+    sequence: int | None = None,
+) -> Ma3Command:
     """Build a Label Cue command."""
     _validate_positive_int("cue", cue)
+    if sequence is not None:
+        _validate_positive_int("sequence", sequence)
     label = _validate_non_empty("label", label)
-    return Ma3Command(command=f'Label Cue {cue} "{label}"', label=label)
+    target = f"Sequence {sequence} Cue {cue}" if sequence is not None else f"Cue {cue}"
+    return Ma3Command(command=f'Label {target} "{label}"', label=label)
 
 
-def set_cue_time(cue: int, fade: float) -> Ma3Command:
+def set_cue_time(
+    cue: int,
+    fade: float,
+    *,
+    sequence: int | None = None,
+) -> Ma3Command:
     """Build a Cue Time command."""
     _validate_positive_int("cue", cue)
+    if sequence is not None:
+        _validate_positive_int("sequence", sequence)
     if fade < 0:
         raise ValueError("fade must be >= 0")
-    return Ma3Command(command=f"Cue {cue} Time {fade:g}")
+    target = f"Sequence {sequence} Cue {cue}" if sequence is not None else f"Cue {cue}"
+    return Ma3Command(command=f"{target} CueFade {fade:g}")
 
 
 def go_sequence(sequence: int) -> Ma3Command:
@@ -84,7 +111,7 @@ def clear_all() -> Ma3Command:
 def store_sequence(sequence: int) -> Ma3Command:
     """Build a Store Sequence command."""
     _validate_positive_int("sequence", sequence)
-    return Ma3Command(command=f"Store Sequence {sequence}")
+    return Ma3Command(command=f"Store Sequence {sequence} /Overwrite /NoConfirmation")
 
 
 def label_sequence(sequence: int, label: str) -> Ma3Command:
@@ -97,7 +124,7 @@ def label_sequence(sequence: int, label: str) -> Ma3Command:
 def delete_sequence(sequence: int) -> Ma3Command:
     """Build a Delete Sequence command."""
     _validate_positive_int("sequence", sequence)
-    return Ma3Command(command=f"Delete Sequence {sequence}")
+    return Ma3Command(command=f"Delete Sequence {sequence} /NoConfirmation")
 
 
 def commands_for_cue_step(step: CueStep) -> list[Ma3Command]:

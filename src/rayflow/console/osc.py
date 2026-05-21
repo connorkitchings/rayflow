@@ -74,7 +74,7 @@ class Ma3OscClient:
 
     def set_time(self, cue_number: int, fade_time: float) -> None:
         """Set fade time for a cue."""
-        self.send(f"Cue {cue_number} Time {fade_time}")
+        self.send(f"Cue {cue_number} CueFade {fade_time}")
 
 
 class Ma3OscFeedbackReceiver:

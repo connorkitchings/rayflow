@@ -20,6 +20,8 @@ from rayflow.shows.models import Cue, Preset, Show
 def commands_for_show_cue(
     cue: Cue,
     preset: Preset | None = None,
+    *,
+    sequence: int | None = None,
 ) -> list[Ma3Command]:
     """Build OSC commands for a single show cue.
 
@@ -34,13 +36,18 @@ def commands_for_show_cue(
     if merged_attrs:
         channels = cue.channels or (preset.channels if preset else None) or "1 Thru 512"
         for attr_family, value in merged_attrs.items():
+            # MA3 does not accept RayFlow's abstract color names/hex values as
+            # direct Channel At values. Color needs fixture-aware preset/channel
+            # mapping, so the push path sends safe dimmer/intensity values only.
+            if attr_family.lower() not in {"dimmer", "intensity"}:
+                continue
             commands.append(channel_at(channels, value))
 
-    commands.append(store_cue(cue.number, cue.label))
+    commands.append(store_cue(cue.number, cue.label, sequence=sequence))
     if cue.label:
-        commands.append(label_cue(cue.number, cue.label))
+        commands.append(label_cue(cue.number, cue.label, sequence=sequence))
     if cue.fade_time > 0:
-        commands.append(set_cue_time(cue.number, cue.fade_time))
+        commands.append(set_cue_time(cue.number, cue.fade_time, sequence=sequence))
 
     commands.append(clear_programmer())
     return commands
@@ -76,7 +83,7 @@ def commands_for_show(
         preset = None
         if cue.preset and cue.preset in presets:
             preset = presets[cue.preset]
-        all_commands.extend(commands_for_show_cue(cue, preset))
+        all_commands.extend(commands_for_show_cue(cue, preset, sequence=sequence))
 
     return all_commands
 
