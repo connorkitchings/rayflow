@@ -76,11 +76,12 @@ rayflow/
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 
 **Current Focus:**
-- Phase 7 (Export & Playback) — timecode import/playback validation
+- MA3 control stock-take before more feature work or MCP implementation
 - ⚠ Timecode integration mostly unblocked: event-bearing MA3 Timecode XML imports cleanly and internal playback advances, but final cue-fire observation in the Timecode Viewer/current-cue UI is still pending
+- ⚠ Basic look programming is not yet fully verified: the first live OSC probe exported sequence/group/preset shells, but disposable-show isolation, fixture patch/import, fixture-aware preset content, executor state, and runtime readback still need proof
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
-**Active Branch:** `main`
+**Active Branch:** `codex/continue-development-session`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)

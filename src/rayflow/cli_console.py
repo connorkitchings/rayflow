@@ -16,10 +16,12 @@ cue_app = typer.Typer(help="Cue commands")
 sequence_app = typer.Typer(help="Sequence commands")
 channel_app = typer.Typer(help="Channel commands")
 cue_stack_app = typer.Typer(help="Cue stack commands")
+probe_app = typer.Typer(help="Safe grandMA3 live probe commands")
 console_app.add_typer(cue_app, name="cue")
 console_app.add_typer(sequence_app, name="sequence")
 console_app.add_typer(channel_app, name="channel")
 console_app.add_typer(cue_stack_app, name="cue-stack")
+console_app.add_typer(probe_app, name="probe")
 
 
 @console_app.command("connect")
@@ -83,6 +85,159 @@ def listen_console_feedback(
     receiver = Ma3OscFeedbackReceiver(host=host, port=port)
     messages = receiver.listen(duration=duration)
     _print_feedback_messages(messages)
+
+
+@probe_app.command("show-isolation")
+def probe_show_isolation(
+    target_show: str = typer.Option(
+        "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
+    ),
+    execute: bool = typer.Option(False, "--execute", help="Send OSC commands"),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    delay: float = typer.Option(0.25, "--delay", help="Delay between commands"),
+    shows_dir: Path = typer.Option(
+        Path.home() / "MALightingTechnology/gma3_2.3.2/shared/shows",
+        "--shows-dir",
+        help="MA3 show file directory",
+    ),
+    result_json: Optional[Path] = typer.Option(
+        None, "--result-json", help="Optional probe result JSON path"
+    ),
+) -> None:
+    """Verify MA3 disposable show isolation before live mutation probes."""
+    from rayflow.console.probe import (
+        run_probe_plan,
+        show_isolation_passed,
+        show_isolation_plan,
+        validate_target_show,
+        write_result_json,
+    )
+
+    try:
+        if execute:
+            validate_target_show(target_show)
+        result = run_probe_plan(
+            show_isolation_plan(target_show),
+            ip=ip,
+            port=port,
+            execute=execute,
+            delay=delay,
+            shows_dir=shows_dir,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    _print_probe_result(result)
+    if execute and not show_isolation_passed(
+        target_show=target_show,
+        before=result.pre_show_mtimes,
+        after=result.post_show_mtimes,
+    ):
+        typer.echo("Error: disposable show isolation failed", err=True)
+        if result_json is not None:
+            write_result_json(result, result_json)
+        raise typer.Exit(code=1)
+    if result_json is not None:
+        saved = write_result_json(result, result_json)
+        console.print(f"[green]Wrote probe result[/green] {saved}")
+
+
+@probe_app.command("run")
+def probe_run(
+    plan: Path = typer.Option(..., "--plan", help="Probe plan JSON path"),
+    target_show: str = typer.Option(
+        "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
+    ),
+    execute: bool = typer.Option(False, "--execute", help="Send OSC commands"),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    delay: float = typer.Option(0.25, "--delay", help="Delay between commands"),
+    shows_dir: Path = typer.Option(
+        Path.home() / "MALightingTechnology/gma3_2.3.2/shared/shows",
+        "--shows-dir",
+        help="MA3 show file directory",
+    ),
+    result_json: Optional[Path] = typer.Option(
+        None, "--result-json", help="Optional probe result JSON path"
+    ),
+) -> None:
+    """Run or dry-run a JSON MA3 probe plan."""
+    from rayflow.console.probe import (
+        load_probe_plan,
+        run_probe_plan,
+        validate_target_show,
+        write_result_json,
+    )
+
+    try:
+        probe_plan = load_probe_plan(plan)
+        if probe_plan.target_show != target_show:
+            raise ValueError("plan target_show must match --target-show")
+        if execute:
+            validate_target_show(target_show)
+        result = run_probe_plan(
+            probe_plan,
+            ip=ip,
+            port=port,
+            execute=execute,
+            delay=delay,
+            shows_dir=shows_dir,
+        )
+    except (FileNotFoundError, KeyError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    _print_probe_result(result)
+    if result_json is not None:
+        saved = write_result_json(result, result_json)
+        console.print(f"[green]Wrote probe result[/green] {saved}")
+    if execute and not result.passed:
+        raise typer.Exit(code=1)
+
+
+@probe_app.command("fixture-import")
+def probe_fixture_import(
+    mvr: Path = typer.Option(
+        Path("data/ma3_exports/probes/rayflow_control_probe.mvr"),
+        "--mvr",
+        help="Probe MVR output path",
+    ),
+    target_show: str = typer.Option(
+        "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
+    ),
+    execute: bool = typer.Option(
+        False,
+        "--execute",
+        help="Build the MVR after validating the disposable target show name",
+    ),
+    write_note: bool = typer.Option(
+        False, "--write-note", help="Write research note template"
+    ),
+) -> None:
+    """Build the dedicated sample-fixture MVR for MA3 import proof."""
+    from rayflow.console.probe import (
+        build_fixture_probe_mvr,
+        validate_target_show,
+        write_research_note_template,
+    )
+
+    try:
+        if execute:
+            validate_target_show(target_show)
+            saved = build_fixture_probe_mvr(mvr)
+            console.print(f"[green]Probe MVR exported[/green] {saved}")
+        else:
+            console.print("[bold yellow]Dry run[/bold yellow] fixture import probe")
+            console.print(f"Would build probe MVR: {mvr}")
+            console.print("[dim]Pass --execute to write the MVR artifact.[/dim]")
+        if write_note:
+            note = write_research_note_template()
+            console.print(f"[green]Wrote research note template[/green] {note}")
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
 
 
 @cue_app.command("store")
@@ -261,6 +416,34 @@ def _print_feedback_messages(messages) -> None:
             ", ".join(str(arg) for arg in message.args),
         )
     console.print(table)
+
+
+def _print_probe_result(result) -> None:
+    """Print a compact MA3 probe result."""
+    console.print(f"[bold]Probe:[/bold] {result.name}")
+    console.print(f"  Status: {result.status}")
+    console.print(f"  Target show: {result.target_show}")
+    console.print(f"  OSC: {result.osc_endpoint}")
+    if result.commands:
+        table = Table(title="Commands")
+        table.add_column("#", justify="right")
+        table.add_column("Sent")
+        table.add_column("Command")
+        for index, command in enumerate(result.commands, start=1):
+            table.add_row(str(index), "yes" if command.sent else "no", command.command)
+        console.print(table)
+    if result.exports:
+        table = Table(title="Expected Exports")
+        table.add_column("Label")
+        table.add_column("Exists")
+        table.add_column("Missing markers")
+        for item in result.exports:
+            table.add_row(
+                item.label,
+                "yes" if item.exists else "no",
+                ", ".join(item.missing_substrings) or "-",
+            )
+        console.print(table)
 
 
 # ---------------------------------------------------------------------------

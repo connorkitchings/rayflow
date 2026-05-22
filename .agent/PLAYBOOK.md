@@ -15,6 +15,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 10. **Protocol Verification**: Always verify Art-Net/sACN packets with network tools (Wireshark, tcpdump) before marking protocol work complete.
 11. **grandMA3 Version Pinning**: Before giving grandMA3 onPC UI instructions, verify the installed app version and use the matching MA manual version. Current local baseline is grandMA3 onPC 2.3.2.0.
 12. **Capture Before Generating MA3 XML**: Before implementing any MA3 import/export XML generator, first capture a real MA3 export with the target objects and events. Treat local MA3-exported XML as source-of-truth and document any fields RayFlow intentionally omits.
+13. **Disposable Show First**: Before sending live mutating MA3 commands, verify the active show is disposable by observing the UI or confirming a new `.show` file was created. Do not trust `SaveShow As` syntax alone.
 
 ## [STRATEGIES]
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
@@ -24,6 +25,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 5. **Continuous Context Maintenance**: Regularly run health checks and session handoff routines to ensure that the context files accurately reflect the current state of the architecture.
 6. **Automation-First MA3 Guidance**: Treat MA3 UI configuration as setup state to verify, not repeated manual work for the user. Prefer commands, exported files, tcpdump/Wireshark checks, or small RayFlow helpers before asking for click-through steps.
 7. **Context-First AI**: Always provide the AI with the full rig definition, fixture capabilities, and current show state before requesting changes. See `docs/ai_interaction_contract.md`.
+8. **MCP Follows Verified Control**: Do not build MCP tools for MA3 programming until the underlying MA3 operation has command, export/readback, or observation proof. MCP should expose known capabilities, not hide unresolved console-control gaps.
 
 ## [SUCCESS_PATTERNS]
 - **Incremental Protocol Testing**: Send one DMX value, verify it arrives, then expand to full universe.

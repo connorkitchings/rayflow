@@ -1,0 +1,32 @@
+{
+  "name": "show-isolation",
+  "target_show": "rayflow_control_probe",
+  "ma3_version": "2.3.2.0",
+  "osc_endpoint": "127.0.0.1:8000",
+  "executed": true,
+  "passed": false,
+  "status": "failed",
+  "commands": [
+    {
+      "command": "NewShow \"rayflow_control_probe\"",
+      "sent": true,
+      "timestamp": 1779459155.753123
+    },
+    {
+      "command": "SaveShow",
+      "sent": true,
+      "timestamp": 1779459156.0067499
+    }
+  ],
+  "exports": [],
+  "pre_show_mtimes": {
+    "As.show": 1779457921.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_test.show": 1779456959.0
+  },
+  "post_show_mtimes": {
+    "As.show": 1779457921.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_test.show": 1779456959.0
+  }
+}

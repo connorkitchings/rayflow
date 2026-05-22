@@ -95,6 +95,7 @@
 | MA3 show export | Export cues/rig to MA3-importable format | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, and metadata bundle |
 | Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | `timecode_export.py` generates GMA3 XML from event-bearing MA3 2.3.2.0 XML capture; clean import/re-export validated after target Sequence cues exist; internal playback clock validated by re-exported cursor movement |
 | Show library | Versioned show storage | ✅ Done | `show save/versions/restore/diff`; local YAML snapshots with metadata |
+| MA3 control matrix | Verified control boundary before MCP | ▶ In Progress | `docs/research/ma3_control_matrix_2_3_2.md` maps current automation, gaps, and next proof milestone; first live probe exported sequence/group/preset shells but did not prove fixture-aware looks |
 | Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, show library, and timecode tests added; final Timecode Viewer/current-cue observation still pending |
 
 ---
@@ -117,10 +118,10 @@
 |------|--------|------------|--------|
 | GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
 | AI prompt quality | High | Iterate on prompt templates, provide rich context bundles | ☐ Open |
-| MA3 OSC API undocumented | High | Reverse-engineer, use MA3 online manual | ☐ Open |
+| MA3 OSC/API readback incomplete | High | Verify basic programming operations against MA3 2.3.2.0 and capture readback/export evidence before MCP | ⚠ Control matrix and basic probe started; disposable-show isolation, fixture import/patch, fixture-aware presets, and current-cue proof pending |
 | MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ⚠ Cue-fire observation pending — clean XML import/re-export validated and internal playback cursor advances through event timestamps |
 | Scope creep on AI features | High | Phase 6 is MVP: cue generation from vibe first | ☐ Open |
 
 ---
 
-*Last updated: 2026-05-21 (MA3 timecode XML clean import/re-export validated; internal playback cursor validated; cue-fire observation pending)*
+*Last updated: 2026-05-22 (MA3 control matrix and first basic-look probe added; fixture-aware programming remains unproven)*

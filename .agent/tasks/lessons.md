@@ -114,6 +114,20 @@
 **Rule Added:**
 > **Audit coverage misses before writing tests.** Classify each missed line as: (a) dead code → remove, (b) import guard → pragma: no cover, (c) integration concern → pragma: no cover with comment, (d) real gap → write test. This prioritization avoids writing low-value tests.
 
+### [Date: 2026-05-22]
+
+**Mistake:**
+> Treated the grandMA3 wrapper/terminal window as enough UI context during live MA3 probing, while the actual control surface was a separate `app_gma3` window.
+
+**Root Cause:**
+> grandMA3 onPC launches multiple macOS processes/windows. Process-level OSC evidence proved a UDP listener existed, but UI verification required targeting the child `app_gma3` window specifically.
+
+**Rule Added:**
+> **Target `app_gma3` for live MA3 UI checks.** When MA3 onPC is running, verify whether the visible control window is `app_gma3`; do not rely on the wrapper `grandMA3 Terminal` window for command/input state.
+
+**Example:**
+> Should have: checked running MA3 GUI processes and window titles before interpreting OSC setup, then used the `app_gma3` title/status as the UI evidence path.
+
 ### Template for New Entries
 
 ```markdown
