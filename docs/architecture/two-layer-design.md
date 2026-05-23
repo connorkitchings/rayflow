@@ -1,98 +1,94 @@
-# Two-Layer Design
+# Layered Design
 
-This document describes RayFlow's two-layer architecture in detail.
+This document supersedes the old "grandMA3 plus RayFlow" two-layer framing.
+RayFlow now uses a layered adapter architecture.
 
-## The Two Layers
+## Layer 1: Show Intent
 
-### Layer 1: grandMA3 onPC (Console Layer)
+The source of truth is RayFlow project data:
 
-grandMA3 onPC is the industry-standard lighting control software, available free for macOS. It provides:
+- rig YAML;
+- show YAML;
+- GDTF fixture definitions;
+- presets, vibes, sections, cues, and timestamps.
 
-- **Console Engine:** Cue lists, sequences, effects, executors, programmer
-- **Built-in 3D Visualizer:** Preview your show with 3D rendered fixtures
-- **Video Recording:** Capture visualizer output for export
-- **GDTF/MVR Support:** Native support for open fixture and stage formats
-- **OSC API:** Remote control via Open Sound Control protocol
+This layer is intentionally AI-readable. A coding agent can inspect it, propose
+diffs, run validation, and preserve history without needing to mutate a running
+lighting console.
 
-This layer is the "source of truth" for lighting state. It handles all DMX processing, cue playback, and visual rendering.
+## Layer 2: Fixture Resolution And Rendering
 
-### Layer 2: RayFlow (Tooling Layer)
+This layer translates abstract intent into concrete fixture behavior:
 
-RayFlow sits on top of grandMA3 onPC and provides tooling that makes programming faster, learning easier, and automation possible:
+- fixture selection;
+- channel addressing;
+- attribute family support;
+- dimmer and color values;
+- future pan/tilt, beam, focus, gobo, and effect handling.
 
-- **GDTF Fixture Library:** Download, parse, and manage fixture profiles
-- **Stage Builder:** Create virtual rigs programmatically, export as MVR
-- **Art-Net/sACN Bridge:** Send and receive DMX from Python
-- **OSC Controller:** Automate console operations (store cues, trigger sequences)
-- **AI Cue Generator:** Generate lighting cues from natural language descriptions
+The renderer should be deterministic and testable. Given the same show, rig,
+and fixture library, it should produce the same universe/channel output.
 
-## How the Layers Communicate
+## Layer 3: Output Adapters
 
+Adapters are replaceable. They should not define the core show model.
+
+| Adapter | Role | Status |
+| --- | --- | --- |
+| Art-Net | Direct DMX output | Bridge exists; fixture-aware renderer is next |
+| sACN | Direct DMX output | Bridge exists; fixture-aware renderer is next |
+| QLC+ WebSocket | Structured cue/controller execution | Research spike planned |
+| grandMA3 export | MVR, commands, Timecode XML, handoff bundle | Partially implemented |
+| grandMA3 OSC | Gated direct console mutation | Implemented for verified/dry-run-safe paths only |
+| Middleware | Chataigne/Open Stage Control style routing | Future evaluation |
+
+## Communication Shape
+
+```text
+Show/Rig YAML
+    |
+    v
+Fixture capability resolution
+    |
+    v
+DMX frame or controller command plan
+    |
+    +--> dry-run artifact
+    +--> apply through selected adapter
+    +--> evidence packet
 ```
-┌─────────────────────────────────────────────────────┐
-│                   RayFlow Layer                      │
-│                                                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐   │
-│  │ GDTF     │  │ AI Cue   │  │ Stage Builder    │   │
-│  │ Library  │  │ Generator│  │ (MVR export)     │   │
-│  └────┬─────┘  └────┬─────┘  └────────┬─────────┘   │
-│       │              │                 │             │
-│       ▼              ▼                 ▼             │
-│  ┌──────────────────────────────────────────────┐   │
-│  │         Protocol Bridge                       │   │
-│  │  Art-Net  │  sACN  │  OSC  │  MVR/GDTF       │   │
-│  └────────────────────┬─────────────────────────┘   │
-└───────────────────────┼─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│                grandMA3 onPC Layer                   │
-│                                                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐   │
-│  │ Console  │  │ 3D       │  │ Video            │   │
-│  │ Engine   │  │ Visualizer│ │ Recording        │   │
-│  └──────────┘  └──────────┘  └──────────────────┘   │
-└─────────────────────────────────────────────────────┘
-```
-
-### Communication Channels
-
-| Channel | Protocol | Direction | Purpose |
-|---------|----------|-----------|---------|
-| DMX | Art-Net (UDP 6454) | Bidirectional | Send/receive fixture values |
-| DMX | sACN (multicast UDP) | Bidirectional | Alternative DMX transport |
-| Commands | OSC (port 8000) | RayFlow → MA3 | Console automation |
-| Stage | MVR file | RayFlow → MA3 | Import virtual rig |
-| Fixtures | GDTF file | External → RayFlow | Fixture definitions |
 
 ## Where RayFlow Adds Value
 
-RayFlow is not a replacement for grandMA3. It enhances the console experience:
+RayFlow is not trying to replace a professional console. It adds value by
+making the creative and technical show plan explicit, reviewable, and
+portable:
 
-1. **Faster Learning:** AI-generated cues give you a starting point to learn from, not just a blank console
-2. **Automation:** Batch operations (patch 20 fixtures, store 10 cues) that would be tedious on the console
-3. **Fixture Management:** Organize, search, and manage GDTF fixtures outside the console
-4. **Stage Building:** Create rigs programmatically, export to MA3 for visualization
-5. **Future Live Support:** Art-Net output to real DMX hardware for live shows
+1. **AI-directed design:** natural-language iteration over structured show
+   data.
+2. **Fixture-aware rendering:** translating design intent to valid output.
+3. **Backend choice:** direct DMX for deterministic tests, QLC+ for structured
+   open-source control, MA3 for professional compatibility.
+4. **Evidence-based automation:** every backend capability must prove state
+   changed through queries, captured packets, exports, or recorded manual
+   confirmation.
 
-## Why Not Build a Custom Visualizer?
+## Why Not Keep MA3 As The Core Layer?
 
-grandMA3 onPC already includes a capable 3D visualizer. Building a custom visualizer would:
+grandMA3 is powerful, but the live probes showed that it is not an ideal
+terminal-agent API:
 
-- Duplicate existing functionality
-- Require significant Three.js/WebGL development
-- Need to parse GDTF geometry independently
-- Not match MA3's rendering quality
+- setup is show-local;
+- command acceptance is not equivalent to UDP listener presence;
+- command-line destination changes command meaning;
+- fixture import and patching are still not repeatable through CLI alone;
+- readback is indirect.
 
-The web visualizer (Phase 5) is optional and would serve as an independent testing target, not a replacement for MA3's built-in viz.
+Those traits make MA3 a compatibility adapter, not the safest core execution
+loop.
 
-## Future: Live Show Support
+## Future Visualization
 
-The architecture naturally extends to live shows:
-
-- Art-Net/sACN output can drive real DMX hardware
-- RayFlow's cue generation can prepare shows for live programming
-- The fixture library works the same for virtual and physical rigs
-- OSC control works with physical grandMA3 consoles
-
-The primary difference is the output layer: instead of MA3's visualizer, DMX goes to physical fixtures via a DMX interface.
+A custom visualizer is still optional. RayFlow can use MA3, QLC+, a future web
+visualizer, or captured DMX frames for verification depending on the backend.
+The renderer and adapter contract should not depend on a single visualizer.

@@ -1,27 +1,32 @@
 # First DMX — Send Your First DMX Values
 
-This tutorial walks through sending DMX values from RayFlow to grandMA3 onPC and seeing lights respond in the visualizer.
+This tutorial walks through sending DMX values from RayFlow to an Art-Net
+receiver. That receiver can be grandMA3 onPC, QLC+, a visualizer, or hardware
+on a private lighting network.
 
 ## Prerequisites
 
-- grandMA3 onPC installed and running (see [Setup Guide](./grandma3-setup.md))
 - RayFlow installed with lighting extras: `uv sync --extra lighting`
-- A fixture patched in grandMA3 (a simple PAR or dimmer works)
+- An Art-Net receiver or controller configured on the target universe
+- A patched fixture, visualizer channel, or receiver monitor to verify output
 
-## Step 1: Verify grandMA3 is Running
+## Step 1: Verify A Receiver Is Running
 
-1. Open grandMA3 onPC
-2. Open the 3D visualizer
-3. Confirm a fixture is patched and visible
+1. Open your Art-Net receiver, controller, or visualizer.
+2. Confirm it is listening on the target network interface.
+3. Confirm a fixture, channel monitor, or visualizer object is patched.
 
 ## Step 2: Check Network Connection
 
-grandMA3 onPC and RayFlow communicate over your local network. For local development, start with `127.0.0.1`.
+Art-Net uses UDP port 6454. For local development, start with `127.0.0.1` when
+your receiver supports loopback.
 
-Before sending DMX, enable an Art-Net input row in grandMA3 for the target local universe. RayFlow's current baseline is grandMA3 onPC 2.3.2.0, where Art-Net input should be explicitly verified per show.
+If using grandMA3 onPC, enable an Art-Net input row for the target local
+universe. RayFlow's current MA3 compatibility baseline is grandMA3 onPC
+2.3.2.0, where Art-Net input should be explicitly verified per show.
 
 ```bash
-# Confirm grandMA3 is listening for Art-Net after input is enabled
+# Confirm something is listening for Art-Net after input is enabled
 lsof -iUDP:6454
 ```
 
@@ -32,7 +37,7 @@ lsof -iUDP:6454
 uv run rayflow bridge send --universe 0 --channel 1 --value 255
 ```
 
-You should see the fixture light up in the grandMA3 visualizer.
+You should see the receiver, fixture, or visualizer respond.
 
 ## Step 4: Try Different Values
 
@@ -74,8 +79,8 @@ sender.send_dmx(universe=0, channel=1, value=255)
 - Try sending to universe 1 instead of 0 (MA3 may use 1-based universes)
 
 ### Connection refused
-- grandMA3 onPC may not be running
-- Check that Art-Net input is enabled in the show
+- The receiver/controller may not be running
+- If using grandMA3, check that Art-Net input is enabled in the show
 - Verify firewall isn't blocking port 6454
 
 ### Wrong fixture responds

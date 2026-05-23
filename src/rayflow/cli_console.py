@@ -104,9 +104,15 @@ def probe_show_isolation(
     result_json: Optional[Path] = typer.Option(
         None, "--result-json", help="Optional probe result JSON path"
     ),
+    assume_disposable: bool = typer.Option(
+        False,
+        "--assume-disposable",
+        help="Record user-confirmed disposable show if file isolation cannot prove it",
+    ),
 ) -> None:
     """Verify MA3 disposable show isolation before live mutation probes."""
     from rayflow.console.probe import (
+        assumed_disposable_show_plan,
         run_probe_plan,
         show_isolation_passed,
         show_isolation_plan,
@@ -117,23 +123,32 @@ def probe_show_isolation(
     try:
         if execute:
             validate_target_show(target_show)
+        plan = (
+            assumed_disposable_show_plan(target_show)
+            if assume_disposable
+            else show_isolation_plan(target_show)
+        )
         result = run_probe_plan(
-            show_isolation_plan(target_show),
+            plan,
             ip=ip,
             port=port,
             execute=execute,
             delay=delay,
             shows_dir=shows_dir,
+            assume_disposable=assume_disposable,
         )
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
 
     _print_probe_result(result)
-    if execute and not show_isolation_passed(
-        target_show=target_show,
-        before=result.pre_show_mtimes,
-        after=result.post_show_mtimes,
+    if execute and not (
+        show_isolation_passed(
+            target_show=target_show,
+            before=result.pre_show_mtimes,
+            after=result.post_show_mtimes,
+        )
+        or assume_disposable
     ):
         typer.echo("Error: disposable show isolation failed", err=True)
         if result_json is not None:
@@ -144,9 +159,8 @@ def probe_show_isolation(
         console.print(f"[green]Wrote probe result[/green] {saved}")
 
 
-@probe_app.command("run")
-def probe_run(
-    plan: Path = typer.Option(..., "--plan", help="Probe plan JSON path"),
+@probe_app.command("command-acceptance")
+def probe_command_acceptance(
     target_show: str = typer.Option(
         "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
     ),
@@ -159,33 +173,37 @@ def probe_run(
         "--shows-dir",
         help="MA3 show file directory",
     ),
+    export_path: Path = typer.Option(
+        Path.home()
+        / "MALightingTechnology/gma3_library/datapools/sequences"
+        / "rayflow_command_acceptance_probe_sequence.xml",
+        "--export-path",
+        help="Expected MA3 export file written by the acceptance command",
+    ),
     result_json: Optional[Path] = typer.Option(
         None, "--result-json", help="Optional probe result JSON path"
     ),
 ) -> None:
-    """Run or dry-run a JSON MA3 probe plan."""
+    """Verify OSC /cmd acceptance using an observable MA3 export."""
     from rayflow.console.probe import (
-        load_probe_plan,
+        command_acceptance_plan,
         run_probe_plan,
         validate_target_show,
         write_result_json,
     )
 
     try:
-        probe_plan = load_probe_plan(plan)
-        if probe_plan.target_show != target_show:
-            raise ValueError("plan target_show must match --target-show")
         if execute:
             validate_target_show(target_show)
         result = run_probe_plan(
-            probe_plan,
+            command_acceptance_plan(target_show, export_path),
             ip=ip,
             port=port,
             execute=execute,
             delay=delay,
             shows_dir=shows_dir,
         )
-    except (FileNotFoundError, KeyError, ValueError) as e:
+    except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
 
@@ -212,31 +230,171 @@ def probe_fixture_import(
         "--execute",
         help="Build the MVR after validating the disposable target show name",
     ),
+    import_method: str = typer.Option(
+        "none",
+        "--import-method",
+        help="Import evidence mode: none, cli, or ui-assisted",
+    ),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    assume_disposable: bool = typer.Option(
+        False,
+        "--assume-disposable",
+        help="Record user-confirmed disposable show for import/patch verification",
+    ),
+    result_json: Optional[Path] = typer.Option(
+        None, "--result-json", help="Optional probe result JSON path"
+    ),
     write_note: bool = typer.Option(
         False, "--write-note", help="Write research note template"
     ),
 ) -> None:
     """Build the dedicated sample-fixture MVR for MA3 import proof."""
     from rayflow.console.probe import (
+        MA3_VERSION,
+        ProbeResult,
         build_fixture_probe_mvr,
+        fixture_probe_mvr_entries,
+        require_disposable_confirmation,
         validate_target_show,
         write_research_note_template,
+        write_result_json,
     )
+
+    import_method = import_method.lower()
+    if import_method not in {"none", "cli", "ui-assisted"}:
+        typer.echo("Error: --import-method must be none, cli, or ui-assisted", err=True)
+        raise typer.Exit(code=1)
 
     try:
         if execute:
             validate_target_show(target_show)
+            if import_method != "none":
+                require_disposable_confirmation(
+                    target_show=target_show,
+                    assume_disposable=assume_disposable,
+                )
             saved = build_fixture_probe_mvr(mvr)
+            entries = fixture_probe_mvr_entries(saved)
             console.print(f"[green]Probe MVR exported[/green] {saved}")
+            metadata = {
+                "mvr_path": str(saved),
+                "mvr_entries": entries,
+                "import_method": import_method,
+                "assume_disposable": assume_disposable,
+            }
+            if import_method == "cli":
+                import time
+
+                from rayflow.console.osc import Ma3OscClient
+                from rayflow.console.probe import CommandLog
+
+                import_command = f'Import MVR "{saved.expanduser().resolve()}"'
+                Ma3OscClient(ip=ip, port=port).send(import_command)
+                commands = [
+                    CommandLog(command=import_command, sent=True, timestamp=time.time())
+                ]
+                metadata["import_command"] = import_command
+                console.print(
+                    "[yellow]CLI import is not verified; use the recorded "
+                    "command as probe evidence only.[/yellow]"
+                )
+            elif import_method == "ui-assisted":
+                commands = []
+                metadata["ui_instruction"] = (
+                    "Import the generated MVR into the active disposable MA3 show, "
+                    "then capture verification evidence."
+                )
+            else:
+                commands = []
+            passed = import_method == "none"
+            status = "passed" if passed else "pending-verification"
+            result = ProbeResult(
+                name="fixture-import",
+                target_show=target_show,
+                ma3_version=MA3_VERSION,
+                osc_endpoint=f"{ip}:{port}" if import_method == "cli" else "not-used",
+                executed=True,
+                passed=passed,
+                commands=commands,
+                exports=[],
+                pre_show_mtimes={},
+                post_show_mtimes={},
+                status=status,
+                metadata=metadata,
+            )
         else:
             console.print("[bold yellow]Dry run[/bold yellow] fixture import probe")
             console.print(f"Would build probe MVR: {mvr}")
             console.print("[dim]Pass --execute to write the MVR artifact.[/dim]")
+            result = None
         if write_note:
             note = write_research_note_template()
             console.print(f"[green]Wrote research note template[/green] {note}")
+        if result_json is not None and result is not None:
+            saved_json = write_result_json(result, result_json)
+            console.print(f"[green]Wrote probe result[/green] {saved_json}")
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+
+@probe_app.command("run")
+def probe_run(
+    plan: Path = typer.Option(..., "--plan", help="Probe plan JSON path"),
+    target_show: str = typer.Option(
+        "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
+    ),
+    execute: bool = typer.Option(False, "--execute", help="Send OSC commands"),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    delay: float = typer.Option(0.25, "--delay", help="Delay between commands"),
+    shows_dir: Path = typer.Option(
+        Path.home() / "MALightingTechnology/gma3_2.3.2/shared/shows",
+        "--shows-dir",
+        help="MA3 show file directory",
+    ),
+    result_json: Optional[Path] = typer.Option(
+        None, "--result-json", help="Optional probe result JSON path"
+    ),
+    assume_disposable: bool = typer.Option(
+        False,
+        "--assume-disposable",
+        help="Record user-confirmed disposable show for live generic probes",
+    ),
+) -> None:
+    """Run or dry-run a JSON MA3 probe plan."""
+    from rayflow.console.probe import (
+        load_probe_plan,
+        run_probe_plan,
+        validate_target_show,
+        write_result_json,
+    )
+
+    try:
+        probe_plan = load_probe_plan(plan)
+        if probe_plan.target_show != target_show:
+            raise ValueError("plan target_show must match --target-show")
+        if execute:
+            validate_target_show(target_show)
+        result = run_probe_plan(
+            probe_plan,
+            ip=ip,
+            port=port,
+            execute=execute,
+            delay=delay,
+            shows_dir=shows_dir,
+            assume_disposable=assume_disposable,
+        )
+    except (FileNotFoundError, KeyError, ValueError) as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    _print_probe_result(result)
+    if result_json is not None:
+        saved = write_result_json(result, result_json)
+        console.print(f"[green]Wrote probe result[/green] {saved}")
+    if execute and not result.passed:
         raise typer.Exit(code=1)
 
 

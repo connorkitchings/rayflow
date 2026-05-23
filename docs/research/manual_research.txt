@@ -1,0 +1,501 @@
+Automated Show Control Architectures: Evaluating grandMA3 onPC versus API-First Alternatives for Terminal-Based Agentic AI Workflows
+The rapid evolution of generative artificial intelligence and the emergence of terminal-based agentic workflows—such as Claude Code, Codex, opencode, and Gemini/Antigravity CLI—have fundamentally challenged traditional paradigms of live performance programming.1 In the domain of concert lighting, design has historically been defined by manual, cue-by-cue configuration using highly specialized hardware consoles or complex, GUI-heavy emulation software.2 When developers attempt to integrate terminal agents into these environments, they confront a stark disconnect between the deterministic, command-line interface (CLI) requirements of autonomous code generation models and the highly visual, non-standardized interfaces of legacy lighting platforms.4
+This report provides a comprehensive, systems-level evaluation of grandMA3 onPC alongside open-source and API-first alternatives.6 It analyzes the integration friction, protocol constraints, and code-generation barriers of each platform, offering a technical blueprint for implementing AI-driven show control within modern, developer-centric toolchains.8
+grandMA3 onPC: Architectural Friction with Agentic CLI Toolchains
+MA Lighting’s grandMA3 represents the industry standard for large-scale live show control, praised for its real-time multi-user synchronization, massive parameter processing, and robust hardware integration.10 However, for developers working within terminal-based agentic workflows, grandMA3 onPC presents a series of deep architectural bottlenecks that inhibit automated control and state estimation.4
+
+
+
++-----------------------------------------------------------------------------------+
+|                           Terminal Agentic Workflows                              |
+|             (Claude Code, Codex, opencode, Gemini/Antigravity CLI)                |
++-----------------------------------------------------------------------------------+
+                               |
+                               | (High syntax drift & hallucination rates)
+                               v
++-----------------------------------------------------------------------------------+
+|                              grandMA3 onPC Engine                                 |
+|                                                                                   |
+|  +--------------------+  +-----------------------+  +--------------------------+  |
+|  |     OSC 1.1        |  |     Lua 5.4.4 VM      |  |     TCP Telnet Port      |  |
+|  |  Prefix Filtering  |  |  (Object & Object-    |  |  (Requires external Lua  |  |
+|  |  /cmd & /Fader     |  |   Free API Systems)   |  |   listener, port 30000)  |  |
+|  +--------------------+  +-----------------------+  +--------------------------+  |
++-----------------------------------------------------------------------------------+
+
+
+Protocol Analysis: OSC 1.1, Lua, and Telnet Interfaces
+To establish communication with grandMA3 onPC, external programs must interface with its Open Sound Control (OSC) implementation, which supports OSC 1.1 over UDP or TCP transport layers.6 Within the software's network configuration, developers specify the interface card, global input/output settings, and distinct "OSCData" lines to filter messages.6
+OSC addresses within grandMA3 map directly to console elements such as faders, executors, encoders, and keys.6 For example, a target executor fader requires an explicit page-prefix address:
+
+By utilizing the /cmd OSC address with a string type (s), external systems can execute command-line instructions directly.6 While this interface allows deep command execution, it lacks a native, structured feedback loop.5 An agent injecting command strings cannot easily parse the result or determine if a command succeeded without configuring elaborate OSC output echoes or parsing the System Monitor.6
+When testing these control streams locally on a loopback interface (127.0.0.1), developers frequently encounter network routing failures.8 To resolve these loopback routing issues, developers must manually disable and re-enable OSC input and output within the grandMA3 settings to force the software to bind to the active loopback adapter.8 This manual configuration step represents a significant barrier for autonomous terminal agents.
+Beyond OSC, the grandMA3 runtime environment features an embedded Lua 5.4.4 virtual machine (VM) supporting all standard libraries.12 Developers can execute custom scripts and plugins to poll the status of playback executors or retrieve fixture attributes.12 This is demonstrated by the following programmatic polling pattern:
+
+
+
+Lua
+-- Conceptual extraction of active executor states
+local history_status, history_color = {}, {}
+local function poll_executor(exec_no)
+    local exec = GetExecutor(exec_no)
+    if exec then
+        local status = exec.Object and 1 or 0
+        local current_color = "#000000" -- Default fallback color
+        if exec.Object and exec.Object.AssignedObject then
+            -- Mapped color query logic goes here
+        end
+        if status ~= history_status[exec_no] or current_color ~= history_color[exec_no] then
+            history_status[exec_no] = status
+            history_color[exec_no] = current_color
+            Cmd(string.format('SendOSC 1 "/Key%i,is,%i,%s"', exec_no, status, current_color))
+        end
+    end
+end
+
+
+Despite the power of this Lua environment, its implementation is hindered by a complete lack of official, comprehensive documentation.14 Developers must execute the HelpLua command directly in the console to dump a list of system functions to a raw text file named grandMA3_lua_functions.txt.14 To write valid Lua scripts, developers must rely on third-party dummy typing files, Visual Studio Code extensions, and community-maintained manual pages.12
+Natively, grandMA3 onPC does not present an open, unencrypted TCP socket for standard Telnet control. To enable command ingestion via Telnet, developers must execute a custom, non-blocking Lua plugin that initializes a TCP server on port 30000 with a 20-second connection timeout.18 This plugin listens for incoming text commands and pipes them directly to the command-line engine.18
+However, this Telnet interface has significant limitations: any command that generates a UI popup on the console cannot be confirmed remotely from the TCP client, requiring developers to append the /nc (no confirm) flag to all sent strings.18
+The LLM Code Generation Bottleneck
+The most critical barrier when utilizing terminal agents like Claude Code or Codex to program grandMA3 is the high rate of syntax drift and model hallucination.4 The grandMA3 syntax represents a complete departure from grandMA2, yet the training data of major LLMs is dominated by older grandMA2 programming patterns.4 Consequently, offline code-generation models routinely output invalid grandMA3 code.4
+For example, LLMs frequently attempt to set user variables using the deprecated Var or SetVar keywords, which do not exist in the grandMA3 command-line syntax.4 Instead, grandMA3 requires the highly specific SetGlobalVariable or SetUserVariable commands.4
+Additionally, attempting to bypass this limitation by feeding raw grandMA3 manual pages into an LLM's context window often degrades the model's performance.4 In practice, this causes the model to fail to generalize, leading to rigid, unhelpful responses.4
+While custom GPT models (such as those trained on the community-curated grandocs repository) mitigate syntax drift for version 1.7+ software, the lack of standard terminal access and native execution testing makes grandMA3 onPC a highly fragile, suboptimal target for zero-shot, autonomous agentic workflows.4
+QLC+: A Terminal-Friendly, Web-Native Alternative
+For developers seeking an open-source, lightweight control platform, Q Light Controller Plus (QLC+) offers a highly accessible alternative to grandMA3 onPC.22 Running natively across Windows, macOS, and Linux, QLC+ features a robust, web-socket-driven API that aligns with modern web development standards.22
+The Web API and Connection Architecture
+When launched with the -w or --web command-line flags, QLC+ initiates an internal web server and exposes a bidirectional WebSocket endpoint.23
+
+This architecture allows external Python scripts, Node.js applications, or terminal-based agents to establish low-latency, real-time control connections without proprietary hardware keys or licensing restrictions.23
+The Protocol Command Set
+The QLC+ WebSocket API relies on straightforward, plain-text string formatting, which is highly compatible with the code-generation patterns of LLMs.23 Rather than requiring complex binary parsing, commands are structured using a simple piping character () to separate arguments.23
+
+Command Category
+Transmission String / Format
+Response / Behavior
+Source ID
+Widget Manipulation
+"<WidgetID>|<Value>"
+Simulates a virtual console fader or button event. A value of 255 simulates a button press.
+23
+Direct DMX Overrides
+"CH|<DMXAddress>|<Value>"
+Bypasses the virtual console to write directly to a specified DMX address.
+27
+Function Invalidation
+"QLC+API|setFunctionStatus|<ID>|<0/1>"
+Sets the execution state of a specific scene, chaser, or sequence (0 = Stopped, 1 = Running).
+27
+Function Querying
+"QLC+API|getFunctionsList"
+Returns an alternating list of all loaded function IDs and names: ID1|Name1|ID2|Name2.
+27
+State Querying
+"QLC+API|getFunctionStatus|<ID>"
+Returns the current state of the requested function (Running, Stopped, or Undefined).
+27
+Live Value Retrieval
+"QLC+API|getChannelsValues|<Uni>|<Start>|<Count>"
+Returns a list of live channel indices, values, and types starting at the specified address.
+27
+Widget Status Retrieval
+"QLC+API|getWidgetStatus|<ID>"
+Returns the active playback state or step index of a Virtual Console Cue List widget.
+27
+
+Practical Integration with AI Agents
+Because the QLC+ API is exposed via WebSockets and simple text commands, terminal-based agents can write, test, and debug control scripts with high accuracy.23 A basic Python implementation utilizing the websockets library to interface with QLC+ can be generated and executed autonomously by an agent:
+
+
+
+Python
+import asyncio
+import websockets
+
+async def trigger_lighting_scene(widget_id, value):
+    uri = "ws://127.0.0.1:9999/qlcplusWS"
+    async with websockets.connect(uri) as websocket:
+        # Simulate Virtual Console Button Press
+        payload = f"{widget_id}|{value}"
+        await websocket.send(payload)
+        print(f"Dispatched payload: {payload}")
+
+# Execute scene change via terminal
+asyncio.run(trigger_lighting_scene(7, 255))
+
+
+This structural simplicity makes QLC+ highly resilient to LLM syntax hallucinations, providing a stable foundation for automated show control.23
+Bare-Metal Control: Programmatic sACN and Art-Net Generation in Python
+For advanced developers, bypassing a dedicated lighting console entirely and writing directly to the network protocols represents the ultimate in terminal-centric, agentic control.29 By utilizing native Python libraries, an agent can calculate DMX values algorithmically and stream them directly over Ethernet via sACN (Streaming ACN / E1.31) or Art-Net.9
+sACN versus Art-Net: Architectural Trade-Offs
+When selecting a direct-control protocol, developers must evaluate network requirements, addressing schemas, and system scale.29
+
+Feature Metric
+Art-Net (Art-Net 4 Specification)
+sACN (ANSI E1.31 Standard)
+Source ID
+Developer / Entity
+Artistic Licence Engineering Ltd.
+ESTA / ANSI
+29
+Network Protocol Type
+Open-source, UDP-based
+Standardized IP network protocol
+29
+Addressing Method
+Unicast (recommended) or Broadcast
+Multicast (efficient) or Unicast
+29
+Default Network Port
+6454
+5568
+31
+Universe Starting Index
+Universe 0
+Universe 1
+34
+Priority Handling
+No native packet priority mechanics
+Supports per-universe (0–200) and per-address priority
+31
+Network Scalability
+Prone to network congestion during broadcast
+High scalability via IGMP multicast routing
+29
+Error Recovery
+Basic
+Robust packet retransmission and sequencing
+29
+
+Python Tooling Ecosystem
+Several open-source libraries enable direct DMX generation in Python, each featuring unique structural patterns that appeal to terminal-based toolchains:
+pyartnet (Asynchronous Engine)
+The pyartnet library, updated to support asyncio and optimized via uv, is a highly robust framework for streaming Art-Net, sACN, and KiNet data.9 As of version 2.0, nodes must be managed via an asynchronous context manager to ensure safe socket cleanup.9 It supports linear, quadratic, cubic, and quadruple output correction curves, which are crucial for producing smooth LED dimming.36
+
+
+
+Python
+import asyncio
+from pyartnet import ArtNetNode, output_correction
+
+async def run_generative_wash():
+    # Asynchronous context manager initialization (pyartnet 2.0+)
+    async with ArtNetNode.create('127.0.0.1', 6454) as node:
+        # Create Universe 0
+        universe = node.add_universe(0)
+        universe.set_output_correction(output_correction.quadratic)
+
+        # Add a 3-channel RGB fixture starting at DMX Address 1
+        rgb_fixture = universe.add_channel(start=1, width=3, channel_name='Wash_01')
+
+        # Smoothly fade to custom purple color over 2000 milliseconds
+        rgb_fixture.set_fade(, 2000)
+        await rgb_fixture  # Wait for asynchronous fade completion
+
+asyncio.run(run_generative_wash())
+
+
+sacn (Thread-Based Engine)
+The sacn library offers a traditional, threaded approach to E1.31 communication.32 It is highly reliable for stable, synchronous streaming and supports advanced sACN parameters, including universe priority and manual transmission flushing to minimize network jitter.32
+
+
+
+Python
+import sacn
+import time
+
+# Initialize thread-based sACN sender
+sender = sacn.sACNsender()
+sender.start()
+
+# Activate Output on sACN Universe 1
+sender.activate_output(1)
+sender.multicast = True  # Enable multicast routing (239.255.0.1)
+sender.priority = 150     # Assign high priority
+
+# Generate DMX frame data (tuple of up to 512 channels)
+dmx_frame =  * 512
+dmx_frame = 255  # Red Channel
+dmx_frame = 120  # Green Channel
+dmx_frame = 0    # Blue Channel
+
+sender.dmx_data = tuple(dmx_frame)
+
+# Stream values for 5 seconds before clean teardown
+time.sleep(5)
+sender.stop()
+
+
+Algorithmic Case Study: The Oculizer System
+The potential of bare-metal control is illustrated by open-source projects like Oculizer, an advanced music-reactive lighting automation system. Rather than relying on a commercial console, Oculizer uses a Python-native pipeline to translate real-time audio features into raw DMX frames via PyDMXControl.
+
+
+
++-------------------------------------------------------------------------------+
+|                       Real-Time System Audio Stream                           |
+|                  (sounddevice / VB-Audio / BlackHole)                         |
++-------------------------------------------------------------------------------+
+                                       |
+                                       v
++-------------------------------------------------------------------------------+
+|                        Feature Extraction (librosa)                           |
+|                 (FFT, MFCCs, Spectral Centroid, RMS Energy)                   |
++-------------------------------------------------------------------------------+
+                                       |
+                                       v
++-------------------------------------------------------------------------------+
+|                   EfficientAT Deep Learning Audio Tagging                     |
++-------------------------------------------------------------------------------+
+                                       |
+                                       v
++-------------------------------------------------------------------------------+
+|                Dimensionality Reduction & Semantic Clustering                 |
+|                        (scikit-learn: PCA & K-Means)                          |
++-------------------------------------------------------------------------------+
+                                       |
+                                       v
++-------------------------------------------------------------------------------+
+|                     Scene Prediction & Mapping Engine                         |
+|                 (Matches detected audio mood to json profiles)                |
++-------------------------------------------------------------------------------+
+                                       |
+                                       v
++-------------------------------------------------------------------------------+
+|                        Hardware Output Generation                             |
+|              (Mel-Scaled FFT -> DMX Values via PyDMXControl)                  |
++-------------------------------------------------------------------------------+
+
+
+Oculizer's scene-mapping engine reads declarative JSON files that define how specific frequency bands modulate physical DMX parameters. This architecture allows an AI agent to adjust the lighting's behavior simply by rewriting a local JSON configuration file:
+
+
+
+JSON
+{
+    "name": "deep_bass_pulse",
+    "description": "Modulates fixture intensity based on sub-bass FFT bands",
+    "type": "effect",
+    "lights": [
+        {
+            "name": "beam_01",
+            "type": "rgb",
+            "modulator": "mfft",
+            "mfft_range": ,
+            "power_range": [1.0, 3.5],
+            "brightness_range": ,
+            "color": "blue"
+        }
+    ]
+}
+
+
+By decoupling control logic from monolithic GUI software, systems like Oculizer enable terminal-based AI agents to manage live performances entirely through programmatic, algorithmic adjustments.
+Alternative Commercial Platforms: ONYX and MagicQ
+For installations where direct Python control or QLC+ is insufficient, developers can evaluate alternative professional lighting engines that support external control protocols.39
+Obsidian ONYX and the Device Space Paradigm
+Obsidian ONYX is a professional lighting control software that features robust OSC support.40 It is particularly notable for its "Device Space" paradigm, which allows developers to route OSC control commands across different system contexts.42
+
+
+
+                       +---------------------------+
+                       |    ONYX Control Engine    |
+                       +---------------------------+
+                        /                         \
+                       /                           \
+                      v                             v
+            +-------------------+         +-------------------+
+            |   Device Space 1  |         |   Device Space 2  |
+            | (Mapped to Bank 1)|         | (Mapped to Bank 2)|
+            +-------------------+         +-------------------+
+                      ^                             ^
+                      |                             |
+                      |                             |
+               [IP: 2.0.0.101]               [IP: 2.0.0.102]
+                      \                             /
+                       \                           /
+                      +-----------------------------+
+                      |     Virtual Loopback NIC    |
+                      +-----------------------------+
+
+
+Because ONYX associates specific incoming IP addresses with distinct Device Spaces, developers can control multiple playback banks independently over a single loopback network interface.42 For example, by configuring multiple static IP addresses on a virtual network interface card (NIC), an agent can target Device Space 1 via 2.0.0.101 and Device Space 2 via 2.0.0.102.42
+Despite its robust addressing scheme, ONYX enforces strict licensing restrictions.40 When running in the free "FREE" or "NOVA" modes, OSC control interfaces are locked, requiring the purchase of proprietary USB hardware to unlock external API integration.40
+Additionally, ONYX exhibits a known bug: OSC inputs fail to process if the software window is moved off the primary laptop display onto a secondary monitor.43 This issue complicates deployments in multi-screen environments.43
+ChamSys MagicQ and the CREP Protocol
+ChamSys MagicQ is another major commercial lighting engine that supports external Ethernet remote control.39 It features a proprietary UDP-based protocol called the ChamSys Remote Ethernet Protocol (CREP).44
+CREP packets are sent to UDP port 6553 in broadcast mode and must follow a precise binary structure 44:
+
+The parameter constraints of this structure are defined below:
+chamsys (): Must contain the characters 'C', 'R', 'E', 'P'.44 Because MagicQ stores integers as little-endian, this header appears on the network as the string 'PERC'.44
+version (): Standardized to value 0 for basic command execution.44
+seq_fwd (): An incrementing sequence number to monitor packet loss.44
+seq_bkwd (): The last sequence number received back from the remote host.44
+length (): The length of the raw data payload, excluding the CREP header.44
+data (): Simple comma-separated ASCII remote commands.44
+Like ONYX, ChamSys enforces hardware protection.46 The Remote Ethernet Protocol is disabled when MagicQ PC runs in "Demo Mode," requiring a physical ChamSys wing or interface to unlock API command ingestion.45 This licensing restriction introduces financial and logistical hurdles for developers seeking a pure software-based, terminal-driven environment.
+Show Control Middleware: Chataigne and Open Stage Control
+To bridge the gap between custom AI scripts and professional lighting consoles, developers often implement show control middleware.8 Middleware simplifies the control pipeline by acting as a central hub that translates standard network protocols into console-specific commands.8
+Chataigne as a Protocol Conductor
+Chataigne is a free, open-source modular controller designed to orchestrate complex real-time interactions.47 Rather than requiring developers to write custom protocol conversion code, Chataigne acts as a central hub.8 It ingests incoming data (such as raw WebSockets, MIDI, or OSC) and routes it to downstream software via dedicated module adapters.8
+
+
+
+                      +-----------------------------+
+                      |   AI Control Script (CLI)   |
+                      +-----------------------------+
+                                     |
+                                     | (Standard OSC / WebSocket)
+                                     v
+                      +-----------------------------+
+                      |          Chataigne          |
+                      |    (Protocol Middleware)    |
+                      +-----------------------------+
+                        /            |            \
+                       /             |             \
+                      v              v              v
+               +------------+  +------------+  +------------+
+               |  grandMA3  |  |    QLC+    |  |    OBS     |
+               | OSC Module |  | WS Module  |  | WS Module  |
+               +------------+  +------------+  +------------+
+
+
+Chataigne features pre-built integration modules for several professional systems, including grandMA2, grandMA3, and OBS.48 In an agentic workflow, an AI script can output generic OSC messages to Chataigne, which handles connection monitoring, state routing, and protocol translation.8 This architecture allows developers to modify the underlying lighting hardware without needing to rewrite the core AI control logic.8
+Open Stage Control
+For developers building browser-based graphical user interfaces (GUIs), Open Stage Control provides a highly customizable control surface.5 It features an integrated web server and supports real-time communication via WebSockets.7
+By opening a WebSocket connection, a Python agent can dynamically generate custom slider and button layouts, providing human operators with a responsive interface to monitor and adjust the AI's real-time lighting decisions.49
+AI-Driven Lighting Trends and the Myth of "Plug-and-Play AI"
+The term "AI-driven lighting" has seen widespread commercial adoption, often obscuring the underlying software architecture.50
+Deconstructing Hardware Controllers (e.g., MaestroDMX)
+The rise of stand-alone "AI" lighting boxes, such as MaestroDMX, represents a significant development in automated live performance.50 These devices, running on compact single-board computers like the NanoPI Plus, claim to generate complete light shows in real time without manual programming.50
+However, technical analysis indicates that these systems do not execute complex, real-time deep learning models locally.50 Running a local, real-time Large Language Model (LLM) or generative video model with low latency requires high-performance hardware, such as an 80-core CPU or a dedicated GPU, which is absent in these compact units.50
+Instead, devices like MaestroDMX rely on reactive frequency algorithms and mathematical clustering techniques, such as -means, to detect musical transitions, tempo shifts, and energy envelopes.1 While these algorithms produce responsive and dynamic looks, they are fundamentally similar to established, code-based audio analysis frameworks.50
+The AI-Drafting Workflow
+In professional production environments, the integration of generative AI is evolving into a hybrid, "AI-drafting" workflow. Rather than completely replacing human lighting directors, AI engines serve as highly efficient programming assistants.
+
+
+
++-----------------------------------------------------------------------------------+
+|                           AI Audio & Visual Analysis                              |
+|                    (Motion, Color Tone, Energy, Context)                          |
++-----------------------------------------------------------------------------------+
+                               |
+                               | (Generates base cues & transitions)
+                               v
++-----------------------------------------------------------------------------------+
+|                        Structured DMX Output Stream                               |
+|                (Piped directly to lighting software or console)                   |
++-----------------------------------------------------------------------------------+
+                               |
+                               | (Manual timing overrides & brand alignment)
+                               v
++-----------------------------------------------------------------------------------+
+|                             Final Executable Show                                 |
++-----------------------------------------------------------------------------------+
+
+
+This hybrid workflow leverages machine-speed analysis to dramatically accelerate the design phase. However, because live performances require absolute reliability, designers must review, edit, and lock down these AI-generated cue suggestions to prevent unexpected lighting changes during a show.
+Comparative Architectural Synthesis
+To select the optimal platform for an AI-driven, agentic show control system, developers must evaluate how key features align with their technical requirements.
+
+Architectural Dimension
+grandMA3 onPC
+QLC+
+Python Bare-Metal (sACN / Art-Net)
+Obsidian ONYX
+ChamSys MagicQ
+Primary Interface Protocol
+OSC 1.1 / Proprietary Lua 6
+WebSockets / Plain-Text 23
+Native Async / Threaded Sockets 9
+OSC 40
+UDP Binary CREP Port 44
+Code-Generation Compatibility
+Poor (High syntax drift & hallucination) 4
+Excellent (Simple string formatting) 27
+Excellent (Standard Python libraries) 9
+Good (Standard OSC) 40
+Moderate (Requires structured binary headers) 45
+Bi-Directional State Reporting
+Complex (Requires scraping log windows) 6
+Robust (Native WebSocket feedback) 27
+Calculated (Code manages internal state)
+Limited (No feedback for playbacks) 52
+Moderate (Exposed via HTML pages) 46
+Licensing & Hardware Locks
+None for command CLI; Output locked to MA hardware
+None (Fully open-source)
+None (Fully open-source)
+Locked (OSC disabled in Free modes) 40
+Locked (CREP disabled in Demo mode) 45
+Deployment Complexity
+High (Large local application overhead)
+Low (Web-native, multi-platform) 22
+Minimal (Self-contained script execution)
+High (Windows application) 41
+High (Console environment) 39
+Latency Profile
+
+
+
+
+
+
+Conclusions and Actionable Recommendations
+For developers building automated lighting workflows with Claude Code, Codex, or Gemini CLI, selecting the right platform depends on the required control abstraction and integration depth:
+For Generative, Real-Time Algorithmic Lighting: Deploy Python Bare-Metal. If the system utilizes deep learning, real-time feature extraction, or algorithmic pattern generators, developers should bypass dedicated lighting consoles. Instead, they should write self-contained Python scripts using pyartnet (leveraging asynchronous programming and quadratic dimming curves) or sacn (utilizing thread-based sockets and priority settings).9 This approach avoids licensing fees, eliminates console application overhead, and provides clean code blocks that terminal agents can write, test, and iterate with high precision.9
+For Structured, Cue-Based Automated Shows: Deploy QLC+ via WebSockets. If the project requires complex fixture profiles, pre-built effects, and manual override capabilities, QLC+ launched with the --web flag is the recommended platform.23 Its plain-text WebSocket API is highly compatible with LLM code-generation patterns, enabling terminal agents to trigger scenes, adjust faders, and query system states reliably without syntax drift.23
+For Professional Venues Requiring grandMA3: Deploy Chataigne Middleware. If physical grandMA3 hardware is required, developers should avoid sending raw command strings directly to the console via OSC or Telnet.4 Instead, they should deploy Chataigne as a middleware translation layer.8 The terminal agent controls Chataigne using standard OSC structures, and Chataigne's integration module manages protocol routing and grandMA3-specific formatting.8 This architecture insulates the AI agent from grandMA3's syntax changes, ensuring a stable, repeatable, and scalable control system.4
+Works cited
+LandryBulls/Oculizer: Intelligent, real-time, audio ... - GitHub, accessed May 23, 2026, https://github.com/LandryBulls/Oculizer
+Stage Lighting Trends 2026: AI-Assisted Programming - uking online, accessed May 23, 2026, https://www.uking-online.com/blogs/stage-lighting-dmx-knowledge-hub/stage-lighting-trends-2026-ai-programming
+Add on for dmx stage lighting control, accessed May 23, 2026, https://support.stagetraxx.com/d/448-add-on-for-dmx-stage-lighting-control
+Custom ChatGPT thinks it's a comprehensive GrandMA3 expert, it provides interactive examples, personalized advice, and community insights. - MA Lighting Forum, accessed May 23, 2026, https://forum.malighting.com/forum/thread/9031-custom-chatgpt-thinks-it-s-a-comprehensive-grandma3-expert-it-provides-interacti/
+Integration request OSC (open sound control) - Home Assistant Community, accessed May 23, 2026, https://community.home-assistant.io/t/integration-request-osc-open-sound-control/895723
+OSC (Open Sound Control) - MA Lighting, accessed May 23, 2026, https://help.malighting.com/grandMA3/2.1/HTML/remote_inputs_osc.html
+qlcplus-docs/pages/09.plugins/09.osc/default.v4.md at main · mcallegari/qlcplus-docs · GitHub, accessed May 23, 2026, https://github.com/mcallegari/qlcplus-docs/blob/master/pages/09.plugins/09.osc/default.v4.md
+Understanding OSC in Grandma3 - Reddit, accessed May 23, 2026, https://www.reddit.com/r/GrandMA3/comments/1gf2u7i/understanding_osc_in_grandma3/
+pyartnet - PyPI, accessed May 23, 2026, https://pypi.org/project/pyartnet/
+Is ChamSys Lighting Recommended by AI? | Gemini Results - Recomaze, accessed May 23, 2026, https://recomaze.ai/proof/RCZ-PRF-2026-UL77IMJV/chamsys-lighting-ma-lighting-s-grandma3-series-sets-the-indu
+Using Open Sound Control ("OSC") with grandMA3 | ACT Entertainment Customer Hub, accessed May 23, 2026, https://support.actentertainment.com/knowledgeBase/26283481
+A comprehensive GrandMA3 API documentation for Lua scripting. - GitHub, accessed May 23, 2026, https://github.com/MacTirney/GrandMA3-API-Documentation
+Control MA3 onPC with Akai APCmini mk2 (OSC) ArtGateOne - MA Lighting Forum, accessed May 23, 2026, https://forum.malighting.com/forum/thread/9223-control-ma3-onpc-with-akai-apcmini-mk2-osc-artgateone/
+Object API: Documentation - LUA Plugins - MA Lighting Forum, accessed May 23, 2026, https://forum.malighting.com/forum/thread/8220-object-api-documentation/
+Ma3 Lua Api for VS Code - Carrot Industries, accessed May 23, 2026, https://carrot-industries.com/ma3-lua-api-for-vs-code/
+Ma3 Lua Api for VS Code - Visual Studio Marketplace, accessed May 23, 2026, https://marketplace.visualstudio.com/items?itemName=Carrot-Industries.ma3-lua-api
+LUA scripting API Documentation - Moving Light Assistant, accessed May 23, 2026, https://www.movinglightassistant.com/wp_folder/?p=4590
+Telnet Server for gMA3 - LUA Plugins - MA Lighting Forum, accessed May 23, 2026, https://forum.malighting.com/forum/thread/8457-telnet-server-for-gma3/
+GMA3 ft. AI : r/GrandMA3 - Reddit, accessed May 23, 2026, https://www.reddit.com/r/GrandMA3/comments/195xcq4/gma3_ft_ai/
+I made a ChatGPT that thinks it's a Comprehensive grandMA3 expert. - Reddit, accessed May 23, 2026, https://www.reddit.com/r/GrandMA3/comments/1bemeko/i_made_a_chatgpt_that_thinks_its_a_comprehensive/
+I made a ChatGPT App trained on the grandMA3 Docs - Reddit, accessed May 23, 2026, https://www.reddit.com/r/GrandMA3/comments/1fnorxy/i_made_a_chatgpt_app_trained_on_the_grandma3_docs/
+QLC and OSC Commands - YouTube, accessed May 23, 2026, https://www.youtube.com/watch?v=mOK9clqqWYM
+QLC+ Cues - Beat Link Trigger User Guide, accessed May 23, 2026, https://blt-guide.deepsymmetry.org/beat-link-trigger/8.0.0/Integration_QLC.html
+Control your lights with QLC+ from Sound Show, accessed May 23, 2026, https://soundshow.app/qlc-control
+Hantick/LB-QLC-Control: LioranBoard 2 extension to control Q Light Controller Plus and DMX lights - GitHub, accessed May 23, 2026, https://github.com/Hantick/LB-QLC-Control
+How I control QLC+ with a Stream Deck using websockets and Python - YouTube, accessed May 23, 2026, https://www.youtube.com/watch?v=J4ZLBu0XFmc
+qlcplus/webaccess/res/Test_Web_API.html at master · mcallegari ..., accessed May 23, 2026, https://github.com/mcallegari/qlcplus/blob/master/webaccess/res/Test_Web_API.html
+h3ndrk/qlcplus-mqtt: MQTT adaptor to control QLC+ lighting controller software - GitHub, accessed May 23, 2026, https://github.com/h3ndrk/qlcplus-mqtt
+Art-Net and sACN [Full Guide] - Betopper, accessed May 23, 2026, https://betopperdj.com/blogs/news/art-net-and-sacn
+PyArtNet/readme.md at master · spacemanspiff2007/PyArtNet · GitHub, accessed May 23, 2026, https://github.com/spacemanspiff2007/PyArtNet/blob/master/readme.md
+Converting sACN to ArtNet - the MIDIMonster Knowledge Base!, accessed May 23, 2026, https://kb.midimonster.net/usecases/Convert-sACN-ArtNet.html
+sacn - PyPI, accessed May 23, 2026, https://pypi.org/project/sacn/
+User Guide: Artnet DMX Agent - GitHub, accessed May 23, 2026, https://github.com/openremote/openremote/wiki/User-Guide:-Artnet-DMX-Agent/448f0efc5c837805d446ba9108a4eaa136fbeca8
+1 Universe Art-Net / sACN Node - Electroconcept, accessed May 23, 2026, https://www.electroconcept.fr/en/docs/1-universe-artnet-sacn-node/
+ArtNet/sACN DMX Input Patching in Version 25.1 - Pixera, accessed May 23, 2026, https://pixera.helpjuice.com/pixera-251/artnetsacn-dmx-input-patching-version25_1
+Getting Started - PyArtNet documentation, accessed May 23, 2026, https://pyartnet.readthedocs.io/en/latest/pyartnet.html
+PyArtNet, accessed May 23, 2026, https://pyartnet.readthedocs.io/_/downloads/en/stable/pdf/
+PyArtNet/docs/pyartnet.rst at master · spacemanspiff2007/PyArtNet - GitHub, accessed May 23, 2026, https://github.com/spacemanspiff2007/PyArtNet/blob/master/docs/pyartnet.rst
+Networking - ChamSys, accessed May 23, 2026, https://uk.chamsyslighting.com/software/networking/
+OSC - ONYX 4.32 - Obsidian Control Systems, accessed May 23, 2026, https://support.obsidiancontrol.com/Content/Onyx_Manual/Networking/OSC.htm
+ONYX - Obsidian Control Systems, accessed May 23, 2026, https://www.obsidiancontrol.com/pages/onyx
+Obsidian Onyx - Multiple OSC Devices - ShowCockpit Academy, accessed May 23, 2026, https://academy.showcockpit.com/showcockpit-for-windows/tutorials/lighting/obsidian-onyx-multiple-osc-devices
+osc to obsidian onyx | TroikaTronix Forum, accessed May 23, 2026, https://community.troikatronix.com/topic/6861/osc-to-obsidian-onyx
+Using ChamSys Remote Ethernet Protocol on MagicQ - Mikrocontroller.net, accessed May 23, 2026, https://www.mikrocontroller.net/attachment/113173/magicqremoteethernet.pdf
+ChamSys Remote Protocol for MagicQ | PDF - Scribd, accessed May 23, 2026, https://www.scribd.com/document/4021282/MagicQ-Remote-Ethernet
+MagicQ Remote Protocol : r/ChamSys - Reddit, accessed May 23, 2026, https://www.reddit.com/r/ChamSys/comments/1isqiec/magicq_remote_protocol/
+Chataigne - Ben Kuper, accessed May 23, 2026, http://benjamin.kuperberg.fr/chataigne/en
+Chataigne Community Modules Browser - Ben Kuper, accessed May 23, 2026, https://benjamin.kuperberg.fr/chataigne/modules_browser/
+List of feature requests (MOD Dwarf) - Page 4 - MOD Audio Forum, accessed May 23, 2026, https://forum.mod.audio/t/list-of-feature-requests-mod-dwarf/6126?page=4
+It's not AI : r/lightingdesign - Reddit, accessed May 23, 2026, https://www.reddit.com/r/lightingdesign/comments/1bi3rh0/its_not_ai/
+MaestroDMX, accessed May 23, 2026, https://maestrodmx.com/products/maestrodmx
+Connection - obsidiancontrol-onyx-osc - Bitfocus, accessed May 23, 2026, https://bitfocus.io/connections/obsidiancontrol-onyx-osc

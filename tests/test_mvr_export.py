@@ -11,8 +11,6 @@ from rayflow.fixtures.mvr_export import (
     export_mvr,
 )
 
-MVR_NS = "http://www.gdtf-share.com/MVR"
-
 
 def test_build_patch_entry_defaults():
     entry = build_patch_entry(
@@ -66,9 +64,9 @@ def test_build_mvr_scene_element_contains_root():
 
     root = build_mvr_scene_element(patches)
 
-    assert root.tag == f"{{{MVR_NS}}}GeneralSceneDescription"
-    assert root.get("versionMajor") == "1"
-    assert root.get("versionMinor") == "8"
+    assert root.tag == "GeneralSceneDescription"
+    assert root.get("verMajor") == "1"
+    assert root.get("verMinor") == "8"
 
 
 def test_build_mvr_scene_element_has_user_data():
@@ -85,7 +83,7 @@ def test_build_mvr_scene_element_has_user_data():
 
     root = build_mvr_scene_element(patches)
 
-    user_data = root.find(f"{{{MVR_NS}}}UserData")
+    user_data = root.find("UserData")
     assert user_data is not None
     assert user_data.get("provider") == "RayFlow"
 
@@ -104,11 +102,11 @@ def test_build_mvr_scene_element_has_scene_and_layer():
 
     root = build_mvr_scene_element(patches, scene_name="My Show")
 
-    scene = root.find(f"{{{MVR_NS}}}Scene")
+    scene = root.find("Scene")
     assert scene is not None
     assert scene.get("name") == "My Show"
 
-    layer = scene.find(f"{{{MVR_NS}}}Layers/{{{MVR_NS}}}Layer")
+    layer = scene.find("Layers/Layer")
     assert layer is not None
     assert layer.get("name") == "Fixtures"
 
@@ -127,14 +125,14 @@ def test_build_mvr_scene_element_fixture_has_addressing():
 
     root = build_mvr_scene_element(patches)
 
-    fixture = root.find(f".//{{{MVR_NS}}}Fixture")
+    fixture = root.find(".//Fixture")
     assert fixture is not None
     assert fixture.get("name") == "PAR 1"
 
-    addressing = fixture.find(f"{{{MVR_NS}}}Addressing")
-    assert addressing is not None
-    assert addressing.get("universe") == "1"
-    assert addressing.get("address") == "42"
+    address = fixture.find("Addresses/Address")
+    assert address is not None
+    assert address.get("break") == "0"
+    assert address.text == "42"
 
 
 def test_build_mvr_scene_element_fixture_has_position():
@@ -153,13 +151,14 @@ def test_build_mvr_scene_element_fixture_has_position():
 
     root = build_mvr_scene_element(patches)
 
-    matrix = root.find(f".//{{{MVR_NS}}}Fixture/{{{MVR_NS}}}Matrix")
+    matrix = root.find(".//Fixture/Matrix")
     assert matrix is not None
-    assert matrix.get("x") == "3.5000"
-    assert matrix.get("y") == "2.0000"
-    assert matrix.get("z") == "-4.0000"
-    assert matrix.get("pan") == "180.0000"
-    assert matrix.get("tilt") == "45.0000"
+    assert matrix.text == (
+        "{1.000000,0.000000,0.000000}"
+        "{0.000000,1.000000,0.000000}"
+        "{0.000000,0.000000,1.000000}"
+        "{3500.000000,2000.000000,-4000.000000}"
+    )
 
 
 def test_build_mvr_scene_multiple_fixtures():
@@ -177,10 +176,12 @@ def test_build_mvr_scene_multiple_fixtures():
 
     root = build_mvr_scene_element(patches)
 
-    fixtures = root.findall(f".//{{{MVR_NS}}}Fixture")
+    fixtures = root.findall(".//Fixture")
     assert len(fixtures) == 4
     assert fixtures[0].get("name") == "PAR 1"
     assert fixtures[3].get("name") == "PAR 4"
+    fixture_ids = [fixture.find("FixtureID").text for fixture in fixtures]
+    assert fixture_ids == ["1", "2", "3", "4"]
 
 
 def test_export_mvr_creates_valid_zip(tmp_path: Path):
@@ -203,8 +204,8 @@ def test_export_mvr_creates_valid_zip(tmp_path: Path):
 
     with ZipFile(result) as archive:
         names = archive.namelist()
-        assert "myvirtualrig.xml" in names
-        xml_content = archive.read("myvirtualrig.xml").decode()
+        assert "GeneralSceneDescription.xml" in names
+        xml_content = archive.read("GeneralSceneDescription.xml").decode()
         assert "PAR 1" in xml_content
         assert "GeneralSceneDescription" in xml_content
 
@@ -225,9 +226,9 @@ def test_export_mvr_xml_is_parseable(tmp_path: Path):
     export_mvr(patches, output)
 
     with ZipFile(output) as archive:
-        xml_text = archive.read("myvirtualrig.xml").decode()
+        xml_text = archive.read("GeneralSceneDescription.xml").decode()
         root = ET.fromstring(xml_text)
-        assert root.tag == f"{{{MVR_NS}}}GeneralSceneDescription"
+        assert root.tag == "GeneralSceneDescription"
 
 
 def test_export_mvr_scene_name_flows_through(tmp_path: Path):
@@ -246,7 +247,7 @@ def test_export_mvr_scene_name_flows_through(tmp_path: Path):
     export_mvr(patches, output, scene_name="Festival Rig 2026")
 
     with ZipFile(output) as archive:
-        xml_text = archive.read("myvirtualrig.xml").decode()
+        xml_text = archive.read("GeneralSceneDescription.xml").decode()
         assert "Festival Rig 2026" in xml_text
 
 

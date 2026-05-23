@@ -137,7 +137,7 @@ class TestMvrExport:
 
         with zipfile.ZipFile(output) as z:
             names = z.namelist()
-            assert "myvirtualrig.xml" in names
+            assert "GeneralSceneDescription.xml" in names
             gdtf_files = [n for n in names if n.endswith(".gdtf")]
             assert len(gdtf_files) >= 3
 
@@ -166,11 +166,13 @@ class TestMvrExport:
         export_mvr(patches, output)
 
         with zipfile.ZipFile(output) as z:
-            with z.open("myvirtualrig.xml") as f:
+            with z.open("GeneralSceneDescription.xml") as f:
                 tree = ET.parse(f)
-                fixtures = tree.findall(".//{http://www.gdtf-share.com/MVR}Fixture")
+                fixtures = tree.findall(".//Fixture")
                 assert len(fixtures) == 1
-                assert fixtures[0].get("gdtfMode") == "Default"
+                mode = fixtures[0].find("GDTFMode")
+                assert mode is not None
+                assert mode.text == "Default"
 
 
 class TestArtNet:

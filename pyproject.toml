@@ -1,7 +1,7 @@
 [project]
 name = "rayflow"
 version = "0.1.0"
-description = "Concert lighting design toolkit — AI-assisted timecoded light shows for recorded music using grandMA3 onPC."
+description = "AI-assisted concert lighting design toolkit with backend-neutral show data, DMX rendering, and console adapters."
 authors = [{ name = "Connor Kitchings", email = "connor.kitchings@gmail.com" }]
 requires-python = ">=3.10"
 dependencies = [

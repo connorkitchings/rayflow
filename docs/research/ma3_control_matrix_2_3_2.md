@@ -6,6 +6,10 @@
 to program MA3-native looks, and define what must be proven before adding an MCP
 server.
 
+> **Direction update, 2026-05-23:** This matrix is now scoped to the MA3
+> compatibility track. It should not block Phase 8 backend-neutral work on DMX
+> rendering, Art-Net/sACN output, or QLC+ WebSocket control.
+
 ## Result
 
 RayFlow has a useful command path into MA3, but it does not yet have a complete
@@ -32,9 +36,11 @@ Not verified enough for full programming:
 - Fully automated fixture type import/patch for the sample fixtures through
   MA3 command line alone.
 
-Conclusion: **control research should continue before MCP implementation**. An
-MCP server would be useful later, but it should expose verified MA3 operations,
-not hide unresolved console-control gaps.
+Conclusion: **MA3 control research should continue before MA3-mutating MCP
+implementation**. An MCP server would be useful later, but it should expose
+verified MA3 operations, not hide unresolved console-control gaps. RayFlow's
+mainline implementation should move to backend-neutral rendering and
+API-first/direct-DMX adapters.
 
 ## Evidence Baseline
 
@@ -60,7 +66,13 @@ Existing local evidence:
   current safety blocker: MA3 `app_gma3` is bound to UDP 8000, but the latest
   `SaveShow`/`NewShow` `/cmd` attempts produced no observable title or show-file
   mutation. Row-level OSC command receive must be reconfirmed before any deeper
-  live mutation probe.
+  live mutation probe. As of 2026-05-23, RayFlow includes a dedicated
+  `console probe command-acceptance` gate and an explicit
+  `--assume-disposable` evidence flag. After enabling row-level
+  `Receive Command` and resetting command destination to Root, the corrected
+  command-acceptance probe passed. Show isolation still does not create
+  `rayflow_control_probe.show`; `NewShow "rayflow_control_probe"` + `SaveShow`
+  modified the current `NewShow_...` file instead.
 - `docs/research/ma3_timecode_xml_2_3_2.md` documents captured Timecode XML,
   clean import/re-export, and cursor movement after playback.
 - `docs/research/ma3_timecode_command_automation_2026-05-19.md` documents the
@@ -85,9 +97,9 @@ Status values:
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | OSC command send | Command line via OSC `/cmd` | OSC Input On, row `Receive=Yes`, `Receive Command=Yes`, UDP 8000 | `rayflow console cmd "<command>" --execute` | Command effect, MA3 monitor/exports; feedback is not reliable yet | Wrong IP/interface; OSC disabled; UDP has no delivery confirmation; latest session had UDP listener but no visible `/cmd` effect | Verified automation when configured; current session needs command-receive reconfirmation | Tool: `ma3.send_command`, but require dry-run/confirm for mutations |
 | MA3 version pin | Application bundle metadata | `/Applications/grandMA3.app` installed | None | `CFBundleVersion` reads `2.3.2.0` | App upgraded without docs update | Verified automation | Resource: `ma3.environment` |
-| Disposable show isolation | Show file / loaded show | A known throwaway show loaded in MA3 | `NewShow "rayflow_control_probe"`, `SaveShow`, or UI-created `rayflow_control_probe` followed by harness verification | New `.show` file exists and is the active show | `SaveShow As "..."` is wrong syntax and created `As.show`; latest `NewShow "rayflow_control_probe"` + `SaveShow` and `SaveShow "rayflow_control_probe"` attempts produced no file/title change while command receive was suspect | Needs proof | Required before mutating MCP tools |
+| Disposable show isolation | Show file / loaded show | A known throwaway show loaded in MA3 | `NewShow "rayflow_control_probe"`, `SaveShow`, or UI-created `rayflow_control_probe` followed by harness verification | New `.show` file exists and is the active show; optional `--assume-disposable` records manual confirmation only | `SaveShow As "..."` is wrong syntax and created `As.show`; latest `NewShow "rayflow_control_probe"` + `SaveShow` and `SaveShow "rayflow_control_probe"` attempts produced no file/title change while command receive was suspect | Needs proof | Required before mutating MCP tools |
 | MVR rig export | MVR scene with embedded GDTF | RayFlow rig + fixture library | `rayflow rig export-mvr` / bundle export | Import into MA3 and inspect patch/3D | Import may require user workflow; command-line import not fully proven | Needs proof | Tool after import workflow is verified |
-| Fixture type import | FixtureTypes / GDTF library | Fixture file accessible to MA3 | GUI import or MVR import | Fixture type appears in MA3 Fixture Types | MA3 command-line import syntax is context-sensitive; World Server/UI may be required | Manual/setup-only | Resource guidance only until automated import is proven |
+| Fixture type import | FixtureTypes / GDTF library | Fixture file accessible to MA3 | CLI-first MVR import probe or UI-assisted MVR import | Fixture type appears in MA3 Fixture Types or exported patch evidence records the imported fixtures | MA3 command-line import syntax is context-sensitive; World Server/UI may be required | Manual/setup-only until a result artifact proves CLI import | Resource guidance only until automated import is proven |
 | Fixture patching | Patch / Fixture Schedule | Fixture type exists in MA3 | `Fixture 4 "LED PAR" At Address 1` or MVR import | Patch menu, exported patch/show state, visualizer response | Fixture name/mode mismatch; insert behavior depends on patch context | Needs proof | Tool only after sample-fixture patch round trip |
 | Fixture/channel selection | Programmer selection | Patched fixtures or channels | `Fixture 1 Thru 4`, `Channel 1 Thru 8` | Fixture sheet highlight; possible Lua/ObjectList probe | Selection can be blocked by worlds/filters; no RayFlow readback yet | Needs proof | Tool after selection readback exists |
 | Programmer clear | Programmer | Active programmer values | `Clear`, `ClearAll` | Fixture sheet/programmer state; output returns to tracked/default values | Clear levels differ; `ClearAll` can reset more than expected | Needs proof | Tool with explicit safety notes |
@@ -104,9 +116,10 @@ Status values:
 | Pool object readback | Groups/Presets/Sequences/Timecodes | Objects exist | `List`, `Export`, or Lua probes | Exported XML or captured text/OSC feedback | OSC command feedback was unreliable in prior probe | Needs proof | Resource after readback channel is proven |
 | Phaser/effects programming | Phaser data, MAtricks, Speed Masters | Fixture attributes and forms understood | MA3 command grammar / Phaser Editor | Visual output and exported sequence/preset data | Too advanced before basic looks | Not viable for this milestone | Defer |
 
-## Basic Looks Milestone
+## MA3 Compatibility Milestone
 
-The next implementation target should be deliberately small:
+The next MA3 compatibility target should be deliberately small and should not
+block Phase 8 renderer work:
 
 1. Create a disposable MA3 show named `RayFlow Control Probe`.
 2. Import or patch:

@@ -10,8 +10,12 @@ from rayflow.cli import app
 from rayflow.console.probe import (
     ExpectedExport,
     ProbePlan,
+    assumed_disposable_show_plan,
     changed_show_files,
     check_expected_exports,
+    command_acceptance_plan,
+    fixture_probe_mvr_entries,
+    require_disposable_confirmation,
     run_probe_plan,
     show_isolation_passed,
     snapshot_show_mtimes,
@@ -71,6 +75,29 @@ def test_expected_export_validation(tmp_path: Path) -> None:
     assert not checks[1].exists
 
 
+def test_command_acceptance_plan_requires_sequence_export(tmp_path: Path) -> None:
+    export = tmp_path / "rayflow_command_acceptance_probe_sequence.xml"
+
+    plan = command_acceptance_plan(export_path=export)
+
+    assert plan.name == "command-acceptance"
+    assert plan.target_show == "rayflow_control_probe"
+    assert plan.commands == [
+        "ChangeDestination Root",
+        'Export Sequence 1 "rayflow_command_acceptance_probe_sequence"',
+    ]
+    assert plan.expected_exports[0].path == export
+    assert plan.expected_exports[0].required_substrings == ["Sequence"]
+
+
+def test_assumed_disposable_show_plan_does_not_create_show() -> None:
+    plan = assumed_disposable_show_plan()
+
+    assert plan.name == "show-isolation"
+    assert plan.commands == ["ChangeDestination Root", "SaveShow"]
+    assert all("NewShow" not in command for command in plan.commands)
+
+
 def test_run_probe_plan_dry_run_does_not_send(tmp_path: Path) -> None:
     plan = ProbePlan(
         name="demo",
@@ -90,6 +117,28 @@ def test_run_probe_plan_dry_run_does_not_send(tmp_path: Path) -> None:
     assert [entry.command for entry in result.commands] == ["About", "List Sequence"]
     assert all(not entry.sent for entry in result.commands)
     client.send.assert_not_called()
+
+
+def test_run_probe_plan_records_assume_disposable(tmp_path: Path) -> None:
+    plan = ProbePlan(
+        name="show-isolation",
+        target_show="rayflow_control_probe",
+        commands=["NewShow"],
+    )
+    client = MagicMock()
+
+    result = run_probe_plan(
+        plan,
+        execute=True,
+        delay=0,
+        shows_dir=tmp_path,
+        client=client,
+        assume_disposable=True,
+    )
+
+    assert result.passed
+    assert result.metadata["assume_disposable"] is True
+    assert result.metadata["show_isolation_passed"] is False
 
 
 def test_run_probe_plan_execute_sends_in_order(tmp_path: Path) -> None:
@@ -132,6 +181,27 @@ def test_run_probe_plan_execute_rejects_bad_target(tmp_path: Path) -> None:
         raise AssertionError("expected ValueError")
 
 
+def test_require_disposable_confirmation_rejects_without_flag() -> None:
+    try:
+        require_disposable_confirmation(
+            target_show="rayflow_control_probe",
+            assume_disposable=False,
+        )
+    except ValueError as exc:
+        assert "--assume-disposable" in str(exc)
+    else:
+        raise AssertionError("expected ValueError")
+
+
+def test_require_disposable_confirmation_rejects_bad_target() -> None:
+    try:
+        require_disposable_confirmation(target_show="real_show", assume_disposable=True)
+    except ValueError as exc:
+        assert "target_show must be" in str(exc)
+    else:
+        raise AssertionError("expected ValueError")
+
+
 def test_probe_run_cli_dry_run(tmp_path: Path) -> None:
     plan_path = tmp_path / "plan.json"
     plan_path.write_text(
@@ -163,6 +233,65 @@ def test_probe_run_cli_dry_run(tmp_path: Path) -> None:
     assert result.exit_code == 0
     assert "dry-run" in result.output
     assert "About" in result.output
+
+
+def test_command_acceptance_cli_dry_run(tmp_path: Path) -> None:
+    export = tmp_path / "acceptance.xml"
+
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "command-acceptance",
+            "--target-show",
+            "rayflow_control_probe",
+            "--shows-dir",
+            str(tmp_path),
+            "--export-path",
+            str(export),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "dry-run" in result.output
+    assert "Export Sequence 1" in result.output
+
+
+@patch("rayflow.console.osc.Ma3OscClient")
+def test_command_acceptance_cli_execute_writes_failed_result(
+    mock_client_cls, tmp_path: Path
+) -> None:
+    mock_client = MagicMock()
+    mock_client_cls.return_value = mock_client
+    export = tmp_path / "missing.xml"
+    result_json = tmp_path / "result.json"
+
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "command-acceptance",
+            "--target-show",
+            "rayflow_control_probe",
+            "--shows-dir",
+            str(tmp_path),
+            "--export-path",
+            str(export),
+            "--result-json",
+            str(result_json),
+            "--delay",
+            "0",
+            "--execute",
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert result_json.exists()
+    payload = json.loads(result_json.read_text())
+    assert payload["status"] == "failed"
+    assert payload["exports"][0]["exists"] is False
 
 
 @patch("rayflow.console.osc.Ma3OscClient")
@@ -263,4 +392,63 @@ def test_fixture_import_cli_execute_writes_mvr(tmp_path: Path) -> None:
 
     assert result.exit_code == 0
     assert output.exists()
+    assert set(fixture_probe_mvr_entries(output)) == {
+        "GeneralSceneDescription.xml",
+        "BlenderDMX@LED PAR 64 RGBW.gdtf",
+        "Robe Lighting@Robin MMX Blade.gdtf",
+    }
     assert "Probe MVR exported" in result.output
+
+
+def test_fixture_import_cli_requires_assume_for_import_probe(tmp_path: Path) -> None:
+    output = tmp_path / "probe.mvr"
+
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "fixture-import",
+            "--mvr",
+            str(output),
+            "--target-show",
+            "rayflow_control_probe",
+            "--import-method",
+            "ui-assisted",
+            "--execute",
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "--assume-disposable" in result.output
+
+
+def test_fixture_import_cli_records_ui_assisted_result(tmp_path: Path) -> None:
+    output = tmp_path / "probe.mvr"
+    result_json = tmp_path / "fixture-result.json"
+
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "fixture-import",
+            "--mvr",
+            str(output),
+            "--target-show",
+            "rayflow_control_probe",
+            "--import-method",
+            "ui-assisted",
+            "--assume-disposable",
+            "--result-json",
+            str(result_json),
+            "--execute",
+        ],
+    )
+
+    assert result.exit_code == 0
+    payload = json.loads(result_json.read_text())
+    assert payload["passed"] is False
+    assert payload["status"] == "pending-verification"
+    assert payload["metadata"]["import_method"] == "ui-assisted"
+    assert payload["metadata"]["assume_disposable"] is True

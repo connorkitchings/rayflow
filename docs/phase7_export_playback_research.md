@@ -1,8 +1,14 @@
 # Phase 7 Export & Playback Research
 
-**Date:** 2026-05-19
+**Date:** 2026-05-19  
 **Target:** grandMA3 onPC 2.3.2.0
 **Status:** Research spike complete; implementation should begin with MA3 export capture. Follow-up command automation research is captured in `docs/research/ma3_timecode_command_automation_2026-05-19.md`.
+
+> **Direction update, 2026-05-23:** This document now describes the MA3
+> compatibility/export track, not RayFlow's mainline execution architecture.
+> The current mainline is backend-neutral show intent, fixture-aware DMX
+> rendering, Art-Net/sACN output evidence, and QLC+ WebSocket research. See
+> `docs/architecture/control-backend-direction.md`.
 
 ## Goal
 
@@ -12,7 +18,8 @@ Phase 7 should turn a RayFlow show into a MA3-native playback package:
 2. Sequence/cue programming in MA3.
 3. Timecode pool object that triggers the sequence from RayFlow cue timestamps.
 
-The preferred direction is MA3-native playback, not RayFlow acting as the runtime scheduler.
+The preferred direction for the MA3 compatibility track is MA3-native playback.
+That no longer means MA3 is the only or primary runtime for RayFlow.
 
 ## Verified Local Baseline
 
@@ -112,7 +119,7 @@ Expected deliverables:
 - A schema map from XML fields to RayFlow `Show` and `Cue`.
 - A test fixture based on the captured XML.
 
-Capture update: A real MA3 2.3.2.0 Timecode track skeleton export is now captured in `data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml` and documented in `docs/research/ma3_timecode_xml_2_3_2.md`. It proves Timecode, TrackGroup, Track, and TimeRange XML shape, but it does not include a Sequence target or cue events. Keep `show export-timecode` blocked until an event-bearing export is captured.
+Capture update: A real MA3 2.3.2.0 Timecode track skeleton export is captured in `data/ma3_exports/samples/rayflow_minimal_timecode_track_skeleton_2_3_2.xml` and documented in `docs/research/ma3_timecode_xml_2_3_2.md`. A later event-bearing export captured the `CmdEvent` / `RealtimeCmd` shape used by the current Timecode XML generator. Keep this path scoped to MA3 compatibility until final cue-fire observation is complete.
 
 Follow-up research found that MA3 2.3 documents command-line support for Timecode pool object creation, properties, playback, and export/import, but not for track group, track, target, or event creation. Treat Timecode Viewer event creation as the smallest currently verified manual capture step until an exported XML schema or MA command probe proves otherwise.
 

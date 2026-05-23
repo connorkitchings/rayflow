@@ -4,16 +4,28 @@
 
 ---
 
+## Direction Reset
+
+As of 2026-05-23, RayFlow's mainline direction is backend-neutral show intent
+plus deterministic output adapters. grandMA3 remains an important compatibility
+target, but it is no longer the critical path for the next milestone.
+
+The next milestone is Phase 8: define the backend adapter boundary, render
+fixture-aware cue intent to DMX frames, verify Art-Net/sACN output, and spike
+QLC+ WebSocket control.
+
+---
+
 ## Phase 1: Project Foundation
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
 | Update pyproject.toml | rayflow package, lighting deps | ✅ Done | sacn, python-osc, artnet, gdtf-parser |
-| Rewrite README.md | Project overview | ✅ Done | Architecture diagram, quick start |
-| Rewrite project charter | Goals, scope, architecture | ✅ Done | Lighting domain focus |
+| Rewrite README.md | Project overview | ✅ Done | Updated for backend-neutral direction |
+| Rewrite project charter | Goals, scope, architecture | ✅ Done | Updated with 2026-05-23 direction reset |
 | Update agent guidance | CONTEXT, AGENTS, CATALOG | ✅ Done | Lighting-specific roles and skills |
-| Create src/rayflow/ structure | Package skeleton | ✅ Done | bridge/, fixtures/, visualizer/, cli.py |
-| Create data/ structure | Fixture and show directories | ✅ Done | data/fixtures/, data/shows/ |
+| Create src/rayflow/ structure | Package skeleton | ✅ Done | bridge/, fixtures/, console/, shows/, visualizer/ |
+| Create data/ structure | Fixture and show directories | ✅ Done | data/fixtures/, data/rigs/, data/shows/ |
 
 ---
 
@@ -23,11 +35,11 @@
 |------|-------------|--------|-------|
 | DMX universe model | Universe data structure | ✅ Done | 512 channels, universe addressing, conflict detection |
 | Art-Net sender | Send DMX via Art-Net | ✅ Done | ArtDMX packets, universe targeting, input validation |
-| Art-Net receiver | Receive DMX from console | ✅ Done | Listen on port 6454 |
+| Art-Net receiver | Receive DMX from console/tool | ✅ Done | Listen on port 6454 |
 | sACN sender | Send DMX via sACN | ✅ Done | Using sacn library, fixed channel indexing |
 | sACN receiver | Receive DMX via sACN | ✅ Done | Multicast or unicast |
 | Bridge CLI | `rayflow bridge send/recv/status` commands | ✅ Done | Wired to real bridge classes, rich output |
-| Bridge tests | Unit + integration tests | ✅ Done | 75 tests, 83% coverage |
+| Bridge tests | Unit + integration tests | ✅ Done | Existing bridge coverage |
 
 ---
 
@@ -35,25 +47,25 @@
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| GDTF parser | Load .gdtf.zip files | ✅ Done | Validates ZIP, parses description.xml, extracts modes/channels |
+| GDTF parser | Load `.gdtf` fixture files | ✅ Done | Validates ZIP, parses description.xml, extracts modes/channels |
 | Fixture library | Manage loaded fixtures | ✅ Done | Catalog, search, by manufacturer, fixture summaries |
 | Channel mapping | Map DMX addresses to channels | ✅ Done | Concrete address maps with family classification and bounds checks |
 | Fixture patching | Assign fixtures to universes | ✅ Done | In-memory GDTF-aware patches with channel maps and CLI smoke command |
-| Sample fixtures | Checked-in real fixture samples | ✅ Done | 3 public GDTF samples with manifest and hashes |
+| Sample fixtures | Checked-in real fixture samples | ✅ Done | Public GDTF samples with manifest and hashes |
 | Fixture tests | Parser, library, and sample tests | ✅ Done | Real samples validated offline |
 
 ---
 
-## Phase 4: grandMA3 onPC Integration
+## Phase 4: grandMA3 Compatibility Research
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
 | OSC connection | Connect to MA3 onPC | ✅ Done | Dry-run-safe About command plus optional feedback listener |
 | Command sender | Send MA3 commands via OSC | ✅ Done | `/cmd` sender, `--execute` gate, feedback capture |
 | Cue stack builder | Build cue sequences from Python | ✅ Done | Typed command builders, JSON cue stacks, dry-run-safe nested CLI |
-| Import/export helpers | Generate only verified MA3 import/export formats | ✅ Done | MVR export with embedded GDTF files and mode info; observation capture script |
 | MVR export | Export rig to MVR format | ✅ Done | Embedded GDTF files, scene/layer hierarchy, fixture addressing, 3D positions |
-| Integration tests | Test against MA3 onPC | ✅ Done | 14 integration tests (OSC, fixture comparison, MVR export, Art-Net send) |
+| Probe harness | Command acceptance and disposable-show probes | ▶ In Progress | Useful for compatibility, no longer next milestone blocker |
+| Fixture import/patch proof | MA3 import evidence packet | ⚠ Blocked | Live probes did not prove repeatable MVR fixture import; move off mainline |
 
 ---
 
@@ -62,14 +74,13 @@
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
 | Architecture document | Phase 5 data model and design decisions | ✅ Done | `docs/phase5_architecture.md` |
-| AI interaction contract | Framework for AI tooling | ✅ Done | `docs/ai_interaction_contract.md` |
-| Rig data model | `Rig`, `Venue`, `FixtureSlot`, `Preset` dataclasses | ✅ Done | 11 dataclasses with validation, presets, rig templates, show overrides |
+| AI interaction contract | Framework for AI tooling | ✅ Done | Needs ongoing updates for backend adapters |
+| Rig data model | `Rig`, `Venue`, `FixtureSlot`, `Preset` dataclasses | ✅ Done | Validation, presets, rig templates, show overrides |
 | Show data model | `Show`, `Song`, `Section`, `Cue`, `Vibe` dataclasses | ✅ Done | Links rig to audio, preset overrides |
-| Rig CLI | `rayflow rig create/list/info/copy/add-fixture/add-preset/export-mvr` | ✅ Done | Manage rigs, export to MVR |
-| Show CLI | `rayflow show create/list/info/add-section/add-cue/add-preset-override/context/export-mvr` | ✅ Done | Manage shows, load context bundle |
+| Rig CLI | `rayflow rig ...` commands | ✅ Done | Manage rigs, export to MVR |
+| Show CLI | `rayflow show ...` commands | ✅ Done | Manage shows, load context bundle |
 | Preset system | Named presets with attribute families | ✅ Done | Dimmer, position, color, beam, focus, gobo |
-| Tests | Full test suite for models and CLI | ✅ Done | 296 tests (259 unit + 37 CLI/context), 84% coverage |
-| Docs | Rig/show data model documentation | ✅ Done | `docs/phase5_architecture.md`, `docs/ai_interaction_contract.md`, `docs/prompts/show_builder.md` |
+| Tests | Full test suite for models and CLI | ✅ Done | Existing regression coverage |
 
 ---
 
@@ -78,37 +89,50 @@
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
 | Audio section import | Import section markers from external tool | ✅ Done | `show import-sections`, JSON schema, sample file |
-| Vibe generation | AI suggests color palettes and organizing principles | ✅ Done | `show set-vibe`, `Vibe.from_dict()`, enhanced prompt template |
-| Cue generation | AI generates cues per section based on vibe | ✅ Done | `cue_generator.py`, `show generate-cues`, `show update-cue`, `show delete-cue`, `show renumber` |
-| Interactive direction | User directs AI: "more energy here", "change to cool colors" | ✅ Done | `show set-song-meta`, `show update-section`, `show delete-section`, `show batch-update-cues` |
-| MA3 push | Push generated cues to MA3 via existing OSC | ✅ Done | `show push-to-ma3`, `show push-section` |
-| Tests | Unit + integration tests | ✅ Done | 80 new tests (section import, cue generator, push, CLI) |
-| Docs | Updated prompts and Phase 6 completion docs | ✅ Done | `docs/prompts/show_builder.md`, `docs/implementation_schedule.md` |
+| Vibe generation | AI suggests color palettes and organizing principles | ✅ Done | `show set-vibe`, `Vibe.from_dict()`, prompt template |
+| Cue generation | AI generates cues per section based on vibe | ✅ Done | `cue_generator.py`, `show generate-cues`, cue edit commands |
+| Interactive direction | User directs AI refinement | ✅ Done | Song metadata, section editing, batch cue updates |
+| MA3 push | Push generated dimmer cues to MA3 via OSC | ✅ Done | Compatibility path only; not renderer proof |
+| Tests | Unit + integration tests | ✅ Done | Existing section import, cue generator, push, CLI coverage |
 
 ---
 
-## Phase 7: Export & Playback
+## Phase 7: Export & Playback Compatibility
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| Sequence build hardening | `--sequence` option on push commands, sequence labeling | ✅ Done | `store_sequence`, `label_sequence`, `delete_sequence`, `clear_all` builders; CLI `--sequence` default 1 |
-| MA3 show export | Export cues/rig to MA3-importable format | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, and metadata bundle |
-| Timecode integration | MA3 timecode triggers for cue playback | ▶ In Progress | `timecode_export.py` generates GMA3 XML from event-bearing MA3 2.3.2.0 XML capture; clean import/re-export validated after target Sequence cues exist; internal playback clock validated by re-exported cursor movement |
+| Sequence build hardening | `--sequence` option on push commands, sequence labeling | ✅ Done | `store_sequence`, `label_sequence`, `delete_sequence`, `clear_all` builders |
+| MA3 show export | Export cues/rig to MA3-compatible bundle | ✅ Done | `show export` writes MVR, dry-run OSC command list, README, metadata |
+| Timecode integration | MA3 Timecode XML for cue playback | ▶ In Progress | Clean import/re-export validated; final cue-fire observation pending |
 | Show library | Versioned show storage | ✅ Done | `show save/versions/restore/diff`; local YAML snapshots with metadata |
-| MA3 control matrix | Verified control boundary before MCP | ▶ In Progress | `docs/research/ma3_control_matrix_2_3_2.md` maps current automation, gaps, and next proof milestone; first live probe exported sequence/group/preset shells but did not prove fixture-aware looks |
-| Tests | Export/playback regression coverage | ▶ In Progress | Sequence, MA3 show export, show library, and timecode tests added; final Timecode Viewer/current-cue observation still pending |
+| MA3 control matrix | Verified control boundary before MCP | ✅ Done | Documents capabilities, gaps, and why MCP should wait |
+
+---
+
+## Phase 8: Backend-Neutral Control Loop
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Backend adapter design | Interface for dry-run, apply, evidence, capabilities | ☐ Not Started | Should cover Art-Net, sACN, QLC+, MA3 export/OSC |
+| Fixture-aware DMX renderer | Render cue intent to universe/channel frames | ☐ Not Started | Start with dimmer and RGB/RGBW sample fixtures |
+| DMX evidence capture | Packet/receiver proof for rendered frames | ☐ Not Started | Use Art-Net/sACN receiver tests or network capture |
+| QLC+ WebSocket spike | Command/query proof against local QLC+ | ☐ Not Started | Target plain text WebSocket API and state queries |
+| Backend CLI | Select backend and render/apply/dry-run output | ☐ Not Started | Keep live output behind explicit execute flags |
+| Renderer tests | Unit tests with real GDTF samples | ☐ Not Started | Validate channel maps and output frames |
+| Docs | Update workflow guides for non-MA3 execution | ▶ In Progress | Direction reset started 2026-05-23 |
 
 ---
 
 ## Milestones
 
 - **M1: Foundation Complete** — Phase 1 done, package structure ready
-- **M2: First Light** — Phase 2 done, DMX flowing from Python to MA3
-- **M3: Real Fixtures** — Phase 3 done, GDTF fixtures loaded and patched
-- **M4: Console Connected** — Phase 4 done, grandMA3 onPC controlled from Python
+- **M2: Protocol Bridge** — Phase 2 done, Art-Net/sACN send/receive available
+- **M3: Real Fixtures** — Phase 3 done, GDTF fixtures loaded and patched in RayFlow
+- **M4: Console Compatibility** — Phase 4 done, MA3 OSC/MVR compatibility explored
 - **M5: Show Framework** — Phase 5 done, rig and show data model with CLI
 - **M6: AI Designer** — Phase 6 done, AI-assisted show building working
-- **M7: Timecoded Playback** — Phase 7 done, MA3-native show export with timecode
+- **M7: MA3 Export Compatibility** — Phase 7 mostly done, MA3 export/playback path documented
+- **M8: Backend-Neutral Execution** — Phase 8 target, fixture-aware rendering and API-first backends
 
 ---
 
@@ -116,12 +140,13 @@
 
 | Risk | Impact | Mitigation | Status |
 |------|--------|------------|--------|
-| GDTF spec complexity | Medium | Start with subset of features | ☐ Open |
-| AI prompt quality | High | Iterate on prompt templates, provide rich context bundles | ☐ Open |
-| MA3 OSC/API readback incomplete | High | Verify basic programming operations against MA3 2.3.2.0 and capture readback/export evidence before MCP | ⚠ Control matrix and basic probe started; disposable-show isolation, fixture import/patch, fixture-aware presets, and current-cue proof pending |
-| MA3 timecode integration | Medium | Research MA3 timecode API, start with manual cue triggering | ⚠ Cue-fire observation pending — clean XML import/re-export validated and internal playback cursor advances through event timestamps |
-| Scope creep on AI features | High | Phase 6 is MVP: cue generation from vibe first | ☐ Open |
+| Fixture-aware renderer complexity | High | Start with dimmer and RGB/RGBW, then expand family by family | ☐ Open |
+| GDTF spec complexity | Medium | Use existing parser and real sample fixtures; test channel maps | ☐ Open |
+| QLC+ WebSocket behavior differs from docs | Medium | Build a small command/query spike before designing around it | ☐ Open |
+| MA3 OSC/API readback incomplete | Medium | Keep MA3 as gated compatibility adapter, not the mainline blocker | ⚠ Open |
+| AI prompt quality | High | Provide rich context bundles and backend capability declarations | ☐ Open |
+| Scope creep on visualizer work | Medium | Make renderer/evidence the milestone, not a full custom visualizer | ☐ Open |
 
 ---
 
-*Last updated: 2026-05-22 (MA3 control matrix and first basic-look probe added; fixture-aware programming remains unproven)*
+*Last updated: 2026-05-23 (backend-neutral control loop adopted as next mainline direction).*

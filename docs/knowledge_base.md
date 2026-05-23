@@ -70,7 +70,14 @@ Use the format `[KB:PatternName]` to reference entries from other documents.
   - `At <value>` — Set intensity
   - `Channel <n> Thru <m> At Full` — Set channels
   - `About` — Get console info (good for connection test)
-- **Note:** Default OSC port is 8000. For grandMA3 2.3, the receive row must allow command-line control through `/cmd` with OSC string type `s`.
+- **Note:** Default OSC port is 8000. For grandMA3 2.3, the receive row must allow command-line control through `/cmd` with OSC string type `s`. MA3 OSC is now treated as a compatibility adapter, not RayFlow's core execution loop.
+
+## `[KB:BackendNeutralControl]` — RayFlow Source Of Truth And Adapter Boundary
+
+- **Context:** MA3 live probes showed that raw console mutation is too fragile to be the main agent loop.
+- **Pattern:** Keep show/rig/cue data as RayFlow's source of truth. Resolve fixture capabilities and render intent into deterministic output artifacts. Backends then translate those artifacts to Art-Net, sACN, QLC+ WebSockets, MA3 export files, or gated MA3 OSC.
+- **Usage:** New output features should define dry-run, apply, evidence, and capability reporting. Do not claim a backend operation works until it returns structured evidence, captured DMX frames, exported artifacts, or recorded manual confirmation.
+- **Note:** See `docs/architecture/control-backend-direction.md` and `docs/research/agentic_show_control_architectures/`.
 
 ## `[KB:DMXAddressing]` — DMX Address Calculation
 

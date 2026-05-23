@@ -64,25 +64,44 @@
 
 ### ProtocolBridge
 
-**Role**: Art-Net, sACN, and OSC protocol implementation
+**Role**: Art-Net, sACN, OSC, and backend adapter implementation
 
 **Responsibilities**:
 - Implement Art-Net send/receive (ArtDMX packets over UDP)
 - Implement sACN/E1.31 send/receive (multicast/unicast)
-- Implement OSC communication with grandMA3 onPC
+- Implement fixture-aware DMX output and backend adapter contracts
+- Implement OSC communication with grandMA3 onPC only as a gated compatibility adapter
 - Ensure proper universe addressing and channel mapping
 - **Context budget**: ≤2k tokens initial
 
 **Key Files**:
 - `src/rayflow/bridge/` - Protocol bridge implementation
+- `docs/architecture/control-backend-direction.md` - Backend-neutral adapter strategy
 - `.agent/skills/art-net-bridge/SKILL.md` - Art-Net/sACN workflow
 - `.agent/skills/ma3-workflow/SKILL.md` - grandMA3 OSC workflow
 
 ---
 
+### BackendRenderer
+
+**Role**: Fixture-aware rendering and output evidence
+
+**Responsibilities**:
+- Resolve RayFlow cue intent against GDTF fixture capabilities
+- Render cue states into universe/channel frames
+- Produce dry-run artifacts and backend evidence packets
+- Keep renderer logic independent of MA3, QLC+, or any single controller
+- **Context budget:** ≤2k tokens initial
+
+**Key Files**:
+- `src/rayflow/fixtures/` - GDTF parsing and channel mapping
+- `src/rayflow/bridge/` - Art-Net/sACN send and receive
+- `src/rayflow/shows/` - Show and cue models
+- `docs/architecture/control-backend-direction.md` - Adapter contract direction
+
 ### VisualizerDev
 
-**Role**: Web-based 3D stage visualizer development
+**Role**: Optional web-based visualizer development
 
 **Responsibilities**:
 - Build Flask backend for DMX-to-WebSocket bridge

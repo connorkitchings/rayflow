@@ -1,0 +1,43 @@
+{
+  "name": "command-acceptance",
+  "target_show": "rayflow_control_probe",
+  "ma3_version": "2.3.2.0",
+  "osc_endpoint": "127.0.0.1:8000",
+  "executed": true,
+  "passed": true,
+  "status": "passed",
+  "commands": [
+    {
+      "command": "ChangeDestination Root",
+      "sent": true,
+      "timestamp": 1779565041.429069
+    },
+    {
+      "command": "Export Sequence 1 \"rayflow_command_acceptance_probe_sequence\"",
+      "sent": true,
+      "timestamp": 1779565041.6842399
+    }
+  ],
+  "exports": [
+    {
+      "label": "sequence-export",
+      "path": "/Users/connorkitchings/MALightingTechnology/gma3_library/datapools/sequences/rayflow_command_acceptance_probe_sequence.xml",
+      "exists": true,
+      "missing_substrings": [],
+      "passed": true
+    }
+  ],
+  "pre_show_mtimes": {
+    "As.show": 1779457921.0,
+    "NewShow_2026.05.22_13.36.00UTC.show": 1779459818.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_test.show": 1779456959.0
+  },
+  "post_show_mtimes": {
+    "As.show": 1779457921.0,
+    "NewShow_2026.05.22_13.36.00UTC.show": 1779459818.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_test.show": 1779456959.0
+  },
+  "metadata": {}
+}

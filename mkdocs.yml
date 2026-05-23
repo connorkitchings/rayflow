@@ -24,6 +24,7 @@ nav:
   - 'Architecture':
     - 'System Overview': 'architecture/system_overview.md'
     - 'Two-Layer Design': 'architecture/two-layer-design.md'
+    - 'Control Backend Direction': 'architecture/control-backend-direction.md'
   - 'Guides':
     - 'grandMA3 onPC Setup': 'guides/grandma3-setup.md'
     - 'grandMA3 Learning Resources': 'guides/grandma3-learning-resources.md'

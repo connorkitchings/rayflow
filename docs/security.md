@@ -16,18 +16,18 @@ This document outlines security and privacy considerations for RayFlow.
 
 Art-Net and sACN transmit DMX data over UDP without encryption. This is fine for local development but requires care:
 
-- **Local only:** By default, RayFlow communicates with grandMA3 onPC on localhost (127.0.0.1).
+- **Local/private only:** By default, RayFlow protocol tests should target localhost (127.0.0.1) or a private lighting network.
 - **No public broadcast:** Never send Art-Net to a public or shared network. Rogue DMX signals could interfere with other lighting systems.
 - **Firewall:** Ensure your firewall blocks incoming Art-Net/sACN from external networks.
 - **Universe isolation:** Use specific universe numbers to avoid conflicts with other devices on the network.
 
 ### OSC Communication
 
-OSC commands to grandMA3 onPC are sent as plain text over UDP:
+OSC commands to grandMA3 onPC or middleware are sent as plain text over UDP:
 
 - **Local only:** OSC should only target localhost or known local IPs.
 - **No authentication:** OSC has no built-in authentication. Anyone on the network can send commands.
-- **Dry-run by default:** RayFlow console CLI commands print what would be sent unless `--execute` is passed.
+- **Dry-run by default:** RayFlow output commands print what would be sent unless `--execute` is passed.
 - **Command validation:** RayFlow rejects empty OSC commands before sending to prevent accidental console changes.
 
 ## Privacy
@@ -54,7 +54,7 @@ RayFlow is a personal practice tool. Privacy considerations:
 
 If a security issue is discovered:
 
-1. **Stop:** Halt all network communication (stop grandMA3 onPC, stop RayFlow bridge).
+1. **Stop:** Halt all network communication (stop external controllers, grandMA3 onPC, and the RayFlow bridge).
 2. **Assess:** Determine the scope and impact of the issue.
 3. **Fix:** Apply the necessary fix (update dependency, patch code, change configuration).
 4. **Document:** Record the incident in the session log and update this document.

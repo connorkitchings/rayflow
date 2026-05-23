@@ -16,6 +16,11 @@ MA3_VERSION = "2.3.2.0"
 DEFAULT_SHOWS_DIR = Path.home() / "MALightingTechnology/gma3_2.3.2/shared/shows"
 DEFAULT_RESEARCH_DIR = Path("docs/research")
 DEFAULT_PROBE_MVR = Path("data/ma3_exports/probes/rayflow_control_probe.mvr")
+DEFAULT_LIBRARY_DIR = Path.home() / "MALightingTechnology/gma3_library"
+DEFAULT_COMMAND_ACCEPTANCE_EXPORT = (
+    DEFAULT_LIBRARY_DIR
+    / "datapools/sequences/rayflow_command_acceptance_probe_sequence.xml"
+)
 
 
 @dataclass(frozen=True)
@@ -76,6 +81,7 @@ class ProbeResult:
     pre_show_mtimes: dict[str, float]
     post_show_mtimes: dict[str, float]
     status: str
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -102,6 +108,7 @@ class ProbeResult:
             ],
             "pre_show_mtimes": dict(self.pre_show_mtimes),
             "post_show_mtimes": dict(self.post_show_mtimes),
+            "metadata": dict(self.metadata),
         }
 
 
@@ -167,6 +174,18 @@ def show_isolation_passed(
     return bool(changed) and set(changed) == {target_name}
 
 
+def require_disposable_confirmation(
+    *, target_show: str, assume_disposable: bool
+) -> None:
+    """Require explicit confirmation before bypassing file-based isolation."""
+    validate_target_show(target_show)
+    if not assume_disposable:
+        raise ValueError(
+            "fixture import live probes require passed show isolation or "
+            "--assume-disposable after manually confirming the active MA3 show"
+        )
+
+
 def check_osc_udp_listener(host: str = "127.0.0.1", port: int = 8000) -> bool:
     """Best-effort local UDP port availability check.
 
@@ -213,6 +232,7 @@ def run_probe_plan(
     delay: float = 0.25,
     shows_dir: str | Path = DEFAULT_SHOWS_DIR,
     client: Any | None = None,
+    assume_disposable: bool = False,
 ) -> ProbeResult:
     """Run or dry-run a probe plan."""
     if execute:
@@ -236,10 +256,18 @@ def run_probe_plan(
     post = snapshot_show_mtimes(shows_dir)
     exports = check_expected_exports(plan.expected_exports)
     passed = all(item.passed for item in exports)
+    metadata: dict[str, Any] = {}
+    if assume_disposable:
+        metadata["assume_disposable"] = True
+        metadata["assume_disposable_reason"] = (
+            "User confirmed the active MA3 show is disposable."
+        )
     if execute and plan.name == "show-isolation":
-        passed = passed and show_isolation_passed(
+        isolated = show_isolation_passed(
             target_show=plan.target_show, before=pre, after=post
         )
+        metadata["show_isolation_passed"] = isolated
+        passed = passed and (isolated or assume_disposable)
     status = "passed" if passed else "failed"
     if not execute:
         status = "dry-run"
@@ -255,6 +283,35 @@ def run_probe_plan(
         pre_show_mtimes=pre,
         post_show_mtimes=post,
         status=status,
+        metadata=metadata,
+    )
+
+
+def command_acceptance_plan(
+    target_show: str = REQUIRED_TARGET_SHOW,
+    export_path: str | Path = DEFAULT_COMMAND_ACCEPTANCE_EXPORT,
+) -> ProbePlan:
+    """Build a non-mutating export probe for OSC /cmd acceptance."""
+    path = Path(export_path).expanduser()
+    filename = path.stem
+    return ProbePlan(
+        name="command-acceptance",
+        target_show=target_show,
+        commands=[
+            "ChangeDestination Root",
+            f'Export Sequence 1 "{filename}"',
+        ],
+        expected_exports=[
+            ExpectedExport(
+                label="sequence-export",
+                path=path,
+                required_substrings=["Sequence"],
+            )
+        ],
+        notes=(
+            "Pass only when MA3 accepts /cmd and writes the expected Sequence "
+            "export file."
+        ),
     )
 
 
@@ -264,10 +321,27 @@ def show_isolation_plan(target_show: str = REQUIRED_TARGET_SHOW) -> ProbePlan:
         name="show-isolation",
         target_show=target_show,
         commands=[
+            "ChangeDestination Root",
             f'NewShow "{target_show}"',
             "SaveShow",
         ],
         notes="Pass only when the target .show file is the only changed show file.",
+    )
+
+
+def assumed_disposable_show_plan(target_show: str = REQUIRED_TARGET_SHOW) -> ProbePlan:
+    """Build a non-creating plan for user-confirmed disposable show state."""
+    return ProbePlan(
+        name="show-isolation",
+        target_show=target_show,
+        commands=[
+            "ChangeDestination Root",
+            "SaveShow",
+        ],
+        notes=(
+            "Records that the user confirmed the active MA3 show is disposable; "
+            "does not attempt to create a new show."
+        ),
     )
 
 
@@ -301,6 +375,18 @@ def build_fixture_probe_mvr(output: str | Path = DEFAULT_PROBE_MVR) -> Path:
     output_path = Path(output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     return export_mvr(patches, output_path, scene_name="RayFlow Control Probe")
+
+
+def fixture_probe_mvr_entries(path: str | Path) -> list[str]:
+    """Return fixture-related member names from a probe MVR archive."""
+    import zipfile
+
+    with zipfile.ZipFile(path) as archive:
+        return [
+            name
+            for name in archive.namelist()
+            if name == "GeneralSceneDescription.xml" or name.lower().endswith(".gdtf")
+        ]
 
 
 def write_result_json(result: ProbeResult, output: str | Path) -> Path:

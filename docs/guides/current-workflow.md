@@ -1,11 +1,11 @@
 # Current RayFlow Workflow
 
-RayFlow can already support a practical MA3 show-building workflow without
-native Timecode XML. Use this path to review generated cues, version show files,
-export a handoff bundle, and push cues into grandMA3 when ready.
+RayFlow's current usable workflow is file-first, dry-run-first, and compatible
+with grandMA3 without making MA3 the only runtime target.
 
-Native MA3 Timecode XML generation is still blocked until an event-bearing
-grandMA3 2.3.2.0 Timecode export is captured and documented.
+Use this path to review generated cues, version show files, export handoff
+bundles, and push only verified MA3-compatible commands when explicitly
+requested.
 
 ## 1. Check Available Rigs And Shows
 
@@ -69,7 +69,7 @@ Save another version after a useful edit checkpoint:
 uv run rayflow show save "My Show" --message "chorus cue pass"
 ```
 
-## 4. Export An MA3 Review Bundle
+## 4. Export An MA3 Compatibility Bundle
 
 The export bundle writes files only. It does not contact grandMA3.
 
@@ -79,12 +79,14 @@ uv run rayflow show export "My Show" --output-dir exports/my-show --sequence 1
 
 The bundle includes:
 
-- `rig.mvr` — MVR rig export for MA3 patch and 3D import.
+- `rig.mvr` — MVR rig export for MA3 or other MVR-aware tools.
 - `ma3_push_commands.txt` — one MA3 command per line for review.
 - `README.md` — import and push workflow notes.
 - `metadata.json` — bundle details for automation and review.
 
-## 5. Dry-Run And Push Cues
+This is a compatibility artifact. It is not the long-term core execution path.
+
+## 5. Dry-Run And Push MA3 Commands
 
 Always dry-run the push path before sending OSC:
 
@@ -92,7 +94,8 @@ Always dry-run the push path before sending OSC:
 uv run rayflow show push-to-ma3 "My Show" --sequence 1
 ```
 
-When the command list looks correct and MA3 OSC input is configured:
+Only send commands when the command list, MA3 target show, and OSC setup are
+confirmed:
 
 ```bash
 uv run rayflow show push-to-ma3 "My Show" --sequence 1 --execute
@@ -111,7 +114,7 @@ uv run rayflow show push-section "My Show" --section "Chorus" --sequence 1
 uv run rayflow show push-section "My Show" --section "Chorus" --sequence 1 --execute
 ```
 
-## 6. Export And Import Timecode
+## 6. Export And Import MA3 Timecode
 
 RayFlow generates MA3 Timecode XML for shows with cue timestamps:
 
@@ -121,25 +124,24 @@ uv run rayflow show export-timecode "My Show" \
   --sequence 1
 ```
 
-Before importing Timecode XML, push the target sequence cues first. For a clean
-replacement in MA3:
+Before importing Timecode XML, create or import the target sequence cues first.
+For a clean replacement in MA3:
 
 ```text
 Delete Timecode 1 /NoConfirmation
 Import Timecode Library "my_show_timecode.xml" At Timecode 1
 ```
 
-## Current Boundary
+## 7. Current Boundary
 
-RayFlow's Timecode XML has clean import/re-export validation against grandMA3
-onPC 2.3.2.0, but final playback observation is still pending. The current
-MA3-native path is:
+The MA3-compatible path currently sends safe dimmer/intensity values only.
+Color palette values are preserved in RayFlow show data, but fixture-aware color
+mapping belongs in the new renderer layer.
 
-1. Import the MVR rig.
-2. Push or review sequence/cue commands.
-3. Import Timecode XML into a clean Timecode pool object.
-4. Verify event playback in the Timecode Viewer.
+The next mainline workflow should be:
 
-The push path currently sends safe dimmer/intensity values only. Color palette
-values are preserved in RayFlow show data, but fixture-aware color mapping is a
-separate implementation step.
+1. Resolve fixture capabilities from the RayFlow rig and GDTF library.
+2. Render cue intent into DMX universe frames.
+3. Verify output through Art-Net/sACN capture or a queryable controller.
+4. Add QLC+ WebSocket execution once command/query evidence is captured.
+5. Keep MA3 as an export/playback adapter with explicit evidence gates.

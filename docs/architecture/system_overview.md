@@ -1,79 +1,129 @@
 # System Overview
 
-This document provides a high-level overview of the RayFlow system architecture.
+This document provides a high-level overview of the current RayFlow
+architecture.
 
 ## Architecture Diagram
 
 ```mermaid
 graph TD
-    subgraph "RayFlow Tooling Layer"
-        A[GDTF Fixture Library]
-        B[Stage Builder]
-        C[AI Cue Generator]
-        D[Art-Net / sACN Bridge]
-        E[OSC Controller]
+    subgraph "Direction Layer"
+        U[Lighting Designer]
+        AI[AI Coding Tool]
     end
 
-    subgraph "grandMA3 onPC Layer"
-        F[Console Engine]
-        G[Built-in 3D Visualizer]
-        H[Video Recording]
+    subgraph "RayFlow Source Of Truth"
+        S[Show Data]
+        R[Rig Data]
+        G[GDTF Fixture Library]
+        V[Vibe And Cue Intent]
     end
 
-    subgraph "Output"
-        I[Programmed Show]
-        J[Recorded Video]
+    subgraph "Rendering Layer"
+        C[Fixture Capability Resolver]
+        D[Fixture-Aware DMX Renderer]
     end
 
-    A --> B
-    A --> D
-    B --> D
-    B --> F
-    C --> E
-    D --> F
-    E --> F
-    F --> G
-    F --> H
-    G --> J
-    H --> J
+    subgraph "Output Adapters"
+        A[Art-Net Output]
+        E[sACN Output]
+        Q[QLC+ WebSocket Adapter]
+        M[MA3 Export Adapter]
+        O[Gated MA3 OSC Adapter]
+    end
+
+    subgraph "External Targets"
+        N[DMX Network Or Receiver]
+        QLC[QLC+]
+        MA[grandMA3 onPC]
+        Mid[Middleware]
+    end
+
+    U --> AI
+    AI --> S
+    AI --> R
+    S --> V
+    R --> C
+    G --> C
+    V --> D
+    C --> D
+    D --> A
+    D --> E
+    D --> Q
+    S --> M
+    R --> M
+    S --> O
+    A --> N
+    E --> N
+    Q --> QLC
+    M --> MA
+    O --> MA
+    O --> Mid
 ```
 
 ## Components
 
-### RayFlow Tooling Layer
+### Direction Layer
 
-- **GDTF Fixture Library:** Parse and manage GDTF fixture profiles from gdtf-share.com. Extract channel definitions, physical properties, and wheel data.
-- **Stage Builder:** Create virtual stage rigs by patching fixtures to DMX universes and arranging them in 3D space. Export as MVR for import to grandMA3.
-- **AI Cue Generator:** Generate lighting cues from natural language descriptions (e.g., "warm verse build with slow color fade"). Uses LLM prompting to produce cue stacks.
-- **Art-Net / sACN Bridge:** Send and receive DMX values over the network. Communicate with grandMA3 onPC and external visualizers.
-- **OSC Controller:** Send commands to grandMA3 onPC via OSC for automation (store cues, trigger sequences, batch operations).
+- **Lighting Designer:** Provides creative direction, reviews generated cues,
+  and approves live output.
+- **AI Coding Tool:** Reads RayFlow context, edits project files, runs CLI
+  commands, and explains diffs before risky operations.
 
-### grandMA3 onPC Layer
+### RayFlow Source Of Truth
 
-- **Console Engine:** The core lighting control software. Handles cue lists, executors, effects, and DMX output. Free for macOS with up to 4096 parameters.
-- **Built-in 3D Visualizer:** MA3 includes a 3D visualizer for previewing shows. Accepts MVR files for stage geometry and GDTF fixtures.
-- **Video Recording:** MA3 can record visualizer output for export as video — the primary output format for practice sessions.
+- **Show Data:** Song metadata, sections, cues, timestamps, fades, and
+  generated intent.
+- **Rig Data:** Venue, fixture slots, addresses, positions, presets, and show
+  overrides.
+- **GDTF Fixture Library:** Fixture definitions and channel capabilities used
+  by the renderer.
+- **Vibe And Cue Intent:** The creative layer that remains editable by humans
+  and AI before it becomes protocol output.
 
-### Output
+### Rendering Layer
 
-- **Programmed Show:** A complete cue list with timing, effects, and fixture programming ready for playback.
-- **Recorded Video:** Video capture of the 3D visualizer showing the programmed show — used for review, portfolio, and sharing.
+- **Fixture Capability Resolver:** Maps abstract cue attributes such as
+  dimmer, RGB color, pan, tilt, beam, and gobo to fixture-specific channels.
+- **Fixture-Aware DMX Renderer:** Produces universe/channel values from
+  RayFlow show intent. This is the next critical implementation layer.
+
+### Output Adapters
+
+- **Art-Net Output:** Direct DMX transport over UDP 6454.
+- **sACN Output:** Direct E1.31 DMX transport over UDP 5568.
+- **QLC+ WebSocket Adapter:** Planned structured controller target with a
+  queryable API.
+- **MA3 Export Adapter:** MVR, command lists, Timecode XML, and handoff bundles
+  for grandMA3 workflows.
+- **Gated MA3 OSC Adapter:** `/cmd` automation for operations that have live
+  evidence and safety guards.
 
 ## Data Flow
 
-1. **Load fixtures** from GDTF library → RayFlow parses and catalogs
-2. **Build stage** by patching fixtures to universes → RayFlow generates MVR
-3. **Import MVR** to grandMA3 onPC → Visualizer shows the rig
-4. **Program cues** manually or via AI → Cue list built in MA3
-5. **Record output** from visualizer → Video file exported
-6. **Review and iterate** → Adjust cues, re-record
+1. Load fixture and rig data from RayFlow YAML/GDTF assets.
+2. Load or generate song sections, vibes, and cues.
+3. Resolve cue intent against fixture capabilities.
+4. Render to deterministic output artifacts.
+5. Apply through a selected backend only when dry-run output and safety checks
+   pass.
+6. Capture evidence from the backend: DMX frames, query results, exports, or
+   explicit manual confirmation.
 
 ## Communication Protocols
 
 | Protocol | Purpose | Direction |
 |----------|---------|-----------|
-| Art-Net | DMX over UDP | Bidirectional |
-| sACN (E1.31) | DMX over multicast UDP | Bidirectional |
-| OSC | Console remote control | RayFlow → MA3 |
-| MVR | Stage/rig file exchange | RayFlow → MA3 |
-| GDTF | Fixture definition | External → RayFlow |
+| Art-Net | DMX over UDP | RayFlow -> receiver/fixtures/controller |
+| sACN (E1.31) | DMX over multicast or unicast UDP | RayFlow -> receiver/fixtures/controller |
+| WebSocket | Structured controller control/query | RayFlow <-> QLC+ |
+| OSC | Console or middleware remote control | RayFlow -> MA3/middleware |
+| MVR | Stage/rig file exchange | RayFlow -> console/visualizer |
+| GDTF | Fixture definition | External library -> RayFlow |
+
+## Compatibility Tracks
+
+grandMA3 remains supported where it is strong: professional workflow
+compatibility, Timecode XML validation, MVR review, and venue handoff. It should
+not be treated as the only runtime while fixture import, command mutation, and
+readback remain evidence-gated.

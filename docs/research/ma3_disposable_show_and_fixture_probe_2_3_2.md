@@ -117,3 +117,171 @@ Resolve disposable show setup through one of:
    via `Receive Command All` or the corresponding row setting.
 4. Extend the harness with an explicit user-confirmed `--assume-disposable`
    mode only for cases where the UI has already been verified manually.
+
+## Harness Update — 2026-05-23
+
+RayFlow now has a two-gate probe workflow before deeper MA3 programming:
+
+```bash
+uv run rayflow console probe command-acceptance \
+  --target-show rayflow_control_probe \
+  --result-json docs/research/ma3_command_acceptance_probe_result.json \
+  --execute
+
+uv run rayflow console probe show-isolation \
+  --target-show rayflow_control_probe \
+  --result-json docs/research/ma3_show_isolation_probe_result.json \
+  --execute
+```
+
+The command-acceptance probe sends an OSC `/cmd` export request and requires an
+observable MA3 export file. UDP listener presence remains informational only.
+
+Live result on 2026-05-23, first run:
+
+```text
+uv run rayflow console probe command-acceptance \
+  --target-show rayflow_control_probe \
+  --result-json docs/research/ma3_command_acceptance_probe_result.json \
+  --execute
+```
+
+Status: failed. The OSC row had `Receive Command=No`, so MA3 ignored `/cmd`.
+
+After enabling `Receive Command`, MA3 accepted `/cmd`, but the visible command
+line was in the `Fixture` destination. Sending `About` produced:
+
+```text
+Illegal object: Fixture "About"
+```
+
+RayFlow now prepends `ChangeDestination Root` to generated command-acceptance
+and show-isolation plans. The corrected command-acceptance probe passed and
+wrote:
+
+```text
+~/MALightingTechnology/gma3_library/datapools/sequences/rayflow_command_acceptance_probe_sequence.xml
+```
+
+Show isolation remains blocked. `NewShow "rayflow_control_probe"` followed by
+`SaveShow` modified the current `NewShow_2026.05.22_13.36.00UTC.show` file
+instead of creating `rayflow_control_probe.show`. A direct
+`SaveShow "rayflow_control_probe"` command also did not create the target file.
+Use a UI-created/loaded disposable target show or record explicit
+`--assume-disposable` confirmation before live fixture import evidence.
+
+Follow-up: the user loaded `rayflow_control_probe.show` through the MA3 Backup /
+Load Show UI. The corrected `show-isolation --assume-disposable` path now sends
+only:
+
+```text
+ChangeDestination Root
+SaveShow
+```
+
+and records the user-confirmed disposable state without attempting `NewShow`.
+
+If command acceptance works but show-file mtimes still cannot prove isolation,
+`show-isolation --assume-disposable` can record explicit user confirmation that
+the active MA3 show is disposable. This is a safety bypass, not automation proof.
+
+Fixture import proof is split from live programming:
+
+```bash
+uv run rayflow console probe fixture-import \
+  --target-show rayflow_control_probe \
+  --execute
+```
+
+This builds `data/ma3_exports/probes/rayflow_control_probe.mvr` with:
+
+- `Probe LED PAR 1` from `BlenderDMX_LED_PAR_64_RGBW.gdtf`
+- `Probe MMX Blade 1` from `Robe_Robin_MMX_Blade.gdtf`
+
+Local artifact result on 2026-05-23:
+
+```text
+uv run rayflow console probe fixture-import \
+  --target-show rayflow_control_probe \
+  --result-json docs/research/ma3_fixture_import_probe_result.json \
+  --execute
+```
+
+Status: passed for MVR generation only. The MVR contains `myvirtualrig.xml`,
+`BlenderDMX_LED_PAR_64_RGBW.gdtf`, and `Robe_Robin_MMX_Blade.gdtf`. No live MA3
+import was attempted because command acceptance failed.
+
+For import evidence, the CLI-first path is:
+
+```bash
+uv run rayflow console probe fixture-import \
+  --target-show rayflow_control_probe \
+  --import-method cli \
+  --assume-disposable \
+  --result-json docs/research/ma3_fixture_import_probe_result.json \
+  --execute
+```
+
+The CLI import command is recorded as inconclusive until MA3 export/UI evidence
+proves the patch exists. If that command path remains unverified, use:
+
+```bash
+uv run rayflow console probe fixture-import \
+  --target-show rayflow_control_probe \
+  --import-method ui-assisted \
+  --assume-disposable \
+  --result-json docs/research/ma3_fixture_import_probe_result.json \
+  --execute
+```
+
+The UI-assisted path records the intended import method and remains pending
+verification until separate MA3 import/readback evidence is captured. It does
+not mark fixture-aware programming complete.
+
+Current `docs/research/ma3_fixture_import_probe_result.json` records
+`import_method=ui-assisted` for the generated MVR. The next evidence step is to
+import `data/ma3_exports/probes/rayflow_control_probe.mvr` in MA3 and capture
+patch/fixture evidence.
+
+Follow-up: the MVR was copied to MA3's internal MVR library folder:
+
+```text
+~/MALightingTechnology/gma3_library/mvr/rayflow_control_probe.mvr
+```
+
+The user imported it from the Patch menu using **Import MVR**. A subsequent
+`SaveShow` updated `rayflow_control_probe.show` and created recent
+`rayflow_control_probe.backup_*.show` files, so the import likely changed the
+disposable show. A command-line `Export MVR "rayflow_control_probe_after_import"`
+did not produce a readback MVR, so export/readback proof is still pending.
+
+The first generated MVR did not create visible fixtures in Patch. Investigation
+against MA3's bundled `Demostage_MVR.mvr` showed two compatibility problems in
+RayFlow's exporter:
+
+- MA3 expects `GeneralSceneDescription.xml` inside the `.mvr` archive.
+- Fixture data should use MA3/GDTF child elements such as `GDTFSpec`,
+  `GDTFMode`, `Addresses/Address`, and `FixtureID`, not RayFlow's earlier
+  simplified attributes.
+
+RayFlow now regenerates `rayflow_control_probe.mvr` with the MA3-compatible
+shape and unique FixtureIDs. The corrected file has been copied to:
+
+```text
+~/MALightingTechnology/gma3_library/mvr/rayflow_control_probe.mvr
+```
+
+Second import attempt still showed only a single `Univ` row in MA3's MVR Merge
+screen, with no `Probe LED PAR 1` or `Probe MMX Blade 1` fixture rows. Treat MVR
+fixture import as still blocked; continue with command-line patching as the next
+fallback proof path now that OSC `/cmd` acceptance is working.
+
+Fallback path: the user manually patched a `Generic` / `Dimmer` / `Mode 0`
+fixture with FID `1` and patch `1.001`. The show file
+`rayflow_control_probe.show` updated after `SaveShow`, confirming the disposable
+show is active and being saved. RayFlow sent `Fixture 1 At Full`, `Store
+Sequence 1 Cue 1 /Overwrite /NoConfirmation`, and `Label Sequence 1 "RayFlow
+Dimmer Proof"`. However, subsequent `Export Sequence 1 ...` commands did not
+write a sequence XML file, so stored-cue readback remains pending. The next
+check is MA3 Command Line History for parser feedback from `List Sequence 1` or
+the failed `Export Sequence 1` command.

@@ -38,6 +38,13 @@
 **Outputs**: Universe data structures, channel mapping logic
 **Use when**: Working with DMX addressing, fixture patching, channel allocation
 
+### backend-adapter-design
+**Path**: `docs/architecture/control-backend-direction.md`
+**Purpose**: Design or update backend-neutral output adapters
+**Triggers**: "backend", "adapter", "renderer", "qlc", "direct dmx", "output target"
+**Outputs**: Adapter contract, dry-run/apply/evidence shape, backend capability notes
+**Use when**: Implementing the Phase 8 control loop, fixture-aware DMX rendering, QLC+ WebSocket support, or backend selection
+
 ---
 
 ## Fixture Management Skills
@@ -51,14 +58,14 @@
 
 ---
 
-## Console Integration Skills
+## Console Compatibility Skills
 
 ### ma3-workflow
 **Path**: `.agent/skills/ma3-workflow/SKILL.md`
-**Purpose**: grandMA3 onPC integration via OSC and verified import/export workflows
+**Purpose**: grandMA3 onPC compatibility via OSC and verified import/export workflows
 **Triggers**: "grandma3", "ma3", "osc control", "macro", "cue stack"
 **Outputs**: OSC commands, cue stack builders, verified import/export workflows
-**Use when**: Controlling grandMA3 onPC, verifying MA3 workflows, building cue sequences
+**Use when**: Working on the MA3 compatibility track, verifying MA3 workflows, building cue sequences, or exporting MA3 artifacts
 
 ---
 

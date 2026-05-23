@@ -1,28 +1,30 @@
 # Getting Started
 
-> **Purpose:** Get RayFlow running and send your first DMX values to grandMA3 onPC.
+> **Purpose:** Get RayFlow running and send your first DMX values through the
+> protocol bridge.
 
 ---
 
 ## Prerequisites
 
-- **macOS** — grandMA3 onPC runs natively on macOS
 - **Python 3.10+** — RayFlow's runtime
 - **Git** — For version control
-- **grandMA3 onPC 2.3.2.0** — Current RayFlow baseline and verified local version (see [grandMA3 Setup Guide](./guides/grandma3-setup.md))
+- **Optional: grandMA3 onPC 2.3.2.0** — Compatibility target for MA3 export/playback work
+- **Optional: QLC+** — Planned API-first controller target
 
 ---
 
-## 1. Install grandMA3 onPC
+## 1. Install Optional External Targets
 
-Download from [MA Lighting Downloads](https://www.malighting.com/downloads/products/grandma3/):
+RayFlow can run its CLI and tests without a lighting console. Install external
+targets only when you want live protocol testing:
 
-1. Select "grandMA3 onPC Software for macOS"
-2. Install the application (~630 MB)
-3. Launch grandMA3 onPC and create a new show
-4. Verify the built-in 3D visualizer works
+- grandMA3 onPC for MA3 compatibility export/playback work.
+- QLC+ for the planned WebSocket controller adapter spike.
+- An Art-Net/sACN receiver, visualizer, or lighting node for direct DMX tests.
 
-See the full [grandMA3 Setup Guide](./guides/grandma3-setup.md) for detailed instructions.
+See the [grandMA3 Setup Guide](./guides/grandma3-setup.md) for MA3-specific
+instructions.
 
 ---
 
@@ -56,14 +58,15 @@ uv run rayflow --help
 
 ## 4. Send Your First DMX
 
-Once grandMA3 onPC is running and RayFlow is installed:
+Once RayFlow is installed and you have a receiver/controller ready:
 
 ```bash
 # Send DMX values to universe 0
 uv run rayflow bridge send --universe 0 --channel 1 --value 255
 ```
 
-You should see a fixture respond in the grandMA3 visualizer after Art-Net input is enabled for the matching local universe in grandMA3.
+You should see the receiver report a DMX value, or a fixture/visualizer respond
+if it is patched to the matching universe and address.
 
 See the [First DMX Guide](./guides/first-dmx.md) for a complete tutorial.
 
@@ -71,8 +74,9 @@ See the [First DMX Guide](./guides/first-dmx.md) for a complete tutorial.
 
 ## 5. Next Steps
 
-- **[Build a Rig](./guides/building-a-rig.md)** — Load GDTF fixtures and create a virtual stage
-- **[Record a Show](./guides/recording-a-show.md)** — Program cues for a song and export video
+- **[Build a Rig](./guides/building-a-rig.md)** — Load GDTF fixtures and create a reusable rig
+- **[Current Workflow](./guides/current-workflow.md)** — Author, version, export, and dry-run a show
+- **[Control Backend Direction](./architecture/control-backend-direction.md)** — Understand the current backend adapter plan
 - **[Implementation Schedule](./implementation_schedule.md)** — See what's being built next
 
 ---
@@ -84,7 +88,9 @@ rayflow/
 ├── src/rayflow/
 │   ├── bridge/          # Art-Net / sACN protocol bridge
 │   ├── fixtures/        # GDTF fixture handling
-│   ├── visualizer/      # Web 3D stage visualizer
+│   ├── console/         # grandMA3 compatibility tools
+│   ├── shows/           # Show/rig models and exports
+│   ├── visualizer/      # Optional/future visualization work
 │   └── cli.py           # CLI entry point
 ├── data/
 │   ├── fixtures/        # GDTF fixture files

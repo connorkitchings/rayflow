@@ -1,12 +1,18 @@
-# AI Master Context — grandMA3 onPC Lighting Shows
+# AI Master Context — grandMA3 Compatibility Track
 
-> **FOR AI AGENTS.** This document is the entry point for any session involving grandMA3 onPC operation. Read this FIRST, then jump to the specific reference doc you need.
+> **FOR AI AGENTS.** This document is the entry point for sessions involving
+> grandMA3 onPC compatibility work. For backend-neutral RayFlow direction, read
+> `docs/architecture/control-backend-direction.md` first.
 
 ---
 
 ## Project Goal
 
-**Build lighting shows for recorded songs.** The AI agent drives grandMA3 onPC 2.3.2.0 and RayFlow to design a rig, patch fixtures, program cues, add effects, and export the finished show. The human user is NOT expected to learn MA3 separately — the AI is the operator.
+**Build lighting shows for recorded songs.** RayFlow owns the show and rig
+intent. grandMA3 onPC 2.3.2.0 is a professional compatibility target for MVR,
+Timecode XML, review bundles, and gated OSC operations. The human user is not
+expected to learn MA3 separately, but agents must not treat MA3 mutation as the
+mainline execution path unless the operation has evidence.
 
 ## Version Baseline
 
@@ -17,7 +23,9 @@ Verify before giving version-specific instructions:
 /usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' /Applications/grandMA3.app/Contents/Info.plist
 ```
 
-All GUI paths, CLI syntax, and protocol behavior in these docs are sourced from the **grandMA3 2.3 online manual** and verified against 2.3.2.0.
+All GUI paths, CLI syntax, and protocol behavior in these docs should be sourced
+from the **grandMA3 2.3 online manual** and verified against 2.3.2.0 before
+being used for live mutation.
 
 ## Document Map
 
@@ -107,30 +115,32 @@ The programmer is MA3's **temporary working buffer**. Values go here first, then
 
 | Operation | Use RayFlow When | Use MA3 Directly When |
 |-----------|-----------------|----------------------|
-| Patch fixtures | Testing address math, bulk operations | Interactive GUI setup |
-| Send DMX values | Scripts, automation, debugging | Real-time performance |
+| Patch fixtures | Testing address math, exports, compatibility probes | Interactive GUI setup |
+| Send DMX values | Scripts, renderer tests, direct Art-Net/sACN output | Real-time manual operation |
 | Inspect fixtures | `rayflow fixture list/info` from CLI | Need to see 3D model |
-| Store cues | OSC via `client.store_cue()` from Python | Live manual programming |
+| Store cues | Gated OSC for verified dimmer/sequence paths | Live manual programming |
 | Playback | OSC `go_sequence()` | Physical control or live operation |
-| 3D visualization | Phase 5 (future) | MA3 built-in visualizer (current) |
+| 3D visualization | Backend-dependent; future visualizer possible | MA3 built-in visualizer for compatibility review |
 
 ## Known Limitations & Rules
 
 1. **`.show` files are binary** — Do NOT propose generating `.show` files. They cannot be created outside MA3.
-2. **Automation-first** — Prefer RayFlow CLI, OSC commands, or network verification over manual MA3 UI steps.
+2. **Evidence-first** — Prefer RayFlow CLI, exported artifacts, packet capture, queryable state, or recorded manual confirmation over assuming MA3 accepted a command.
 3. **Verify version first** — Before giving MA3 UI instructions, confirm the installed version is 2.3.2.0.
 4. **Art-Net input not default** — Must be manually enabled per show (one-time).
 5. **OSC bundles not supported** — Only individual OSC messages. No batch sending.
 6. **sACN multicast input limited to 20 universes**.
 7. **Combined Art-Net + sACN input limited to 128 universes**.
+8. **MA3 is a compatibility adapter** — Do not block backend-neutral renderer work on MA3 fixture import or readback.
 
 ## Session Startup Checklist (for AI Agents)
 
-Before any show-building session:
+Before any MA3 compatibility session:
 - [ ] Read this MASTER_CONTEXT.md
 - [ ] Verify MA3 2.3.2.0 is installed: `PlistBuddy -c 'Print :CFBundleVersion' /Applications/grandMA3.app/Contents/Info.plist`
 - [ ] Check if MA3 onPC is running (and which show is loaded)
 - [ ] Verify network setup (Art-Net/OSC enabled for the current show)
+- [ ] Confirm the target operation is part of the MA3 compatibility track, not the backend-neutral renderer milestone
 - [ ] Read [MA3_OPERATIONS.md](./MA3_OPERATIONS.md) section for your first task
 - [ ] Read [SHOW_BUILDING_WORKFLOW.md](./SHOW_BUILDING_WORKFLOW.md) if building a complete show
 

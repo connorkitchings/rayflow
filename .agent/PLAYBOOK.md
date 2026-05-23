@@ -16,6 +16,8 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 11. **grandMA3 Version Pinning**: Before giving grandMA3 onPC UI instructions, verify the installed app version and use the matching MA manual version. Current local baseline is grandMA3 onPC 2.3.2.0.
 12. **Capture Before Generating MA3 XML**: Before implementing any MA3 import/export XML generator, first capture a real MA3 export with the target objects and events. Treat local MA3-exported XML as source-of-truth and document any fields RayFlow intentionally omits.
 13. **Disposable Show First**: Before sending live mutating MA3 commands, verify the active show is disposable by observing the UI or confirming a new `.show` file was created. Do not trust `SaveShow As` syntax alone.
+14. **Command Acceptance Before MA3 Mutation**: Before running live MA3 mutation probes, send a low-risk OSC `/cmd` command that must produce observable export evidence. UDP listener presence alone does not prove command acceptance.
+15. **Reset MA3 Command Destination**: MA3 `/cmd` commands inherit the visible command-line destination such as `Fixture`. Prepend `ChangeDestination Root` before generated MA3 probe/export/show commands.
 
 ## [STRATEGIES]
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
@@ -26,6 +28,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 6. **Automation-First MA3 Guidance**: Treat MA3 UI configuration as setup state to verify, not repeated manual work for the user. Prefer commands, exported files, tcpdump/Wireshark checks, or small RayFlow helpers before asking for click-through steps.
 7. **Context-First AI**: Always provide the AI with the full rig definition, fixture capabilities, and current show state before requesting changes. See `docs/ai_interaction_contract.md`.
 8. **MCP Follows Verified Control**: Do not build MCP tools for MA3 programming until the underlying MA3 operation has command, export/readback, or observation proof. MCP should expose known capabilities, not hide unresolved console-control gaps.
+9. **API-First Control Loop**: Keep RayFlow's core agent workflow on deterministic, structured interfaces such as RayFlow show data, QLC+ WebSockets, Art-Net, or sACN. Treat grandMA3 as a professional compatibility/export target until MA3 mutation and readback are repeatably proven.
 
 ## [SUCCESS_PATTERNS]
 - **Incremental Protocol Testing**: Send one DMX value, verify it arrives, then expand to full universe.

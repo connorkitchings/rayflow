@@ -10,8 +10,8 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
-MVR_XML_FILENAME = "myvirtualrig.xml"
-MVR_NS = "http://www.gdtf-share.com/MVR"
+MVR_XML_FILENAME = "GeneralSceneDescription.xml"
+MVR_NS = ""
 
 
 @dataclass(frozen=True)
@@ -58,23 +58,22 @@ def build_mvr_scene_element(
     layer_name: str = "Fixtures",
 ) -> ET.Element:
     """Build the MVR myvirtualrig.xml root element with fixture data."""
-    ET.register_namespace("", MVR_NS)
-    root = ET.Element(f"{{{MVR_NS}}}GeneralSceneDescription")
+    root = ET.Element("GeneralSceneDescription")
     root.set("captureStart", _now_iso())
     root.set("date", _today_date())
-    root.set("versionMajor", "1")
-    root.set("versionMinor", "8")
+    root.set("verMajor", "1")
+    root.set("verMinor", "8")
 
     _add_user_data(root)
-    scene = ET.SubElement(root, f"{{{MVR_NS}}}Scene")
+    scene = ET.SubElement(root, "Scene")
     scene.set("name", scene_name)
-    layers = ET.SubElement(scene, f"{{{MVR_NS}}}Layers")
-    layer = ET.SubElement(layers, f"{{{MVR_NS}}}Layer")
+    layers = ET.SubElement(scene, "Layers")
+    layer = ET.SubElement(layers, "Layer")
     layer.set("name", layer_name)
-    child_list = ET.SubElement(layer, f"{{{MVR_NS}}}ChildList")
+    child_list = ET.SubElement(layer, "ChildList")
 
-    for patch in patches:
-        _add_fixture(child_list, patch)
+    for fixture_id, patch in enumerate(patches, start=1):
+        _add_fixture(child_list, patch, fixture_id=fixture_id)
 
     return root
 
@@ -129,7 +128,7 @@ def build_patch_entry(
 
 
 def _add_user_data(root: ET.Element) -> None:
-    user_data = ET.SubElement(root, f"{{{MVR_NS}}}UserData")
+    user_data = ET.SubElement(root, "UserData")
     user_data.set("provider", "RayFlow")
     user_data.set("createdBy", "RayFlow mvr_export")
 
@@ -140,39 +139,56 @@ def _embed_gdtf_files(
     written: set[str] = set()
     for patch in patches:
         if patch.gdtf_file and patch.gdtf_file.exists():
-            gdtf_name = patch.gdtf_file.name
+            gdtf_name = f"{_gdtf_spec_name(patch)}.gdtf"
             if gdtf_name not in written:
                 archive.write(patch.gdtf_file, gdtf_name)
                 written.add(gdtf_name)
 
 
-def _add_fixture(parent: ET.Element, patch: FixturePatchEntry) -> None:
-    fixture = ET.SubElement(parent, f"{{{MVR_NS}}}Fixture")
+def _add_fixture(
+    parent: ET.Element, patch: FixturePatchEntry, *, fixture_id: int
+) -> None:
+    fixture = ET.SubElement(parent, "Fixture")
     fixture.set("name", patch.name)
+    fixture.set("uuid", patch.gdtf_uuid)
     if patch.gdtf_file and patch.gdtf_file.exists():
-        fixture.set("gdtfSpec", patch.gdtf_file.name)
+        spec = _gdtf_spec_name(patch)
     else:
-        fixture.set("gdtfSpec", patch.gdtf_uuid)
-    if patch.dmx_mode:
-        fixture.set("gdtfMode", patch.dmx_mode)
+        spec = _gdtf_spec_name(patch)
 
-    _add_addressing(fixture, patch)
     _add_position(fixture, patch.position)
+    ET.SubElement(fixture, "GDTFSpec").text = spec
+    ET.SubElement(fixture, "GDTFMode").text = patch.dmx_mode
+    _add_addressing(fixture, patch)
+    ET.SubElement(fixture, "FixtureID").text = str(fixture_id)
+    ET.SubElement(fixture, "UnitNumber").text = "0"
+    ET.SubElement(fixture, "FixtureTypeId").text = "0"
+    ET.SubElement(fixture, "CustomId").text = "0"
+    ET.SubElement(fixture, "CastShadow").text = "false"
+    ET.SubElement(fixture, "Mappings")
+
+
+def _gdtf_spec_name(patch: FixturePatchEntry) -> str:
+    if "@" in patch.fixture_type:
+        return patch.fixture_type
+    return f"{patch.manufacturer}@{patch.fixture_type}"
 
 
 def _add_addressing(parent: ET.Element, patch: FixturePatchEntry) -> None:
-    addressing = ET.SubElement(parent, f"{{{MVR_NS}}}Addressing")
-    addressing.set("universe", str(patch.universe + 1))
-    addressing.set("address", str(patch.address))
+    addresses = ET.SubElement(parent, "Addresses")
+    address = ET.SubElement(addresses, "Address")
+    address.set("break", "0")
+    address.text = str((patch.universe * 512) + patch.address)
 
 
 def _add_position(parent: ET.Element, position: FixturePosition) -> None:
-    matrix = ET.SubElement(parent, f"{{{MVR_NS}}}Matrix")
-    matrix.set("x", f"{position.x:.4f}")
-    matrix.set("y", f"{position.y:.4f}")
-    matrix.set("z", f"{position.z:.4f}")
-    matrix.set("pan", f"{position.pan:.4f}")
-    matrix.set("tilt", f"{position.tilt:.4f}")
+    matrix = ET.SubElement(parent, "Matrix")
+    matrix.text = (
+        "{1.000000,0.000000,0.000000}"
+        "{0.000000,1.000000,0.000000}"
+        "{0.000000,0.000000,1.000000}"
+        f"{{{position.x * 1000:.6f},{position.y * 1000:.6f},{position.z * 1000:.6f}}}"
+    )
 
 
 def _now_iso() -> str:

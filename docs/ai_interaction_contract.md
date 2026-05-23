@@ -4,9 +4,9 @@
 
 ## Overview
 
-RayFlow's primary interface is through an AI coding tool running in this repository. The user directs the AI in natural language; the AI reads the show context, generates concrete modifications, and pushes results to grandMA3 onPC via OSC.
+RayFlow's primary interface is through an AI coding tool running in this repository. The user directs the AI in natural language; the AI reads the show context, generates concrete modifications, and renders or exports results through an explicitly selected backend.
 
-**The AI is the designer's assistant.** The human provides creative direction; the AI handles the mechanical translation into MA3 commands.
+**The AI is the designer's assistant.** The human provides creative direction; the AI handles the mechanical translation into RayFlow show data, renderer plans, DMX frames, controller commands, or console compatibility artifacts.
 
 ## Context Bundle
 
@@ -26,9 +26,10 @@ Before an AI tool can work on a show, it must load this context:
    - Available color wheels, gobo wheels, etc.
 4. **Available commands** — Existing RayFlow modules
    - `console/cue.py` — Cue command builders
-   - `console/osc.py` — OSC client for MA3
+   - `console/osc.py` — Gated OSC client for MA3 compatibility
    - `fixtures/mvr_export.py` — MVR export
    - `bridge/artnet.py` — Direct DMX send
+   - `bridge/sacn.py` — sACN output
 
 ### Context Loading Command
 
@@ -107,10 +108,14 @@ The AI can perform these actions on a show:
 - `save_show(show)` — Serialize show to YAML
 - `save_rig(rig)` — Serialize rig to YAML
 
-### Push Actions
-- `push_to_ma3(show, execute=False)` — Generate OSC commands for all cues, dry-run by default
-- `push_section_to_ma3(show, section, execute=False)` — Push cues for one section
-- `export_mvr(rig, output_path)` — Export rig as MVR for MA3 import
+### Output Actions
+- `render_dmx(show, rig, execute=False)` — Planned action: render cue intent to universe/channel frames, dry-run by default
+- `send_artnet(frame, execute=False)` — Send rendered frames over Art-Net only after explicit approval
+- `send_sacn(frame, execute=False)` — Send rendered frames over sACN only after explicit approval
+- `send_to_qlc(show, execute=False)` — Planned action: send/query QLC+ WebSocket commands after adapter proof
+- `push_to_ma3(show, execute=False)` — Generate OSC commands for MA3-compatible cues, dry-run by default
+- `push_section_to_ma3(show, section, execute=False)` — Push MA3-compatible cues for one section
+- `export_mvr(rig, output_path)` — Export rig as MVR for compatibility workflows
 
 ### Analysis Actions
 - `check_dmx_conflicts(rig)` — Validate no overlapping DMX addresses
@@ -139,23 +144,25 @@ I'm working on a lighting show in RayFlow. Here's the context:
 3. Show me the proposed changes before applying them
 4. Wait for my confirmation
 5. After confirmation, modify the show YAML
-6. Optionally push to MA3 with --execute flag
+6. Optionally render or apply through a selected backend with an explicit execute flag
 ```
 
 ## Safety Constraints
 
 ### Dry-Run by Default
-All MA3 push operations default to dry-run. The AI generates and displays the OSC commands but does not send them unless the user explicitly confirms with `--execute`.
+All output operations default to dry-run. The AI generates and displays the DMX frames, controller commands, exported files, or OSC commands but does not apply them unless the user explicitly confirms with `--execute`.
 
 ### Reversible Changes
 All show modifications are serialized to YAML and tracked in git. Any change can be reverted with `git checkout`.
 
 ### Validation Before Push
-Before pushing to MA3:
+Before applying output through any backend:
 1. Validate DMX addressing has no conflicts
 2. Validate all referenced fixtures exist in the GDTF library
 3. Validate all preset attributes are supported by target fixtures
-4. Display a summary of changes for user review
+4. Validate the selected backend supports the requested attributes
+5. Display a summary of changes for user review
+6. Capture backend evidence when possible
 
 ### No Destructive Operations Without Confirmation
 Deleting cues, presets, or fixtures requires explicit user confirmation. The AI must show what will be deleted and ask before proceeding.
@@ -180,16 +187,16 @@ Deleting cues, presets, or fixtures requires explicit user confirmation. The AI 
 │     → AI modifies chorus cues (dimmer up, add pan/tilt)     │
 │     → Shows diff, waits for confirmation                    │
 ├─────────────────────────────────────────────────────────────┤
-│  5. User: "Push to MA3"                                     │
-│     → AI generates OSC commands, displays dry-run output    │
-│     → User: "--execute" → AI sends to MA3                   │
+│  5. User: "Render this"                                     │
+│     → AI generates backend output and displays dry-run data │
+│     → User: "--execute" → AI applies selected backend       │
 ├─────────────────────────────────────────────────────────────┤
-│  6. User reviews in MA3 visualizer                          │
+│  6. User reviews backend evidence or visual output          │
 │     → "Tweak cue 3, slower fade"                            │
 │     → AI modifies cue, pushes again                         │
 ├─────────────────────────────────────────────────────────────┤
 │  7. User: "Export the show"                                 │
-│     → MVR for rig + cue data for sequences + timecode map   │
+│     → backend artifacts, MA3 bundle, or controller handoff  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -202,7 +209,7 @@ The user runs an AI coding tool (Claude Code, Codex, etc.) in the RayFlow reposi
 1. **All source code** — Can read and modify any module
 2. **All data files** — Can read and modify rig/show YAML files
 3. **The CLI** — Can run `rayflow` commands to validate, export, or push
-4. **The OSC client** — Can send commands to MA3 (with `--execute` gate)
+4. **Output adapters** — Can render, export, or send through selected backends with explicit execute gates
 
 The AI doesn't need a special interface — it uses the same tools a human developer would use. The contract defines **what data to read**, **what actions are valid**, and **what safety constraints apply**.
 
@@ -210,8 +217,8 @@ The AI doesn't need a special interface — it uses the same tools a human devel
 
 1. **Structured data** — YAML shows/rigs are readable and modifiable by both humans and AI
 2. **Clear vocabulary** — Presets, attribute families, and sections give the AI a language to work with
-3. **Existing infrastructure** — OSC client, cue builders, and MVR export are already implemented
-4. **Safety gates** --execute flag prevents accidental MA3 changes
+3. **Existing infrastructure** — cue builders, bridge modules, MVR export, and MA3 compatibility tools are already implemented
+4. **Safety gates** --execute flag prevents accidental live output
 5. **Git tracking** — All changes are versioned and reversible
 
 ## Glossary

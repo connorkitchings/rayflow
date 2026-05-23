@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 7 — Export & Playback (IN PROGRESS)
+**Phase:** 8 — Backend-Neutral Control Loop (PLANNING / NEXT)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -73,25 +73,30 @@ rayflow/
 - Phase 7 MA3 Timecode XML generation from captured `CmdEvent` / `RealtimeCmd` export shape
 - Phase 7 clean MA3 Timecode XML import/re-export validation against grandMA3 onPC 2.3.2.0
 - Phase 7 internal Timecode playback clock validation via `Top Timecode 1` / `Go Timecode 1` and re-exported `Cursor`
+- 2026-05-23 direction reset: MA3 remains a compatibility/export target, while the mainline moves to backend-neutral show intent, fixture-aware DMX rendering, Art-Net/sACN execution, and QLC+ WebSocket research
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 
 **Current Focus:**
-- MA3 control stock-take before more feature work or MCP implementation
-- ⚠ Timecode integration mostly unblocked: event-bearing MA3 Timecode XML imports cleanly and internal playback advances, but final cue-fire observation in the Timecode Viewer/current-cue UI is still pending
-- ⚠ Basic look programming is not yet fully verified: the first live OSC probe exported sequence/group/preset shells, but disposable-show isolation, fixture patch/import, fixture-aware preset content, executor state, and runtime readback still need proof
+- Phase 8 backend adapter design before more MA3 mutation or MCP implementation
+- Fixture-aware DMX renderer from RayFlow cue intent to universe/channel frames
+- Art-Net/sACN output evidence from rendered frames
+- QLC+ WebSocket command/query research as the first API-first controller adapter
+- MA3 export/playback remains a compatibility track; fixture import, fixture-aware presets, executor state, and runtime readback still need proof before mutating MCP tools
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
 **Active Branch:** `codex/continue-development-session`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)
-- Use version 2.3 manual pages for UI/protocol guidance unless the installed app changes
+- Use version 2.3 manual pages for compatibility-track UI/protocol guidance unless the installed app changes
 - Before giving manual grandMA3 UI instructions, verify they apply to 2.3.2.0 and prefer RayFlow automation or network verification where possible
+- Do not treat MA3 as the core agent execution loop until mutation and readback are repeatably proven
 
 **Project Direction:**
 - RayFlow's unique value: AI-assisted show design, not a console or visualizer
-- MA3 onPC provides the console and 3D visualizer; RayFlow provides the design intelligence layer
-- Workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → push to MA3 → export as timecoded show
+- RayFlow show/rig/cue data is the source of truth
+- Mainline workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → fixture-aware renderer → Art-Net/sACN or QLC+ backend evidence
+- Compatibility workflow: export MA3 bundles, Timecode XML, and gated OSC only for verified MA3 operations
 
 ## 🔄 Post-Session Protocol
 
