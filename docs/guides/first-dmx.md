@@ -49,7 +49,47 @@ uv run rayflow bridge send --universe 0 --channel 1 --value 128
 uv run rayflow bridge send --universe 0 --channel 1 --value 0
 ```
 
-## Step 5: Send Multiple Channels
+## Step 5: Render A RayFlow Cue
+
+Once a rig and show exist, render cue intent into fixture-aware DMX frames:
+
+```bash
+uv run rayflow show render-cue sample_show 6 \
+  --dir data/shows/samples \
+  --rig "Sample Rig" \
+  --rig-dir data/rigs \
+  --fixture-dir data/fixtures/samples \
+  --json
+```
+
+This is a dry-run. It does not send Art-Net or sACN.
+
+## Step 6: Dry-Run Backend Output
+
+```bash
+uv run rayflow show output-cue sample_show 6 \
+  --dir data/shows/samples \
+  --rig "Sample Rig" \
+  --backend artnet \
+  --target 127.0.0.1 \
+  --json
+```
+
+Add `--execute` only when a receiver is ready. Add `--capture-evidence` to
+attempt receiver-side proof.
+
+```bash
+uv run rayflow show output-cue sample_show 6 \
+  --dir data/shows/samples \
+  --rig "Sample Rig" \
+  --backend artnet \
+  --target 127.0.0.1 \
+  --execute \
+  --capture-evidence \
+  --json
+```
+
+## Step 7: Send Multiple Channels
 
 The current CLI sends one channel at a time. If your fixture has multiple channels, send one command per channel:
 
@@ -60,7 +100,7 @@ uv run rayflow bridge send --universe 0 --channel 2 --value 0
 uv run rayflow bridge send --universe 0 --channel 3 --value 0
 ```
 
-## Step 6: Verify with Python
+## Step 8: Verify with Python
 
 You can also send DMX directly from Python:
 
@@ -68,7 +108,7 @@ You can also send DMX directly from Python:
 from rayflow.bridge.artnet import ArtNetSender
 
 sender = ArtNetSender(target_ip="127.0.0.1")
-sender.send_dmx(universe=0, channel=1, value=255)
+sender.set_channel(1, 255)
 ```
 
 ## Troubleshooting

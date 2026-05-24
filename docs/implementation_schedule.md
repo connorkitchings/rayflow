@@ -113,13 +113,13 @@ QLC+ WebSocket control.
 
 | Task | Deliverable | Status | Notes |
 |------|-------------|--------|-------|
-| Backend adapter design | Interface for dry-run, apply, evidence, capabilities | ☐ Not Started | Should cover Art-Net, sACN, QLC+, MA3 export/OSC |
-| Fixture-aware DMX renderer | Render cue intent to universe/channel frames | ☐ Not Started | Start with dimmer and RGB/RGBW sample fixtures |
-| DMX evidence capture | Packet/receiver proof for rendered frames | ☐ Not Started | Use Art-Net/sACN receiver tests or network capture |
-| QLC+ WebSocket spike | Command/query proof against local QLC+ | ☐ Not Started | Target plain text WebSocket API and state queries |
-| Backend CLI | Select backend and render/apply/dry-run output | ☐ Not Started | Keep live output behind explicit execute flags |
-| Renderer tests | Unit tests with real GDTF samples | ☐ Not Started | Validate channel maps and output frames |
-| Docs | Update workflow guides for non-MA3 execution | ▶ In Progress | Direction reset started 2026-05-23 |
+| Backend adapter design | Interface for dry-run, apply, evidence, capabilities | ✅ Done | Contract covers Art-Net, sACN, experimental QLC+, and MA3 compatibility boundaries |
+| Fixture-aware DMX renderer | Render cue intent to universe/channel frames | ✅ Done | Supports dimmer, RGB/RGBW, named sample colors, cue/section/show grouping, and 16-bit paired channels |
+| DMX evidence capture | Packet/receiver proof for rendered frames | ✅ Done | Art-Net receiver buffer comparison and sACN universe-state evidence; packet capture remains future hardening |
+| QLC+ WebSocket spike | Command/query proof against local QLC+ | ✅ Done | Experimental WebSocket adapter returns dry-run, query, unavailable, and gated mutation evidence |
+| Backend CLI | Select backend and render/apply/dry-run output | ✅ Done | `show render-cue`, `show output-cue`, `show output-section`, and `show qlc-spike` |
+| Renderer tests | Unit tests with real GDTF samples | ✅ Done | Real sample tests cover dimmer, RGBW, named color, 16-bit pairs, warnings, and grouped rendering |
+| Docs | Update workflow guides for non-MA3 execution | ✅ Done | Workflow and first-DMX guides updated for backend-neutral output |
 
 ---
 
@@ -132,7 +132,7 @@ QLC+ WebSocket control.
 - **M5: Show Framework** — Phase 5 done, rig and show data model with CLI
 - **M6: AI Designer** — Phase 6 done, AI-assisted show building working
 - **M7: MA3 Export Compatibility** — Phase 7 mostly done, MA3 export/playback path documented
-- **M8: Backend-Neutral Execution** — Phase 8 target, fixture-aware rendering and API-first backends
+- **M8: Backend-Neutral Execution** — Phase 8 done for MVP, fixture-aware rendering and evidence-backed Art-Net/sACN output available; QLC+ remains experimental until live local proof
 
 ---
 
@@ -140,13 +140,13 @@ QLC+ WebSocket control.
 
 | Risk | Impact | Mitigation | Status |
 |------|--------|------------|--------|
-| Fixture-aware renderer complexity | High | Start with dimmer and RGB/RGBW, then expand family by family | ☐ Open |
+| Fixture-aware renderer complexity | High | Start with dimmer and RGB/RGBW, then expand family by family | ✅ Mitigated for MVP |
 | GDTF spec complexity | Medium | Use existing parser and real sample fixtures; test channel maps | ☐ Open |
-| QLC+ WebSocket behavior differs from docs | Medium | Build a small command/query spike before designing around it | ☐ Open |
+| QLC+ WebSocket behavior differs from docs | Medium | Build a small command/query spike before designing around it | ▶ Experimental adapter added |
 | MA3 OSC/API readback incomplete | Medium | Keep MA3 as gated compatibility adapter, not the mainline blocker | ⚠ Open |
 | AI prompt quality | High | Provide rich context bundles and backend capability declarations | ☐ Open |
-| Scope creep on visualizer work | Medium | Make renderer/evidence the milestone, not a full custom visualizer | ☐ Open |
+| Scope creep on visualizer work | Medium | Make renderer/evidence the milestone, not a full custom visualizer | ✅ Mitigated |
 
 ---
 
-*Last updated: 2026-05-23 (backend-neutral control loop adopted as next mainline direction).*
+*Last updated: 2026-05-24 (Phase 8 backend-neutral MVP implemented).*

@@ -37,7 +37,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 8 — Backend-Neutral Control Loop (PLANNING / NEXT)
+**Phase:** 9 — Productized Show Workflow (NEXT)
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -75,12 +75,12 @@ rayflow/
 - Phase 7 internal Timecode playback clock validation via `Top Timecode 1` / `Go Timecode 1` and re-exported `Cursor`
 - 2026-05-23 direction reset: MA3 remains a compatibility/export target, while the mainline moves to backend-neutral show intent, fixture-aware DMX rendering, Art-Net/sACN execution, and QLC+ WebSocket research
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
+- Phase 8 backend-neutral MVP: adapter contract, fixture-aware DMX renderer, Art-Net/sACN evidence backends, experimental QLC+ WebSocket spike, backend CLI commands, docs, and tests
 
 **Current Focus:**
-- Phase 8 backend adapter design before more MA3 mutation or MCP implementation
-- Fixture-aware DMX renderer from RayFlow cue intent to universe/channel frames
-- Art-Net/sACN output evidence from rendered frames
-- QLC+ WebSocket command/query research as the first API-first controller adapter
+- Phase 9 productized show workflow: prove a complete practice show loop through RayFlow source-of-truth data, fixture-aware rendering, backend dry-run evidence, and optional live backend proof
+- Improve user-facing workflow ergonomics around show context, cue generation, render/output commands, and evidence reports
+- Keep QLC+ experimental until live local command/query proof is captured
 - MA3 export/playback remains a compatibility track; fixture import, fixture-aware presets, executor state, and runtime readback still need proof before mutating MCP tools
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
 
@@ -97,6 +97,7 @@ rayflow/
 - RayFlow show/rig/cue data is the source of truth
 - Mainline workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → fixture-aware renderer → Art-Net/sACN or QLC+ backend evidence
 - Compatibility workflow: export MA3 bundles, Timecode XML, and gated OSC only for verified MA3 operations
+- Next milestone: one complete practice show workflow with real fixture samples, rendered cue/section output, backend evidence, and documented handoff for future agents
 
 ## 🔄 Post-Session Protocol
 

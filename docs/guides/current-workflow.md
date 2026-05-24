@@ -138,10 +138,33 @@ The MA3-compatible path currently sends safe dimmer/intensity values only.
 Color palette values are preserved in RayFlow show data, but fixture-aware color
 mapping belongs in the new renderer layer.
 
-The next mainline workflow should be:
+The Phase 8 backend-neutral workflow is now:
 
 1. Resolve fixture capabilities from the RayFlow rig and GDTF library.
-2. Render cue intent into DMX universe frames.
-3. Verify output through Art-Net/sACN capture or a queryable controller.
-4. Add QLC+ WebSocket execution once command/query evidence is captured.
-5. Keep MA3 as an export/playback adapter with explicit evidence gates.
+2. Render cue intent into DMX universe frames:
+
+```bash
+uv run rayflow show render-cue sample_show 6 \
+  --dir data/shows/samples \
+  --rig "Sample Rig" \
+  --rig-dir data/rigs \
+  --fixture-dir data/fixtures/samples \
+  --json
+```
+
+3. Dry-run backend output evidence before any live send:
+
+```bash
+uv run rayflow show output-cue sample_show 6 \
+  --dir data/shows/samples \
+  --rig "Sample Rig" \
+  --backend artnet \
+  --json
+```
+
+4. Apply only with `--execute`; add `--capture-evidence` when a receiver is
+   available for Art-Net buffer comparison or sACN universe-state proof.
+5. Use `show output-section` for ordered section-level dry-runs.
+6. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
+   evidence. Do not treat QLC+ as promoted until live query proof exists.
+7. Keep MA3 as an export/playback adapter with explicit evidence gates.

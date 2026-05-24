@@ -29,8 +29,12 @@ SHOW_COMMANDS = [
     "import-sections",
     "info",
     "list",
+    "output-cue",
+    "output-section",
     "push-section",
     "push-to-ma3",
+    "qlc-spike",
+    "render-cue",
     "renumber",
     "restore",
     "save",
@@ -121,6 +125,155 @@ class TestShowCreate:
         assert result.exit_code == 0
         assert "Show created" in result.output
         assert (tmp_path / "New Show.yaml").exists()
+
+
+class TestShowRenderCue:
+    def test_render_cue_outputs_json_for_sample_show(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "render-cue",
+                "sample_show",
+                "6",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Sample Rig",
+                "--rig-dir",
+                "data/rigs",
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["cue"]["number"] == 6
+        assert payload["frames"][0]["universe"] == 0
+        assert payload["frames"][0]["channels"]["13"] == 255
+        assert payload["frames"][0]["channels"]["14"] == 51
+        assert payload["frames"][0]["channels"]["15"] == 102
+        assert payload["frames"][0]["channels"]["16"] == 255
+        assert payload["warnings"]
+
+    def test_output_cue_dry_run_outputs_backend_evidence(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "output-cue",
+                "sample_show",
+                "6",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Sample Rig",
+                "--rig-dir",
+                "data/rigs",
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--backend",
+                "artnet",
+                "--target",
+                "192.0.2.10",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["backend"] == "artnet"
+        assert payload["mode"] == "dry-run"
+        assert payload["target"] == "192.0.2.10:6454"
+        assert payload["frames"][0]["channels"]["13"] == 255
+        assert payload["observed"] == {"status": "not-applied"}
+
+    def test_output_cue_rejects_unknown_backend(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "output-cue",
+                "sample_show",
+                "6",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Sample Rig",
+                "--rig-dir",
+                "data/rigs",
+                "--backend",
+                "missing",
+            ],
+        )
+
+        assert result.exit_code == 2
+        assert "Unknown backend" in result.output
+
+    def test_output_section_dry_run_outputs_grouped_evidence(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "output-section",
+                "sample_show",
+                "Chorus 1",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Sample Rig",
+                "--rig-dir",
+                "data/rigs",
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--backend",
+                "artnet",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["scope"] == "section:Chorus 1"
+        assert payload["backend"] == "artnet"
+        assert payload["mode"] == "dry-run"
+        assert [cue["frames"][0]["channels"]["13"] for cue in payload["cues"]] == [
+            255,
+            255,
+            255,
+            178,
+        ]
+
+    def test_output_section_rejects_missing_section(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "output-section",
+                "sample_show",
+                "Missing",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Sample Rig",
+                "--rig-dir",
+                "data/rigs",
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Section has no cues" in result.output
+
+    def test_qlc_spike_dry_run_outputs_json(self) -> None:
+        result = runner.invoke(app, ["show", "qlc-spike", "--json"])
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["backend"] == "qlcplus"
+        assert payload["mode"] == "dry-run"
+        assert payload["observed"] == {"status": "not-applied"}
 
 
 class TestShowSetSongMeta:

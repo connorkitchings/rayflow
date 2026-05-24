@@ -65,6 +65,11 @@ Every backend should eventually expose the same concepts:
 - **capabilities:** declare supported fixture attributes and unsupported
   operations.
 
+The implementation-level contract is maintained in
+[Backend Adapter Contract](./backend-adapter-contract.md). Use that document
+for the Phase 8 interface shape, renderer inputs and outputs, evidence packet
+fields, and backend-specific v1 behavior.
+
 ## Near-Term Priorities
 
 1. Define the backend adapter boundary.

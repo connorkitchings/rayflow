@@ -35,6 +35,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **GDTF Parsing**: Start with simple dimmer-only fixtures, then add moving lights with pan/tilt/color.
 - **OSC Command Verification**: Send `About` command first to verify grandMA3 connection before complex macros.
 - **Human-AI Collaboration Loop**: Prompt → Generate → Review → Feedback → Iterate. Human remains the final arbiter at every phase.
+- **Evidence-First Backend Output**: Backend output adapters must return structured evidence and explicitly mark degraded proof such as `send-call-only`; do not treat "command sent" as equivalent to observed state.
 
 ## [REVIEW AGENTS]
 
