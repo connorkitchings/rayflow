@@ -8,15 +8,30 @@ from typing import Any, Literal
 from rayflow.design.cue_generator import auto_number_cues
 from rayflow.design.models import Cue, Rig, Section, Show
 
-AuthoringStyle = Literal["energy-arc", "warm-cool", "front-back", "vibe-palette"]
+AuthoringStyle = Literal[
+    "energy-arc",
+    "warm-cool",
+    "front-back",
+    "vibe-palette",
+    "movement-sweep",
+    "movement-circle",
+    "movement-figure8",
+    "beam-chase",
+]
 
 SUPPORTED_AUTHORING_STYLES: tuple[AuthoringStyle, ...] = (
     "energy-arc",
     "warm-cool",
     "front-back",
     "vibe-palette",
+    "movement-sweep",
+    "movement-circle",
+    "movement-figure8",
+    "beam-chase",
 )
-SUPPORTED_ATTRIBUTES = frozenset({"dimmer", "color"})
+SUPPORTED_ATTRIBUTES = frozenset(
+    {"dimmer", "color", "pan", "tilt", "zoom", "focus", "shutter", "gobo"}
+)
 FALLBACK_PALETTE = ("Warm Amber", "#3366FF", "#00CCFF", "White")
 
 
@@ -147,7 +162,7 @@ def _generate_cues(
     for section in sections:
         looks = _section_looks(show, section, style, cues_per_section, warnings)
         for index, look in enumerate(looks):
-            timestamp = _cue_timestamp(section, index, len(looks))
+            timestamp = _cue_timestamp(show, section, index, len(looks))
             cues.append(
                 Cue(
                     number=next_number,
@@ -162,8 +177,9 @@ def _generate_cues(
                     ),
                     preset=look.get("preset"),
                     attributes={
-                        "dimmer": str(look["dimmer"]),
-                        "color": str(look["color"]),
+                        k: str(v)
+                        for k, v in look.items()
+                        if k not in ("label", "preset", "fade_time")
                     },
                     fade_time=float(look["fade_time"]),
                 )
@@ -199,13 +215,50 @@ def _section_looks(
             _look(f"Palette {index + 1}", _dimmer_for_index(energy, index), color, 1.5)
             for index, color in enumerate(colors)
         ]
+    elif style == "movement-sweep":
+        seeds = [
+            _look("Sweep Left", dimmer, _energy_color(energy), 2.0, pan=25),
+            _look("Sweep Right", dimmer, _energy_lift_color(energy), 2.0, pan=75),
+        ]
+    elif style == "movement-circle":
+        color = _energy_color(energy)
+        seeds = [
+            _look("Circle 1", dimmer, color, 1.0, pan=50, tilt=75),
+            _look("Circle 2", dimmer, color, 1.0, pan=75, tilt=50),
+            _look("Circle 3", dimmer, color, 1.0, pan=50, tilt=25),
+            _look("Circle 4", dimmer, color, 1.0, pan=25, tilt=50),
+        ]
+    elif style == "movement-figure8":
+        color = _energy_color(energy)
+        seeds = [
+            _look("Fig8 1", dimmer, color, 0.5, pan=50, tilt=50),
+            _look("Fig8 2", dimmer, color, 0.5, pan=65, tilt=75),
+            _look("Fig8 3", dimmer, color, 0.5, pan=80, tilt=50),
+            _look("Fig8 4", dimmer, color, 0.5, pan=65, tilt=25),
+            _look("Fig8 5", dimmer, color, 0.5, pan=50, tilt=50),
+            _look("Fig8 6", dimmer, color, 0.5, pan=35, tilt=75),
+            _look("Fig8 7", dimmer, color, 0.5, pan=20, tilt=50),
+            _look("Fig8 8", dimmer, color, 0.5, pan=35, tilt=25),
+        ]
+    elif style == "beam-chase":
+        seeds = [
+            _look("Beam Wide", dimmer, _energy_color(energy), 0.5, zoom=100),
+            _look("Beam Narrow", secondary, _energy_lift_color(energy), 0.5, zoom=0),
+        ]
     else:
         seeds = [
             _look("Energy Base", dimmer, _energy_color(energy), 2.0),
             _look("Energy Lift", secondary, _energy_lift_color(energy), 1.0),
         ]
 
-    return _fit_look_count(seeds, cues_per_section, energy)
+    looks = _fit_look_count(seeds, cues_per_section, energy)
+
+    if show.song.bpm and show.song.bpm > 0:
+        fade_multiplier = 120.0 / show.song.bpm
+        for look in looks:
+            look["fade_time"] = round(float(look["fade_time"]) * fade_multiplier, 2)
+
+    return looks
 
 
 def _look(
@@ -214,8 +267,9 @@ def _look(
     color: str,
     fade_time: float,
     preset: str | None = None,
-) -> dict[str, str | int | float]:
-    result: dict[str, str | int | float] = {
+    **kwargs: Any,
+) -> dict[str, Any]:
+    result: dict[str, Any] = {
         "label": label,
         "dimmer": dimmer,
         "color": color,
@@ -223,37 +277,51 @@ def _look(
     }
     if preset:
         result["preset"] = preset
+    result.update(kwargs)
     return result
 
 
 def _fit_look_count(
-    seeds: list[dict[str, str | int | float]],
+    seeds: list[dict[str, Any]],
     count: int,
     energy: float,
-) -> list[dict[str, str | int | float]]:
+) -> list[dict[str, Any]]:
     if count <= len(seeds):
         return seeds[:count]
 
     result = list(seeds)
     while len(result) < count:
         seed = seeds[len(result) % len(seeds)]
+        kwargs = {
+            k: v
+            for k, v in seed.items()
+            if k not in ("label", "dimmer", "color", "fade_time", "preset")
+        }
         result.append(
             _look(
                 f"{seed['label']} {len(result) + 1}",
                 _dimmer_for_index(energy, len(result)),
                 str(seed["color"]),
-                float(seed["fade_time"]),
+                float(seed["fade_time"]),  # type: ignore[arg-type]
                 seed.get("preset") if isinstance(seed.get("preset"), str) else None,
+                **kwargs,
             )
         )
     return result
 
 
-def _cue_timestamp(section: Section, index: int, count: int) -> float:
+def _cue_timestamp(show: Show, section: Section, index: int, count: int) -> float:
     if count <= 1:
         return round(section.start, 2)
     spacing = (section.end - section.start) / count
-    return round(section.start + index * spacing, 2)
+    timestamp = section.start + index * spacing
+
+    if show.song.bpm and show.song.bpm > 0:
+        beat_duration = 60.0 / show.song.bpm
+        beats_since_start = round((timestamp - section.start) / beat_duration)
+        timestamp = section.start + beats_since_start * beat_duration
+
+    return round(timestamp, 2)
 
 
 def _energy_to_dimmer(energy: float) -> int:

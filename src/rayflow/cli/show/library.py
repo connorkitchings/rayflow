@@ -9,7 +9,7 @@ import typer
 from rich.table import Table
 
 from rayflow.cli._paths import show_dir_path, show_path
-from rayflow.cli._shared import console
+from rayflow.cli._shared import console, resolve_show_name
 
 
 def register_show_library_commands(show_app: typer.Typer) -> None:
@@ -17,7 +17,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("save")
     def show_save_version(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         message: Optional[str] = typer.Option(
             None, "--message", "-m", help="Version note"
         ),
@@ -27,6 +27,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         ),
     ) -> None:
         """Save a versioned snapshot of a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.library import save_show_version
 
         path = show_path(show_name, show_dir_path(show_dir))
@@ -51,12 +52,13 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("versions")
     def show_versions(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         library_dir: str = typer.Option(
             "data/show_library", "--library-dir", help="Show library directory"
         ),
     ) -> None:
         """List saved versions for a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.library import list_show_versions
 
         versions = list_show_versions(show_name, library_dir=library_dir)
@@ -80,7 +82,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("restore")
     def show_restore_version(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         version: str = typer.Option(..., "--version", help="Version ID to restore"),
         force: bool = typer.Option(
             False, "--force", help="Overwrite changed show file"
@@ -91,6 +93,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         ),
     ) -> None:
         """Restore a saved show version."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.library import restore_show_version
 
         target = show_path(show_name, show_dir_path(show_dir))
@@ -112,7 +115,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("diff")
     def show_diff_version(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         version: str = typer.Option(..., "--version", help="Version ID to diff from"),
         other_version: Optional[str] = typer.Option(
             None, "--other-version", help="Optional second saved version"
@@ -123,6 +126,7 @@ def register_show_library_commands(show_app: typer.Typer) -> None:
         ),
     ) -> None:
         """Show a unified YAML diff against a saved show version."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.library import diff_show_version
 
         current_path = (

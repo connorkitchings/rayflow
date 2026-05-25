@@ -8,7 +8,7 @@ from pathlib import Path
 import typer
 
 from rayflow.cli._paths import show_dir_path, show_path
-from rayflow.cli._shared import console
+from rayflow.cli._shared import console, resolve_show_name
 from rayflow.cli.rig import _rig_dir_path, _rig_path
 
 
@@ -17,7 +17,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("push-to-ma3")
     def show_push_to_ma3(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         execute: bool = typer.Option(
             False, "--execute", help="Actually send OSC commands to MA3"
         ),
@@ -35,6 +35,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         By default, runs as a dry-run showing the commands that would be sent.
         Use --execute to actually send them.
         """
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import resolve_presets
         from rayflow.design.serializers import load_rig, load_show
         from rayflow.engine.console.push import commands_for_show
@@ -84,7 +85,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("push-section")
     def show_push_section(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         section: str = typer.Option(..., "--section", help="Section name to push"),
         execute: bool = typer.Option(
             False, "--execute", help="Actually send OSC commands to MA3"
@@ -98,6 +99,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
     ) -> None:
         """Push cues for a single section to grandMA3 onPC."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import resolve_presets
         from rayflow.design.serializers import load_rig, load_show
         from rayflow.engine.console.push import commands_for_show
@@ -149,7 +151,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("export")
     def show_export(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         output_dir: Path = typer.Option(
             ..., "--output-dir", "-o", help="Output bundle directory"
         ),
@@ -163,6 +165,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         ),
     ) -> None:
         """Export a dry-run-safe MA3 bundle for a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_rig, load_show
         from rayflow.engine.console.export_bundle import export_show_bundle
 
@@ -204,7 +207,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("export-mvr")
     def show_export_mvr(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         output: Path = typer.Option(..., "--output", "-o", help="Output MVR file path"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
         rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
@@ -213,6 +216,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         ),
     ) -> None:
         """Export a show's rig as an MVR file."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_rig, load_show
         from rayflow.engine.console.export_bundle import build_mvr_patches
         from rayflow.engine.fixtures.mvr_export import (
@@ -250,7 +254,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("export-timecode")
     def show_export_timecode(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         output: Path = typer.Option(
             ..., "--output", "-o", help="Output timecode XML file path"
         ),
@@ -268,6 +272,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         WARNING: The event schema is based on captured MA3 2.3.2.0 exports.
         Validate imported event playback before relying on it for a show.
         """
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_show
         from rayflow.engine.console.timecode_export import export_timecode_xml
 

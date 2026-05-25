@@ -10,7 +10,7 @@ from typing import Optional
 import typer
 from rich.table import Table
 
-from rayflow.cli._shared import console, list_yaml_files
+from rayflow.cli._shared import console, list_yaml_files, resolve_rig_name
 
 rig_app = typer.Typer(help="Rig definition management")
 
@@ -184,7 +184,7 @@ def rig_copy(
 
 @rig_app.command("add-fixture")
 def rig_add_fixture(
-    rig_name: str = typer.Argument(..., help="Rig name"),
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
     fixture: str = typer.Option(..., "--fixture", help="GDTF fixture name"),
     mode: str = typer.Option(..., "--mode", help="DMX mode name"),
     address: int = typer.Option(..., "--address", "-a", help="DMX start address"),
@@ -202,6 +202,7 @@ def rig_add_fixture(
     ),
 ) -> None:
     """Add a fixture slot to a rig."""
+    rig_name = resolve_rig_name(rig_name)
     import json as _json
 
     from rayflow.design.models import FixtureSlot, Position3D
@@ -265,7 +266,7 @@ def rig_add_fixture(
 
 @rig_app.command("add-preset")
 def rig_add_preset(
-    rig_name: str = typer.Argument(..., help="Rig name"),
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
     name: str = typer.Argument(..., help="Preset name"),
     description: str = typer.Option(..., "--description", help="Preset description"),
     attributes: str = typer.Option(
@@ -278,6 +279,7 @@ def rig_add_preset(
     rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
 ) -> None:
     """Add a preset to a rig."""
+    rig_name = resolve_rig_name(rig_name)
     from rayflow.design.models import Preset
     from rayflow.design.serializers import load_rig, save_rig
 
@@ -316,7 +318,7 @@ def rig_add_preset(
 
 @rig_app.command("export-mvr")
 def rig_export_mvr(
-    rig_name: str = typer.Argument(..., help="Rig name"),
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
     output: Path = typer.Option(..., "--output", "-o", help="Output MVR file path"),
     rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
     fixture_dir: str = typer.Option(
@@ -324,6 +326,7 @@ def rig_export_mvr(
     ),
 ) -> None:
     """Export a rig as an MVR file for MA3 import."""
+    rig_name = resolve_rig_name(rig_name)
     from rayflow.design.serializers import load_rig
     from rayflow.engine.fixtures.library import FixtureLibrary
     from rayflow.engine.fixtures.mvr_export import (

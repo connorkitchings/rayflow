@@ -1,7 +1,9 @@
 """RayFlow configuration — loads settings from environment variables."""
 
+import json
 import os
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass
@@ -37,13 +39,34 @@ class FixtureConfig:
 
 
 @dataclass
+class WorkspaceConfig:
+    """Workspace settings like active show/rig."""
+
+    active_show: str | None = None
+    active_rig: str | None = None
+
+    def save(self) -> None:
+        path = Path(".rayflow.json")
+        path.write_text(json.dumps(self.__dict__, indent=2))
+
+    @classmethod
+    def load(cls) -> "WorkspaceConfig":
+        path = Path(".rayflow.json")
+        if path.exists():
+            data = json.loads(path.read_text())
+            return cls(**data)
+        return cls()
+
+
+@dataclass
 class Settings:
-    """All RayFlow settings loaded from environment."""
+    """All RayFlow settings loaded from environment and workspace config."""
 
     ma3: Ma3Config
     artnet: ArtnetConfig
     sacn: SacnConfig
     fixtures: FixtureConfig
+    workspace: WorkspaceConfig
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -64,4 +87,8 @@ class Settings:
             fixtures=FixtureConfig(
                 fixture_dir=os.getenv("FIXTURE_DIR", "data/fixtures"),
             ),
+            workspace=WorkspaceConfig.load(),
         )
+
+
+config = Settings.from_env()

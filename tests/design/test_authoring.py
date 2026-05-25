@@ -136,3 +136,32 @@ def test_plan_cues_rejects_invalid_inputs() -> None:
             assert expected in str(exc)
         else:  # pragma: no cover
             raise AssertionError(f"Expected error containing {expected}")
+
+
+def test_plan_cues_movement_circle() -> None:
+    plan = plan_cues(
+        _show(),
+        _rig(),
+        section_name="Chorus",
+        style="movement-circle",
+        cues_per_section=4,
+    )
+    assert not plan.warnings
+    assert len(plan.proposed_cues) == 4
+    for cue in plan.proposed_cues:
+        assert "pan" in cue.attributes
+        assert "tilt" in cue.attributes
+
+
+def test_plan_cues_beam_chase() -> None:
+    plan = plan_cues(
+        _show(),
+        _rig(),
+        section_name="Chorus",
+        style="beam-chase",
+        cues_per_section=2,
+    )
+    assert not plan.warnings
+    assert len(plan.proposed_cues) == 2
+    for cue in plan.proposed_cues:
+        assert "zoom" in cue.attributes

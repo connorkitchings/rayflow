@@ -98,6 +98,23 @@ class TestGenerateCuesForSection:
         with pytest.raises(ValueError, match="spacing"):
             generate_cues_for_section(show, "Intro", spacing=-1)
 
+    def test_beats_per_cue(self) -> None:
+        show = _make_show()
+        show.song.bpm = 120.0
+        cues = generate_cues_for_section(
+            show,
+            "Intro",
+            beats_per_cue=4.0,
+        )
+        assert len(cues) == 7
+        assert cues[0].timestamp == 0.0
+        assert cues[1].timestamp == 2.0
+
+    def test_beats_per_cue_no_bpm_raises(self) -> None:
+        show = _make_show()
+        with pytest.raises(ValueError, match="beats_per_cue requires song.bpm"):
+            generate_cues_for_section(show, "Intro", beats_per_cue=4.0)
+
     def test_with_attributes(self) -> None:
         show = _make_show()
         cues = generate_cues_for_section(

@@ -12,7 +12,7 @@ import typer
 from rich.table import Table
 
 from rayflow.cli._paths import show_dir_path, show_path
-from rayflow.cli._shared import console, list_yaml_files
+from rayflow.cli._shared import console, list_yaml_files, resolve_show_name
 from rayflow.cli.rig import _rig_dir_path, _rig_path
 from rayflow.cli.show.cues import register_show_cue_commands
 from rayflow.cli.show.edit import register_show_edit_commands
@@ -169,7 +169,7 @@ def show_info(
 
 @show_app.command("context")
 def show_context(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
     fixture_dir: str = typer.Option(
@@ -177,6 +177,7 @@ def show_context(
     ),
 ) -> None:
     """Output the full AI context bundle for a show as JSON."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.context import build_context_bundle
     from rayflow.design.serializers import load_rig, load_show
 
@@ -198,9 +199,27 @@ def show_context(
     typer.echo(json_module.dumps(bundle, indent=2))
 
 
+@show_app.command("switch")
+def switch_show(
+    show_name: str = typer.Argument(..., help="Show name"),
+) -> None:
+    """Set the active workspace show."""
+    from rayflow.config import config
+
+    dir_path = show_dir_path(config.show_dir)
+    target = show_path(show_name, dir_path)
+    if not target.exists():
+        console.print(f"[red]Show '{show_name}' does not exist.[/red]")
+        raise typer.Exit(1)
+
+    config.workspace.active_show = show_name
+    config.workspace.save()
+    console.print(f"[green]Switched active show to '{show_name}'.[/green]")
+
+
 @show_app.command("render-cue")
 def show_render_cue(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     cue_number: int = typer.Argument(..., help="Cue number to render"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
@@ -211,6 +230,7 @@ def show_render_cue(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Dry-run render one show cue to fixture-aware DMX frames."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.serializers import load_rig, load_show
     from rayflow.engine.rendering import render_cue_to_dmx
 
@@ -247,7 +267,7 @@ def show_render_cue(
 
 @show_app.command("output-cue")
 def show_output_cue(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     cue_number: int = typer.Argument(..., help="Cue number to output"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
@@ -281,6 +301,7 @@ def show_output_cue(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Dry-run or apply one rendered cue through a backend adapter."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.serializers import load_rig, load_show
     from rayflow.engine.backends import ArtNetDmxBackend, SacnDmxBackend
     from rayflow.engine.rendering import render_cue_to_dmx
@@ -339,7 +360,7 @@ def show_output_cue(
 
 @show_app.command("output-section")
 def show_output_section(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     section_name: str = typer.Argument(..., help="Section name to output"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
@@ -373,6 +394,7 @@ def show_output_section(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Dry-run or apply all rendered cues in one section."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.serializers import load_rig, load_show
     from rayflow.engine.backends import ArtNetDmxBackend, SacnDmxBackend
     from rayflow.engine.rendering import render_section_to_dmx
@@ -435,7 +457,7 @@ def show_output_section(
 
 @show_app.command("plan-practice-cues")
 def show_plan_practice_cues(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     section: str = typer.Option(
         "all", "--section", help="Section name to plan, or all"
@@ -453,6 +475,7 @@ def show_plan_practice_cues(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Plan or apply deterministic renderer-safe practice cues."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.practice_authoring import plan_practice_cues
     from rayflow.design.serializers import load_rig, load_show, save_show
 
@@ -497,7 +520,7 @@ def show_plan_practice_cues(
 
 @show_app.command("plan-cues")
 def show_plan_cues(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     section: str = typer.Option(
         "all", "--section", help="Section name to plan, or all"
@@ -521,6 +544,7 @@ def show_plan_cues(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Plan or apply deterministic renderer-safe cues for any show."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.authoring import plan_cues
     from rayflow.design.serializers import load_rig, load_show, save_show
 
@@ -566,7 +590,7 @@ def show_plan_cues(
 
 @show_app.command("workflow-report")
 def show_workflow_report(
-    show_name: str = typer.Argument(..., help="Show name"),
+    show_name: str | None = typer.Argument(None, help="Show name"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
     backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
     section: str = typer.Option(
@@ -605,6 +629,7 @@ def show_workflow_report(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Build a dry-run practice workflow report for rendered backend output."""
+    show_name = resolve_show_name(show_name)
     from rayflow.design.serializers import load_rig, load_show
     from rayflow.engine.backends import ArtNetDmxBackend, SacnDmxBackend
     from rayflow.engine.rendering import render_section_to_dmx, render_show_to_dmx
@@ -740,52 +765,3 @@ def _readiness_summary(
         f"{render_warning_count} render warnings and "
         f"{backend_warning_count} backend warnings."
     )
-
-
-@show_app.command("qlc-spike")
-def show_qlc_spike(
-    endpoint: str = typer.Option(
-        "ws://127.0.0.1:9999/qlcplusWS",
-        "--endpoint",
-        help="QLC+ WebSocket endpoint",
-    ),
-    universe: int = typer.Option(0, "--universe", help="QLC+ universe to query"),
-    start_channel: int = typer.Option(
-        1, "--start-channel", help="First channel to query"
-    ),
-    channel_count: int = typer.Option(
-        8, "--channel-count", help="Number of channels to query"
-    ),
-    function_id: int | None = typer.Option(
-        None, "--function-id", help="Function ID for gated status set"
-    ),
-    function_status: int = typer.Option(
-        1, "--function-status", help="Function status for gated status set"
-    ),
-    timeout: float = typer.Option(1.0, "--timeout", help="WebSocket timeout"),
-    execute: bool = typer.Option(
-        False, "--execute", help="Connect to QLC+ and run the spike"
-    ),
-    json_output: bool = typer.Option(False, "--json", help="JSON output"),
-) -> None:
-    """Experimental QLC+ WebSocket command/query spike."""
-    from rayflow.engine.backends import QlcPlusBackend
-
-    evidence = QlcPlusBackend(endpoint=endpoint).spike(
-        execute=execute,
-        function_id=function_id,
-        function_status=function_status,
-        universe=universe,
-        start_channel=start_channel,
-        channel_count=channel_count,
-        timeout=timeout,
-    )
-
-    if json_output:
-        typer.echo(json_module.dumps(evidence.as_dict(), indent=2))
-        return
-
-    console.print(f"[bold]QLC+ {evidence.mode}[/bold] {endpoint}")
-    console.print(f"Status: {evidence.observed.get('status', 'unknown')}")
-    if evidence.warnings:
-        console.print(f"[yellow]Warnings: {len(evidence.warnings)}[/yellow]")

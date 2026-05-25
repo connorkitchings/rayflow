@@ -10,7 +10,7 @@ from typing import Optional
 import typer
 
 from rayflow.cli._paths import show_dir_path, show_path
-from rayflow.cli._shared import console
+from rayflow.cli._shared import console, resolve_show_name
 
 
 def register_show_edit_commands(show_app: typer.Typer) -> None:
@@ -18,7 +18,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("set-vibe")
     def show_set_vibe(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         vibe_json: Optional[Path] = typer.Option(
             None, "--vibe-json", help="Vibe JSON file"
         ),
@@ -51,6 +51,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Set or update the vibe for a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import Vibe
         from rayflow.design.serializers import load_show, save_show
 
@@ -109,7 +110,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("set-song-meta")
     def show_set_song_meta(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         title: Optional[str] = typer.Option(None, "--title", help="New song title"),
         artist: Optional[str] = typer.Option(None, "--artist", help="New song artist"),
         duration: Optional[float] = typer.Option(
@@ -119,6 +120,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Update song metadata on a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_show, save_show
 
         path = show_path(show_name, show_dir_path(show_dir))
@@ -158,7 +160,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("update-section")
     def show_update_section(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         name: str = typer.Option(..., "--name", help="Section name to update"),
         start: Optional[float] = typer.Option(
             None, "--start", help="New start time (seconds)"
@@ -173,6 +175,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Update a song section's fields."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_show, save_show
 
         path = show_path(show_name, show_dir_path(show_dir))
@@ -216,7 +219,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("delete-section")
     def show_delete_section(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         name: str = typer.Option(..., "--name", help="Section name to delete"),
         delete_cues: bool = typer.Option(
             False, "--delete-cues", help="Also delete cues belonging to this section"
@@ -224,6 +227,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Remove a song section from a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_show, save_show
 
         path = show_path(show_name, show_dir_path(show_dir))
@@ -254,7 +258,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("add-section")
     def show_add_section(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         name: str = typer.Option(..., "--name", help="Section name"),
         start: float = typer.Option(..., "--start", help="Start time (seconds)"),
         end: float = typer.Option(..., "--end", help="End time (seconds)"),
@@ -265,6 +269,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Add a song section to a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import Section
         from rayflow.design.serializers import load_show, save_show
 
@@ -288,11 +293,12 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("import-sections")
     def show_import_sections(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         json_file: Path = typer.Argument(..., help="Section import JSON file"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Import song sections from an audio analysis JSON file."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.section_import import import_sections_to_song
         from rayflow.design.serializers import load_show, save_show
 
@@ -331,7 +337,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("add-preset-override")
     def show_add_preset_override(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         name: str = typer.Argument(..., help="Preset name"),
         description: str = typer.Option(..., "--description", help="Description"),
         attributes: str = typer.Option(
@@ -344,6 +350,7 @@ def register_show_edit_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Add a show-specific preset override."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import Preset
         from rayflow.design.serializers import load_show, save_show
 

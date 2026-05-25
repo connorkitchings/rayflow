@@ -23,6 +23,7 @@ def generate_cues_for_section(
     channels: str | None = None,
     fade_time: float = 0.0,
     base_label: str | None = None,
+    beats_per_cue: float | None = None,
 ) -> list[Cue]:
     """Generate evenly spaced cues for a song section.
 
@@ -40,6 +41,14 @@ def generate_cues_for_section(
     start = section.start
     end = section.end
     duration = end - start
+
+    if beats_per_cue is not None:
+        if show.song.bpm is None or show.song.bpm <= 0:
+            raise ValueError("beats_per_cue requires song.bpm to be set and positive")
+        spacing = beats_per_cue * (60.0 / show.song.bpm)
+        count = int(duration / spacing)
+        if count < 1:
+            count = 1
 
     if count < 1:
         raise ValueError(f"count must be >= 1, got {count}")
@@ -82,6 +91,7 @@ def generate_cues_for_show(
     cues_per_section: int = 4,
     spacing: float = 5.0,
     fade_time: float = 0.0,
+    beats_per_cue: float | None = None,
 ) -> Show:
     """Generate cues for every section in the show using preset mapping.
 
@@ -100,6 +110,7 @@ def generate_cues_for_show(
             count=cues_per_section,
             spacing=spacing,
             fade_time=fade_time,
+            beats_per_cue=beats_per_cue,
         )
         for cue in generated:
             cue.number = next_number

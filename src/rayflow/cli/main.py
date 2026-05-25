@@ -22,5 +22,14 @@ app.add_typer(console_app, name="console")
 app.add_typer(rig_app, name="rig")
 app.add_typer(show_app, name="show")
 
+
+@app.command("mcp")
+def run_mcp() -> None:
+    """Run the RayFlow MCP server."""
+    from rayflow.mcp_server import mcp
+
+    mcp.run()
+
+
 if __name__ == "__main__":
     app()

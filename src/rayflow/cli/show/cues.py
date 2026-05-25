@@ -9,7 +9,7 @@ from typing import Optional
 import typer
 
 from rayflow.cli._paths import show_dir_path, show_path
-from rayflow.cli._shared import console
+from rayflow.cli._shared import console, resolve_show_name
 
 
 def register_show_cue_commands(show_app: typer.Typer) -> None:
@@ -17,7 +17,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("add-cue")
     def show_add_cue(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         number: int = typer.Option(..., "--number", help="Cue number"),
         label: str = typer.Option(..., "--label", help="Cue label"),
         section: str = typer.Option(..., "--section", help="Song section name"),
@@ -36,6 +36,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Add a cue to a show."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.models import Cue
         from rayflow.design.serializers import load_show, save_show
 
@@ -75,7 +76,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("update-cue")
     def show_update_cue(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         number: int = typer.Option(..., "--number", help="Cue number to update"),
         label: Optional[str] = typer.Option(None, "--label", help="New label"),
         timestamp: Optional[float] = typer.Option(
@@ -97,6 +98,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Update an existing cue's fields."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.cue_generator import update_cue
         from rayflow.design.serializers import load_show, save_show
 
@@ -135,11 +137,12 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("delete-cue")
     def show_delete_cue(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         number: int = typer.Option(..., "--number", help="Cue number to delete"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Delete a cue and renumber remaining cues."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.cue_generator import remove_cue
         from rayflow.design.serializers import load_show, save_show
 
@@ -165,10 +168,11 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("renumber")
     def show_renumber(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Renumber all cues sequentially starting from 1."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.cue_generator import auto_number_cues
         from rayflow.design.serializers import load_show, save_show
 
@@ -184,7 +188,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("generate-cues")
     def show_generate_cues(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         section: str = typer.Option(..., "--section", help="Song section name"),
         preset: Optional[str] = typer.Option(None, "--preset", help="Preset name"),
         count: int = typer.Option(4, "--count", "-n", help="Number of cues"),
@@ -201,6 +205,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Generate evenly spaced cues for a song section."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.cue_generator import generate_cues_for_section
         from rayflow.design.serializers import load_show, save_show
 
@@ -249,7 +254,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
 
     @show_app.command("batch-update-cues")
     def show_batch_update_cues(
-        show_name: str = typer.Argument(..., help="Show name"),
+        show_name: str | None = typer.Argument(None, help="Show name"),
         section: Optional[str] = typer.Option(
             None, "--section", help="Limit to cues in this section"
         ),
@@ -268,6 +273,7 @@ def register_show_cue_commands(show_app: typer.Typer) -> None:
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     ) -> None:
         """Batch update or delete cues matching a filter."""
+        show_name = resolve_show_name(show_name)
         from rayflow.design.cue_generator import batch_update_cues
         from rayflow.design.serializers import load_show, save_show
 

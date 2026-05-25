@@ -36,7 +36,6 @@ SHOW_COMMANDS = [
     "plan-practice-cues",
     "push-section",
     "push-to-ma3",
-    "qlc-spike",
     "render-cue",
     "renumber",
     "restore",
@@ -270,14 +269,6 @@ class TestShowRenderCue:
         assert result.exit_code == 1
         assert "Section has no cues" in result.output
 
-    def test_qlc_spike_dry_run_outputs_json(self) -> None:
-        result = runner.invoke(app, ["show", "qlc-spike", "--json"])
-
-        assert result.exit_code == 0
-        payload = json.loads(result.output)
-        assert payload["backend"] == "qlcplus"
-        assert payload["mode"] == "dry-run"
-        assert payload["observed"] == {"status": "not-applied"}
 
     def test_workflow_report_outputs_practice_show_json(self) -> None:
         with patch("rayflow.engine.backends.dmx.ArtNetDmxBackend.apply") as apply:

@@ -5,7 +5,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from rayflow.engine.backends.dmx import BackendCapabilities, BackendEvidence
+from rayflow.engine.backends.dmx import (
+    BackendCapabilities,
+    BackendEvidence,
+    _frames_as_dicts,
+    _render_warnings,
+)
+from rayflow.engine.rendering import RenderedCue
 
 
 @dataclass(frozen=True)
@@ -29,57 +35,54 @@ class QlcPlusBackend:
 
     capabilities = BackendCapabilities(
         backend="qlcplus",
-        attributes=("query", "function-status", "channel-values"),
-        operations=("dry-run", "query", "apply"),
+        attributes=(
+            "dimmer",
+            "color",
+            "pan",
+            "tilt",
+            "zoom",
+            "focus",
+            "shutter",
+            "gobo",
+        ),
+        operations=("dry-run", "apply"),
         evidence_types=("websocket-response", "unavailable"),
     )
 
     def __init__(self, endpoint: str = "ws://127.0.0.1:9999/qlcplusWS"):
         self.endpoint = endpoint
 
-    def spike(
-        self,
-        *,
-        execute: bool = False,
-        function_id: int | None = None,
-        function_status: int = 1,
-        universe: int = 0,
-        start_channel: int = 1,
-        channel_count: int = 8,
-        timeout: float = 1.0,
-    ) -> BackendEvidence:
-        commands = [
-            "QLC+API|getFunctionsList",
-            f"QLC+API|getChannelsValues|{universe}|{start_channel}|{channel_count}",
-        ]
-        if execute and function_id is not None:
-            commands.append(
-                f"QLC+API|setFunctionStatus|{function_id}|{function_status}"
-            )
+    def dry_run(self, rendered: RenderedCue) -> BackendEvidence:
+        commands = self._generate_commands(rendered)
+        return BackendEvidence(
+            backend="qlcplus",
+            operation="send-frame",
+            mode="dry-run",
+            target=self.endpoint,
+            frames=_frames_as_dicts(rendered.frames),
+            commands=commands,
+            observed={"status": "not-applied"},
+        )
 
-        if not execute:
-            return BackendEvidence(
-                backend="qlcplus",
-                operation="query-state",
-                mode="dry-run",
-                target=self.endpoint,
-                frames=[],
-                commands=commands,
-                observed={"status": "not-applied"},
-                warnings=[
-                    "QLC+ adapter is experimental until local query proof exists."
-                ],
-            )
+    def apply(
+        self,
+        rendered: RenderedCue,
+        *,
+        capture_evidence: bool = False,
+        evidence_timeout: float = 1.0,
+    ) -> BackendEvidence:
+        commands = self._generate_commands(rendered)
+        warnings = _render_warnings(rendered)
 
         try:
-            results = self._execute_commands(commands, timeout=timeout)
+            results = self._execute_commands(commands, timeout=evidence_timeout)
         except Exception as exc:
             return BackendEvidence(
                 backend="qlcplus",
-                operation="query-state",
+                operation="send-frame",
                 mode="apply",
                 target=self.endpoint,
-                frames=[],
+                frames=_frames_as_dicts(rendered.frames),
                 commands=commands,
                 observed={"status": "unavailable", "error": str(exc)},
                 warnings=["QLC+ WebSocket endpoint was unavailable."],
@@ -87,18 +90,35 @@ class QlcPlusBackend:
 
         return BackendEvidence(
             backend="qlcplus",
-            operation="query-state",
+            operation="send-frame",
             mode="apply",
             target=self.endpoint,
-            frames=[],
+            frames=_frames_as_dicts(rendered.frames),
             commands=commands,
             observed={
-                "status": "queried",
-                "responses": [result.as_dict() for result in results],
-                "evidence_quality": "websocket-response",
+                "status": "queried" if capture_evidence else "sent",
+                "responses": [result.as_dict() for result in results]
+                if capture_evidence
+                else [],
+                "evidence_quality": "websocket-response"
+                if capture_evidence
+                else "send-call-only",
             },
-            warnings=["QLC+ adapter remains experimental pending live workflow proof."],
+            warnings=warnings,
         )
+
+    def _generate_commands(self, rendered: RenderedCue) -> list[str]:
+        commands = []
+        for frame in rendered.frames:
+            # API: QLC+API|setChannelsValues|<universe>|<ch1>|<val1>...
+            parts = [f"QLC+API|setChannelsValues|{frame.universe}"]
+            for channel, value in sorted(frame.channels.items()):
+                # QLC+ API is 1-based matching our channels
+                parts.append(str(channel))
+                parts.append(str(value))
+            if len(parts) > 1:
+                commands.append("|".join(parts))
+        return commands
 
     def _execute_commands(
         self, commands: list[str], *, timeout: float
