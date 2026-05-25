@@ -121,6 +121,34 @@ graph TD
 | MVR | Stage/rig file exchange | RayFlow -> console/visualizer |
 | GDTF | Fixture definition | External library -> RayFlow |
 
+## Where RayFlow Adds Value
+
+RayFlow is not trying to replace a professional console. It adds value by
+making the creative and technical show plan explicit, reviewable, and
+portable:
+
+1. **AI-directed design:** natural-language iteration over structured show data.
+2. **Fixture-aware rendering:** translating design intent to valid DMX output.
+3. **Backend choice:** direct DMX for deterministic tests, QLC+ for structured
+   open-source control, MA3 for professional compatibility.
+4. **Evidence-based automation:** every backend capability must prove state
+   changed through queries, captured packets, exports, or recorded manual
+   confirmation.
+
+## Why Not Keep MA3 As The Core Layer?
+
+grandMA3 is powerful, but the live probes showed that it is not an ideal
+terminal-agent API:
+
+- setup is show-local;
+- command acceptance is not equivalent to UDP listener presence;
+- command-line destination changes command meaning;
+- fixture import and patching are still not repeatable through CLI alone;
+- readback is indirect.
+
+Those traits make MA3 a compatibility adapter, not the safest core execution
+loop.
+
 ## Compatibility Tracks
 
 grandMA3 remains supported where it is strong: professional workflow

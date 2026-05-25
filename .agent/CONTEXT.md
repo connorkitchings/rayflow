@@ -15,7 +15,8 @@ rayflow/
 ├── src/rayflow/         # Application source code
 │   ├── bridge/          # Art-Net / sACN protocol bridge
 │   ├── fixtures/        # GDTF fixture handling
-│   ├── visualizer/      # Web 3D stage visualizer
+│   ├── shows/           # Show/rig models, exports, snapshots, authoring
+│   ├── console/         # grandMA3 OSC compatibility and cue builders
 │   └── cli.py           # CLI entry point
 ├── data/
 │   ├── fixtures/        # GDTF fixture library
@@ -37,7 +38,7 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** 9 — Productized Show Workflow (NEXT)
+**Phase:** Post-Phase 11 — Planning next product direction
 
 **Completed:**
 - Phase 1 foundation cleanup and RayFlow package structure
@@ -81,8 +82,8 @@ rayflow/
 - Phase 11 fixture-aware renderer expansion: numeric pan/tilt, zoom, focus, shutter, and gobo rendering through GDTF channel maps
 
 **Current Focus:**
-- Phase 11 checkpoint is ready after final health checks and commit
-- Next product direction should build beyond renderer expansion: live QLC+ proof or higher-level movement/beam authoring
+- All phases 1-11 complete; planning post-Phase 11 product direction
+- Candidate tracks: live QLC+ proof, higher-level movement/beam authoring, MCP server, multi-show management
 - Keep QLC+ experimental until live local command/query proof is captured
 - MA3 export/playback remains a compatibility track; fixture import, fixture-aware presets, executor state, and runtime readback still need proof before mutating MCP tools
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
@@ -100,7 +101,7 @@ rayflow/
 - RayFlow show/rig/cue data is the source of truth
 - Mainline workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → fixture-aware renderer → Art-Net/sACN or QLC+ backend evidence
 - Compatibility workflow: export MA3 bundles, Timecode XML, and gated OSC only for verified MA3 operations
-- Next milestone: choose the post-Phase 11 track after committing the renderer expansion checkpoint
+- Next milestone: select and begin post-Phase 11 track (QLC+ live proof, authoring expansion, MCP, or multi-show)
 
 ## 🔄 Post-Session Protocol
 

@@ -238,15 +238,4 @@ The AI doesn't need a special interface — it uses the same tools a human devel
 
 ## Glossary
 
-| Term | Definition |
-|------|------------|
-| **Rig** | A stage configuration: fixtures, positions, presets |
-| **Show** | A rig + song + cues + optional vibe |
-| **Preset** | A named, preprogrammed lighting look |
-| **Vibe** | AI-generated creative direction (palette, intensity curve, movement style) |
-| **Cue** | A lighting state at a specific timestamp in the song |
-| **Section** | A part of the song (verse, chorus, bridge) with energy and mood metadata |
-| **Attribute Family** | Category of fixture control: dimmer, position, color, beam, focus, gobo |
-| **Context Bundle** | The full set of data an AI needs to work on a show |
-| **Dry-Run** | Generating commands without sending them to MA3 |
-| **--execute** | Flag that gates actual OSC command transmission to MA3 |
+See the canonical [Glossary](./glossary.md) for all lighting industry terms and project acronyms.

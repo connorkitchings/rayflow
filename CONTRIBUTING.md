@@ -186,7 +186,7 @@ Include:
 
 ```
 .
-├── src/rayflow/      # Source code (bridge, fixtures, visualizer)
+├── src/rayflow/      # Source code (bridge, fixtures, shows, console)
 ├── data/             # GDTF fixtures and show configs
 ├── tests/            # Test suite
 ├── docs/             # Documentation

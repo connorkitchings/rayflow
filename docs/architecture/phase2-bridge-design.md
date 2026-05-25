@@ -1,6 +1,9 @@
 # Phase 2 Bridge Design
 
-> **Status:** Draft · **Phase:** 2 — Art-Net / sACN Bridge · **Date:** 2026-05-15
+> **Status:** Archived (Phase 2 complete) · **Phase:** 2 — Art-Net / sACN Bridge · **Date:** 2026-05-15
+>
+> This is a historical design document. The bridge implementation is complete.
+> For current architecture, see [system_overview.md](./system_overview.md).
 
 ## Purpose
 

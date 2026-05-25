@@ -97,7 +97,6 @@ Automated checks run before each commit:
 
 - Code formatting (ruff)
 - Linting (ruff)
-- Type checking (mypy)
 - Security scanning (bandit)
 
 ### Continuous Integration

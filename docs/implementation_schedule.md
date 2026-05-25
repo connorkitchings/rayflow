@@ -174,6 +174,21 @@ QLC+ WebSocket control.
 
 ---
 
+## Post-Phase 11: Candidate Tracks
+
+All Phases 1-11 are complete. The next product direction should be selected from
+these candidate tracks:
+
+| Track | Description | Status |
+|-------|-------------|--------|
+| Live QLC+ proof | Command/query cycle against a running QLC+ instance; promote adapter from experimental | ☐ Not Started |
+| Movement/beam authoring | Higher-level movement patterns, beam shaping, and gobo transitions as first-class cue attributes | ☐ Not Started |
+| MCP server | Expose RayFlow show/rig/render operations via Model Context Protocol for IDE-integrated agents | ☐ Not Started |
+| Multi-show management | Show suites, shared rigs, cross-show presets, and batch rendering | ☐ Not Started |
+| Audio-reactive lighting | Real-time audio analysis driving dynamic cue adjustments | ☐ Not Started |
+
+---
+
 ## Risks
 
 | Risk | Impact | Mitigation | Status |
@@ -187,4 +202,4 @@ QLC+ WebSocket control.
 
 ---
 
-*Last updated: 2026-05-25 (Phase 11 renderer expansion implemented).*
+*Last updated: 2026-05-25 (Post-Phase 11 documentation audit).*

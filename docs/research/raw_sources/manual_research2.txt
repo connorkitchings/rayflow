@@ -1,0 +1,288 @@
+Comprehensive Guide to Lighting Design: Educational Frameworks, Aesthetic Concepts, and Console Programming Workflows
+Pedagogical Pathways and Educational Resources in Lighting Design
+Entering the discipline of lighting design requires a dual understanding of aesthetic concepts and technical execution.1 Aspiring designers and professional technicians can access a structured ecosystem of educational literature, formal certifications, and hands-on training pipelines to develop their craft.1
+Academic Literature and Foundational Textbooks
+The theoretical foundation of stage and architectural lighting is preserved in several key textbooks, each addressing different segments of the design-to-execution spectrum.5 These texts bridge the gap between historic artistic conventions and contemporary technological developments.7
+
+Textbook Title
+Author(s)
+Primary Focus and Target Domain
+Key Concepts Covered
+Stage Lighting Design: The Art, The Craft, The Life 7
+Richard Pilbrow 7
+Theatrical lighting design and professional design practice.8
+History of stage lighting, color rendering, composition, and professional workflow interviews.7
+Designing with Light: An Introduction to Stage Lighting 7
+J. Michael Gillette & Michael McNamara 7
+Introductory stage lighting pedagogy.
+Color theory, design mechanics, instrument selection, and modern LED integration.
+A Practical Guide to Stage Lighting Design 5
+Steven Louis Shelley 5
+Technical drafting, paperwork, and implementation.5
+Light plots, instrument schedules, circuiting, and experience-based troubleshooting.
+Automated Lighting: The Art and Science of Moving Light 5
+Richard Cadena 5
+Engineering, optics, and electronics of automated fixtures.5
+Alternating and direct current, DMX protocol, dichroic filters, step motors, and gobo physics.
+Color & Light: Navigating Color Mixing in the Midst of an LED Revolution 7
+Clifton Taylor 7
+Advanced color theory and modern fixture transitions.
+Additive versus subtractive color, human visual limits, and transition challenges from tungsten to LED.
+Set Lighting Technician's Handbook
+Harry C. Box
+Cinematography and location electrical distribution.
+Power generation, safety regulations, HMI and arc source operation, and rigging hardware.
+Concert Lighting: Techniques, Art and Business 5
+James L. Moody 5
+Rock-and-roll touring and high-energy live entertainment.
+Production management, preproduction, tour logistics, rigging, and video integration.
+
+Professional Certification and Manufacturer Academies
+For structured, self-paced, or academic study, several industry organizations and manufacturers offer formal courses and certificates 1:
+The New School / Parsons School of Design: Offers a non-degree Lighting Design Certificate under the instruction of Craig Bernecker. The program costs $1,890 and requires three sequential courses: Lighting Fundamentals and Technologies, Lighting Design Criteria and Considerations, and Designing a Lighting System. Registered with the International Design Continuing Education Council (IDCEC), it provides a direct transfer pathway of three credits to the Parsons Master of Fine Arts (MFA) Lighting Program.
+The Illuminating Engineering Society (IES): Standardizes commercial and architectural lighting education through specialized materials, such as the Fundamentals of Lighting course (FOL-23), which is available to students and instructors for structured professional development.11 Additional curricula cover energy-efficient design, maintenance in the LED era, and visual requirements for low-vision and senior populations.11
+NEMA Academy (LCA Education Express): Administered by the Lighting Controls Association, this program offers over 67 hours of instruction across 31 individual modules. Modules can be purchased for $5 each, or $160 for the entire series, covering topics ranging from occupancy sensors and LED dimming behavior to networked wireless controls and commercial energy code commissioning.
+The Lutron Lighting Control Institute (LCI): Provides accredited continuing education units (CEUs) recognized by the American Institute of Architects (AIA) and the U.S. Green Building Council (USGBC).12 LCI focuses on the intersection of automated shade control, LED fixture performance, human-centric lighting, and building sustainability standards such as WELL v2.12
+The US DOD ESTCP Advanced Lighting Controls Program: A free, public-domain educational initiative developed by Slipstream and funded by the U.S. Army Corps of Engineers. It includes 16 short sessions for facility managers and 17 in-depth technical courses for lighting designers, focusing on daylight-responsive tuning, task tuning, and network security.
+Acuity Academy: Provides industry-specific webinars detailing evidence-based lighting design, with a particular emphasis on healthcare environments, biophilic integration, and operational energy savings.10
+Practical Internships and Industry Volunteer Pipelines
+Beyond theoretical and online instruction, developing competency in live show execution demands hands-on practice under live production conditions.4
+The International Alliance of Theatrical Stage Employees (IATSE) offers comprehensive craft skills and safety training through its Training Trust Fund (TTF).6 IATSE members and registered referrals can access OSHA-10 safety courses, specialized AVIXA Certified Technology Specialist (CTS) exam preparation, and Entertainment Technician Certification Program (ETCP) reimbursements for high-voltage and rigging certifications.6
+In the theatrical sector, professional regional institutions such as the Aurora Theatre Academy and the Alliance Theatre in Atlanta, Georgia, run dedicated technical theater programs and internships.4 These pipelines place students alongside professional designers, electricians, and programmers.4
+Interns at these institutions undergo hands-on training on theatrical lighting instruments, participate in "tech bagels" sessions to watch professional tech rehearsals, and perform operational tests of smart moving fixtures. This training culminates in the live operation of lighting consoles for professional and student productions.4
+Similarly, community theater systems, such as the Community Theatre League (CTL), offer structured volunteer environments where novices are introduced to modern light boards.13 Through these programs, volunteers can progress from basic execution ("pushing a GO button" on cue) to designing entire shows in coordination with artistic directors.13
+Conceptual Fundamentals and Angles of Illumination
+A lighting designer coordinates three-dimensional space by manipulating light across four core axes: intensity, color, distribution, and control.18 The angle at which light strikes a performer determines what the audience can see clearly, what is obscured in shadow, and the emotional context of the scene.20
+The McCandless Method and Diurnal Simulation
+First articulated in his 1932 text A Method of Lighting the Stage, Dr. Stanley McCandless established a geometric system for illuminating acting areas.18 McCandless broke down the stage into overlapping, uniform circular acting zones.18 To light an actor naturally within each zone, the method prescribes a pair of front spotlights positioned at a vertical angle of  above the actor's face and separated horizontally by .18
+
+
+
+
+                              |
+                    (separation)
+                              |
+                    O  [Performer Face] <---
+                   /|\
+                   / \
+                  /   \
+    [Cool Front Light] (McCandless 45° vertical / lateral)
+         \                   /
+          \                 /
+           \               /
+                [Audience]
+
+
+This specific -by- angle represents the diagonals of a theoretical cube centered on the performer.18 It avoids the flat, feature-concealing shadows of eye-level direct lighting (), while also preventing the deep, unflattering eye-socket shadows cast by steep,  overhead lights.20
+To introduce dimension, McCandless paired a warm-colored gel (such as a pale straw or amber) on one front diagonal with a cool-colored gel (such as a light blue or lavender) on the opposing front diagonal.18 The shadows cast by the warm key light are partially filled by the cool light, and vice versa.18 This chromatic contrast mimics natural light and models the human face, making the performer’s expressions readable across a large hall.18
+By adjusting the relative intensities of these warm and cool fixtures, designers can simulate diurnal shifts without changing the scenery 18:
+Midday: Warm and cool front lights operate at equal intensity.18 The balanced shadows suggest a neutral overhead sun.18
+Late Afternoon to Evening: The cool fixture runs at a higher intensity than the warm fixture.18 The cooling light on the performer’s face shifts the scene’s mood into twilight.18
+Diurnal Sun Transition: To fully simulate natural light transitions, some designers use four front fixtures per area—a warm and cool pair on both sides.18 This allows the designer to physically shift the warm "sun" from stage left to stage right, representing the sun crossing the sky.18
+The Three-Point System and Side Lighting Dynamics
+In contemporary production, the McCandless method is often expanded into a three-point lighting system.19 This system adds a third primary fixture: a backlight positioned directly behind and above the performer, typically at a vertical angle of  to .19 The backlight outlines the performer’s head and shoulders with a high-contrast rim of light, separating them from the background and preventing them from blending into dark scenic drapes.19
+For physical performances like dance, the three-point system is heavily supplemented by side lighting.20 Side light strikes the body horizontally at angles of  to  relative to the audience, accentuating muscle movement and tracking lateral motion across the stage.20 These fixtures are typically mounted on vertical pipes in the wings (booms) and grouped by physical height 20:
+Shinbusters (Shins): Mounted close to the stage floor and shuttered tightly to avoid floor spill.22 They light dancers from head to toe, creating the illusion of floating against a dark background.22
+Mids: Mounted from knee to chest height, these fixtures project across the stage, catching the midsections of performers and spilling light across the center line.22
+Head-Highs: Placed approximately five feet above the floor, these fixtures provide direct, horizontal side light to the upper body and face.22
+Lift-Lights: Positioned above head-high level, these are focused to illuminate dancers during lifts, ensuring they do not vanish into darkness when elevated.22
+High Sides: Hung from overhead battens at angles of  to , high sides simulate natural sunlight, adding dimension while keeping the stage floor relatively clear of light.20
+Visual Textures, Movement, and Dynamic Punctuations
+Designers build visual depth by layering texture and movement over basic color washes.23 A wash provides smooth, even color across the stage to set the overall mood, but lacks texture.23 To add visual interest, designers use several key concepts and tools:
+GOBOs (Goes Before Optics): Thin stencils of metal or glass placed inside a profile fixture's optical path to project intricate patterns.5 These patterns range from natural breakups, like leaves or branches, to geometric shapes and corporate branding.23
+Beams and Scanners: High-intensity, narrow-beam fixtures (such as dedicated beam moving heads) project sharp shafts of light through the air.23
+Atmospheric Haze: Microscopic particulate suspended in the air that makes projected beams visible.23 Without haze, beam effects remain invisible until they strike a physical surface.23
+Ballyhoo (Bally): A high-energy motion cue where automated fixtures sweep across the performance space and audience in fast, sweeping, figure-8 patterns.25 Accompanied by haze and rapid color or intensity shifts, ballyhoos are used during high-energy moments (such as walk-ons or musical climaxes) to build excitement.25 They are avoided during quiet, information-heavy moments where they would distract the audience.25
+Sweeps, Fly-Outs, and Splays: Sweeps slide light beams uniformly across the stage.26 Fly-outs tilt fixtures rapidly upward toward the sky while fading the intensity to black.26 Splays (or "God fingers") fan out fixtures radially to create stable, architectural shapes of light.26
+Strobe Lights: High-intensity, rapid flashes of light that produce a stop-motion visual effect, freezing performers’ movements at regular intervals.23 Modern LED strobes provide precise control over flash rate, duration, color, and intensity.27 Their use must be managed carefully to protect audience members with photosensitive epilepsy.27
+Audience Blinders: Floodlights aimed directly at the audience.23 Flashed momentarily on musical drops or final beats, blinders physically connect the performers and the crowd by illuminating the entire room.23
+System Architecture, Patching, and Digital Protocols
+Before a designer can program a show, the physical rig must be digitally mapped to the lighting console.2 This stage of production is governed by system patching and network protocols.2
+The System Patching Workflow and Fixture Alignment
+Patching maps physical lighting fixtures to logical control channels on the console.2 A single physical DMX universe contains 512 individual control addresses, with each address transmitting an 8-bit value from 0 to 255.30 While a simple conventional dimmer requires only a single DMX channel for intensity, complex automated fixtures can require 30 to 90 DMX channels to control parameters like pan, tilt, color mixing, zoom, and gobo rotation.28
+The physical patching workflow follows a structured sequence:
+Fixture Inventory and Profile Selection: The programmer identifies every fixture in the rig.2 Inside the console, they locate or build a matching "fixture profile" that maps what each DMX channel controls on that specific fixture.2
+Address Assignment: Each fixture is assigned a unique starting DMX address within a specific universe.2 For example, if Fixture 1 requires 34 channels and is addressed at starting address 1, the next fixture must be addressed no lower than address 35 to prevent overlap and control issues.2
+Logical Channel Numbering: Designers decouple physical DMX addresses from console control channels to keep the show file organized.2 For instance, spots can be assigned channels 101 to 157, and washes assigned channels 201 to 262, regardless of which physical universes or addresses they occupy.2
+Fixture Alignment Calibration: Once the rig is hung, the programmer checks the physical orientation of each fixture.29 Because lights may be hung in different directions, moving the console's encoder wheel right could cause some fixtures to move left or upstage.29 By inverting or swapping pan and tilt channels in the console patch, the programmer ensures that all fixtures react uniformly to the console's controls, speeding up the programming process.29
+Data Transport, Bandwidth, and Ethernet Protocols
+Modern lighting systems often feature thousands of individual LED pixels and multi-parameter moving lights.30 This high channel count has led to the adoption of Ethernet-based protocols to carry DMX data over network cabling (such as Cat5e/6) and managed network switches.30
+
+Protocol
+Cabling / Physical Medium
+Maximum Universes
+Primary Transmission Mode
+Key Features and Use Cases
+DMX512 30
+RS-485 Serial (5-pin XLR) 30
+1 Universe (512 channels) 30
+Daisy-Chain Serial 30
+Direct, low-latency control.30 Limited to single-universe runs and small rigs.30
+RDM (Remote Device Management) 30
+RS-485 Serial 30
+1 Universe 30
+Half-Duplex Bi-directional 30
+Allows fixtures to send feedback to the console.30 Technicians can change addresses and monitor status remotely.30
+Art-Net 30
+Ethernet (Cat5e / Cat6) 30
+32,768 Universes 30
+Unicast or Broadcast 30
+Transmits DMX over IP networks.31 Widely used for pixel mapping and media servers.30 Requires careful network configuration to avoid congestion.30
+sACN (Streaming ACN / E1.31) 30
+Ethernet (Cat5e / Cat6) 30
+63,999 Universes 30
+Multicast (Primary) 30
+ANSI standard designed for high-capacity systems.30 Multicast transmission reduces network load by sending data only to subscribed devices.30 Features built-in priority management and synchronization.30
+Wireless DMX 30
+Radio Frequency Transmitter/Receiver 30
+1 Universe per link 30
+RF Broadcast 30
+Eliminates long cable runs.30 Ideal for temporary outdoor events.30 Subject to wireless interference.30
+
+To understand the bandwidth requirements of these networks, consider the physical limits of a traditional serial DMX512 link.30 DMX512 operates at a fixed baud rate of .31 The time required to transmit a single frame, , containing  control channels is governed by the protocol’s timing constraints 31:
+
+Where  is the Break time (),  is the Mark After Break (), and each slot (comprising 1 start bit, 8 data bits, and 2 stop bits, totaling 11 bits) has a slot time, , of .31
+For a fully saturated universe of 512 channels ():
+
+The maximum theoretical refresh rate, , is the reciprocal of this frame time:
+
+A  refresh rate is standard for physical DMX systems.33 However, when video cameras capture high-density LED fixtures, this refresh rate can cause visible banding and flicker.33 Designers resolve this issue by using fixtures with high internal PWM frequencies and routing frame-synchronized sACN or Art-Net data to high-performance pixel decoders.31
+The Programming Progression: From Setup to Final Playback
+Creating a light show is a systematic progression that begins with basic stage setup and builds into complex, synchronized cue lists.
+The Two-Layer Console Architecture
+Professional consoles separate control into two primary layers: the Programmer and the Executor (or Playback).34
+The Programmer acts as a temporary workspace.34 When a programmer selects a fixture and changes its color, position, or intensity, those values are loaded into the active programmer.34 These changes are output to the stage for evaluation but are not yet saved.34
+Once a look is finalized, the programmer records it onto an Executor, which is a physical or virtual button, fader, or cue list mapped to playback.2 Clearing the programmer returns the console to an idle state, allowing the recorded cues on the executors to drive the live output.2
+Building Blocks: Palettes, Presets, and Tracking
+To program efficiently, designers do not record absolute DMX values directly into every cue.2 Instead, they build a foundation of Palettes (also called Presets) 2:
+Palettes: Modular references that contain specific attribute data for selected fixtures (such as Position, Color, Gobo, or Beam).35 When a cue is recorded, the console saves a reference pointer to the palette rather than the absolute DMX values.35 If a tour moves to a venue with a different trim height, the programmer simply updates the "Lead Singer" Position Palette.35 The console automatically propagates this physical correction to every cue in the show that references that palette.35
+Tracking: By default, professional consoles operate in tracking mode.2 When a value is recorded in a cue, it "tracks forward" through subsequent cues until a deliberate instruction changes it.2 For example, if Cue 1 turns a backlight on to , that light remains at  in Cues 2, 3, and 4.36 This reduces the data stored in the show file and simplifies editing.36 If the designer wants to lower that backlight to , they only need to update Cue 1; the change tracks through the remaining cues automatically.36
+Snowballing and Block Cues: Tracking can introduce a risk known as snowballing, where an edit in an early cue unintentionally modifies subsequent scenes.36 To prevent this, programmers use Block Cues to stop tracked values from affecting subsequent scenes, keeping the cue list predictable and organized.2
+Cue-Only Mode: In this mode, the console treats every cue as an entirely independent snapshot.2 Any changes recorded in a cue apply only to that specific cue, and the console automatically restores the previous state in the next cue.2
+Syntax-Driven Cue and Effect Construction
+To illustrate these principles in practice, the following table details the key sequences and syntax used on an ETC Eos console to program standard intensity effects, color chases, and wipes across channels 1 to 10 37:
+
+Target Effect
+Operational Syntax and Command Keypress Sequence
+Functional Result / Playback Behavior
+Simple Intensity Chase 37
+Double tap [Effect]  [Effect][Enter]  select {Step Based} softkey  {Step} [Enter]  `` to Channels column  [Enter]  return to [Live]  [Group][Effect][Effect][Enter].37
+Creates a sequential step-by-step intensity chase across channels 1–10. The active steps are distributed evenly to match the fixture count.37
+Chase with a Build 37
+Double tap [Effect]  [Effect][Enter]  select {Attributes}  select {Build} softkey  return to [Live]  [Group][Effect][Enter].37
+Modifies the basic chase so that previously triggered channels remain on as the chase progresses, building up intensity to a full look.37
+Chase with a Bounce 37
+Double tap [Effect]  [Effect][Enter]  select {Attributes}  select {Bounce} softkey  return to [Live]  [Group][Effect][Enter].37
+Directs the step sequence to run forward from channel 1 to 10 and then backward from 10 to 1, repeating continuously.37
+Fluid Linear Chase 37
+Double tap [Effect]  [Effect][Enter]  select {Linear} softkey  {Parameters}  {Intensity}  [Enter]  {Size}  [Enter]  return to [Live]  [Effect][Enter].37
+Applies a smooth, wave-like intensity transition across channels 1–10 based on a mathematical sine wave.37
+Fluid Chase (Center Out) 37
+In [Live] with linear Effect 4 active: {Offset} {Mirror Out} [Effect][Enter].37
+Re-orders the distribution of the active linear effect so that the intensity wave starts at the center and flows outward.37
+Color Wipe (Left to Right) 37
+In [Live]: [At][Full][Enter]  dial Red  [Color Palette][Enter]  double-tap [Effect]  [Effect][Enter]  {Step Based}  map steps 1–10 to channels 1–10 respectively  {Step} {On State} [Color Palette][Enter]  set {Off State} to [Color Palette][Enter]  {Attributes}  {Build}  {Exit}  {Stop and Hold}  in [Live]: [Group][Effect][Enter].37
+Executes a single color transition from left to right across the fixtures. Because "Stop and Hold" is active, the color freezes at the end of the sweep rather than looping.37
+Absolute Rainbow Chase 37
+Create 7 Color Palettes (1 to 7) for the colors of the rainbow.37 Double-tap [Effect]  [Effect][Enter]  {Absolute}  {Action} [@][Color Palette][Enter].37
+Chases the selected fixtures smoothly through the seven colors of the rainbow, looping continuously.37
+
+Moving Light Wipes and Sequence Execution
+Integrating moving fixtures introduces mechanical timing constraints to the programming workflow 32:
+Mechanical Wipes: To program a mechanical wipe—where a moving light projects only while panning in one direction, and fades out to return home silently—the programmer must synchronize the fixture's physical position with its dimmer.38 On a grandMA console, this can be programmed by applying a PWM effect to the dimmer channel and a synchronized tilt-ramp waveform to the movement channel, aligning the timing so the shutter closes during the tilt-up return.38 On Avolites systems, this is programmed using Key Frame Shapes, where Key Frame 1 records the starting position with the dimmer at zero, and Key Frame 2 records the end position with the dimmer at full.38 The console handles the interpolation and timing synchronization between the physical movement and the shutter.38
+Pixel-Based Wipes: To create a color wipe across multi-cell fixtures (such as a GLP Impression X4 Bar), programmers often run the lights in high-resolution, single-pixel modes.32 On a grandMA console, the programmer can place the cells in a layout view to establish their physical order, record a two-cue color sequence, and apply a sequential delay (e.g., Delay 0 Thru 5 Seconds) to the color channel to create a smooth, sequential sweep across all cells.32
+Live Execution, Synchronization, and Busking Layouts
+A lighting designer must be prepared to execute shows using both tightly automated playback and flexible manual layouts.2
+Timecode Integration and Automation
+For high-budget productions or broadcast events, manual execution of cue lists is insufficient.2 To achieve frame-accurate synchronization between audio, video, pyrotechnics, and lighting, systems rely on external Timecode.2
+Timecode is a continuous digital clock signal transmitted via MIDI Timecode (MTC) or SMPTE audio signals.2 The timecode format is divided into hours, minutes, seconds, and frames (e.g., 01:14:32:12, indicating Hour 1, Minute 14, Second 32, Frame 12).2
+The integration workflow is highly structured:
+System Lock: The lighting console is physically networked to the playback computer or master show controller, which serves as the "Master Clock".2
+Cue Linking: The lighting programmer constructs standard cue lists for the show.
+Timecode Mapping: Instead of relying on a physical "GO" button, each cue in the sequence is assigned an absolute, frame-accurate timecode trigger.2
+Synchronized Playback: During execution, as the master audio track or video timeline plays, it broadcasts timecode.2 The lighting console listens to this stream; the moment the incoming clock matches a cue's mapped trigger, the console executes that cue.2
+Redundancy Protocols: Because live networks can experience packet loss or hardware failures, programmers always configure manual fallback options.2 If the timecode stream drops, the console is programmed to seamlessly transition to manual tracking, allowing the lighting operator to execute the cues manually on the beats without dropping output or causing a blackout.
+Busking Page Architecture and the Ten-Playback Constraint
+For live events where performances are unplanned or improvised (such as music festivals or DJ sets), designers rely on "busking" or "punting" layouts.39 In these environments, the operator must build a modular layout that allows them to construct looks live to match the performance.2
+To busk effectively under a strict "playbacks-only" constraint, programmers often limit control to a single page of ten physical playback faders, disabling the virtual programmer during live playback.39 To squeeze maximum flexibility out of these ten playbacks, programmers use different layout strategies 39:
+Grum Leesmith's Standard Festival Layout: This layout is designed for a standard rig consisting of spots, washes, blinders, and key lights.39 It separates spot and wash controls across independent intensity, movement, and color playbacks to allow for layered looks.39
+The Robe Demo Show Layout: This layout uses HTP/LTP doubling to pack control for spots, washes, PARs, and a pixel-mapped LED array onto the ten faders.39 By mapping dimmer channels (HTP) to the physical faders and attribute changes (LTP) to the executor buttons, the programmer can double the functionality of each playback.39
+
+Fader Location
+Grum Leesmith’s "Standard" Festival Layout
+The Robe Demo Show "Multi-Fixture" Layout
+Fader 1
+Spots Intensity: Cue stack of dimmer on, random shutter, and dimmer chase.39
+Strobes: Dedicated strobe control for spots, washes, and the LED array.39
+Fader 2
+Washes Intensity: Cue stack of dimmer on, random shutter, and dimmer chase.39
+PARs Wash (Base Looks): Left/Right split or solid color washes.39
+Fader 3
+Position Stack: Preset looks with all fixtures fanned in cohesive positions.39
+PARs Wash (Base Looks): Left/Right split or solid color washes.39
+Fader 4
+Colour and Beam Stack: Complementary colors and beam shapes/textures.39
+Media & LED: Pixel-mapped array intensities and chases.39
+Fader 5
+Spot Movements: Movement generator with fader mapped to control movement size.39
+Moving Light Colors / Intensities: CMY color picker and wash dimmer.39
+Fader 6
+Wash Movements: Movement generator with fader mapped to control movement size.39
+Moving Light Positions / Intensities: Focus presets and wash dimmer.39
+Fader 7
+Blinders Stack: Cue list of All On, Chases, and Odd/Even patterns.39
+Moving Light Beams: GOBO selection and beam width.39
+Fader 8
+Strobe Stack: Slow, medium, and fast random strobes, and blind mode.39
+Moving Light Moves: Pan/tilt movement sweeps and speed.39
+Fader 9
+Dim Speed Master: Fader to scale the speed of all active dimmer chases.39
+Unallocated / Blinders: Configurable master or audience blinder.39
+Fader 10
+Key Light: Dedicated control for band or speaker key illumination.39
+Unallocated / Blinders: Configurable master or audience blinder.39
+
+To tie these playbacks together during live execution, programmers configure global masters, such as a Speed Master (or Rate Master).39 If a performer alters the tempo of a song, the operator does not need to adjust each cue list or effect speed manually.42 Pulling the Speed Master fader down physically compresses the cycle times of all active movements, color chases, and strobes simultaneously, aligning the entire rig with the new musical tempo in real time.39
+Works cited
+Interior Lighting Design Certificate | Continuing & Professional Education at The New School, accessed May 25, 2026, https://cpe.newschool.edu/public/category/courseCategoryCertificateProfile.do?method=load&certificateId=1408161
+DMX Programming Guide for Cues, Scenes, Effects, and REACT, accessed May 25, 2026, https://dmx-guide.com/dmx-programming-guide.html
+Lighting Controls Training Programs - DesignLights Consortium, accessed May 25, 2026, https://designlights.org/our-work/networked-lighting-controls/lighting-controls-training-programs/
+Education - Aurora Theatre, accessed May 25, 2026, https://auroratheatre.com/education/
+Lighting / Sound Books - Tools for Stagecraft, accessed May 25, 2026, https://www.toolsforstagecraft.com/books-lighting-sound.html
+Education - IATSE, The Union Behind Entertainment, accessed May 25, 2026, https://iatse.net/education/
+Lighting design book recommendations? : r/techtheatre - Reddit, accessed May 25, 2026, https://www.reddit.com/r/techtheatre/comments/1hspke7/lighting_design_book_recommendations/
+Best Stage Lighting Books - Reading List - Stage Lighting Tutorials, Information and How To, accessed May 25, 2026, https://www.onstagelighting.co.uk/stage-lighting-books/stage-lighting-books/
+Stage lighting Books - Alibris, accessed May 25, 2026, https://www.alibris.com/search/books/subject/Stage-lighting
+Lighting Education with Acuity Academy, accessed May 25, 2026, https://www.acuitybrands.com/resources/lighting-education
+Educational Courses - The IES Webstore, accessed May 25, 2026, https://store.ies.org/product-category/education/
+Education & Learning | Lighting Control Institute - Lutron, accessed May 25, 2026, https://www.lutron.com/us/en/resources/education-learning
+Volunteers - Community Theatre League, accessed May 25, 2026, https://ctlshows.com/volunteers/
+Home - IATSE, The Union Behind Entertainment, accessed May 25, 2026, https://iatse.net/
+IATSE Local 927 |, accessed May 25, 2026, https://www.iatse927.org/?zone=/unionactive/private_view_page.cfm&page=Pay20Annual20Referral20Fee
+Technical Theater, rising grades 9-12 - Alliance Theatre, accessed May 25, 2026, https://www.alliancetheatre.org/class/technical-theater-camp-rising-grades-9-12/
+Technical Theater Camps | Alliance Theatre, accessed May 25, 2026, https://www.alliancetheatre.org/technical-theater-camps/
+Stanley McCandless - Wikipedia, accessed May 25, 2026, https://en.wikipedia.org/wiki/Stanley_McCandless
+McCandless Stage Lighting: A Comprehensive Guide - Azar Pixel, accessed May 25, 2026, https://www.azarpixel.com/mccandless-stage-lighting/
+Stage Lighting Angle Techniques: Front, Side, and Back Lighting - SHEHDS, accessed May 25, 2026, https://shehds.com/blogs/news/stage-lighting-angles-guide
+Effects of Different Lighting Angles - Stage Lighting for Students, accessed May 25, 2026, http://www.stagelightingprimer.com/slfs-angles.html
+Direction - stage lighting - Weebly, accessed May 25, 2026, https://thtr382.weebly.com/direction.html
+The Ultimate Guide to Stage Lighting Effects: Beyond Basic Washes - NLFX Professional, accessed May 25, 2026, https://www.nlfxpro.com/blog2/the-ultimate-guide-to-stage-lighting-effects-beyond-basic-washes/
+Different Types of Stage Lights for Events & Shows - SHEHDS, accessed May 25, 2026, https://shehds.com/blogs/news/different-types-of-stage-lights
+Ballyhoo - Advanced Staging Productions, accessed May 25, 2026, https://advancedstaging.com/ballyhoo/
+Lighting Design Terms for Live Shows : r/lightingdesign - Reddit, accessed May 25, 2026, https://www.reddit.com/r/lightingdesign/comments/lw9apt/lighting_design_terms_for_live_shows/
+What is a Stage Strobe Lighting? Enhance Your Show with Vshow, accessed May 25, 2026, https://www.vshowlight.com/what-is-a-stage-strobe-lighting-enhance-your-show-with-vshow.html
+Lighting Control Console Quick Guide, accessed May 25, 2026, https://www.etcconnect.com/workarea/DownloadAsset.aspx?id=10737461424
+Moving Light Programming, Part II: Building Palettes - Live Design Online, accessed May 25, 2026, https://www.livedesignonline.com/moving-light-programming-part-ii-building-palettes
+DMX vs Art-Net vs sACN vs The Others - @limelightwired, accessed May 25, 2026, https://www.limelightwired.com/post/dmx-vs-sacn-vs-art-net-vs-the-others
+Understanding Lighting Control Protocols: DMX, Art-Net, and sACN, accessed May 25, 2026, https://www.ac-et.ie/understanding-lighting-control-protocols-dmx-art-net-and-sacn/
+x4 bar color wipe - grandMA2 discussion forum, accessed May 25, 2026, https://forum.malighting.com/forum/thread/60627-x4-bar-color-wipe/
+Pixel Mapping LED Stage Lights: Practical Guide | VELLO, accessed May 25, 2026, https://www.vellolight.com/pixel-mapping-led-stage-lights-guide/
+Programming Chases and Cues for Live Shows — Light Stage Lighting - VELLO, accessed May 25, 2026, https://www.vellolight.com/article/programming-chases-cues-live-shows/
+Moving Light Control – Palettes – Lighting Desk Basics 4 - On Stage Lighting, accessed May 25, 2026, https://www.onstagelighting.co.uk/learn-stage-lighting/moving-light-control-pallettes/
+Understanding Tracking for Lighting Programming - @limelightwired, accessed May 25, 2026, https://www.limelightwired.com/post/understanding-tracking-for-lighting-programming
+Common Effects and How to Program Them on an Eos Family ..., accessed May 25, 2026, https://support.etcconnect.com/ETC/Consoles/Eos_Family/Software_and_Programming/Common_Effects_and_How_to_Program_Them_on_an_Eos_Family_Console
+Help with recreating moving light 'wipe' effect : r/lightingdesign - Reddit, accessed May 25, 2026, https://www.reddit.com/r/lightingdesign/comments/5dv5y3/help_with_recreating_moving_light_wipe_effect/
+Essential Busking Pages 1 – Playbacks Only - On Stage Lighting, accessed May 25, 2026, https://www.onstagelighting.co.uk/console-programming/essential-busking-page-lighting-control/
+Programming Tips/Workflow : r/lightingdesign - Reddit, accessed May 25, 2026, https://www.reddit.com/r/lightingdesign/comments/1d9925n/programming_tipsworkflow/
+would like to know how you set up your punt page - MA Lighting Forum, accessed May 25, 2026, https://forum.malighting.com/forum/thread/20085-would-like-to-know-how-you-set-up-your-punt-page/
+Busking Punt Pages - grandMA2 - MA Lighting Forum, accessed May 25, 2026, https://forum.malighting.com/forum/thread/40150-busking-punt-pages/

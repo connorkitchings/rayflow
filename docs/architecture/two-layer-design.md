@@ -1,7 +1,8 @@
 # Layered Design
 
-This document supersedes the old "grandMA3 plus RayFlow" two-layer framing.
-RayFlow now uses a layered adapter architecture.
+> **Merged:** The content of this document has been consolidated into
+> [system_overview.md](./system_overview.md). This file is retained for
+> historical reference only.
 
 ## Layer 1: Show Intent
 

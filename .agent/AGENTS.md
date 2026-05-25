@@ -101,18 +101,16 @@
 
 ### VisualizerDev
 
-**Role**: Optional web-based visualizer development
+**Role**: Optional future visualization layer
 
 **Responsibilities**:
-- Build Flask backend for DMX-to-WebSocket bridge
-- Implement Three.js 3D scene with stage, truss, fixtures
-- Map DMX channel values to visual properties (intensity, color, beam)
-- Implement camera controls and beam visualization
+- Web-based 3D stage visualization (deferred — not in current scope)
+- Would integrate with fixture-aware renderer output for preview
 - **Context budget**: ≤2k tokens initial
 
-**Key Files**:
-- `src/rayflow/visualizer/` - Web visualizer implementation
-- `.agent/skills/dmx-universe/SKILL.md` - DMX universe management
+**Status**: On hold. The `visualizer/` module was dropped per 2026-05-17 direction
+reset. Visualization can be achieved through MA3, QLC+, captured DMX frames, or a
+future web viewer. The renderer and adapter contract do not depend on a visualizer.
 
 ---
 
@@ -271,12 +269,9 @@ For detailed checklists, see `.agent/skills/CATALOG.md`:
 - **Handoff packet**: Minimal set of links, goals, and constraints to start work
 - **DoD**: Definition of Done - acceptance criteria for task completion
 - **Session log**: Work log created using start-session and end-session skills
-- **DMX**: Digital Multiplex — 512-channel lighting control protocol
-- **Art-Net**: DMX over UDP protocol (port 6454)
-- **sACN**: Streaming ACN / E1.31 — DMX over multicast UDP
-- **GDTF**: General Device Type Format — open fixture definition
-- **MVR**: My Virtual Rig — scene sharing format based on GDTF
-- **OSC**: Open Sound Control — network protocol for console control
+
+For lighting industry terms (DMX, Art-Net, sACN, GDTF, MVR, OSC), see
+[docs/glossary.md](../docs/glossary.md).
 
 ---
 

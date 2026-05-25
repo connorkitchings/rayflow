@@ -303,22 +303,31 @@ Phase 5 builds directly on Phases 1-4:
 | `fixtures/library.py` | Resolves fixture references in FixtureSlot to actual GDTF data |
 | `fixtures/patch.py` | Validates DMX addressing, builds channel maps |
 | `fixtures/mvr_export.py` | Exports rig to MVR for MA3 import |
-| `console/osc.py` | Pushes cue commands to MA3 |
-| `console/cue.py` | Converts Cue dataclass to Ma3Command sequences |
-| `bridge/artnet.py` | Optional: direct DMX playback without MA3 |
+| `fixtures/renderer.py` | Renders cue intent to DMX universe frames via GDTF channel maps |
+| `bridge/artnet.py` | Sends rendered DMX frames over Art-Net |
+| `bridge/sacn_bridge.py` | Sends rendered DMX frames over sACN |
+| `console/osc.py` | Gated OSC commands for MA3 compatibility track |
+| `shows/authoring.py` | Proposal/apply cue planning with renderer-safe attributes |
 
 ## Export Path
 
-The completed show flows to MA3 through three channels:
-
-1. **MVR Export** — Rig geometry and fixture positions → MA3 scene (already implemented)
-2. **OSC Cue Commands** — Cue data → MA3 sequences via existing `console/cue.py` builders
-3. **Timecode** — Cue timestamps → MA3 timecode triggers (new, Phase 7)
+RayFlow renders show intent through a fixture-aware DMX renderer, then routes
+output through selected backend adapters. grandMA3 remains a compatibility target.
 
 ```
-Show YAML ──┬── MVR Export ──→ MA3 scene
-            ├── Cue Commands ──→ MA3 sequences (via OSC)
-            └── Timecode Map ──→ MA3 timecode triggers
+Show/Rig YAML ──→ Fixture Capability Resolver ──→ DMX Renderer
+                                              ├──→ Art-Net/sACN output (primary)
+                                              ├──→ QLC+ WebSocket adapter (experimental)
+                                              ├──→ MA3 export bundle (compatibility)
+                                              └──→ Gated MA3 OSC (compatibility)
+```
+
+The legacy MA3-specific export path remains available for professional workflows:
+
+```
+Show YAML ──┬── MVR Export ──→ MA3 scene (compatibility)
+            ├── Cue Commands ──→ MA3 sequences via OSC (compatibility)
+            └── Timecode Map ──→ MA3 timecode triggers (compatibility)
 ```
 
 ## Design Decisions

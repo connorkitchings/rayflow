@@ -72,17 +72,19 @@ Repeat the pattern for each section. Tips:
 
 ## Step 7: Use AI to Generate Starting Cues
 
-RayFlow can generate starting points for your cue list:
+RayFlow can propose starting cues for your show using the authoring planner:
 
 ```bash
-# Generate cues for a verse section
-uv run rayflow ai cue \
-  --prompt "Warm intimate verse, amber wash at 50%, slow fade" \
-  --fixtures "4x LED PAR, 2x Moving Head" \
-  --cue-number 2
+# Propose cues for a section (dry-run by default)
+uv run rayflow show plan-cues --show my_show --rig my_rig --section "Verse 1" --style warm
+
+# Apply the proposed cues after review
+uv run rayflow show plan-cues --show my_show --rig my_rig --section "Verse 1" --style warm --apply
 ```
 
-This produces a starting cue that you can refine manually. AI is a collaborator, not a replacement for your creative decisions.
+Use `--style vibe-palette` to draw colors from the show's vibe instead of specifying a style. The command is proposal-only by default and requires `--apply` to write changes.
+
+For more detail, see the [AI Interaction Contract](../ai_interaction_contract.md).
 
 ## Step 8: Rehearse the Show
 

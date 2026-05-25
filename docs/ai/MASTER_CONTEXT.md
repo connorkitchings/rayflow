@@ -18,10 +18,8 @@ mainline execution path unless the operation has evidence.
 
 **grandMA3 onPC 2.3.2.0** on macOS (`/Applications/grandMA3.app`).
 
-Verify before giving version-specific instructions:
-```bash
-/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' /Applications/grandMA3.app/Contents/Info.plist
-```
+To verify the installed version, see the canonical command in
+[grandMA3 Setup Guide](../guides/grandma3-setup.md).
 
 All GUI paths, CLI syntax, and protocol behavior in these docs should be sourced
 from the **grandMA3 2.3 online manual** and verified against 2.3.2.0 before
