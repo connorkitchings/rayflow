@@ -55,6 +55,7 @@ rayflow bridge send [OPTIONS]
 | `rig copy` | Copy a rig to create a variant |
 | `rig add-fixture` | Add a fixture slot to a rig |
 | `rig add-preset` | Add a preset to a rig |
+| `rig plan-build` | Plan or apply a generated rig from a freeform description |
 | `rig export-mvr` | Export a rig as an MVR file |
 
 ## show — Show Definition Management
@@ -113,7 +114,9 @@ rayflow bridge send [OPTIONS]
 | `show output-cue` | Dry-run or apply one rendered cue through a backend |
 | `show output-section` | Dry-run or apply all rendered cues in a section |
 | `show plan-cues` | Plan or apply renderer-safe cues (proposal by default) |
+| `show plan-palettes` | Plan or apply generated show-specific palette overrides |
 | `show plan-practice-cues` | Plan or apply deterministic practice cues |
+| `show preview` | Build a dry-run preview packet for critique |
 | `show workflow-report` | Build a dry-run practice workflow report |
 
 ### Export and Compatibility

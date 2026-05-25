@@ -54,6 +54,38 @@ def get_rig_context(rig_name: str) -> dict:
 
 
 @mcp.tool()
+def plan_rig_build(
+    name: str,
+    description: str,
+    overrides: dict | None = None,
+    apply: bool = False,
+) -> dict:
+    """
+    Plan or apply a generated rig from a freeform description and optional overrides.
+    Returns a RigBuildPlan dictionary.
+    """
+    from rayflow.design.rig_builder import plan_rig_build as _plan_rig_build
+    from rayflow.design.serializers import save_rig
+
+    try:
+        plan = _plan_rig_build(
+            name,
+            description,
+            overrides=overrides or {},
+            fixture_dir="data/fixtures/samples",
+            apply=apply,
+        )
+    except ValueError as exc:
+        return {"error": str(exc)}
+
+    if apply:
+        rig_dir = _rig_dir_path("data/rigs")
+        save_rig(plan.rig, _rig_path(name, rig_dir))
+
+    return plan.as_dict()
+
+
+@mcp.tool()
 def generate_cues(
     show_name: str,
     section_name: str,
@@ -140,6 +172,79 @@ def plan_show_cues(
         save_show(show, show_p)
 
     return plan.as_dict()
+
+
+@mcp.tool()
+def plan_show_palettes(
+    show_name: str,
+    rig_name: str,
+    apply: bool = False,
+) -> dict:
+    """
+    Plan or apply generated show-specific palette overrides.
+    Returns the PaletteGenerationPlan dictionary.
+    """
+    from rayflow.design.palette_generator import plan_show_palettes as _plan_palettes
+    from rayflow.design.serializers import save_show
+
+    show_dir = show_dir_path("data/shows")
+    show_p = show_path(show_name, show_dir)
+    if not show_p.exists():
+        return {"error": f"Show not found: {show_name}"}
+
+    rig_dir = _rig_dir_path("data/rigs")
+    rig_p = _rig_path(rig_name, rig_dir)
+    if not rig_p.exists():
+        return {"error": f"Rig not found: {rig_name}"}
+
+    show = load_show(show_p)
+    rig = load_rig(rig_p)
+    plan = _plan_palettes(
+        show,
+        rig,
+        fixture_dir="data/fixtures/samples",
+        apply=apply,
+    )
+
+    if apply:
+        save_show(show, show_p)
+
+    return plan.as_dict()
+
+
+@mcp.tool()
+def preview_show(
+    show_name: str,
+    rig_name: str,
+    section_name: str = "all",
+) -> dict:
+    """
+    Build a dry-run preview packet for critique.
+    Returns the PreviewPacket dictionary.
+    """
+    from rayflow.design.preview import build_preview_packet
+
+    show_dir = show_dir_path("data/shows")
+    show_p = show_path(show_name, show_dir)
+    if not show_p.exists():
+        return {"error": f"Show not found: {show_name}"}
+
+    rig_dir = _rig_dir_path("data/rigs")
+    rig_p = _rig_path(rig_name, rig_dir)
+    if not rig_p.exists():
+        return {"error": f"Rig not found: {rig_name}"}
+
+    show = load_show(show_p)
+    rig = load_rig(rig_p)
+    try:
+        return build_preview_packet(
+            show,
+            rig,
+            fixture_dir="data/fixtures/samples",
+            section_name=section_name,
+        ).as_dict()
+    except ValueError as exc:
+        return {"error": str(exc)}
 
 
 @mcp.tool()

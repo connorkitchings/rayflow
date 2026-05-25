@@ -92,6 +92,56 @@ class TestRigCreate:
         assert result.exit_code == 1
 
 
+class TestRigPlanBuild:
+    def test_rig_plan_build_proposal_json_does_not_write(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "plan-build",
+                "Generated Rig",
+                "--description",
+                "medium theater with beams",
+                "--dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(fixture_dir),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "proposal"
+        assert payload["scale"] == "medium"
+        assert not (tmp_path / "Generated Rig.yaml").exists()
+
+    def test_rig_plan_build_apply_writes_rig(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "plan-build",
+                "Generated Rig",
+                "--description",
+                "small club wash",
+                "--overrides-json",
+                '{"fixture_counts":{"wash":2,"pixel":0,"beam":0}}',
+                "--apply",
+                "--dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Rig build apply" in result.output
+        assert (tmp_path / "Generated Rig.yaml").exists()
+
+
 class TestRigList:
     def test_rig_list_empty(self, tmp_path: Path) -> None:
         result = runner.invoke(app, ["rig", "list", "--dir", str(tmp_path)])

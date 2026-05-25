@@ -588,6 +588,124 @@ def show_plan_cues(
     console.print(f"Next: {plan.next_command}")
 
 
+@show_app.command("plan-palettes")
+def show_plan_palettes(
+    show_name: str | None = typer.Argument(None, help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    apply: bool = typer.Option(
+        False, "--apply", help="Write generated palettes to show overrides"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Plan or apply generated show-specific palette overrides."""
+    show_name = resolve_show_name(show_name)
+    from rayflow.design.palette_generator import plan_show_palettes
+    from rayflow.design.serializers import load_rig, load_show, save_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    plan = plan_show_palettes(
+        show,
+        rig,
+        fixture_dir=fixture_dir,
+        apply=apply,
+    )
+
+    if apply:
+        save_show(show, path)
+
+    payload = plan.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]Palette {payload['mode']}[/bold] {show.name}")
+    console.print(f"Presets: {len(plan.proposed_presets)}")
+    if plan.replaced_override_names:
+        console.print(f"Replacing generated: {len(plan.replaced_override_names)}")
+    if plan.warnings:
+        console.print(f"[yellow]Warnings: {len(plan.warnings)}[/yellow]")
+    console.print(f"Next: {plan.next_command}")
+
+
+@show_app.command("preview")
+def show_preview(
+    show_name: str | None = typer.Argument(None, help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    section: str = typer.Option(
+        "all", "--section", help="Section name to preview, or all"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    output: Path | None = typer.Option(
+        None, "--output", help="Write preview packet JSON to this path"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Build a dry-run preview packet for critique."""
+    show_name = resolve_show_name(show_name)
+    from rayflow.design.preview import build_preview_packet
+    from rayflow.design.serializers import load_rig, load_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    try:
+        packet = build_preview_packet(
+            show,
+            rig,
+            fixture_dir=fixture_dir,
+            section_name=section,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    payload = packet.as_dict()
+    packet_text = json_module.dumps(payload, indent=2)
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(packet_text + "\n", encoding="utf-8")
+
+    if json_output:
+        typer.echo(packet_text)
+        return
+
+    console.print(f"[bold]Preview packet[/bold] {show.name}")
+    console.print(f"Scope: {payload['scope']}")
+    console.print(f"Readiness: {payload['readiness']['status']}")
+    console.print(f"Cues: {len(packet.selected_cues)}")
+    if output is not None:
+        console.print(f"Written: {output}")
+
+
 @show_app.command("workflow-report")
 def show_workflow_report(
     show_name: str | None = typer.Argument(None, help="Show name"),

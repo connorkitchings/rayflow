@@ -58,6 +58,67 @@ def rig_create(
         console.print("  Template: yes")
 
 
+def _load_json_arg(value: str | None) -> dict:
+    if value is None:
+        return {}
+    candidate = Path(value)
+    try:
+        if candidate.exists():
+            return json_module.loads(candidate.read_text(encoding="utf-8"))
+        return json_module.loads(value)
+    except json_module.JSONDecodeError as e:
+        typer.echo(f"Error: Invalid JSON: {e}", err=True)
+        raise typer.Exit(code=1)
+
+
+@rig_app.command("plan-build")
+def rig_plan_build(
+    name: str = typer.Argument(..., help="Rig name"),
+    description: str = typer.Option(..., "--description", "-d", help="Rig description"),
+    overrides_json: Optional[str] = typer.Option(
+        None,
+        "--overrides-json",
+        help="JSON object or path with rig generation overrides",
+    ),
+    apply: bool = typer.Option(False, "--apply", help="Write proposed rig YAML"),
+    rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Plan or apply a generated rig from a freeform description."""
+    from rayflow.design.rig_builder import plan_rig_build
+    from rayflow.design.serializers import save_rig
+
+    try:
+        plan = plan_rig_build(
+            name,
+            description,
+            overrides=_load_json_arg(overrides_json),
+            fixture_dir=fixture_dir,
+            apply=apply,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if apply:
+        save_rig(plan.rig, _rig_path(name, _rig_dir_path(rig_dir)))
+
+    payload = plan.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]Rig build {payload['mode']}[/bold] {name}")
+    console.print(f"Scale: {plan.scale}")
+    console.print(f"Fixtures: {len(plan.rig.fixtures)}")
+    if plan.warnings:
+        console.print(f"[yellow]Warnings: {len(plan.warnings)}[/yellow]")
+    console.print(f"Next: {plan.next_command}")
+
+
 @rig_app.command("list")
 def rig_list(
     rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),

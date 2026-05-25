@@ -225,3 +225,7 @@ GPUCache/
 # grandMA3 onPC
 *.ma3show
 *.ma3backup
+
+# YouTube session cookies (never commit)
+youtube_cookies.txt
+*_cookies.txt

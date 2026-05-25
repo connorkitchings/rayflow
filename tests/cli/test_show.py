@@ -33,7 +33,9 @@ SHOW_COMMANDS = [
     "output-cue",
     "output-section",
     "plan-cues",
+    "plan-palettes",
     "plan-practice-cues",
+    "preview",
     "push-section",
     "push-to-ma3",
     "render-cue",
@@ -128,6 +130,206 @@ class TestShowCreate:
         assert result.exit_code == 0
         assert "Show created" in result.output
         assert (tmp_path / "New Show.yaml").exists()
+
+
+class TestShowPlanPalettes:
+    def test_plan_palettes_proposal_json_does_not_write(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        show_path = _create_test_show(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir(exist_ok=True)
+        (rig_dir / "Test Rig.yaml").write_text(
+            """name: "Test Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+    channels: "1"
+presets: {}
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-palettes",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "proposal"
+        assert len(payload["proposed_presets"]) >= 8
+        assert "preset_overrides" not in show_path.read_text()
+
+    def test_plan_palettes_apply_writes_show_overrides(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        show_path = _create_test_show(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir(exist_ok=True)
+        (rig_dir / "Test Rig.yaml").write_text(
+            """name: "Test Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+    channels: "1"
+presets: {}
+"""
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-palettes",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+                "--apply",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Palette apply" in result.output
+        assert "rf_blackout" in show_path.read_text()
+
+
+class TestShowPreview:
+    def _write_preview_rig(self, rig_dir: Path) -> None:
+        rig_dir.mkdir(exist_ok=True)
+        (rig_dir / "Test Rig.yaml").write_text(
+            """name: "Test Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+    channels: "1"
+presets: {}
+"""
+        )
+
+    def test_preview_outputs_json(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        _create_test_show(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        self._write_preview_rig(rig_dir)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "preview",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["show"] == "Test Show"
+        assert payload["scope"] == "show:Test Show"
+        assert payload["readiness"]["status"] == "blocked"
+        assert "critique_prompts" in payload
+
+    def test_preview_writes_output_file(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        _create_test_show(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        self._write_preview_rig(rig_dir)
+        output = tmp_path / "preview" / "packet.json"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "preview",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+                "--output",
+                str(output),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Preview packet" in result.output
+        assert output.exists()
+        assert json.loads(output.read_text())["show"] == "Test Show"
+
+    def test_preview_rejects_missing_section(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        _create_test_show(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        self._write_preview_rig(rig_dir)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "preview",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--section",
+                "Missing",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Section has no cues" in result.output
 
 
 class TestShowRenderCue:

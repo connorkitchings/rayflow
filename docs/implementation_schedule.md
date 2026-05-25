@@ -187,6 +187,9 @@ these candidate tracks:
 | Multi-show management | Show suites, shared rigs, cross-show presets, and batch rendering | ✅ Done |
 | Audio-reactive lighting | Real-time audio analysis driving dynamic cue adjustments | ✅ Done |
 | QLC+ workspace exporter | Generate `.qxw` workspace from RayFlow rig; `rayflow rig export-qxw` CLI command | ✅ Done |
+| Rig Builder V1 | `rayflow rig plan-build` proposes/applies generated rigs from freeform descriptions plus optional JSON overrides | ✅ Done |
+| Palette Generator V1 | `rayflow show plan-palettes` proposes/applies generated `rf_` show-specific preset overrides from rig capabilities | ✅ Done |
+| Integrated visualization / critique loop | `rayflow show preview` and MCP `preview_show` build critique packets from context, effective presets, rendered DMX evidence, warnings, and review prompts | ✅ Done |
 | QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ☐ Not Started |
 | QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ☐ Not Started |
 
@@ -205,4 +208,4 @@ these candidate tracks:
 
 ---
 
-*Last updated: 2026-05-25 (Phase 15 Option A — QLC+ workspace exporter complete).*
+*Last updated: 2026-05-25 (Preview/Critique V1 complete after Rig Builder V1 + Palette Generator V1).*

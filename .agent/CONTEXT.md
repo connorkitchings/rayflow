@@ -57,12 +57,16 @@ rayflow/
 - 2026-05-25: Research expansion — 55+ docs covering lighting design concepts, programming workflows, concert LD profiles, protocol infrastructure
 - 2026-05-25: Project charter rewritten to reflect true goal: AI-assisted design for amateurs, not a toolkit for professionals
 - Phase 15 Option A (2026-05-25): QLC+ workspace exporter — `rayflow rig export-qxw` generates a `.qxw` file directly from a RayFlow rig; 583 tests at 81.98% coverage
+- Product V1 setup loop (2026-05-25): `rayflow rig plan-build` and `rayflow show plan-palettes` add proposal/apply flows for generated rigs and show-specific `rf_` palette overrides; 597 tests at 82.84% coverage
+- Preview/Critique V1 (2026-05-25): `rayflow show preview` and MCP `preview_show` build dry-run critique packets with rendered DMX evidence, fixture capabilities, warnings, and property-specific prompts; 605 tests at 83.07% coverage
 
 **Current Focus:**
 - All Phases 1–11 and the full post-Phase 11 candidate track are complete.
 - Phase 15 Option A (QLC+ workspace exporter) shipped: `rayflow rig export-qxw` writes a loadable `.qxw` file.
+- Rig Builder V1 and Palette Generator V1 shipped: AI can now propose/apply a deterministic generated rig from plain language and propose/apply a minimal generated palette library as show overrides.
+- Preview/Critique V1 shipped: AI can now package show state, fixture capabilities, effective presets, rendered DMX frames, and critique prompts into one dry-run review artifact.
 - Remaining Phase 15 options: Option B (GDTF→QXF fixture definition exporter) and Option C (QLC+ Function/Scene Triggers).
-- Longer-term priorities: rig building tooling (auto-generate rigs from descriptions), palette generation (auto-generate preset libraries from vibes), integrated visualization (tighten the author → see → critique loop).
+- Next product priority: console show file export or recording/export workflow, with preview packet feedback available for iteration.
 
 **Active Branch:** `codex/continue-development-session`
 

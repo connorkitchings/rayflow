@@ -66,9 +66,17 @@ def fixture_supports_attribute(
             "CTO",
             "CTB",
         },
-        "beam": {"Zoom", "Iris", "Frost", "Shutter", "Strobe"},
-        "focus": {"Focus"},
-        "gobo": {"GoboWheel", "Gobo", "GoboRotation", "GoboIndex"},
+        "beam": {"Zoom", "Iris", "Frost", "Shutter", "Strobe", "Shutter1"},
+        "focus": {"Focus", "Focus1", "Focus1Adjust"},
+        "gobo": {
+            "GoboWheel",
+            "Gobo",
+            "GoboRotation",
+            "GoboIndex",
+            "Gobo1",
+            "Gobo1Pos",
+            "GoboWheel1MSpeed",
+        },
     }
 
     expected = attribute_mapping.get(attribute, set())

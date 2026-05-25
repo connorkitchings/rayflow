@@ -103,7 +103,9 @@ The AI can perform these actions on a show:
 - `add_cue(show, cue)` — Insert a cue, auto-renumber
 - `update_cue(show, cue_number, changes)` — Modify cue attributes
 - `delete_cue(show, cue_number)` — Remove a cue, renumber
+- `plan_rig_build(name, description, overrides=None, apply=False)` — Propose or write a generated rig from plain-language direction
 - `plan_cues(show, rig, style, section)` — Propose renderer-safe cue edits before applying them
+- `plan_show_palettes(show, rig, apply=False)` — Propose or write generated `rf_` show-specific preset overrides
 - `add_preset(rig, preset)` — Add a new preset to the rig
 - `update_preset(rig, preset_name, changes)` — Modify preset attributes
 - `set_vibe(show, vibe)` — Set or replace the show's vibe
@@ -115,6 +117,7 @@ The AI can perform these actions on a show:
 - `send_artnet(frame, execute=False)` — Send rendered frames over Art-Net only after explicit approval
 - `send_sacn(frame, execute=False)` — Send rendered frames over sACN only after explicit approval
 - `send_to_qlc(show, execute=False)` — Planned action: send/query QLC+ WebSocket commands after adapter proof
+- `preview_show(show, rig, section="all")` — Build a dry-run critique packet with rendered DMX evidence, fixture capability gaps, and property-specific review prompts
 - `push_to_ma3(show, execute=False)` — Generate OSC commands for MA3-compatible cues, dry-run by default
 - `push_section_to_ma3(show, section, execute=False)` — Push MA3-compatible cues for one section
 - `export_mvr(rig, output_path)` — Export rig as MVR for compatibility workflows
@@ -172,6 +175,13 @@ the show YAML. The command is proposal-only by default and requires `--apply` to
 write changes. This gives AI tools a deterministic handoff object containing the
 proposed cues, replaced cue numbers, warnings, readiness, and next report
 command.
+
+### Preview Before Critique
+After rig, palette, and cue planning, prefer `rayflow show preview ... --json`.
+The preview packet is not a 3D render; it is a dry-run evidence artifact that
+groups show state, fixture capabilities, effective presets, rendered DMX frames,
+warnings, and critique prompts around intensity, color, distribution, and
+movement/texture.
 
 ### Renderer-Supported Attribute Families
 The fixture-aware renderer supports dimmer and RGB/RGBW color, plus numeric

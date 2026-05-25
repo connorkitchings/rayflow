@@ -10,7 +10,10 @@ from rayflow.mcp_server import (
     get_show_context,
     list_rigs,
     list_shows,
+    plan_rig_build,
     plan_show_cues,
+    plan_show_palettes,
+    preview_show,
     render_cue_dmx,
     render_show_dmx,
 )
@@ -79,6 +82,30 @@ def test_get_rig_context(temp_data_dirs):
         assert "error" in err
 
 
+def test_plan_rig_build(temp_data_dirs):
+    _, rigs_dir = temp_data_dirs
+    with patch("rayflow.mcp_server._rig_dir_path", return_value=rigs_dir):
+        res = plan_rig_build(
+            "generated_rig",
+            "small club wash",
+            overrides={"fixture_counts": {"wash": 2, "pixel": 0, "beam": 0}},
+        )
+        assert res["mode"] == "proposal"
+        assert not (rigs_dir / "generated_rig.yaml").exists()
+
+        applied = plan_rig_build(
+            "generated_rig",
+            "small club wash",
+            overrides={"fixture_counts": {"wash": 2, "pixel": 0, "beam": 0}},
+            apply=True,
+        )
+        assert applied["mode"] == "apply"
+        assert (rigs_dir / "generated_rig.yaml").exists()
+
+        err = plan_rig_build("bad", "", apply=False)
+        assert "error" in err
+
+
 def test_generate_cues(temp_data_dirs):
     shows_dir, _ = temp_data_dirs
     with patch("rayflow.mcp_server.show_dir_path", return_value=shows_dir):
@@ -124,6 +151,47 @@ def test_plan_show_cues(temp_data_dirs):
 
             err2 = plan_show_cues("test_show", "non_existent")
             assert "error" in err2
+
+
+def test_plan_show_palettes(temp_data_dirs):
+    shows_dir, rigs_dir = temp_data_dirs
+    with patch("rayflow.mcp_server.show_dir_path", return_value=shows_dir):
+        with patch("rayflow.mcp_server._rig_dir_path", return_value=rigs_dir):
+            from rayflow.design.serializers import load_show
+
+            res = plan_show_palettes("test_show", "test_rig")
+            assert res["mode"] == "proposal"
+            assert len(res["proposed_presets"]) >= 8
+
+            applied = plan_show_palettes("test_show", "test_rig", apply=True)
+            assert applied["mode"] == "apply"
+            show = load_show(shows_dir / "test_show.yaml")
+            assert "rf_blackout" in show.preset_overrides
+
+            err1 = plan_show_palettes("non_existent", "test_rig")
+            assert "error" in err1
+
+            err2 = plan_show_palettes("test_show", "non_existent")
+            assert "error" in err2
+
+
+def test_preview_show(temp_data_dirs):
+    shows_dir, rigs_dir = temp_data_dirs
+    with patch("rayflow.mcp_server.show_dir_path", return_value=shows_dir):
+        with patch("rayflow.mcp_server._rig_dir_path", return_value=rigs_dir):
+            res = preview_show("test_show", "test_rig")
+            assert res["show"] == "test_show"
+            assert res["scope"] == "show:test_show"
+            assert "critique_prompts" in res
+
+            err1 = preview_show("non_existent", "test_rig")
+            assert "error" in err1
+
+            err2 = preview_show("test_show", "non_existent")
+            assert "error" in err2
+
+            err3 = preview_show("test_show", "test_rig", section_name="Missing")
+            assert "error" in err3
 
 
 def test_render_cue_dmx(temp_data_dirs):

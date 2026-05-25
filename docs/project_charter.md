@@ -74,15 +74,16 @@ These are implementation details that make the design loop possible — they are
 - Art-Net/sACN bridge (Phase 2) — one path to visualization and recording
 - MVR export (Phase 4) — feeds pre-viz software for visual feedback
 - Authoring system (Phases 6, 9, 10) — the AI's cue generation engine
+- Rig Builder V1 (2026-05-25) — proposes/applies deterministic generated rigs from plain-language descriptions plus optional structured overrides
+- Palette Generator V1 (2026-05-25) — proposes/applies minimal generated `rf_` show-specific preset override libraries from rig fixture capabilities
+- Preview/Critique V1 (2026-05-25) — packages show state, fixture capabilities, effective presets, rendered DMX frames, warnings, and critique prompts into a dry-run review artifact
 - CLI (all phases) — the AI's interface to the codebase
 
 ### What's Next (Priority Order)
 
-1. **Rig building tooling** — Auto-generate rigs from descriptions (venue type, show scale, vibe)
-2. **Palette generation** — Auto-generate position, color, and beam preset libraries from a vibe and fixture list
-3. **Integrated visualization** — Tighten the feedback loop between authoring and seeing
-4. **Console show file export** — Produce files that import into MA3 onPC or other offline editors
-5. **Record/export** — Capture the finished show in a standard format
+1. **Console show file export** — Produce files that import into MA3 onPC or other offline editors
+2. **Record/export** — Capture the finished show in a standard format
+3. **Rig/palette/preview hardening** — Expand fixture choices, palette quality, critique quality, and prompt/context grounding after V1 feedback
 
 ### Out of Scope
 
@@ -143,7 +144,8 @@ The user talks to the AI. The AI reads the knowledge base and uses the design en
 | 2026-05-17 | AI-as-primary interface | User works through AI coding tool; plain language → technical output |
 | 2026-05-17 | Drop built-in web visualizer | Existing pre-viz tools (Capture, MA3 3D) serve visualization |
 | 2026-05-23 | Backend-neutral control loop | MA3 OSC probes exposed fragility; show data is source of truth |
-| 2026-05-26 | Terminal goal: design, not performance | Product ends when user is satisfied with the design. No live use. |
-| 2026-05-26 | User is amateur, AI handles all console programming | User provides taste. AI does technical execution. The goal is to remove the need for console knowledge. |
-| 2026-05-26 | Research serves AI knowledge base | 55+ research docs exist so the AI can translate amateur descriptions into correct technical output |
-| 2026-05-26 | Priority: rig building → palette generation → visualization → console export → recording | Backend work (Art-Net, sACN, QLC+) is enabling infrastructure, not product features |
+| 2026-05-25 | Terminal goal: design, not performance | Product ends when user is satisfied with the design. No live use. |
+| 2026-05-25 | User is amateur, AI handles all console programming | User provides taste. AI does technical execution. The goal is to remove the need for console knowledge. |
+| 2026-05-25 | Research serves AI knowledge base | 55+ research docs exist so the AI can translate amateur descriptions into correct technical output |
+| 2026-05-25 | Priority after rig/palette V1: integrated visualization / critique loop | Backend work (Art-Net, sACN, QLC+) is enabling infrastructure, not product features |
+| 2026-05-25 | Preview/Critique V1 shipped as dry-run evidence packet, not a custom visualizer | The project still avoids a custom 3D visualizer; preview packages evidence and critique prompts for AI-led iteration |
