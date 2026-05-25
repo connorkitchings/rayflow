@@ -135,6 +135,18 @@ QLC+ WebSocket control.
 
 ---
 
+## Phase 10: General Show Authoring Ergonomics
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Generic cue authoring planner | Reusable proposal/apply helpers for any show | ✅ Done | `plan_cues` generalizes Phase 9 cue planning with section/all scope and renderer-safe fields |
+| Authoring CLI | AI-friendly cue proposal command | ✅ Done | `show plan-cues` proposes by default and writes only with `--apply` |
+| Vibe-aware style | Use show vibe palette during cue planning | ✅ Done | `vibe-palette` uses `show.vibe.palette.colors` with documented fallback warnings |
+| Practice compatibility | Preserve Phase 9 practice command behavior | ✅ Done | `plan-practice-cues` delegates to the generic authoring planner |
+| Authoring docs | Document repeatable authoring loop | ✅ Done | Authoring workflow guide and AI interaction contract updated |
+
+---
+
 ## Milestones
 
 - **M1: Foundation Complete** — Phase 1 done, package structure ready
@@ -146,6 +158,7 @@ QLC+ WebSocket control.
 - **M7: MA3 Export Compatibility** — Phase 7 mostly done, MA3 export/playback path documented
 - **M8: Backend-Neutral Execution** — Phase 8 done for MVP, fixture-aware rendering and evidence-backed Art-Net/sACN output available; QLC+ remains experimental until live local proof
 - **M9: Productized Practice Workflow** — Phase 9 done, with clean practice data, workflow evidence, deterministic authoring ergonomics, and local Art-Net loopback proof
+- **M10: General Show Authoring Ergonomics** — Phase 10 done, with generic proposal/apply cue planning, vibe-palette authoring, docs, and compatibility with Phase 9 practice commands
 
 ---
 
@@ -162,4 +175,4 @@ QLC+ WebSocket control.
 
 ---
 
-*Last updated: 2026-05-25 (Phase 9 local Art-Net loopback proof captured).*
+*Last updated: 2026-05-25 (Phase 10 general authoring ergonomics implemented).*

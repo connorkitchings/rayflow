@@ -102,6 +102,7 @@ The AI can perform these actions on a show:
 - `add_cue(show, cue)` — Insert a cue, auto-renumber
 - `update_cue(show, cue_number, changes)` — Modify cue attributes
 - `delete_cue(show, cue_number)` — Remove a cue, renumber
+- `plan_cues(show, rig, style, section)` — Propose renderer-safe cue edits before applying them
 - `add_preset(rig, preset)` — Add a new preset to the rig
 - `update_preset(rig, preset_name, changes)` — Modify preset attributes
 - `set_vibe(show, vibe)` — Set or replace the show's vibe
@@ -163,6 +164,13 @@ Before applying output through any backend:
 4. Validate the selected backend supports the requested attributes
 5. Display a summary of changes for user review
 6. Capture backend evidence when possible
+
+### Proposal Before Apply
+For cue authoring, prefer `rayflow show plan-cues ... --json` before editing
+the show YAML. The command is proposal-only by default and requires `--apply` to
+write changes. This gives AI tools a deterministic handoff object containing the
+proposed cues, replaced cue numbers, warnings, readiness, and next report
+command.
 
 ### No Destructive Operations Without Confirmation
 Deleting cues, presets, or fixtures requires explicit user confirmation. The AI must show what will be deleted and ask before proceeding.

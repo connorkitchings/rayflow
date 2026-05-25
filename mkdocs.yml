@@ -32,6 +32,7 @@ nav:
     - 'Current Workflow': 'guides/current-workflow.md'
     - 'First DMX': 'guides/first-dmx.md'
     - 'Practice Show Workflow': 'guides/practice-show-workflow.md'
+    - 'Authoring Workflow': 'guides/authoring-workflow.md'
     - 'Building a Rig': 'guides/building-a-rig.md'
     - 'Recording a Show': 'guides/recording-a-show.md'
   - 'AI Operations':

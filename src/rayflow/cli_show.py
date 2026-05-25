@@ -495,6 +495,75 @@ def show_plan_practice_cues(
     console.print(f"Next: {plan.next_command}")
 
 
+@show_app.command("plan-cues")
+def show_plan_cues(
+    show_name: str = typer.Argument(..., help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    section: str = typer.Option(
+        "all", "--section", help="Section name to plan, or all"
+    ),
+    style: str = typer.Option(
+        "energy-arc",
+        "--style",
+        help="Authoring style: energy-arc, warm-cool, front-back, or vibe-palette",
+    ),
+    cues_per_section: int = typer.Option(
+        2,
+        "--cues-per-section",
+        "-n",
+        help="Number of proposed cues per selected section",
+    ),
+    apply: bool = typer.Option(
+        False, "--apply", help="Write proposed cues to the show YAML"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Plan or apply deterministic renderer-safe cues for any show."""
+    from rayflow.shows.authoring import plan_cues
+    from rayflow.shows.serializers import load_rig, load_show, save_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    try:
+        plan = plan_cues(
+            show,
+            rig,
+            section_name=section,
+            style=style,
+            cues_per_section=cues_per_section,
+            apply=apply,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if apply:
+        save_show(show, path)
+
+    payload = plan.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]Cue {payload['mode']}[/bold] {show.name}")
+    console.print(f"Style: {plan.style}")
+    console.print(f"Section: {plan.section}")
+    console.print(f"Cues: {len(plan.proposed_cues)}")
+    console.print(f"Next: {plan.next_command}")
+
+
 @show_app.command("workflow-report")
 def show_workflow_report(
     show_name: str = typer.Argument(..., help="Show name"),

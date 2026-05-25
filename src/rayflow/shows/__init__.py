@@ -1,5 +1,6 @@
 """Show & Rig data models for AI-assisted lighting design."""
 
+from rayflow.shows.authoring import CueAuthoringPlan, plan_cues
 from rayflow.shows.context import build_context_bundle
 from rayflow.shows.library import (
     SavedShowVersion,
@@ -37,6 +38,7 @@ __all__ = [
     "ATTRIBUTE_FAMILIES",
     "ColorPalette",
     "Cue",
+    "CueAuthoringPlan",
     "FixtureSlot",
     "Position3D",
     "PracticeCuePlan",
@@ -57,6 +59,7 @@ __all__ = [
     "load_rig",
     "load_show",
     "parse_section_import",
+    "plan_cues",
     "plan_practice_cues",
     "restore_show_version",
     "resolve_presets",

@@ -105,9 +105,12 @@ uv run rayflow show plan-practice-cues phase9_practice_show \
   --json
 ```
 
-Supported styles are `energy-arc`, `warm-cool`, and `front-back`. The generated
-cues intentionally stay within the v1 renderer surface: dimmer, color, channels,
-preset, and fade time.
+Supported practice styles are `energy-arc`, `warm-cool`, and `front-back`.
+The generated cues intentionally stay within the v1 renderer surface: dimmer,
+color, channels, preset, and fade time.
+
+For general show authoring beyond this practice workflow, use `show plan-cues`.
+It supports the same proposal/apply safety model plus the `vibe-palette` style.
 
 ## Evidence Boundary
 

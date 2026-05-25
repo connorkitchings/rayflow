@@ -32,6 +32,7 @@ SHOW_COMMANDS = [
     "list",
     "output-cue",
     "output-section",
+    "plan-cues",
     "plan-practice-cues",
     "push-section",
     "push-to-ma3",
@@ -1332,6 +1333,123 @@ class TestShowPlanPracticeCues:
 
         assert result.exit_code == 1
         assert "Rig not found" in result.output
+
+
+class TestShowPlanCues:
+    def _copy_practice_files(self, tmp_path: Path) -> tuple[Path, Path]:
+        show_dir = tmp_path / "shows"
+        rig_dir = tmp_path / "rigs"
+        show_dir.mkdir()
+        rig_dir.mkdir()
+        source_show = Path("data/shows/samples/phase9_practice_show.yaml")
+        source_rig = Path("data/rigs/Practice Small Club.yaml")
+        show_path = show_dir / "phase9_practice_show.yaml"
+        rig_path = rig_dir / "Practice Small Club.yaml"
+        show_path.write_text(source_show.read_text())
+        rig_path.write_text(source_rig.read_text())
+        return show_dir, rig_dir
+
+    def test_plan_cues_proposal_does_not_modify_show(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+        show_path = show_dir / "phase9_practice_show.yaml"
+        before = show_path.read_text()
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Chorus",
+                "--style",
+                "vibe-palette",
+                "--cues-per-section",
+                "3",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert show_path.read_text() == before
+        payload = json.loads(result.output)
+        assert payload["mode"] == "proposal"
+        assert payload["style"] == "vibe-palette"
+        assert payload["section"] == "Chorus"
+        assert len(payload["proposed_cues"]) == 3
+        assert [cue["attributes"]["color"] for cue in payload["proposed_cues"]] == [
+            "Warm Amber",
+            "#3366FF",
+            "#00CCFF",
+        ]
+
+    def test_plan_cues_apply_modifies_only_selected_section(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Intro",
+                "--style",
+                "warm-cool",
+                "--apply",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "apply"
+        assert payload["replaced_cue_numbers"] == [1, 2]
+
+        from rayflow.shows.serializers import load_show
+
+        show = load_show(show_dir / "phase9_practice_show.yaml")
+        intro_labels = [cue.label for cue in show.cues if cue.section == "Intro"]
+        chorus_labels = [cue.label for cue in show.cues if cue.section == "Chorus"]
+        assert intro_labels == ["Intro Warm Front", "Intro Cool Lift"]
+        assert "Chorus Open Cyan" in chorus_labels
+
+    def test_plan_cues_rejects_bad_cue_count(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--cues-per-section",
+                "0",
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "cues_per_section must be >= 1" in result.output
 
 
 class TestShowBatchUpdateCues:
