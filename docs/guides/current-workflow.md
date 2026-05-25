@@ -168,10 +168,13 @@ uv run rayflow show output-cue sample_show 6 \
 6. Use `show workflow-report` for a Phase 9 practice-show handoff that aggregates
    rendered cue groups, backend evidence, warnings, and readiness status. It is
    dry-run by default; live output requires `--execute`.
-7. Use `show plan-cues --json` to propose deterministic renderer-safe cues for
+7. Use `show plan-cues --json` to propose deterministic dimmer/color cues for
    any show before applying them to the show YAML with `--apply`.
 8. Use `show plan-practice-cues --json` for the Phase 9 practice workflow
    compatibility path.
-9. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
+9. Manually authored cues can now render additional numeric fixture families
+   when the selected GDTF mode supports them: `pan`, `tilt`, `position.pan`,
+   `position.tilt`, `zoom`, `focus`, `shutter`, and `gobo`.
+10. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
    evidence. Do not treat QLC+ as promoted until live query proof exists.
-10. Keep MA3 as an export/playback adapter with explicit evidence gates.
+11. Keep MA3 as an export/playback adapter with explicit evidence gates.

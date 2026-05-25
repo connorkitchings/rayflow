@@ -21,6 +21,14 @@ NAMED_COLORS: dict[str, tuple[int, int, int]] = {
     "white": (255, 255, 255),
 }
 
+POSITION_ATTRIBUTES = {
+    "pan": "Pan",
+    "position.pan": "Pan",
+    "tilt": "Tilt",
+    "position.tilt": "Tilt",
+}
+NUMERIC_FAMILIES = frozenset({"zoom", "focus", "shutter", "gobo"})
+
 
 @dataclass(frozen=True)
 class DmxFrame:
@@ -344,16 +352,86 @@ def _render_fixture_attributes(
             warnings.extend(color_warnings)
             continue
 
+        if family.lower() in POSITION_ATTRIBUTES:
+            position_values, position_warning = _render_named_numeric_attribute(
+                cue=cue,
+                slot=slot,
+                channel_map=channel_map,
+                family=family,
+                attribute=POSITION_ATTRIBUTES[family.lower()],
+                raw_value=raw_value,
+            )
+            values.update(position_values)
+            if position_warning is not None:
+                warnings.append(position_warning)
+            continue
+
+        if family in NUMERIC_FAMILIES:
+            family_values, family_warning = _render_family_numeric_attribute(
+                cue=cue,
+                slot=slot,
+                channel_map=channel_map,
+                family=family,
+                raw_value=raw_value,
+            )
+            values.update(family_values)
+            if family_warning is not None:
+                warnings.append(family_warning)
+            continue
+
         warnings.append(
             _warning(
                 cue,
                 slot,
                 family,
-                f"Unsupported attribute family for v1 renderer: {family}",
+                f"Unsupported attribute family for renderer: {family}",
             )
         )
 
     return values, warnings
+
+
+def _render_named_numeric_attribute(
+    *,
+    cue: Cue,
+    slot: FixtureSlot,
+    channel_map: ChannelMap,
+    family: str,
+    attribute: str,
+    raw_value: str,
+) -> tuple[dict[int, int], DmxRenderWarning | None]:
+    value = _parse_numeric_attribute_value(raw_value)
+    if value is None:
+        return {}, _warning(
+            cue, slot, family, f"Unsupported numeric value: {raw_value}"
+        )
+
+    entry = _first_entry_by_attribute(channel_map, attribute)
+    if entry is None:
+        return {}, _warning(cue, slot, family, f"No {attribute} channel found")
+
+    return _channel_values(entry, value, channel_map), None
+
+
+def _render_family_numeric_attribute(
+    *,
+    cue: Cue,
+    slot: FixtureSlot,
+    channel_map: ChannelMap,
+    family: str,
+    raw_value: str,
+) -> tuple[dict[int, int], DmxRenderWarning | None]:
+    value = _parse_numeric_attribute_value(raw_value)
+    if value is None:
+        return {}, _warning(
+            cue, slot, family, f"Unsupported numeric value: {raw_value}"
+        )
+
+    entry = _first_entry_by_family(channel_map, family)
+    if entry is None:
+        return {}, _warning(cue, slot, family, f"No {family} channel found")
+
+    return _channel_values(entry, value, channel_map), None
 
 
 def _parse_dimmer_value(raw_value: str) -> int | None:
@@ -361,6 +439,23 @@ def _parse_dimmer_value(raw_value: str) -> int | None:
     if value == "full":
         return 255
     if value in {"off", "blackout"}:
+        return 0
+    if value.endswith("%"):
+        value = value[:-1].strip()
+    try:
+        percent = float(value)
+    except ValueError:
+        return None
+    if not 0 <= percent <= 100:
+        return None
+    return int(round(percent * 255 / 100))
+
+
+def _parse_numeric_attribute_value(raw_value: str) -> int | None:
+    value = str(raw_value).strip().lower()
+    if value in {"full", "open"}:
+        return 255
+    if value in {"off", "closed", "blackout"}:
         return 0
     if value.endswith("%"):
         value = value[:-1].strip()

@@ -215,6 +215,95 @@ def test_paired_fine_channels_render_16_bit_values() -> None:
     assert rendered.frames[0].channels[19] == 128
 
 
+def test_position_zoom_and_shutter_render_numeric_fixture_attributes() -> None:
+    cue = Cue(
+        number=1,
+        label="Move",
+        section="Intro",
+        timestamp=0,
+        attributes={
+            "pan": "25%",
+            "tilt": "75%",
+            "zoom": "50",
+            "shutter": "open",
+        },
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin iSpiiderX",
+            mode="Mode 10 - Pattern full RGBW",
+            label="Spiider 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
+
+    assert rendered.frames[0].channels[1] == 64
+    assert rendered.frames[0].channels[2] == 64
+    assert rendered.frames[0].channels[3] == 191
+    assert rendered.frames[0].channels[4] == 191
+    assert rendered.frames[0].channels[17] == 255
+    assert rendered.frames[0].channels[30] == 128
+    assert rendered.frames[0].channels[31] == 128
+    assert rendered.warnings == []
+
+
+def test_position_dot_aliases_render_pan_and_tilt() -> None:
+    cue = Cue(
+        number=1,
+        label="Move",
+        section="Intro",
+        timestamp=0,
+        attributes={"position.pan": "full", "position.tilt": "off"},
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin iSpiiderX",
+            mode="Mode 10 - Pattern full RGBW",
+            label="Spiider 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
+
+    assert rendered.frames[0].channels[1] == 255
+    assert rendered.frames[0].channels[2] == 255
+    assert rendered.frames[0].channels[3] == 0
+    assert rendered.frames[0].channels[4] == 0
+    assert rendered.warnings == []
+
+
+def test_missing_numeric_family_channel_warns_without_blocking_supported_output(
+    sample_gdtf_file: Path,
+) -> None:
+    cue = Cue(
+        number=1,
+        label="Mixed",
+        section="Intro",
+        timestamp=0,
+        attributes={"dimmer": "50", "gobo": "25"},
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Sample Dimmer",
+            mode="Basic",
+            label="Dimmer 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=sample_gdtf_file)
+
+    assert rendered.frames[0].channels == {1: 128}
+    assert rendered.warnings[0].attribute == "gobo"
+    assert "No gobo channel found" in rendered.warnings[0].message
+
+
 def test_unsupported_attributes_warn_without_blocking_supported_output(
     sample_gdtf_file: Path,
 ) -> None:

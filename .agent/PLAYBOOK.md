@@ -38,6 +38,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **Evidence-First Backend Output**: Backend output adapters must return structured evidence and explicitly mark degraded proof such as `send-call-only`; do not treat "command sent" as equivalent to observed state.
 - **Receiver Lifecycle for Protocol Proof**: Start capture receivers before sending live Art-Net/sACN frames, and stop them immediately after capture. Lingering UDP receivers can steal later loopback packets and create false mismatches.
 - **Proposal-First Authoring**: Cue authoring helpers should return structured plans by default and require explicit apply gates before writing show YAML. Keep live backend output in separate `--execute` commands.
+- **Renderer Families Before Authoring Families**: Add GDTF-backed renderer support for an attribute family before generating that family from high-level authoring helpers. Manual cue attributes can lead; deterministic authoring should follow proven render behavior.
 
 ## [REVIEW AGENTS]
 

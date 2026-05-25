@@ -147,6 +147,17 @@ QLC+ WebSocket control.
 
 ---
 
+## Phase 11: Fixture-Aware Renderer Expansion
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Position rendering | Pan/tilt attributes render through GDTF channels | ✅ Done | Supports `pan`, `tilt`, `position.pan`, and `position.tilt`, including 16-bit fine channels |
+| Beam and effect family rendering | Numeric non-color fixture families render when channels exist | ✅ Done | Supports `zoom`, `focus`, `shutter`, and `gobo` as percentage-style values |
+| Renderer warnings | Missing unsupported fixture channels remain non-fatal | ✅ Done | Supported families warn when the selected fixture mode lacks a matching channel |
+| Regression tests | Real checked-in fixture coverage | ✅ Done | Robin iSpiiderX tests cover position, shutter, zoom, aliases, and missing gobo fallback |
+
+---
+
 ## Milestones
 
 - **M1: Foundation Complete** — Phase 1 done, package structure ready
@@ -159,6 +170,7 @@ QLC+ WebSocket control.
 - **M8: Backend-Neutral Execution** — Phase 8 done for MVP, fixture-aware rendering and evidence-backed Art-Net/sACN output available; QLC+ remains experimental until live local proof
 - **M9: Productized Practice Workflow** — Phase 9 done, with clean practice data, workflow evidence, deterministic authoring ergonomics, and local Art-Net loopback proof
 - **M10: General Show Authoring Ergonomics** — Phase 10 done, with generic proposal/apply cue planning, vibe-palette authoring, docs, and compatibility with Phase 9 practice commands
+- **M11: Fixture-Aware Renderer Expansion** — Phase 11 done, with position, zoom, focus, shutter, and gobo numeric rendering over GDTF channel maps
 
 ---
 
@@ -175,4 +187,4 @@ QLC+ WebSocket control.
 
 ---
 
-*Last updated: 2026-05-25 (Phase 10 general authoring ergonomics implemented).*
+*Last updated: 2026-05-25 (Phase 11 renderer expansion implemented).*

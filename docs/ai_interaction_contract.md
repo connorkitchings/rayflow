@@ -61,9 +61,9 @@ Natural language requests map to concrete actions through these patterns:
 ### Position/Movement Changes
 | User Says | AI Does |
 |-----------|---------|
-| "Add movement to verse 2" | Add pan/tilt attributes that sweep across verse 2 duration |
-| "Point everything at center stage" | Set pan/tilt to center position for all moving fixtures |
-| "Slow sweep on the moving heads" | Add slow pan sweep to fixtures with position capability |
+| "Add movement to verse 2" | Add pan/tilt attributes to cues for fixtures with position channels |
+| "Point everything at center stage" | Set pan/tilt values on cues that target moving fixtures |
+| "Slow sweep on the moving heads" | Add a series of cues with changing pan/tilt values |
 
 ### Beam Changes
 | User Says | AI Does |
@@ -171,6 +171,13 @@ the show YAML. The command is proposal-only by default and requires `--apply` to
 write changes. This gives AI tools a deterministic handoff object containing the
 proposed cues, replaced cue numbers, warnings, readiness, and next report
 command.
+
+### Renderer-Supported Attribute Families
+The fixture-aware renderer supports dimmer and RGB/RGBW color, plus numeric
+fixture families when the selected GDTF mode exposes matching channels:
+`pan`, `tilt`, `position.pan`, `position.tilt`, `zoom`, `focus`, `shutter`, and
+`gobo`. Numeric values use the same percentage-style convention as dimmers;
+`full`/`open` map to 255 and `off`/`closed` map to 0.
 
 ### No Destructive Operations Without Confirmation
 Deleting cues, presets, or fixtures requires explicit user confirmation. The AI must show what will be deleted and ask before proceeding.
