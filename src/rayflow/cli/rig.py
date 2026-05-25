@@ -399,3 +399,82 @@ def rig_export_mvr(
     console.print(f"[green]MVR exported[/green] to {saved}")
     console.print(f"  Fixtures: {len(patches)}")
     console.print(f"  Scene: {rig.name}")
+
+
+@rig_app.command("export-qxw")
+def rig_export_qxw(
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
+    output: Path = typer.Option(..., "--output", "-o", help="Output QXW file path"),
+    rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures", "--fixture-dir", help="Fixture directory"
+    ),
+    author: str = typer.Option("RayFlow", "--author", help="Author name for workspace"),
+) -> None:
+    """Export a rig as a QLC+ workspace file (.qxw) for direct import into QLC+.
+
+    The exported workspace includes all patched fixtures with their universe,
+    address, mode, and channel count. Load the file in QLC+ via
+    File > Open Workspace to apply the full patch in one step.
+    """
+    rig_name = resolve_rig_name(rig_name)
+    from rayflow.design.serializers import load_rig
+    from rayflow.engine.fixtures.library import FixtureLibrary
+    from rayflow.engine.fixtures.qlcplus_export import (
+        build_qlc_patch,
+        export_qlcplus_workspace,
+    )
+
+    path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(path)
+
+    try:
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error loading fixtures: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    patches = []
+    for fixture_id, slot in enumerate(rig.fixtures):
+        parser = library.get(slot.fixture_name)
+        if parser is None:
+            typer.echo(
+                f"Warning: Fixture not found: {slot.fixture_name}, skipping",
+                err=True,
+            )
+            continue
+
+        mode_idx = 0
+        mode_names = parser.mode_names()
+        if slot.mode in mode_names:
+            mode_idx = mode_names.index(slot.mode)
+
+        channel_count = parser.get_channel_count(mode_idx)
+        patches.append(
+            build_qlc_patch(
+                fixture_id=fixture_id,
+                name=slot.label,
+                manufacturer=parser.manufacturer,
+                model=parser.name,
+                mode=slot.mode,
+                universe=slot.universe,
+                address=slot.start_address,
+                channel_count=channel_count,
+            )
+        )
+
+    if not patches:
+        typer.echo("Error: No valid fixtures to export", err=True)
+        raise typer.Exit(code=1)
+
+    saved = export_qlcplus_workspace(patches, output, author=author)
+    console.print(f"[green]QXW exported[/green] to {saved}")
+    console.print(f"  Fixtures: {len(patches)}")
+    console.print(f"  Rig: {rig.name}")
+    universes = sorted({p.universe for p in patches})
+    console.print(f"  Universes: {', '.join(str(u + 1) for u in universes)}")
