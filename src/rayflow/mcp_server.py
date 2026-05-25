@@ -92,6 +92,7 @@ def generate_cues(
 
     show.cues.extend(cues)
     from rayflow.design.cue_generator import auto_number_cues
+
     auto_number_cues(show)
     save_show(show, path)
     return f"Successfully generated {len(cues)} cues in section '{section_name}'."

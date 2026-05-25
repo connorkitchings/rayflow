@@ -1,4 +1,4 @@
-"""Experimental QLC+ WebSocket adapter."""
+"""QLC+ WebSocket backend adapter."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ class QlcPlusCommandResult:
 
 
 class QlcPlusBackend:
-    """Experimental QLC+ WebSocket command/query adapter."""
+    """QLC+ WebSocket command/query adapter."""
 
     capabilities = BackendCapabilities(
         backend="qlcplus",
@@ -88,6 +88,40 @@ class QlcPlusBackend:
                 warnings=["QLC+ WebSocket endpoint was unavailable."],
             )
 
+        responses = [result.as_dict() for result in results]
+        observed_matches = True
+
+        if capture_evidence:
+            try:
+                for frame in rendered.frames:
+                    if not frame.channels:
+                        continue
+                    min_ch = min(frame.channels.keys())
+                    max_ch = max(frame.channels.keys())
+                    count = max_ch - min_ch + 1
+                    queried_vals = self.query_channels(
+                        frame.universe, min_ch, count, timeout=evidence_timeout
+                    )
+                    for ch, expected in frame.channels.items():
+                        offset = ch - min_ch
+                        if offset < len(queried_vals):
+                            actual = queried_vals[offset]
+                            if actual != expected:
+                                observed_matches = False
+                        else:
+                            observed_matches = False
+                    responses.append(
+                        {
+                            "universe": frame.universe,
+                            "queried_channels": {
+                                min_ch + i: val for i, val in enumerate(queried_vals)
+                            },
+                        }
+                    )
+            except Exception as exc:
+                observed_matches = False
+                warnings.append(f"Failed to capture query evidence: {exc}")
+
         return BackendEvidence(
             backend="qlcplus",
             operation="send-frame",
@@ -97,15 +131,40 @@ class QlcPlusBackend:
             commands=commands,
             observed={
                 "status": "queried" if capture_evidence else "sent",
-                "responses": [result.as_dict() for result in results]
-                if capture_evidence
-                else [],
+                "responses": responses,
                 "evidence_quality": "websocket-response"
                 if capture_evidence
                 else "send-call-only",
+                "observed_matches": observed_matches if capture_evidence else None,
             },
             warnings=warnings,
         )
+
+    def query_channels(
+        self, universe: int, start_address: int, count: int, timeout: float = 1.0
+    ) -> list[int]:
+        """Query channel values from QLC+ over WebSocket.
+
+        Returns a list of integer values (0-255) for the requested range.
+        """
+        try:
+            from websocket import create_connection
+        except ImportError as exc:  # pragma: no cover
+            raise RuntimeError(
+                "websocket-client is not installed. Run: uv sync --extra lighting"
+            ) from exc
+
+        command = f"QLC+API|getChannelsValues|{universe}|{start_address}|{count}"
+        ws = create_connection(self.endpoint, timeout=timeout)
+        try:
+            ws.send(command)
+            response = ws.recv()
+            if not response or not response.startswith("QLC+API|getChannelsValues|"):
+                raise ValueError(f"Unexpected response from QLC+: {response}")
+            parts = response.split("|")[2:]
+            return [int(val) for val in parts if val.strip().isdigit()]
+        finally:
+            ws.close()
 
     def _generate_commands(self, rendered: RenderedCue) -> list[str]:
         commands = []
