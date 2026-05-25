@@ -19,6 +19,14 @@ from rayflow.fixtures.patch import DmxUniverse, FixturePatch
 SAMPLES_DIR = Path("data/fixtures/samples")
 
 
+def _artdmx_packet(universe: int, values: list[int]) -> bytes:
+    header = bytearray(b"Art-Net\x00\x00P\x00\x0e")
+    header.extend((0, 0))
+    header.extend(universe.to_bytes(2, "little"))
+    header.extend(len(values).to_bytes(2, "big"))
+    return bytes(header + bytearray(values))
+
+
 class TestArtNetSender:
     """Tests for ArtNetSender with mocked stupidArtnet library."""
 
@@ -127,33 +135,31 @@ class TestArtNetSender:
 
 
 class TestArtNetReceiver:
-    """Tests for ArtNetReceiver with mocked stupidArtnet library."""
+    """Tests for the native Art-Net receiver."""
 
-    def test_get_buffer(self, mock_artnet_lib):
+    def test_get_buffer(self):
         expected_buffer = [0] * 512
         expected_buffer[0] = 255
-        mock_server = mock_artnet_lib["server_instance"]
-        mock_server.get_buffer.return_value = expected_buffer
-        mock_server.register_listener.return_value = 0
 
-        receiver = ArtNetReceiver(universe=0)
-        buffer = receiver.get_buffer()
+        receiver = ArtNetReceiver(universe=0, port=0)
+        try:
+            receiver._handle_packet(_artdmx_packet(0, expected_buffer))
+            buffer = receiver.get_buffer()
+        finally:
+            receiver.stop()
 
         assert buffer == expected_buffer
-        mock_artnet_lib["server_class"].assert_called_once()
-        mock_server.register_listener.assert_called_once_with(
-            universe=0, callback_function=None
-        )
-        mock_server.get_buffer.assert_called_once_with(0)
 
-    def test_receiver_with_callback(self, mock_artnet_lib):
+    def test_receiver_with_callback(self):
         cb = MagicMock()
-        mock_artnet_lib["server_instance"].register_listener.return_value = 1
 
-        ArtNetReceiver(universe=1, callback=cb)
-        mock_artnet_lib["server_instance"].register_listener.assert_called_once_with(
-            universe=1, callback_function=cb
-        )
+        receiver = ArtNetReceiver(universe=1, callback=cb, port=0)
+        try:
+            receiver._handle_packet(_artdmx_packet(1, [128] * 512))
+        finally:
+            receiver.stop()
+
+        cb.assert_called_once_with([128] * 512)
 
 
 class TestSacnSender:

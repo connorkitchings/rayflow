@@ -2,7 +2,11 @@
 
 from pathlib import Path
 
-from rayflow.rendering import render_cue_to_dmx, render_section_to_dmx
+from rayflow.rendering import (
+    render_cue_to_dmx,
+    render_section_to_dmx,
+    render_show_to_dmx,
+)
 from rayflow.shows.models import (
     Cue,
     FixtureSlot,
@@ -13,6 +17,7 @@ from rayflow.shows.models import (
     Song,
     Venue,
 )
+from rayflow.shows.serializers import load_rig, load_show
 
 SAMPLES_DIR = Path("data/fixtures/samples")
 
@@ -259,6 +264,19 @@ def test_missing_fixture_returns_warning() -> None:
     assert rendered.frames == []
     assert rendered.warnings[0].fixture == "Missing 1"
     assert "not found" in rendered.warnings[0].message
+
+
+def test_phase9_practice_show_renders_clean_section_and_whole_show() -> None:
+    show = load_show("data/shows/samples/phase9_practice_show.yaml")
+    rig = load_rig("data/rigs/Practice Small Club.yaml")
+
+    chorus = render_section_to_dmx(show, rig, "Chorus", fixture_dir=SAMPLES_DIR)
+    whole_show = render_show_to_dmx(show, rig, fixture_dir=SAMPLES_DIR)
+
+    assert [cue.cue_number for cue in chorus.rendered_cues] == [5, 6]
+    assert [cue.cue_number for cue in whole_show.rendered_cues] == list(range(1, 9))
+    assert all(cue.frames for cue in whole_show.rendered_cues)
+    assert all(not cue.warnings for cue in whole_show.rendered_cues)
 
 
 def test_missing_mode_returns_warning() -> None:

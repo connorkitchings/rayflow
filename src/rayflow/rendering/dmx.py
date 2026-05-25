@@ -436,9 +436,8 @@ def _first_entry_by_attribute(
     channel_map: ChannelMap, attribute: str
 ) -> ChannelMapEntry | None:
     for entry in channel_map.entries:
-        if (
-            entry.normalized_attribute == attribute
-            and not entry.attribute.startswith("+")
+        if entry.normalized_attribute == attribute and not entry.attribute.startswith(
+            "+"
         ):
             return entry
     return None

@@ -23,6 +23,7 @@ from rayflow.shows.models import (
     Vibe,
     resolve_presets,
 )
+from rayflow.shows.practice_authoring import PracticeCuePlan, plan_practice_cues
 from rayflow.shows.presets import ATTRIBUTE_FAMILIES
 from rayflow.shows.section_import import (
     SectionImportResult,
@@ -38,6 +39,7 @@ __all__ = [
     "Cue",
     "FixtureSlot",
     "Position3D",
+    "PracticeCuePlan",
     "Preset",
     "Rig",
     "Section",
@@ -55,6 +57,7 @@ __all__ = [
     "load_rig",
     "load_show",
     "parse_section_import",
+    "plan_practice_cues",
     "restore_show_version",
     "resolve_presets",
     "save_rig",

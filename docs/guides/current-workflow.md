@@ -165,6 +165,11 @@ uv run rayflow show output-cue sample_show 6 \
 4. Apply only with `--execute`; add `--capture-evidence` when a receiver is
    available for Art-Net buffer comparison or sACN universe-state proof.
 5. Use `show output-section` for ordered section-level dry-runs.
-6. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
+6. Use `show workflow-report` for a Phase 9 practice-show handoff that aggregates
+   rendered cue groups, backend evidence, warnings, and readiness status. It is
+   dry-run by default; live output requires `--execute`.
+7. Use `show plan-practice-cues --json` to propose deterministic renderer-safe
+   cues before applying them to the show YAML with `--apply`.
+8. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
    evidence. Do not treat QLC+ as promoted until live query proof exists.
-7. Keep MA3 as an export/playback adapter with explicit evidence gates.
+9. Keep MA3 as an export/playback adapter with explicit evidence gates.

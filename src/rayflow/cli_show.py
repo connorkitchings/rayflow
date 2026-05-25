@@ -4,6 +4,9 @@
 from __future__ import annotations
 
 import json as json_module
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
 import typer
 from rich.table import Table
@@ -247,9 +250,7 @@ def show_output_cue(
     show_name: str = typer.Argument(..., help="Show name"),
     cue_number: int = typer.Argument(..., help="Cue number to output"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
-    backend: str = typer.Option(
-        "artnet", "--backend", help="Backend: artnet or sacn"
-    ),
+    backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
     fixture_dir: str = typer.Option(
@@ -311,9 +312,7 @@ def show_output_cue(
             universe_offset=sacn_universe_offset,
         )
     else:
-        typer.echo(
-            f"Error: Unknown backend '{backend}'. Use artnet or sacn.", err=True
-        )
+        typer.echo(f"Error: Unknown backend '{backend}'. Use artnet or sacn.", err=True)
         raise typer.Exit(code=2)
 
     evidence = (
@@ -343,9 +342,7 @@ def show_output_section(
     show_name: str = typer.Argument(..., help="Show name"),
     section_name: str = typer.Argument(..., help="Section name to output"),
     rig_name: str = typer.Option(..., "--rig", help="Rig name"),
-    backend: str = typer.Option(
-        "artnet", "--backend", help="Backend: artnet or sacn"
-    ),
+    backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
     fixture_dir: str = typer.Option(
@@ -406,9 +403,7 @@ def show_output_section(
             universe_offset=sacn_universe_offset,
         )
     else:
-        typer.echo(
-            f"Error: Unknown backend '{backend}'. Use artnet or sacn.", err=True
-        )
+        typer.echo(f"Error: Unknown backend '{backend}'. Use artnet or sacn.", err=True)
         raise typer.Exit(code=2)
 
     evidence = []
@@ -436,6 +431,246 @@ def show_output_section(
 
     console.print(f"[bold]{backend_name} {payload['mode']}[/bold] {section_name}")
     console.print(f"Cues: {len(evidence)}")
+
+
+@show_app.command("plan-practice-cues")
+def show_plan_practice_cues(
+    show_name: str = typer.Argument(..., help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    section: str = typer.Option(
+        "all", "--section", help="Section name to plan, or all"
+    ),
+    style: str = typer.Option(
+        "energy-arc",
+        "--style",
+        help="Practice style: energy-arc, warm-cool, or front-back",
+    ),
+    apply: bool = typer.Option(
+        False, "--apply", help="Write proposed practice cues to the show YAML"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Plan or apply deterministic renderer-safe practice cues."""
+    from rayflow.shows.practice_authoring import plan_practice_cues
+    from rayflow.shows.serializers import load_rig, load_show, save_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    try:
+        plan = plan_practice_cues(
+            show,
+            rig,
+            section_name=section,
+            style=style,
+            apply=apply,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if apply:
+        save_show(show, path)
+
+    payload = plan.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]Practice cue {payload['mode']}[/bold] {show.name}")
+    console.print(f"Style: {plan.style}")
+    console.print(f"Section: {plan.section}")
+    console.print(f"Cues: {len(plan.proposed_cues)}")
+    console.print(f"Next: {plan.next_command}")
+
+
+@show_app.command("workflow-report")
+def show_workflow_report(
+    show_name: str = typer.Argument(..., help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    backend: str = typer.Option("artnet", "--backend", help="Backend: artnet or sacn"),
+    section: str = typer.Option(
+        "all", "--section", help="Section name to report, or all"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    target: str = typer.Option("127.0.0.1", "--target", help="Art-Net target IP"),
+    multicast: bool = typer.Option(
+        True, "--multicast/--no-multicast", help="Use sACN multicast"
+    ),
+    sacn_universe_offset: int = typer.Option(
+        1,
+        "--sacn-universe-offset",
+        help="Offset from RayFlow universe to E1.31 universe",
+    ),
+    execute: bool = typer.Option(
+        False, "--execute", help="Apply output to the selected backend"
+    ),
+    capture_evidence: bool = typer.Option(
+        False,
+        "--capture-evidence",
+        help="Attempt receiver-side evidence capture after --execute",
+    ),
+    evidence_timeout: float = typer.Option(
+        0.25,
+        "--evidence-timeout",
+        help="Seconds to wait for receiver evidence",
+    ),
+    output: Path | None = typer.Option(
+        None, "--output", help="Write report JSON to this path"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Build a dry-run practice workflow report for rendered backend output."""
+    from rayflow.backends import ArtNetDmxBackend, SacnDmxBackend
+    from rayflow.rendering import render_section_to_dmx, render_show_to_dmx
+    from rayflow.shows.serializers import load_rig, load_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    section_name = section.strip()
+    if section_name.lower() == "all":
+        rendered_group = render_show_to_dmx(show, rig, fixture_dir)
+        selected_section: str | None = None
+    elif show.cues_for_section(section_name):
+        rendered_group = render_section_to_dmx(show, rig, section_name, fixture_dir)
+        selected_section = section_name
+    else:
+        typer.echo(f"Error: Section has no cues: {section_name}", err=True)
+        raise typer.Exit(code=1)
+
+    backend_name = backend.lower()
+    if backend_name == "artnet":
+        adapter = ArtNetDmxBackend(target_ip=target)
+    elif backend_name == "sacn":
+        adapter = SacnDmxBackend(
+            multicast=multicast,
+            universe_offset=sacn_universe_offset,
+        )
+    else:
+        typer.echo(f"Error: Unknown backend '{backend}'. Use artnet or sacn.", err=True)
+        raise typer.Exit(code=2)
+
+    payload = _workflow_report_payload(
+        show_name=show.name,
+        rig_name=rig.name,
+        backend_name=backend_name,
+        selected_section=selected_section,
+        rendered_group=rendered_group,
+        mode="apply" if execute else "dry-run",
+        evidence=[
+            adapter.apply(
+                rendered,
+                capture_evidence=capture_evidence,
+                evidence_timeout=evidence_timeout,
+            )
+            if execute
+            else adapter.dry_run(rendered)
+            for rendered in rendered_group.rendered_cues
+        ],
+    )
+    report_text = json_module.dumps(payload, indent=2)
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(report_text + "\n", encoding="utf-8")
+
+    if json_output:
+        typer.echo(report_text)
+        return
+
+    console.print(f"[bold]Workflow report[/bold] {show.name}")
+    console.print(f"Rig: {rig.name}")
+    console.print(f"Backend: {backend_name} {payload['mode']}")
+    console.print(f"Readiness: {payload['readiness']['status']}")
+    console.print(f"Cues: {payload['cue_count']}")
+    if output is not None:
+        console.print(f"Written: {output}")
+
+
+def _workflow_report_payload(
+    *,
+    show_name: str,
+    rig_name: str,
+    backend_name: str,
+    selected_section: str | None,
+    rendered_group: Any,
+    mode: str,
+    evidence: list[Any],
+) -> dict[str, Any]:
+    rendered_cues = rendered_group.rendered_cues
+    warnings = [
+        warning.as_dict() for rendered in rendered_cues for warning in rendered.warnings
+    ]
+    evidence_dicts = [item.as_dict() for item in evidence]
+    backend_warnings = [
+        warning for item in evidence_dicts for warning in item.get("warnings", [])
+    ]
+    frame_count = sum(len(rendered.frames) for rendered in rendered_cues)
+    status = "ready"
+    if not rendered_cues or frame_count == 0:
+        status = "blocked"
+    elif warnings or backend_warnings:
+        status = "warnings"
+
+    return {
+        "show": show_name,
+        "rig": rig_name,
+        "backend": backend_name,
+        "mode": mode,
+        "scope": rendered_group.scope,
+        "section": selected_section or "all",
+        "cue_count": len(rendered_cues),
+        "frame_count": frame_count,
+        "rendered": rendered_group.as_dict(),
+        "evidence": evidence_dicts,
+        "warnings": {
+            "render": warnings,
+            "backend": backend_warnings,
+        },
+        "readiness": {
+            "status": status,
+            "summary": _readiness_summary(status, len(warnings), len(backend_warnings)),
+        },
+        "timestamp": datetime.now(UTC).isoformat(timespec="seconds"),
+    }
+
+
+def _readiness_summary(
+    status: str, render_warning_count: int, backend_warning_count: int
+) -> str:
+    if status == "ready":
+        return "All selected cues rendered and produced backend evidence."
+    if status == "blocked":
+        return "No rendered backend frames were produced for the selected scope."
+    return (
+        "Workflow produced backend evidence with "
+        f"{render_warning_count} render warnings and "
+        f"{backend_warning_count} backend warnings."
+    )
 
 
 @show_app.command("qlc-spike")

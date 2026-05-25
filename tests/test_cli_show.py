@@ -3,6 +3,7 @@
 import json
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from unittest.mock import patch
 
 from typer.testing import CliRunner
 
@@ -31,6 +32,7 @@ SHOW_COMMANDS = [
     "list",
     "output-cue",
     "output-section",
+    "plan-practice-cues",
     "push-section",
     "push-to-ma3",
     "qlc-spike",
@@ -43,6 +45,7 @@ SHOW_COMMANDS = [
     "update-cue",
     "update-section",
     "versions",
+    "workflow-report",
 ]
 
 
@@ -274,6 +277,167 @@ class TestShowRenderCue:
         assert payload["backend"] == "qlcplus"
         assert payload["mode"] == "dry-run"
         assert payload["observed"] == {"status": "not-applied"}
+
+    def test_workflow_report_outputs_practice_show_json(self) -> None:
+        with patch("rayflow.backends.dmx.ArtNetDmxBackend.apply") as apply:
+            result = runner.invoke(
+                app,
+                [
+                    "show",
+                    "workflow-report",
+                    "phase9_practice_show",
+                    "--dir",
+                    "data/shows/samples",
+                    "--rig",
+                    "Practice Small Club",
+                    "--rig-dir",
+                    "data/rigs",
+                    "--fixture-dir",
+                    str(SAMPLE_FIXTURE_DIR),
+                    "--backend",
+                    "artnet",
+                    "--json",
+                ],
+            )
+
+        assert result.exit_code == 0
+        apply.assert_not_called()
+        payload = json.loads(result.output)
+        assert payload["show"] == "Phase 9 Practice Show"
+        assert payload["rig"] == "Practice Small Club"
+        assert payload["backend"] == "artnet"
+        assert payload["mode"] == "dry-run"
+        assert payload["section"] == "all"
+        assert payload["cue_count"] == 8
+        assert payload["frame_count"] == 8
+        assert payload["readiness"]["status"] == "ready"
+        assert payload["warnings"] == {"render": [], "backend": []}
+        assert payload["evidence"][0]["observed"] == {"status": "not-applied"}
+
+    def test_workflow_report_execute_captures_live_evidence_when_gated(self) -> None:
+        sender_class = patch("rayflow.bridge.artnet.ArtNetSender").start()
+        receiver_class = patch("rayflow.bridge.artnet.ArtNetReceiver").start()
+        receiver_class.return_value.get_buffer.return_value = [0] * 512
+        try:
+            result = runner.invoke(
+                app,
+                [
+                    "show",
+                    "workflow-report",
+                    "phase9_practice_show",
+                    "--dir",
+                    "data/shows/samples",
+                    "--rig",
+                    "Practice Small Club",
+                    "--rig-dir",
+                    "data/rigs",
+                    "--fixture-dir",
+                    str(SAMPLE_FIXTURE_DIR),
+                    "--backend",
+                    "artnet",
+                    "--section",
+                    "Chorus",
+                    "--execute",
+                    "--capture-evidence",
+                    "--evidence-timeout",
+                    "0",
+                    "--json",
+                ],
+            )
+        finally:
+            patch.stopall()
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "apply"
+        assert payload["readiness"]["status"] == "warnings"
+        assert sender_class.call_count == 2
+        assert receiver_class.call_count == 2
+        assert payload["evidence"][0]["observed"]["evidence_quality"] == (
+            "receiver-buffer-mismatch"
+        )
+        assert payload["warnings"]["backend"]
+
+    def test_workflow_report_filters_section_and_writes_output(
+        self, tmp_path: Path
+    ) -> None:
+        output = tmp_path / "reports" / "chorus.json"
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "workflow-report",
+                "phase9_practice_show",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                "data/rigs",
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--backend",
+                "sacn",
+                "--section",
+                "Chorus",
+                "--output",
+                str(output),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        written = json.loads(output.read_text())
+        assert written == payload
+        assert payload["backend"] == "sacn"
+        assert payload["scope"] == "section:Chorus"
+        assert payload["section"] == "Chorus"
+        assert payload["cue_count"] == 2
+        assert [cue["cue"]["number"] for cue in payload["rendered"]["cues"]] == [5, 6]
+        assert payload["evidence"][0]["frames"][0]["sacn_universe"] == 1
+
+    def test_workflow_report_rejects_missing_section(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "workflow-report",
+                "phase9_practice_show",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                "data/rigs",
+                "--section",
+                "Missing",
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Section has no cues" in result.output
+
+    def test_workflow_report_rejects_unknown_backend(self) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "workflow-report",
+                "phase9_practice_show",
+                "--dir",
+                "data/shows/samples",
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                "data/rigs",
+                "--backend",
+                "missing",
+            ],
+        )
+
+        assert result.exit_code == 2
+        assert "Unknown backend" in result.output
 
 
 class TestShowSetSongMeta:
@@ -1006,6 +1170,168 @@ cues: []
         assert result.exit_code == 0
         assert "Generated" in result.output
         assert "warm_wash" in result.output
+
+
+class TestShowPlanPracticeCues:
+    def _copy_practice_files(self, tmp_path: Path) -> tuple[Path, Path]:
+        show_dir = tmp_path / "shows"
+        rig_dir = tmp_path / "rigs"
+        show_dir.mkdir()
+        rig_dir.mkdir()
+        source_show = Path("data/shows/samples/phase9_practice_show.yaml")
+        source_rig = Path("data/rigs/Practice Small Club.yaml")
+        show_path = show_dir / "phase9_practice_show.yaml"
+        rig_path = rig_dir / "Practice Small Club.yaml"
+        show_path.write_text(source_show.read_text())
+        rig_path.write_text(source_rig.read_text())
+        return show_dir, rig_dir
+
+    def test_plan_practice_cues_proposal_does_not_modify_show(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+        show_path = show_dir / "phase9_practice_show.yaml"
+        before = show_path.read_text()
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-practice-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Chorus",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert show_path.read_text() == before
+        payload = json.loads(result.output)
+        assert payload["mode"] == "proposal"
+        assert payload["section"] == "Chorus"
+        assert len(payload["proposed_cues"]) == 2
+        assert payload["next_command"].startswith("rayflow show workflow-report")
+
+    def test_plan_practice_cues_apply_modifies_only_selected_section(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-practice-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Intro",
+                "--style",
+                "front-back",
+                "--apply",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "apply"
+        assert payload["style"] == "front-back"
+        assert payload["replaced_cue_numbers"] == [1, 2]
+
+        from rayflow.shows.serializers import load_show
+
+        show = load_show(show_dir / "phase9_practice_show.yaml")
+        intro_labels = [cue.label for cue in show.cues if cue.section == "Intro"]
+        chorus_labels = [cue.label for cue in show.cues if cue.section == "Chorus"]
+        assert intro_labels == ["Intro Front Warm", "Intro Back Blue"]
+        assert "Chorus Open Cyan" in chorus_labels
+
+    def test_plan_practice_cues_apply_all_refreshes_all_sections(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-practice-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "all",
+                "--apply",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "apply"
+        assert payload["section"] == "all"
+        assert len(payload["proposed_cues"]) == 8
+
+    def test_plan_practice_cues_rejects_missing_section(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-practice-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Missing",
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Section not found" in result.output
+
+    def test_plan_practice_cues_rejects_missing_rig(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-practice-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Missing Rig",
+                "--rig-dir",
+                str(rig_dir),
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Rig not found" in result.output
 
 
 class TestShowBatchUpdateCues:

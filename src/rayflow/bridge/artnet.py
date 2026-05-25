@@ -1,4 +1,10 @@
-"""Art-Net protocol bridge — wrapper around stupidArtnet."""
+"""Art-Net protocol bridge."""
+
+from __future__ import annotations
+
+import socket
+import threading
+from collections.abc import Callable
 
 from rayflow.bridge.exceptions import (
     InvalidChannelError,
@@ -78,20 +84,76 @@ class ArtNetSender:
 class ArtNetReceiver:
     """Receive DMX values via Art-Net protocol.
 
-    Wraps stupidArtnet StupidArtnetServer for listening to Art-Net output.
+    Uses a small native UDP listener so local loopback proof can coexist with
+    senders on the standard Art-Net port.
     """
 
-    def __init__(self, universe: int = 0, callback=None):
-        if StupidArtnetServer is None:  # pragma: no cover
-            raise NetworkError(
-                "stupidArtnet library not installed. Run: uv sync --extra lighting"
-            )
+    ARTDMX_HEADER = b"Art-Net\x00\x00P\x00\x0e"
+
+    def __init__(
+        self,
+        universe: int = 0,
+        callback: Callable[..., None] | None = None,
+        *,
+        port: int = 6454,
+    ):
+        if universe < 0 or universe > 15:
+            raise InvalidUniverseError(f"Art-Net universe must be 0-15, got {universe}")
         self.universe = universe
-        self._server = StupidArtnetServer()
-        self._listener_id = self._server.register_listener(
-            universe=universe, callback_function=callback
-        )
+        self.callback = callback
+        self.port = port
+        self._buffer: list[int] = []
+        self._running = True
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        if hasattr(socket, "SO_REUSEPORT"):
+            self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        try:
+            self._socket.bind(("", port))
+        except OSError as e:
+            self._socket.close()
+            raise NetworkError(f"Cannot initialize Art-Net receiver: {e}") from e
+        self._socket.settimeout(0.05)
+        self._thread = threading.Thread(target=self._listen, daemon=True)
+        self._thread.start()
 
     def get_buffer(self) -> list[int]:
         """Get the latest received DMX buffer."""
-        return self._server.get_buffer(self._listener_id)
+        return list(self._buffer)
+
+    def stop(self) -> None:
+        """Stop the Art-Net receiver."""
+        self._running = False
+        self._socket.close()
+
+    def _listen(self) -> None:
+        while self._running:
+            try:
+                data, _address = self._socket.recvfrom(1024)
+            except TimeoutError:
+                continue
+            except OSError:
+                break
+            self._handle_packet(data)
+
+    def _handle_packet(self, data: bytes) -> None:
+        if not data.startswith(self.ARTDMX_HEADER):
+            return
+        if len(data) < 18:
+            return
+        packet_universe = int.from_bytes(data[14:16], "little")
+        if packet_universe != self.universe:
+            return
+        dmx_length = int.from_bytes(data[16:18], "big")
+        if dmx_length <= 0 or len(data) < 18 + dmx_length:
+            return
+        self._buffer = list(data[18 : 18 + dmx_length])
+        if self.callback is None:
+            return
+        try:
+            self.callback(self._buffer)
+        except TypeError:
+            self.callback(self._buffer, packet_universe)
+
+    def __del__(self):  # pragma: no cover
+        self.stop()

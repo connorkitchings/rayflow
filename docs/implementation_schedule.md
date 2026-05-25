@@ -123,6 +123,18 @@ QLC+ WebSocket control.
 
 ---
 
+## Phase 9: Productized Practice Show Workflow
+
+| Task | Deliverable | Status | Notes |
+|------|-------------|--------|-------|
+| Practice rig/show | Clean source-of-truth sample using checked-in fixtures | ✅ Done | `Practice Small Club` rig and `phase9_practice_show` exercise dimmer, RGB/RGBW, named colors, presets, overrides, and sections |
+| Workflow evidence report | Dry-run report from show intent through backend evidence | ✅ Done | `show workflow-report` aggregates rendered cue groups, Art-Net/sACN dry-run evidence, warnings, readiness, and timestamp |
+| Workflow docs | Guide for repeatable practice-show handoff | ✅ Done | Practice workflow guide documents render/report commands and backend boundaries |
+| Live receiver proof | Optional Art-Net/sACN capture for the practice show | ✅ Done | Local Art-Net loopback evidence captured in `session_logs/05-25-2026/phase9-loopback-evidence.json` with receiver-buffer matches |
+| Authoring ergonomics | Deterministic practice cue proposals and apply gate | ✅ Done | `show plan-practice-cues` proposes or applies renderer-safe cues by section/style |
+
+---
+
 ## Milestones
 
 - **M1: Foundation Complete** — Phase 1 done, package structure ready
@@ -133,6 +145,7 @@ QLC+ WebSocket control.
 - **M6: AI Designer** — Phase 6 done, AI-assisted show building working
 - **M7: MA3 Export Compatibility** — Phase 7 mostly done, MA3 export/playback path documented
 - **M8: Backend-Neutral Execution** — Phase 8 done for MVP, fixture-aware rendering and evidence-backed Art-Net/sACN output available; QLC+ remains experimental until live local proof
+- **M9: Productized Practice Workflow** — Phase 9 done, with clean practice data, workflow evidence, deterministic authoring ergonomics, and local Art-Net loopback proof
 
 ---
 
@@ -149,4 +162,4 @@ QLC+ WebSocket control.
 
 ---
 
-*Last updated: 2026-05-24 (Phase 8 backend-neutral MVP implemented).*
+*Last updated: 2026-05-25 (Phase 9 local Art-Net loopback proof captured).*

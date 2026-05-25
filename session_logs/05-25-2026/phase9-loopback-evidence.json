@@ -1,0 +1,249 @@
+{
+  "show": "Phase 9 Practice Show",
+  "rig": "Practice Small Club",
+  "backend": "artnet",
+  "mode": "apply",
+  "scope": "section:Chorus",
+  "section": "Chorus",
+  "cue_count": 2,
+  "frame_count": 2,
+  "rendered": {
+    "scope": "section:Chorus",
+    "cues": [
+      {
+        "cue": {
+          "number": 5,
+          "label": "Chorus Open Cyan",
+          "section": "Chorus",
+          "timestamp": 72.0
+        },
+        "frames": [
+          {
+            "universe": 0,
+            "channels": {
+              "1": 255,
+              "2": 0,
+              "3": 204,
+              "4": 255,
+              "5": 0,
+              "6": 255,
+              "7": 0,
+              "8": 204,
+              "9": 255,
+              "10": 0,
+              "11": 255,
+              "12": 0,
+              "13": 204,
+              "14": 255,
+              "15": 0,
+              "16": 255,
+              "17": 0,
+              "18": 204,
+              "19": 255,
+              "20": 0
+            }
+          }
+        ],
+        "warnings": [],
+        "rendered_at": "2026-05-25T13:40:48+00:00"
+      },
+      {
+        "cue": {
+          "number": 6,
+          "label": "Chorus White Lift",
+          "section": "Chorus",
+          "timestamp": 96.0
+        },
+        "frames": [
+          {
+            "universe": 0,
+            "channels": {
+              "1": 217,
+              "2": 255,
+              "3": 255,
+              "4": 255,
+              "5": 255,
+              "6": 217,
+              "7": 255,
+              "8": 255,
+              "9": 255,
+              "10": 255,
+              "11": 217,
+              "12": 255,
+              "13": 255,
+              "14": 255,
+              "15": 255,
+              "16": 217,
+              "17": 255,
+              "18": 255,
+              "19": 255,
+              "20": 255
+            }
+          }
+        ],
+        "warnings": [],
+        "rendered_at": "2026-05-25T13:40:48+00:00"
+      }
+    ],
+    "rendered_at": "2026-05-25T13:40:48+00:00"
+  },
+  "evidence": [
+    {
+      "backend": "artnet",
+      "operation": "send-frame",
+      "mode": "apply",
+      "target": "127.0.0.1:6454",
+      "frames": [
+        {
+          "universe": 0,
+          "channels": {
+            "1": 255,
+            "2": 0,
+            "3": 204,
+            "4": 255,
+            "5": 0,
+            "6": 255,
+            "7": 0,
+            "8": 204,
+            "9": 255,
+            "10": 0,
+            "11": 255,
+            "12": 0,
+            "13": 204,
+            "14": 255,
+            "15": 0,
+            "16": 255,
+            "17": 0,
+            "18": 204,
+            "19": 255,
+            "20": 0
+          }
+        }
+      ],
+      "commands": [
+        "ArtDMX universe 0 -> 127.0.0.1:6454"
+      ],
+      "observed": {
+        "status": "sent",
+        "universes": [
+          0
+        ],
+        "evidence_quality": "receiver-buffer",
+        "receiver_captures": [
+          {
+            "universe": 0,
+            "observed_values": {
+              "1": 255,
+              "2": 0,
+              "3": 204,
+              "4": 255,
+              "5": 0,
+              "6": 255,
+              "7": 0,
+              "8": 204,
+              "9": 255,
+              "10": 0,
+              "11": 255,
+              "12": 0,
+              "13": 204,
+              "14": 255,
+              "15": 0,
+              "16": 255,
+              "17": 0,
+              "18": 204,
+              "19": 255,
+              "20": 0
+            },
+            "mismatches": {},
+            "matches_rendered": true
+          }
+        ]
+      },
+      "warnings": [],
+      "timestamp": "2026-05-25T13:40:48+00:00"
+    },
+    {
+      "backend": "artnet",
+      "operation": "send-frame",
+      "mode": "apply",
+      "target": "127.0.0.1:6454",
+      "frames": [
+        {
+          "universe": 0,
+          "channels": {
+            "1": 217,
+            "2": 255,
+            "3": 255,
+            "4": 255,
+            "5": 255,
+            "6": 217,
+            "7": 255,
+            "8": 255,
+            "9": 255,
+            "10": 255,
+            "11": 217,
+            "12": 255,
+            "13": 255,
+            "14": 255,
+            "15": 255,
+            "16": 217,
+            "17": 255,
+            "18": 255,
+            "19": 255,
+            "20": 255
+          }
+        }
+      ],
+      "commands": [
+        "ArtDMX universe 0 -> 127.0.0.1:6454"
+      ],
+      "observed": {
+        "status": "sent",
+        "universes": [
+          0
+        ],
+        "evidence_quality": "receiver-buffer",
+        "receiver_captures": [
+          {
+            "universe": 0,
+            "observed_values": {
+              "1": 217,
+              "2": 255,
+              "3": 255,
+              "4": 255,
+              "5": 255,
+              "6": 217,
+              "7": 255,
+              "8": 255,
+              "9": 255,
+              "10": 255,
+              "11": 217,
+              "12": 255,
+              "13": 255,
+              "14": 255,
+              "15": 255,
+              "16": 217,
+              "17": 255,
+              "18": 255,
+              "19": 255,
+              "20": 255
+            },
+            "mismatches": {},
+            "matches_rendered": true
+          }
+        ]
+      },
+      "warnings": [],
+      "timestamp": "2026-05-25T13:40:48+00:00"
+    }
+  ],
+  "warnings": {
+    "render": [],
+    "backend": []
+  },
+  "readiness": {
+    "status": "ready",
+    "summary": "All selected cues rendered and produced backend evidence."
+  },
+  "timestamp": "2026-05-25T13:40:48+00:00"
+}

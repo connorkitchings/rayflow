@@ -1,0 +1,70 @@
+name: "Practice Small Club"
+venue:
+  name: "Practice Small Club"
+  dimensions: [10, 6, 4]
+  notes: "Phase 9 backend-neutral practice rig using checked-in LED PAR fixtures."
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Downstage Left PAR"
+    universe: 0
+    start_address: 1
+    position: {x: -3, y: 1, z: 3, pan: 0, tilt: 0}
+    channels: "1"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Downstage Right PAR"
+    universe: 0
+    start_address: 6
+    position: {x: 3, y: 1, z: 3, pan: 0, tilt: 0}
+    channels: "2"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Upstage Left PAR"
+    universe: 0
+    start_address: 11
+    position: {x: -3, y: 5, z: 3, pan: 0, tilt: 0}
+    channels: "3"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Upstage Right PAR"
+    universe: 0
+    start_address: 16
+    position: {x: 3, y: 5, z: 3, pan: 0, tilt: 0}
+    channels: "4"
+presets:
+  front_warm:
+    name: "Front Warm"
+    description: "Warm amber front wash"
+    attributes:
+      dimmer: "55"
+      color: "Warm Amber"
+    channels: "1 2"
+    tags: ["front", "warm"]
+  back_blue:
+    name: "Back Blue"
+    description: "Cool blue upstage wash"
+    attributes:
+      dimmer: "60"
+      color: "#3366FF"
+    channels: "3 4"
+    tags: ["back", "blue"]
+  all_white:
+    name: "All White"
+    description: "Open white wash across the rig"
+    attributes:
+      dimmer: "75"
+      color: "White"
+    channels: "1 Thru 4"
+    tags: ["all", "white"]
+  blackout:
+    name: "Blackout"
+    description: "All practice fixtures off"
+    attributes:
+      dimmer: "Off"
+    channels: "1 Thru 4"
+    tags: ["blackout"]
+notes: >
+  Phase 9 practice rig. It intentionally uses only checked-in LED PAR 64 RGBW
+  fixtures in the Default mode so workflow-report can produce clean dry-run
+  backend evidence without external fixture downloads.

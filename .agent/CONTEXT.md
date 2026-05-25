@@ -76,10 +76,11 @@ rayflow/
 - 2026-05-23 direction reset: MA3 remains a compatibility/export target, while the mainline moves to backend-neutral show intent, fixture-aware DMX rendering, Art-Net/sACN execution, and QLC+ WebSocket research
 - CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
 - Phase 8 backend-neutral MVP: adapter contract, fixture-aware DMX renderer, Art-Net/sACN evidence backends, experimental QLC+ WebSocket spike, backend CLI commands, docs, and tests
+- Phase 9 productized practice workflow: checked-in practice rig/show, deterministic cue planning, workflow reports, and local Art-Net loopback receiver proof
 
 **Current Focus:**
-- Phase 9 productized show workflow: prove a complete practice show loop through RayFlow source-of-truth data, fixture-aware rendering, backend dry-run evidence, and optional live backend proof
-- Improve user-facing workflow ergonomics around show context, cue generation, render/output commands, and evidence reports
+- Phase 9 closure checkpoint is ready after final health checks and commit
+- Next product direction should build beyond the practice-show loop: live QLC+ proof, broader authoring ergonomics, or richer fixture-aware renderer capabilities
 - Keep QLC+ experimental until live local command/query proof is captured
 - MA3 export/playback remains a compatibility track; fixture import, fixture-aware presets, executor state, and runtime readback still need proof before mutating MCP tools
 - LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
@@ -97,7 +98,7 @@ rayflow/
 - RayFlow show/rig/cue data is the source of truth
 - Mainline workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → fixture-aware renderer → Art-Net/sACN or QLC+ backend evidence
 - Compatibility workflow: export MA3 bundles, Timecode XML, and gated OSC only for verified MA3 operations
-- Next milestone: one complete practice show workflow with real fixture samples, rendered cue/section output, backend evidence, and documented handoff for future agents
+- Next milestone: choose the post-Phase 9 track after committing the practice workflow checkpoint
 
 ## 🔄 Post-Session Protocol
 

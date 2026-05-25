@@ -99,6 +99,14 @@ class ArtNetDmxBackend:
     ) -> BackendEvidence:
         from rayflow.bridge.artnet import ArtNetReceiver, ArtNetSender
 
+        receivers = (
+            {
+                universe: ArtNetReceiver(universe=universe)
+                for universe in {frame.universe for frame in rendered.frames}
+            }
+            if capture_evidence
+            else {}
+        )
         sent_universes: list[int] = []
         for frame in rendered.frames:
             sender = ArtNetSender(target_ip=self.target_ip, universe=frame.universe)
@@ -113,10 +121,15 @@ class ArtNetDmxBackend:
         }
         if capture_evidence:
             captures = []
-            for frame in rendered.frames:
-                receiver = ArtNetReceiver(universe=frame.universe)
-                buffer = _read_artnet_buffer(receiver, frame, evidence_timeout)
-                captures.append(_artnet_capture(frame, buffer))
+            try:
+                for frame in rendered.frames:
+                    buffer = _read_artnet_buffer(
+                        receivers[frame.universe], frame, evidence_timeout
+                    )
+                    captures.append(_artnet_capture(frame, buffer))
+            finally:
+                for receiver in receivers.values():
+                    receiver.stop()
             observed["receiver_captures"] = captures
             if captures and all(capture["matches_rendered"] for capture in captures):
                 observed["evidence_quality"] = "receiver-buffer"
@@ -194,6 +207,15 @@ class SacnDmxBackend:
         mappings = [
             _sacn_mapping(frame, self.universe_offset) for frame in rendered.frames
         ]
+        sacn_universes = [item["sacn_universe"] for item in mappings]
+        receiver = (
+            SacnReceiver(universe=sacn_universes[0])
+            if (capture_evidence and sacn_universes)
+            else None
+        )
+        if receiver and self.multicast:
+            receiver.join_multicast()
+
         for frame in rendered.frames:
             sacn_universe = frame.universe + self.universe_offset
             sender = SacnSender(
@@ -212,17 +234,11 @@ class SacnDmxBackend:
             "evidence_quality": "send-call-only",
         }
         if capture_evidence:
-            sacn_universes = [item["sacn_universe"] for item in mappings]
-            receiver = (
-                SacnReceiver(universe=sacn_universes[0]) if sacn_universes else None
-            )
             possible = (
                 _read_sacn_universes(receiver, sacn_universes, evidence_timeout)
                 if receiver
                 else ()
             )
-            if receiver and self.multicast:
-                receiver.join_multicast()
             if receiver:
                 receiver.stop()
             observed["possible_universes"] = list(possible)

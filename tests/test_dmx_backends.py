@@ -61,6 +61,7 @@ def test_artnet_apply_can_capture_receiver_buffer_evidence() -> None:
 
     sender_class.assert_called_once_with(target_ip="192.0.2.10", universe=0)
     receiver_class.assert_called_once_with(universe=0)
+    receiver_class.return_value.stop.assert_called_once()
     assert evidence.observed["evidence_quality"] == "receiver-buffer"
     capture = evidence.observed["receiver_captures"][0]
     assert capture["observed_values"] == {1: 255, 13: 128}
@@ -81,6 +82,7 @@ def test_artnet_capture_reports_exact_mismatches() -> None:
         patch.stopall()
 
     assert evidence.observed["evidence_quality"] == "receiver-buffer-mismatch"
+    receiver_class.return_value.stop.assert_called_once()
     capture = evidence.observed["receiver_captures"][0]
     assert capture["mismatches"] == {
         1: {"expected": 255, "observed": 0},

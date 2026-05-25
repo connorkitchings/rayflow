@@ -53,7 +53,9 @@ class QlcPlusBackend:
             f"QLC+API|getChannelsValues|{universe}|{start_channel}|{channel_count}",
         ]
         if execute and function_id is not None:
-            commands.append(f"QLC+API|setFunctionStatus|{function_id}|{function_status}")
+            commands.append(
+                f"QLC+API|setFunctionStatus|{function_id}|{function_status}"
+            )
 
         if not execute:
             return BackendEvidence(

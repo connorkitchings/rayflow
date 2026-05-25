@@ -1,0 +1,122 @@
+name: "Phase 9 Practice Show"
+rig_name: "Practice Small Club"
+
+song:
+  title: "Practice Loop"
+  artist: "RayFlow"
+  duration: 150.0
+  bpm: 118
+  sections:
+    - name: "Intro"
+      start: 0.0
+      end: 24.0
+      energy: 0.25
+      mood: "warm, simple"
+    - name: "Verse"
+      start: 24.0
+      end: 72.0
+      energy: 0.45
+      mood: "steady, focused"
+    - name: "Chorus"
+      start: 72.0
+      end: 120.0
+      energy: 0.85
+      mood: "bright, open"
+    - name: "Outro"
+      start: 120.0
+      end: 150.0
+      energy: 0.2
+      mood: "resolved, fading"
+
+vibe:
+  palette:
+    name: "Warm Front Cool Back"
+    colors:
+      - "Warm Amber"
+      - "#3366FF"
+      - "#00CCFF"
+      - "White"
+    description: "Warm front light with cool blue back accents."
+  intensity_curve: "low to medium to high to blackout"
+  movement_style: "static practice looks"
+  beam_style: "wide wash"
+  mood_keywords: ["practice", "backend-neutral", "dry-run"]
+  description: >
+    A compact deterministic practice show for proving RayFlow's render and
+    backend evidence workflow without live hardware.
+
+cues:
+  - number: 1
+    label: "Intro Warm Front"
+    section: "Intro"
+    timestamp: 0.0
+    preset: "front_warm"
+    fade_time: 3.0
+
+  - number: 2
+    label: "Intro Add Back Blue"
+    section: "Intro"
+    timestamp: 12.0
+    preset: "back_blue"
+    attributes:
+      dimmer: "45"
+    fade_time: 2.0
+
+  - number: 3
+    label: "Verse Full Warm"
+    section: "Verse"
+    timestamp: 24.0
+    preset: "front_warm"
+    attributes:
+      dimmer: "65"
+    fade_time: 2.0
+
+  - number: 4
+    label: "Verse Cool Back"
+    section: "Verse"
+    timestamp: 48.0
+    channels: "3 4"
+    attributes:
+      dimmer: "55"
+      color: "#3366FF"
+    fade_time: 2.0
+
+  - number: 5
+    label: "Chorus Open Cyan"
+    section: "Chorus"
+    timestamp: 72.0
+    channels: "1 Thru 4"
+    attributes:
+      dimmer: "Full"
+      color: "#00CCFF"
+    fade_time: 0.5
+
+  - number: 6
+    label: "Chorus White Lift"
+    section: "Chorus"
+    timestamp: 96.0
+    preset: "all_white"
+    attributes:
+      dimmer: "85"
+    fade_time: 1.0
+
+  - number: 7
+    label: "Outro Warm Resolve"
+    section: "Outro"
+    timestamp: 120.0
+    channels: "1 Thru 4"
+    attributes:
+      dimmer: "35%"
+      color: "Warm Amber"
+    fade_time: 4.0
+
+  - number: 8
+    label: "Blackout"
+    section: "Outro"
+    timestamp: 148.0
+    preset: "blackout"
+    fade_time: 2.0
+
+notes: >
+  Phase 9 practice show for productized workflow tests. It should render without
+  warnings against data/rigs/Practice Small Club.yaml and data/fixtures/samples.
