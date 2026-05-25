@@ -30,7 +30,22 @@ SUPPORTED_AUTHORING_STYLES: tuple[AuthoringStyle, ...] = (
     "beam-chase",
 )
 SUPPORTED_ATTRIBUTES = frozenset(
-    {"dimmer", "color", "pan", "tilt", "zoom", "focus", "shutter", "gobo"}
+    {
+        "dimmer",
+        "color",
+        "pan",
+        "tilt",
+        "zoom",
+        "focus",
+        "shutter",
+        "gobo",
+        "movement.type",
+        "movement.speed",
+        "movement.center",
+        "movement.size",
+        "gobo.speed",
+        "gobo.rotation",
+    }
 )
 FALLBACK_PALETTE = ("Warm Amber", "#3366FF", "#00CCFF", "White")
 

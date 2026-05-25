@@ -269,7 +269,6 @@ class TestShowRenderCue:
         assert result.exit_code == 1
         assert "Section has no cues" in result.output
 
-
     def test_workflow_report_outputs_practice_show_json(self) -> None:
         with patch("rayflow.engine.backends.dmx.ArtNetDmxBackend.apply") as apply:
             result = runner.invoke(

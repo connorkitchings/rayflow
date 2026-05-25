@@ -387,7 +387,88 @@ def test_missing_mode_returns_warning() -> None:
     )
 
     rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
-
     assert rendered.frames == []
     assert rendered.warnings[0].fixture == "PAR 1"
     assert "DMX mode not found" in rendered.warnings[0].message
+
+
+def test_renderer_movement_static() -> None:
+    cue = Cue(
+        number=1,
+        label="Static Movement",
+        section="Intro",
+        timestamp=0,
+        attributes={
+            "movement.type": "static",
+            "movement.center": "60,40",
+        },
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin iSpiiderX",
+            mode="Mode 2 - Basic",
+            label="Moving Light 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
+    assert not rendered.warnings
+    # 60% of 65535 is 39321. (39321 >> 8) & 0xFF is 153
+    assert rendered.frames[0].channels[1] == 153  # Pan high byte
+
+
+def test_renderer_movement_sine() -> None:
+    cue = Cue(
+        number=1,
+        label="Sine Movement",
+        section="Intro",
+        timestamp=1.0,
+        attributes={
+            "movement.type": "sine",
+            "movement.center": "50,50",
+            "movement.size": "20",
+            "movement.speed": "1.0",
+        },
+    )
+    show = _show([cue])
+    show.song.bpm = 60
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin iSpiiderX",
+            mode="Mode 2 - Basic",
+            label="Moving Light 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+    rendered = render_cue_to_dmx(show, rig, cue, fixture_dir=SAMPLES_DIR)
+    assert not rendered.warnings
+    assert rendered.frames[0].channels[1] == 128  # 50% pan
+
+
+def test_renderer_gobo_speed_and_rotation() -> None:
+    cue = Cue(
+        number=1,
+        label="Gobo Speed",
+        section="Intro",
+        timestamp=0,
+        attributes={
+            "gobo.speed": "50%",
+            "gobo.rotation": "25%",
+        },
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin MMX Blade",
+            mode="Mode 1 - Standard",
+            label="Spot 1",
+            universe=0,
+            start_address=1,
+        )
+    )
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
+    assert rendered.frames[0].channels
+    warnings_attr = [w.attribute for w in rendered.warnings]
+    assert "gobo.speed" not in warnings_attr
+    assert "gobo.rotation" not in warnings_attr

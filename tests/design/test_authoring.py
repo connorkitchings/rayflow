@@ -165,3 +165,26 @@ def test_plan_cues_beam_chase() -> None:
     assert len(plan.proposed_cues) == 2
     for cue in plan.proposed_cues:
         assert "zoom" in cue.attributes
+
+
+def test_plan_cues_with_movement_and_gobo_attributes() -> None:
+    rig = _rig()
+    show = _show()
+    cue = Cue(
+        number=3,
+        label="Movement Cue",
+        section="Intro",
+        timestamp=5.0,
+        attributes={
+            "dimmer": "100%",
+            "movement.type": "circle",
+            "movement.center": "50,50",
+            "movement.size": "20",
+            "movement.speed": "0.5",
+            "gobo.speed": "50%",
+            "gobo.rotation": "25%",
+        },
+    )
+    show.cues.append(cue)
+    plan = plan_cues(show, rig, section_name="Intro", style="energy-arc", apply=True)
+    assert not plan.warnings

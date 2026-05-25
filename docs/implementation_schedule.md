@@ -182,7 +182,7 @@ these candidate tracks:
 | Track | Description | Status |
 |-------|-------------|--------|
 | Live QLC+ proof | Command/query cycle against a running QLC+ instance; promote adapter from experimental | ✅ Done |
-| Movement/beam authoring | Higher-level movement patterns, beam shaping, and gobo transitions as first-class cue attributes | ☐ Not Started |
+| Movement/beam authoring | Higher-level movement patterns, beam shaping, and gobo transitions as first-class cue attributes | ✅ Done |
 | MCP server | Expose RayFlow show/rig/render operations via Model Context Protocol for IDE-integrated agents | ✅ Done |
 | Multi-show management | Show suites, shared rigs, cross-show presets, and batch rendering | ✅ Done |
 | Audio-reactive lighting | Real-time audio analysis driving dynamic cue adjustments | ✅ Done |

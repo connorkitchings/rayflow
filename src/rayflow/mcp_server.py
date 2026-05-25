@@ -1,4 +1,5 @@
 from mcp.server.fastmcp import FastMCP
+
 from rayflow.cli._paths import show_dir_path, show_path
 from rayflow.cli.rig import _rig_dir_path, _rig_path
 from rayflow.design.serializers import load_rig, load_show
@@ -14,7 +15,9 @@ def list_shows() -> list[str]:
     if dir_path.exists():
         for file in dir_path.glob("*.json"):
             shows.append(file.stem)
-    return sorted(shows)
+        for file in dir_path.glob("*.yaml"):
+            shows.append(file.stem)
+    return sorted(list(set(shows)))
 
 
 @mcp.tool()
@@ -35,7 +38,9 @@ def list_rigs() -> list[str]:
     if dir_path.exists():
         for file in dir_path.glob("*.json"):
             rigs.append(file.stem)
-    return sorted(rigs)
+        for file in dir_path.glob("*.yaml"):
+            rigs.append(file.stem)
+    return sorted(list(set(rigs)))
 
 
 @mcp.tool()
@@ -53,10 +58,8 @@ def generate_cues(
     show_name: str,
     section_name: str,
     preset: str,
-    style: str,
     cue_count: int,
     step_duration: float,
-    vibe: str | None = None,
 ) -> str:
     """
     Generate and append a sequence of cues to a show section based on a preset.
@@ -71,7 +74,11 @@ def generate_cues(
         return f"Error: Show not found: {show_name}"
 
     show = load_show(path)
-    section = show.get_section(section_name)
+    section = None
+    for s in show.song.sections:
+        if s.name == section_name:
+            section = s
+            break
     if not section:
         return f"Error: Section not found: {section_name}"
 
@@ -81,9 +88,108 @@ def generate_cues(
         preset=preset,
         count=cue_count,
         spacing=step_duration,
-        # ignore style/vibe for now or pass as attributes if implemented
     )
 
-    section.cues.extend(cues)
+    show.cues.extend(cues)
+    from rayflow.design.cue_generator import auto_number_cues
+    auto_number_cues(show)
     save_show(show, path)
     return f"Successfully generated {len(cues)} cues in section '{section_name}'."
+
+
+@mcp.tool()
+def plan_show_cues(
+    show_name: str,
+    rig_name: str,
+    section_name: str = "all",
+    style: str = "energy-arc",
+    cues_per_section: int = 2,
+    apply: bool = False,
+) -> dict:
+    """
+    Plan or apply deterministic cues for a show using the specified style.
+    Returns the CueAuthoringPlan dictionary.
+    """
+    from rayflow.design.authoring import plan_cues
+    from rayflow.design.serializers import save_show
+
+    show_dir = show_dir_path("data/shows")
+    show_p = show_path(show_name, show_dir)
+    if not show_p.exists():
+        return {"error": f"Show not found: {show_name}"}
+
+    rig_dir = _rig_dir_path("data/rigs")
+    rig_p = _rig_path(rig_name, rig_dir)
+    if not rig_p.exists():
+        return {"error": f"Rig not found: {rig_name}"}
+
+    show = load_show(show_p)
+    rig = load_rig(rig_p)
+
+    plan = plan_cues(
+        show,
+        rig,
+        section_name=section_name,
+        style=style,
+        cues_per_section=cues_per_section,
+        apply=apply,
+    )
+
+    if apply:
+        save_show(show, show_p)
+
+    return plan.as_dict()
+
+
+@mcp.tool()
+def render_cue_dmx(show_name: str, rig_name: str, cue_number: int) -> dict:
+    """
+    Render a single cue in a show to DMX universe frames.
+    Returns the RenderedCue dictionary.
+    """
+    from rayflow.engine.rendering.dmx import render_cue_to_dmx
+
+    show_dir = show_dir_path("data/shows")
+    show_p = show_path(show_name, show_dir)
+    if not show_p.exists():
+        return {"error": f"Show not found: {show_name}"}
+
+    rig_dir = _rig_dir_path("data/rigs")
+    rig_p = _rig_path(rig_name, rig_dir)
+    if not rig_p.exists():
+        return {"error": f"Rig not found: {rig_name}"}
+
+    show = load_show(show_p)
+    rig = load_rig(rig_p)
+
+    cue = show.get_cue(cue_number)
+    if not cue:
+        return {"error": f"Cue {cue_number} not found in show {show_name}"}
+
+    rendered = render_cue_to_dmx(show, rig, cue, fixture_dir="data/fixtures/samples")
+    return rendered.as_dict()
+
+
+@mcp.tool()
+def render_show_dmx(show_name: str, rig_name: str) -> dict:
+    """
+    Render all cues in a show to DMX universe frames.
+    Returns the RenderedCueGroup dictionary.
+    """
+    from rayflow.engine.rendering.dmx import render_show_to_dmx
+
+    show_dir = show_dir_path("data/shows")
+    show_p = show_path(show_name, show_dir)
+    if not show_p.exists():
+        return {"error": f"Show not found: {show_name}"}
+
+    rig_dir = _rig_dir_path("data/rigs")
+    rig_p = _rig_path(rig_name, rig_dir)
+    if not rig_p.exists():
+        return {"error": f"Rig not found: {rig_name}"}
+
+    show = load_show(show_p)
+    rig = load_rig(rig_p)
+
+    rendered = render_show_to_dmx(show, rig, fixture_dir="data/fixtures/samples")
+    return rendered.as_dict()

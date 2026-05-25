@@ -17,11 +17,11 @@ Candace Brightman served as the Grateful Dead's lighting director from the early
 
 ### The Second Generation: Chris Kuroda, Paul Hoffman, Jefferson Waful
 
-Kuroda, Hoffman, and Waful came up in the 1990s, inheriting Brightman's philosophy but armed with the new tool of automated lighting. Moving heads, color-mixing fixtures, and eventually media servers gave them a vastly expanded vocabulary. But the core skill remained the same: **deep listening and real-time reaction**.
+Kuroda (Phish), Hoffman (Widespread Panic), and Waful (Umphrey's McGee) came up in the 1990s, inheriting Brightman's philosophy but armed with the new tool of automated lighting. Moving heads, color-mixing fixtures, and eventually media servers gave them a vastly expanded vocabulary. But the core skill remained the same: **deep listening and real-time reaction**.
 
 ### The Third Generation: Saxton Waller, Ben Factor, Luke Stratton, Andrew Goedde
 
-The current generation blends live busking with pre-visualization, pixel mapping, and timecoded sections for complex electronic music. Where Kuroda improvises on a grandMA with 300+ fixtures, Goedde pre-visualizes Pretty Lights shows in Unreal Engine and blends timecoded cues with live manipulation.
+The current generation blends live busking with pre-visualization, pixel mapping, and timecoded sections. Waller (STS9, Billy Strings) works across genres from electronic to bluegrass on rental rigs. Factor (Spafford, Umphrey's McGee) blends timecoded cues with improvisational busking. Goedde (Goose) brings a modern, visually dense approach to the jam band lineage.
 
 ## The Core Philosophy
 

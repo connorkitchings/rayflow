@@ -11,6 +11,7 @@ from rayflow.config import config
 
 console = Console()
 
+
 def resolve_show_name(provided_name: str | None) -> str:
     """Resolve the show name, falling back to the active workspace show."""
     if provided_name:
@@ -21,6 +22,7 @@ def resolve_show_name(provided_name: str | None) -> str:
         "No show name provided and no active show set. "
         "Use 'rayflow show switch <name>' to set an active show."
     )
+
 
 def resolve_rig_name(provided_name: str | None) -> str | None:
     """Resolve the rig name, falling back to the active workspace rig."""

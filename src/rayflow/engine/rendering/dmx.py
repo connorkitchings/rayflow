@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -169,6 +170,7 @@ def render_cue_to_dmx(
             continue
 
         slot_values, slot_warnings = _render_fixture_attributes(
+            show=show,
             cue=cue,
             slot=slot,
             channel_map=channel_map,
@@ -302,6 +304,7 @@ def _slot_channel_number(channels: str) -> int | None:
 
 def _render_fixture_attributes(
     *,
+    show: Show,
     cue: Cue,
     slot: FixtureSlot,
     channel_map: ChannelMap,
@@ -310,7 +313,85 @@ def _render_fixture_attributes(
     values: dict[int, int] = {}
     warnings: list[DmxRenderWarning] = []
 
-    for family, raw_value in attributes.items():
+    # Copy attributes to avoid mutating the original dictionary
+    attrs = dict(attributes)
+
+    # Process movement attributes if movement.type is present
+    if "movement.type" in attrs:
+        m_type = attrs.get("movement.type", "static").strip().lower()
+        if m_type == "static":
+            center_str = attrs.get("movement.center", "50,50")
+            try:
+                parts = [float(p.strip()) for p in center_str.split(",") if p.strip()]
+                if len(parts) >= 2:
+                    attrs["pan"] = f"{parts[0]}%"
+                    attrs["tilt"] = f"{parts[1]}%"
+                elif len(parts) == 1:
+                    attrs["pan"] = f"{parts[0]}%"
+                    attrs["tilt"] = f"{parts[0]}%"
+            except ValueError:
+                pass
+        else:
+            speed_str = attrs.get("movement.speed", "1.0").strip()
+            try:
+                speed = float(speed_str)
+            except ValueError:
+                speed = 1.0
+
+            center_str = attrs.get("movement.center", "50,50")
+            center_pan, center_tilt = 50.0, 50.0
+            try:
+                parts = [float(p.strip()) for p in center_str.split(",") if p.strip()]
+                if len(parts) >= 2:
+                    center_pan, center_tilt = parts[0], parts[1]
+                elif len(parts) == 1:
+                    center_pan, center_tilt = parts[0], parts[0]
+            except ValueError:
+                pass
+
+            size_str = attrs.get("movement.size", "25")
+            size_pan, size_tilt = 25.0, 25.0
+            try:
+                parts = [float(p.strip()) for p in size_str.split(",") if p.strip()]
+                if len(parts) >= 2:
+                    size_pan, size_tilt = parts[0], parts[1]
+                elif len(parts) == 1:
+                    size_pan, size_tilt = parts[0], parts[0]
+            except ValueError:
+                pass
+
+            if show.song and show.song.bpm and show.song.bpm > 0:
+                t = cue.timestamp * (show.song.bpm / 60.0)
+            else:
+                t = cue.timestamp
+
+            phase = 2 * math.pi * speed * t
+
+            if m_type == "sine":
+                pan = center_pan + size_pan * math.sin(phase)
+                tilt = center_tilt
+            elif m_type == "circle":
+                pan = center_pan + size_pan * math.cos(phase)
+                tilt = center_tilt + size_tilt * math.sin(phase)
+            elif m_type == "figure8":
+                pan = center_pan + size_pan * math.sin(phase)
+                tilt = center_tilt + size_tilt * math.sin(2 * phase)
+            else:
+                pan = center_pan
+                tilt = center_tilt
+
+            pan = max(0.0, min(100.0, pan))
+            tilt = max(0.0, min(100.0, tilt))
+
+            attrs["pan"] = f"{round(pan, 4)}%"
+            attrs["tilt"] = f"{round(tilt, 4)}%"
+
+    # Filter out movement.* attributes so they don't produce warnings
+    renderable_attributes = {
+        k: v for k, v in attrs.items() if not k.startswith("movement.")
+    }
+
+    for family, raw_value in renderable_attributes.items():
         if family == "dimmer":
             dimmer_value = _parse_dimmer_value(raw_value)
             if dimmer_value is None:
@@ -364,6 +445,67 @@ def _render_fixture_attributes(
             values.update(position_values)
             if position_warning is not None:
                 warnings.append(position_warning)
+            continue
+
+        if family == "gobo.speed":
+            value = _parse_numeric_attribute_value(raw_value)
+            if value is None:
+                warnings.append(
+                    _warning(
+                        cue,
+                        slot,
+                        family,
+                        f"Unsupported numeric value: {raw_value}",
+                    )
+                )
+                continue
+            entry = None
+            for e in channel_map.entries:
+                norm = e.normalized_attribute.lower()
+                if "gobo" in norm and (
+                    "speed" in norm
+                    or "spin" in norm
+                    or "rate" in norm
+                    or "time" in norm
+                ):
+                    entry = e
+                    break
+            if entry is None:
+                warnings.append(
+                    _warning(cue, slot, family, "No gobo speed/spin channel found")
+                )
+                continue
+            values.update(_channel_values(entry, value, channel_map))
+            continue
+
+        if family == "gobo.rotation":
+            value = _parse_numeric_attribute_value(raw_value)
+            if value is None:
+                warnings.append(
+                    _warning(
+                        cue,
+                        slot,
+                        family,
+                        f"Unsupported numeric value: {raw_value}",
+                    )
+                )
+                continue
+            entry = None
+            for e in channel_map.entries:
+                norm = e.normalized_attribute.lower()
+                if "gobo" in norm and (
+                    "rot" in norm or "pos" in norm or "index" in norm
+                ):
+                    entry = e
+                    break
+            if entry is None:
+                warnings.append(
+                    _warning(
+                        cue, slot, family, "No gobo rotation/position channel found"
+                    )
+                )
+                continue
+            values.update(_channel_values(entry, value, channel_map))
             continue
 
         if family in NUMERIC_FAMILIES:
