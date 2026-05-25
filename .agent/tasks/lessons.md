@@ -176,6 +176,33 @@
 
 ---
 
+### 2026-05-26 — LD-to-Band Attribution Errors
+
+**Mistake:** Incorrectly mapped LDs to bands during rig breakdown research.
+
+**Root cause:** Wrote from general training-data memory without verifying against primary sources. Assumed Goedde used Unreal Engine for Pretty Lights (he lights Goose). Assumed Hoffman lit Greensky Bluegrass (he lights Widespread Panic — there is a different Paul Hoffman in Greensky).
+
+**Rule:** Never attribute an LD to a band based on memory alone. Always verify against a primary source (Live Design article, PLSN article, LD's own social media, tour credits). If no source is available, explicitly mark the attribution as unverified.
+
+**Specific corrections:**
+- Andrew Goedde → Goose (not Pretty Lights; does not use Unreal Engine)
+- Paul Hoffman → Widespread Panic (not Greensky Bluegrass — same name, different person)
+- Saxton Waller → STS9, Billy Strings (was correctly cited but needed specificity)
+- Ben Factor → Spafford, Umphrey's McGee (was correctly cited)
+- Chris Kuroda does NOT use timecode or Unreal Engine pre-viz (pure busker)
+
+---
+
+### 2026-05-26 — Never Write Rig Breakdowns Without Sources
+
+**Mistake:** Wrote 3 rig breakdowns (Phish 2015, UM Iceland 2022, UM 2014-2018) from general knowledge, then later discovered they contained significant errors when primary sources were found via Wayback Machine.
+
+**Root cause:** Published estimated fixture counts and models without source verification. The UM 2014-2018 doc assumed Elation/Chauvet budget fixtures; actual sources revealed Martin MAC III and MAC Viper (premium tier).
+
+**Rule:** Every rig breakdown must have a Sources and Confidence section. Distinguish clearly between VERIFIED (primary source article), HIGH confidence (multiple corroborating sources), MEDIUM confidence (industry knowledge of the era), and LOW confidence (estimate). Never present estimates as facts.
+
+---
+
 ## Review Checklist
 
 Before each session, check:

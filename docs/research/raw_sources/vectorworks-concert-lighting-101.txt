@@ -1,0 +1,102 @@
+Concert Lighting 101 — A Beginner’s Guide
+Industry Perspectives
+5 Keys for Lighting Concerts
+Lighting a concert is both an art and a science. It's about creating a visually stunning experience while ensuring that the audience remains focused on the performers.
+The Importance of Concert Lighting
+Concert lighting is crucial to concert production, transforming performances into immersive, emotionally resonant experiences. Concert lighting goes far beyond basic visibility; it adds character to a show, establishing atmosphere and amplifying the emotional intent of the performance.
+The strategic use of light directs audience attention, accentuates performers, and shapes the stage environment. Thoughtful lighting design can turn concerts into powerful experiences that linger long after the event concludes.
+Common Concert Lighting Elements
+Concert lighting is dynamic and incorporates a wide variety of lighting equipment and techniques. Some of the most common lighting elements include:
+Provide a broad, even spread of light across the stage, bathing performers and scenery in color or neutral tones. Wash lights are often used to create an overall mood and ensure visibility throughout the performance.
+Produce narrow, intense shafts of light that cut dramatically through haze or smoke, often used for high-impact effects during energetic songs.
+Deliver a focused, controllable beam that can highlight specific performers, props, or areas of the stage. These fixtures often support shutters and gobos for shaping and texturing light.
+Used to highlight lead performers or solo moments, drawing audience attention to a specific part of the stage.
+Provide dynamic beams, colors, and patterns that can sweep across the venue to match the energy of the music.
+Fill the stage with broad, even lighting to ensure visibility and create atmospheric backdrops. Color-changing lights can be used alongside floodlights, as well.
+Project custom shapes or textures with light to add visual interest and reinforce the concert’s theme.
+Deliver rapid flashes that enhance dramatic moments or intensify high-energy songs.
+Acts as both a visual centerpiece and a coordination point, requiring lighting to complement screen content without overwhelming it.
+Additional elements like flame jets, fog jets, confetti cannons, and low-flowing dry ice can work in tandem with your lighting to create unforgettable moments within a concert.
+5 Key Considerations for Concert Lighting
+1. Design with Your Performers in Mind
+First, remember that the audience is there to see the performers, not just a light show.
+Make sure that your performers are the focal point by saving aerial effects for specific moments. Also, don't shy away from using follow spots. They require practice to use effectively, but they ensure that the performers are always in the spotlight, literally.
+Image courtesy of Goedde Productions LLC and Abby Matthews.
+It’s also worth remembering that trusses are relatively inexpensive compared to the impact it can have on your show. By spreading out your fixtures, you can create a more dynamic and engaging visual experience.
+Similarly, using fewer fixtures at any given time can make your impactful moments stand out more. When the audience's eyes adjust to lower levels of light, even a slight increase can create a dramatic effect. Reserve the full power of your lighting rig for those peak moments to maximize their impact.
+Spreading out your lights and using fewer fixtures are just two examples of how simplicity can often lead to better designs. Even if you have an unlimited budget and plenty of truck space, creative thinking and a focus on your performers can set your design apart.
+Image courtesy of SRae Productions and Steve Jennings.
+Value Your Collaborators
+One of the best parts of working in the entertainment industry is the chance to work with experienced professionals and foster a sense of community.
+Be sure to pay attention to veteran designers and understand what makes their designs successful. Notice how they keep performers lit and how they communicate design elements and technical specifications to other team members.
+Image courtesy of Bryan Hartley and Jason McEachem.
+Beyond valuing industry veterans, you should also never underestimate your collaborators who are just starting out — that goes for crew members, production assistants, and even opening acts.
+Who’s to say where these young artists will be in 10 or 15 years? By offering yourself up as a kind, knowledgeable, and open-minded collaborator, you can build relationships that can lead to other exciting jobs down the line.
+Production design by Jesse Lee Stout and Sooner Rae
+Photography courtesy of Todd Moffses
+And lastly, take some time to talk with your vendors and support services about load-in and load-out efficiency. You should be cognizant of how your design impacts the efforts and efficiencies of everyone involved.
+Being quick on your feet is another essential part of concert lighting. If you’re the lighting designer on a tour, for example, you’ll need to be able to tweak your designs to accommodate different venues.
+Performing previsualizations (previz)
+with Vectorworks features like Showcase and programs like Vision before each show is a great way to account for new venues or setlists and ensure your design is firing on all cylinders. Arrive prepared for the first load-in, ensuring the rig goes up trouble-free, and you can start building cues immediately.
+If you’re working with bands that jam and improvise, like Goose (pictured below), you’ll also need to be flexible with your lights. We recommend practicing your “busking,” an improvisational approach to cueing, to accommodate performance variations or last-minute setlist changes.
+Image courtesy of Goedde Productions LLC and Abby Matthews.
+Always Consider Your Budget and Logistics
+“Managing Cost, Schedule, &amp; Space with Vectorworks Spotlight,”
+industry veteran Steve Lemon spoke on the importance of reducing friction on a tour or production.
+Such "friction" can be caused by anything that gets in the way of a good show. But for Lemon, the focus should be on three primary areas: cost, schedule, and space.
+The monetary budget is, of course, a top priority, and as a lighting designer, it’s your responsibility to make sure the tour stays within budget.
+Proper care and tracking of your equipment and fixtures, for example, can help eliminate the mistakes of gear and materials being left behind at a previous venue.
+Vectorworks Spotlight features like Data Visualization, Record Formats, and Equipment Lists are great ways to manage time and resources.
+Then, there's the management of time and resources. This includes travel logistics, managing work hours and equipment timetables, and ensuring that set-up and tear-down are handled safely and efficiently.
+Finally, there’s the matter of reducing friction when it comes to space. We already mentioned being able to adapt your designs to different venues, but it’s also important to consider things like truck space as well.
+If friction is reduced, your tour or show's cost, schedule, and space planning can work together better than ever before.
+Choose the Right Design Tool
+Last but not least, it’s important to choose the design tool that will help you harness your creative ideas, manage all your logistics, and communicate your entire project.
+Vectorworks Spotlight includes robust documentation capabilities, as well as extensive 3D modeling tools.
+These tools better accommodate free-form modeling techniques such as curves, angles, and soft surfaces that can be used for design exploration, as well as the creation of accurate and detailed models and drawings. Vectorworks can also be used to create stylized and/or photorealistic renderings. And because this is all done with the same model in the same application, Vectorworks makes the design process more efficient, giving you time to focus on refining your ideas.
+Spotlight isn’t the only tool to help you design without limits. Vectorworks offers a suite of entertainment solutions that provide you with tools you need to put on any kind of production. Vectorworks’ entertainment productions include:
+to create and produce shows and live events of any size and style.
+to gauge the performance of suspended rigging systems for live events.
+to design and plan the installation of A/V and other integrated systems.
+to previsualize, program, or cue your show on the console of your choice.
+VECTORWORKS FREE TRIAL
+Learn More About Concert Lighting
+If you’re interested in becoming a lighting designer, college courses and even webinars are a great way to dive deeper into the field and gain in-depth instruction. Universities offer extensive programs, and unions such as
+provide education and training that will help you learn more about the design discipline.
+Learning the tools for set design is as important as understanding the concepts that make an unforgettable production.
+Vectorworks University provides
+professional certifications
+, and even courses like
+"Vectorworks for Lighting Designers,”
+In “Vectorworks for Lighting Designers,” you’ll discover the basics of creating a light plot. During the design process, you’ll use Vectorworks Spotlight’s tools to correctly insert and focus lighting devices, allowing you to see an accurate representation of beams and angles. Putting on our electrician's hat, you’ll then add channel and DMX addressing. By the end of the class, you’ll have a full set of production documents, including light plots and sections, equipment counts, instrument schedules and hookups, and even rendered images.
+Captivating Concerts Designed with Vectorworks
+Lighting for Music Royalty
+Image courtesy of Nick Whitehouse, Illuminate Entertainment, Inc., and Ralph Larmann.
+Want to see Vectorworks in action?
+Check out how Nick Whitehouse of Illuminate Entertainment uses the software to light shows
+Justin Timberlake, Jay-Z, Coldplay, Beyoncé, and Britney Spears.
+Whitehouse comes from humble beginnings, starting at small venues to now lighting massive arenas like Madison Square Garden.
+“I'm there to interpret what artists want,” he said. “It's their show." Understanding a client's needs is the trickiest part of his work, so Whitehouse strives to match his lighting to an artist's unique style.
+Mau P’s “Baddest Behavior Tour”
+Image courtesy of Tommy Reerink, Clay Westcott, and Oliver Broegger.
+For Dutch DJ Mau P’s “Baddest Behavior” tour,
+Jack Fayad, Bas van Gelder, and Remco Teunissen collaborated on a daring, ever-evolving design, turning the tables on what a live EDM show can be.
+“For the tour, the whole idea was to bring back the rave or block party vibe within venues,” said Fayad, who serves as a production manager and creative director for Mau P.
+Perhaps the most interesting — or, at least, unique — venue of the U.S. leg of the “Baddest Behavior” tour was under the K Bridge in New York City. While offering a backdrop that perfectly fit the underground rave culture that inspired the show, Mau P’s performance was one of the first in the atypical venue.
+What made the NYC show special, according to Fayad, wasn’t the technical accomplishment, but rather the direct feedback from the audience to Mau P once the show started. “It was a good reminder of why we do this,” he said.
+Muse’s Post-Apocalyptic Masterpiece
+Production design by Jesse Lee Stout and Sooner Rae
+Photography courtesy of Todd Moffses
+To bring the story of their “Will Of The People” tour to life,
+world-renowned rock band Muse sought the help of Jesse Lee Stout, Sooner Routhier, Matt Geasey, and Bryan Seigel.
+In the middle of the album cycle, Stout brought in award-winning designer Sooner Routhier to help create the lighting and production design. Routhier created a rig that, according to her, “Feels like the skeletal nature of a post-apocalyptic, near-future world.”
+The rig design consisted of grids of lights that put the band in a deconstructed building, creating an industrial look and further building on the album’s narrative of chaos, disorder, and the promise of reconstruction.
+The lighting and scenic elements ideated by Stout, Routhier, and the band became the visual identity for the Fall 2022 tour and carried through the 2023 arena tour.
+Featured image courtesy of Goedde Productions LLC and Abby Matthews.
+Stay in the know with the latest insights
+Subscribers receive news, customer stories, success and learning tips, event information, and other important announcements from Vectorworks.
+Please provide a valid email address.
+By submitting this form, you agree that Vectorworks, Inc. and its authorized partners may contact you in regards to news, offers, and the use of our software, services, and platforms. Learn more about our privacy practices and your data on our
+Software for Education
+Vectorworks University
+© 2026 Vectorworks, Inc. All Rights Reserved. Vectorworks, Inc. is part of the Nemetschek Group.

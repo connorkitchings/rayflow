@@ -1,0 +1,720 @@
+1
+00:00:00,320 --> 00:00:05,920
+if you are interested in the new way of making 
+movements and all kinds of automated stuff in  
+
+2
+00:00:05,920 --> 00:00:11,920
+the GrandMA 3 console this tutorial is for 
+you we are going to dig into the phaser which  
+
+3
+00:00:11,920 --> 00:00:16,480
+is the new effect engine on the GrandMA it's 
+kind of different it's very different from the  
+
+4
+00:00:16,480 --> 00:00:21,600
+old one on the GrandMA 2 and on the GrandMA 1
+i think it has potential but i think the  
+
+5
+00:00:21,600 --> 00:00:27,520
+learning curve can be can be a little steep 
+so in this tutorial we're going to look at the  
+
+6
+00:00:27,520 --> 00:00:32,480
+the new phaser and try to load some predefined 
+effects and if you have been looking at the  
+
+7
+00:00:32,480 --> 00:00:38,720
+console and have been trying out the software you 
+will find that there's no predefined effects there  
+
+8
+00:00:38,720 --> 00:00:45,360
+you have to load them from a macro and we haven't 
+touched macro in this tutorial series yet so we  
+
+9
+00:00:45,360 --> 00:00:50,400
+are going to do that in this one by loading a 
+predefined macro which can load some predefined  
+
+10
+00:00:50,400 --> 00:00:55,680
+phase effects it sounds a little bit complicated 
+but it's really not so if you want to learn more  
+
+11
+00:00:55,680 --> 00:01:00,320
+watch the video all the way to the end and i 
+will show you some some cool effects as you  
+
+12
+00:01:00,320 --> 00:01:05,840
+can see here i just prepared a new view 
+i inserted a macro view down here and i  
+
+13
+00:01:05,840 --> 00:01:10,880
+inserted an old preset here if you don't know how 
+to find the old preset you can i'll just show you  
+
+14
+00:01:10,880 --> 00:01:17,280
+here click on the empty space here go into presets 
+and select the first one of the all presets  
+
+15
+00:01:18,400 --> 00:01:24,960
+down here same thing you go into the pools 
+and you find the macro pool you select it and  
+
+16
+00:01:24,960 --> 00:01:29,680
+it's going to open the macros i mean you can do 
+this in any way you want and remember if you want  
+
+17
+00:01:29,680 --> 00:01:36,720
+to change the view so where you can get more room 
+on your computer go into i'll just show you here  
+
+18
+00:01:36,720 --> 00:01:41,840
+go into the icon up here go into configure display 
+and this is going to show you this one here  
+
+19
+00:01:42,400 --> 00:01:48,560
+and you can set the scale if you right click 0.075 
+and that's going to give you a lot more room to  
+
+20
+00:01:48,560 --> 00:01:54,480
+work with but for the sake of people watching 
+on smaller devices i'm just going to stay at  
+
+21
+00:01:54,480 --> 00:02:01,040
+one here so we have our macros down here and 
+we have our old preset here what we need to do  
+
+22
+00:02:01,040 --> 00:02:05,760
+is create a macro and if you haven't worked 
+with macros before we're going to get into  
+
+23
+00:02:05,760 --> 00:02:12,160
+that that's in another world basically macros 
+there is many many macros being built that can  
+
+24
+00:02:12,160 --> 00:02:18,480
+do amazing things on the GrandMA  2 and on the 
+GrandMA  3 as well macros is really really cool  
+
+25
+00:02:19,040 --> 00:02:23,120
+but for now i'm just going to show you a simple 
+little thing so if you go down here and you right  
+
+26
+00:02:23,120 --> 00:02:30,080
+click it's going to open and say new macro line 
+and you can go into import if you click import  
+
+27
+00:02:30,080 --> 00:02:38,240
+you can search for phaser like this and you have 
+a macro which is called import predefined phaser  
+
+28
+00:02:38,240 --> 00:02:44,160
+if you click that one and say import and you just 
+close the window down it's going to create a new  
+
+29
+00:02:44,160 --> 00:02:51,520
+macro for you here the only thing you have to do 
+now is to click it when you click it it's gonna  
+
+30
+00:02:51,520 --> 00:02:58,640
+populate the all preset with a bunch of macros 
+there is i don't know how many 22 macros and  
+
+31
+00:02:58,640 --> 00:03:03,440
+i believe this is going to grow over time and 
+i'm sure that ma is going to find a different  
+
+32
+00:03:03,440 --> 00:03:09,600
+way of doing this when the software updates 
+at the at a later point but this is your 
+
+33
+00:03:09,600 --> 00:03:15,280
+all preset and this is your predefined effects 
+and by the way if you like this video or get  
+
+34
+00:03:15,280 --> 00:03:20,560
+any value out of it please consider liking the 
+video and maybe even subscribing to the channel  
+
+35
+00:03:20,560 --> 00:03:26,720
+that way you're going to get a notification every 
+time we upload a new video right now i have my  
+
+36
+00:03:27,280 --> 00:03:32,800
+vipers on right here in cue 1 we built that in a 
+previous episode and what you need to do here  
+
+37
+00:03:32,800 --> 00:03:38,320
+is you can select your vipers and you can press 
+one of the effects and it's going to start to do  
+
+38
+00:03:38,320 --> 00:03:44,480
+something and there's a lot of different things 
+here the first ones are dimmer dimmer effects  
+
+39
+00:03:45,520 --> 00:03:51,600
+and they can do different things with the 
+different dimmer curves you can have some maybe  
+
+40
+00:03:51,600 --> 00:03:57,440
+if we clear this one you can probably take some 
+color effects as well where it goes from white to  
+
+41
+00:03:57,440 --> 00:04:01,680
+red and the same here blue to white and 
+green to white and you can you can when  
+
+42
+00:04:01,680 --> 00:04:06,320
+we get further in this tutorial series i'm going 
+to show you how to build the effects on your own  
+
+43
+00:04:06,320 --> 00:04:11,280
+but right now if you want to do something then you 
+can start by working with the predefined effects  
+
+44
+00:04:12,160 --> 00:04:16,720
+if you can go further than this and say we 
+had some color presets we can do some
+
+45
+00:04:17,520 --> 00:04:22,400
+if we select the vipers we can do some tilt 
+we can probably add some pen to it as well  
+
+46
+00:04:23,120 --> 00:04:30,400
+and it's gonna move real slow and then we 
+can adjust the speed and the size and everything  
+
+47
+00:04:30,400 --> 00:04:38,080
+after that there's a few other things here some 
+slow fly outs i haven't used this one ever so  
+
+48
+00:04:38,080 --> 00:04:45,120
+let's see if it works yeah it's a it's actually 
+a fly-in right now uh but that's the way you can  
+
+49
+00:04:45,120 --> 00:04:51,440
+load predefined effects and then you can save them 
+and modify them and and do whatever so let's try  
+
+50
+00:04:51,440 --> 00:04:57,360
+modifying an effect so if we clear here once again 
+and let's say okay we want to build a tilt effect  
+
+51
+00:04:57,360 --> 00:05:05,120
+and we want to build a pan effect for instance 
+we go up into all our vipers here we press the  
+
+52
+00:05:05,120 --> 00:05:11,360
+tilt effect and it starts to work right now it's 
+doing everything at the same time there's no  
+
+53
+00:05:12,320 --> 00:05:18,160
+phase in between them there's no randomization 
+or anything but what you can do is go down to  
+
+54
+00:05:18,720 --> 00:05:24,960
+all these buttons down here and choose face and 
+this is only the tilt parameter working right now  
+
+55
+00:05:24,960 --> 00:05:30,880
+so if you press the tilt parameter and you are 
+under the phaser menu it's going to ask you what you  
+
+56
+00:05:30,880 --> 00:05:40,160
+need to what you want to do what we could do was 
+to put on a zero through 360 on it and it's gonna  
+
+57
+00:05:40,160 --> 00:05:45,760
+spread out the pan effect oh sorry 
+the tilt effect from 0 to 360.  
+
+58
+00:05:46,480 --> 00:05:52,720
+and you can basically do this again and say 
+okay i want it to be the other way around it's  
+
+59
+00:05:52,720 --> 00:05:57,120
+going to move the other way and there's a lot of 
+different things you can do in here you can even  
+
+60
+00:05:57,840 --> 00:06:06,560
+say 0 through 360 through 0 and then it's going 
+to do something like this so there's a lot of  
+
+61
+00:06:06,560 --> 00:06:11,600
+options in here and it's really cool to work with 
+but it needs if you haven't worked with GrandMA 
+
+62
+00:06:11,600 --> 00:06:19,120
+may before it's the learning curve is pretty steep 
+but let's try something different here so now  
+
+63
+00:06:19,120 --> 00:06:24,960
+we have our effect moving we want to save it in a 
+sequence i just closed down all the sequences down  
+
+64
+00:06:24,960 --> 00:06:29,440
+here because we needed the room for the macros we 
+can close the macro window down again because we  
+
+65
+00:06:29,440 --> 00:06:35,360
+don't need it anymore then we can click this one 
+and choose our sequences again and say i deleted  
+
+66
+00:06:35,360 --> 00:06:41,440
+the rest of the sequences we only have this master 
+cue list right now so right now we have all our  
+
+67
+00:06:41,440 --> 00:06:47,520
+vipers we are only working with one parameter 
+which is the tilt we could save that on a fader  
+
+68
+00:06:47,520 --> 00:06:57,040
+so let's do that we say store and we put it on 
+this one number 202 so if we clear here we have  
+
+69
+00:06:58,320 --> 00:07:06,480
+our effect running on the sequence number two 
+right now what we could do say it's very slow  
+
+70
+00:07:06,480 --> 00:07:12,720
+right now so i would like to make it move faster 
+so if you go into the sequence number two up here  
+
+71
+00:07:12,720 --> 00:07:19,040
+and you right click it i just need to open the 
+right window here sorry there we go if we right  
+
+72
+00:07:19,040 --> 00:07:27,680
+click hello where are you there you are and then 
+we go into the settings and we can start playing  
+
+73
+00:07:27,680 --> 00:07:34,320
+with some some speed options in here right now we 
+don't have a speed master on it so let's do that  
+
+74
+00:07:34,320 --> 00:07:41,840
+let's start by defining a speed master for the 
+movement so if we go down into this one called 110  
+
+75
+00:07:41,840 --> 00:07:47,360
+and we right click on this one it's there's 
+nothing in it but we can basically define a  
+
+76
+00:07:47,360 --> 00:07:53,760
+special master to control our movement speed 
+so if we go down to the master section here  
+
+77
+00:07:54,480 --> 00:08:00,480
+and then we go into speed number one for instance 
+and we close it down you can see now there's a  
+
+78
+00:08:00,480 --> 00:08:06,160
+fader here but it doesn't do anything there's 
+no movement no change in the speed whatsoever  
+
+79
+00:08:06,720 --> 00:08:13,680
+so if we go up to the sequence again here and we 
+go into the settings of the sequence we can choose  
+
+80
+00:08:13,680 --> 00:08:20,080
+speed master down here and here we can choose 
+speed number one if we close this one down now  
+
+81
+00:08:20,640 --> 00:08:26,080
+and we take this one all the way down you see 
+the effect stops if we take it all the way up  
+
+82
+00:08:26,720 --> 00:08:33,840
+the effects is much faster if this not is not fast 
+enough for you you can do something in here you  
+
+83
+00:08:33,840 --> 00:08:40,560
+can go into sequence number two you can go into 
+edit settings under speed master just below that  
+
+84
+00:08:40,560 --> 00:08:46,400
+one there's a speed scale you can click the speed 
+scale and multiply it by two if you right click  
+
+85
+00:08:46,400 --> 00:08:51,520
+you can see all the different options you have in 
+here this one is the first one we had before this  
+
+86
+00:08:51,520 --> 00:08:57,520
+is one to one basically if you right click it you 
+can divide the speed by four then it moves a lot  
+
+87
+00:08:57,520 --> 00:09:05,680
+slower and the handle here reacts to the division 
+you made here again you can say i want to multiply  
+
+88
+00:09:05,680 --> 00:09:11,920
+it by two so it moves fast like this and now this 
+is the fastest it's going to move then you can  
+
+89
+00:09:11,920 --> 00:09:19,600
+take the speed down like this and make it move 
+real slow so that's very very simple phaser in  
+
+90
+00:09:19,600 --> 00:09:24,960
+a movement phaser let's build another one and 
+say now this is our movement phaser let's name it  
+
+91
+00:09:26,160 --> 00:09:36,640
+right here we can use our swipey and say label 
+and we say tilt effect like this let's build a  
+
+92
+00:09:37,840 --> 00:09:42,320
+color effect of some sort or maybe a dimmer 
+effect let's take all our vipers again  
+
+93
+00:09:42,880 --> 00:09:49,440
+and let's see if we can find something fun here we 
+have a sinus dimmer curve so if we push that one  
+
+94
+00:09:49,440 --> 00:09:55,200
+it's going to slowly start to pulsate like this 
+in a sinus curve once again we go down to face  
+
+95
+00:09:55,840 --> 00:10:04,560
+we go into our demo which is the active parameter 
+right now and we say 0 through -360 for instance  
+
+96
+00:10:05,120 --> 00:10:12,160
+then it starts to move like this then we can say 
+okay this effect is now the way we want it we can  
+
+97
+00:10:12,160 --> 00:10:17,680
+set the speed if we want we can say it's at 60 
+beats per minute right now you can turn it up you  
+
+98
+00:10:17,680 --> 00:10:24,560
+can turn it down that's all up to you but let's 
+say okay this is what we want so we can once again  
+
+99
+00:10:24,560 --> 00:10:36,160
+say oh sorry we need to store and we can put it 
+maybe here and we can rename it to to sinus effect
+
+100
+00:10:38,880 --> 00:10:43,040
+there we go and now we have a speedmaster for 
+our movement down here but we don't have a  
+
+101
+00:10:43,040 --> 00:10:48,960
+speedmaster for our dimmer let's just start 
+by renaming this one the speed number one  
+
+102
+00:10:48,960 --> 00:10:55,200
+if we go into speed number one and we go into edit 
+settings it's called speed one we can call it move  
+
+103
+00:10:55,920 --> 00:11:02,800
+speed and now we can identify what is what 
+let's build the next one and say on this one  
+
+104
+00:11:03,760 --> 00:11:10,240
+we need to right click on this one we go into 
+our handle and sorry we're going to our object  
+
+105
+00:11:10,240 --> 00:11:15,600
+we choose our master and you can see we changed 
+the speed one to move speed let's select number  
+
+106
+00:11:15,600 --> 00:11:23,360
+two close this one down go into it again 
+and say we need this to be dimmer speed  
+
+107
+00:11:24,640 --> 00:11:29,600
+there we go and right now we have stored 
+our effect over here let's just clear  
+
+108
+00:11:30,400 --> 00:11:35,520
+we have stored our effect right here on our sinus 
+effect if we take this one up it's going to start  
+
+109
+00:11:35,520 --> 00:11:41,840
+but right now we have no control over the speed 
+at all so we need to go into the sinus effect here  
+
+110
+00:11:42,720 --> 00:11:48,000
+and we need to go into the settings we need 
+to go into the speedmaster and we need to  
+
+111
+00:11:48,000 --> 00:11:54,560
+select dimmer speed so now we should be 
+able to control the dimmer speed here the  
+
+112
+00:11:54,560 --> 00:12:00,880
+way we want it and again if you want to change the 
+multiplication if you want to make sure that it's  
+
+113
+00:12:01,440 --> 00:12:07,040
+the the the right scale or whatever you want 
+to call it you can go into your settings again  
+
+114
+00:12:07,040 --> 00:12:12,880
+and you can set your speed scale down here 
+if you want to so this is a very very basic  
+
+115
+00:12:14,000 --> 00:12:19,840
+tilt effect this is a very basic sinus effect 
+let's end this with a small color effect  
+
+116
+00:12:20,960 --> 00:12:26,000
+we can just take this one down and it's once again 
+it's open let me show you another way of doing it  
+
+117
+00:12:26,800 --> 00:12:31,920
+right now we have our predefined effects here we 
+can build our own which is actually quite easy  
+
+118
+00:12:32,480 --> 00:12:39,600
+let's select all our wipers let's go down to 
+color let's go to this one down here which is  
+
+119
+00:12:39,600 --> 00:12:46,000
+number one if we write sorry we need to do 
+something here we need to choose a color let's say  
+
+120
+00:12:46,000 --> 00:12:52,800
+white then we can oh we need to right now i just 
+selected one parameter this is kind of annoying  
+
+121
+00:12:52,800 --> 00:12:57,920
+that it always does that but it's it's actually 
+quite beneficial in in other areas we have to  
+
+122
+00:12:57,920 --> 00:13:02,800
+check this one feature which is the entire handle 
+right here otherwise it's only going to touch the  
+
+123
+00:13:03,680 --> 00:13:07,760
+the green right here so once again we do 
+this and go into white and then selected  
+
+124
+00:13:07,760 --> 00:13:14,000
+all three of them let's go to step number 
+two and select maybe a let's just do a blue  
+
+125
+00:13:14,880 --> 00:13:22,640
+and now it starts to work between white and blue 
+we can just briefly go into phaser here which is  
+
+126
+00:13:22,640 --> 00:13:26,960
+our facer window which we're going to touch 
+in another episode which which is where you  
+
+127
+00:13:26,960 --> 00:13:33,120
+can really customize your effects right now 
+we just need to change our demo curve or our  
+
+128
+00:13:33,840 --> 00:13:39,840
+transition from one to the other if we go down to 
+this small icon down here and you press it you can  
+
+129
+00:13:39,840 --> 00:13:46,320
+see you have a sinus curve here you have like a 
+sawtooth here or i don't know this one is what  
+
+130
+00:13:46,320 --> 00:13:52,320
+was called a pvm in the GrandMA 2 if you 
+press this one it's not gonna fade it's it's gonna  
+
+131
+00:13:52,320 --> 00:13:57,440
+go on or off if you choose this one 
+you can see here it fades between them  
+
+132
+00:13:58,160 --> 00:14:05,360
+if you choose this one it snaps between them so 
+now we have this one white blue and then we could  
+
+133
+00:14:05,360 --> 00:14:13,680
+go into our face here again and we can offset it 
+zero through 360 and it's gonna do it like this  
+
+134
+00:14:13,680 --> 00:14:19,840
+and do it with the base color as well so this 
+is another way of doing an effect this is once  
+
+135
+00:14:19,840 --> 00:14:24,400
+again because we only have the green parameter 
+then it's going to do this weird stuff here
+
+136
+00:14:27,520 --> 00:14:34,960
+so if we go into feature again and we offset it 
+they're going to follow along all of them so be  
+
+137
+00:14:34,960 --> 00:14:40,960
+aware of this link phaser it it's been bugging 
+me a few times it's really annoying that it's  
+
+138
+00:14:40,960 --> 00:14:47,680
+not always set to the value where you want 
+it but when you need to split it up between  
+
+139
+00:14:47,680 --> 00:14:53,360
+different values in pan and till for instance and 
+even in color as well it's quite useful so just  
+
+140
+00:14:53,360 --> 00:14:59,120
+be aware if it does funny stuff that might 
+be why i hope you enjoyed this tutorial and  
+
+141
+00:14:59,120 --> 00:15:03,680
+please check out one of the other videos linked on 
+the screen right now and we'll be back next week  
+
+142
+00:15:03,680 --> 00:15:09,920
+with another tutorial on GrandMA 3 and GrandMA  3
+programming if you haven't liked the video please  
+
+143
+00:15:09,920 --> 00:15:16,000
+do so and if you want to check out another video 
+from us and maybe even subscribe to the channel  
+
+144
+00:15:16,720 --> 00:15:24,640
+you are more than welcome to do so but 
+thank you and see you next time bye bye
+

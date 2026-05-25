@@ -1,0 +1,359 @@
+1
+00:00:00,160 --> 00:00:07,440
+in today's tutorial we're gonna turn this 
+3d view into this 3d view there is a few  
+
+2
+00:00:07,440 --> 00:00:12,560
+different ways we can do this in this tutorial 
+i'm just going to do the basics which is doing  
+
+3
+00:00:12,560 --> 00:00:19,920
+a 3d view on the GrandMA 3 on pc itself you 
+can network two computers if you need more real  
+
+4
+00:00:19,920 --> 00:00:26,240
+estate to program on one computer and see your 
+3d view and another one or you can network a  
+
+5
+00:00:26,240 --> 00:00:33,760
+real GrandMA 3 console to a computer and that way 
+you can use the second computer as a visualizer  
+
+6
+00:00:33,760 --> 00:00:38,640
+in this tutorial we are just going to do it on 
+the on pc version itself in a later tutorial i  
+
+7
+00:00:38,640 --> 00:00:43,360
+will explain all the networking possibilities 
+you have on the GrandMA 3 console if you feel  
+
+8
+00:00:43,360 --> 00:00:47,520
+like something is missing or there's something 
+you need to know please leave a comment below  
+
+9
+00:00:47,520 --> 00:00:50,880
+in the comment section and i will 
+try to explain it as good as i can  
+
+10
+00:00:52,080 --> 00:00:57,040
+so here we are i started a small sequence now 
+so we can see what we're doing i added a gobo to  
+
+11
+00:00:57,040 --> 00:01:03,520
+the vipers and i just turned on the the macaroons 
+here in blue and then all my dimmers just pointing  
+
+12
+00:01:03,520 --> 00:01:09,120
+up in the air so right now we're going to play 
+with the quality of the rendering right now the  
+
+13
+00:01:09,120 --> 00:01:14,000
+rendering is pretty much standard that means this 
+is the rendering you're gonna see on the console  
+
+14
+00:01:14,880 --> 00:01:21,600
+if you if you use a console you can't set the the 
+quality as high as we're gonna do now because the  
+
+15
+00:01:21,600 --> 00:01:26,960
+console is gonna use too many resources on it so 
+if you want the high quality and you're working on  
+
+16
+00:01:26,960 --> 00:01:33,280
+a real GrandMA 3 console you have to attach 
+a computer to the console to make sure that  
+
+17
+00:01:33,280 --> 00:01:38,000
+you can do your rendering there and and the 
+computer can prioritize the rendering and the  
+
+18
+00:01:38,560 --> 00:01:44,080
+console can prioritize what it's supposed to do 
+well let's start up let's go up here into the  
+
+19
+00:01:44,080 --> 00:01:49,840
+MA button up here and push it and here we have 
+all the settings for the for the 3d view itself  
+
+20
+00:01:50,400 --> 00:01:54,160
+we have some beam options when you 
+turn up and down the beam options the  
+
+21
+00:01:54,160 --> 00:01:59,120
+beams are getting brighter and if you turn it all 
+the way down they're just going to disappear and  
+
+22
+00:01:59,120 --> 00:02:03,360
+you can only see the footprint the same with 
+the spot you can turn the spot down this is  
+
+23
+00:02:03,360 --> 00:02:08,320
+the footprint on the floor you can turn it up you 
+can turn it down depending on what you want to do  
+
+24
+00:02:08,320 --> 00:02:13,520
+i'm just going to keep these two at about a 
+hundred percent but if you have some special need  
+
+25
+00:02:13,520 --> 00:02:19,440
+you can just put it up or down so it fits your 
+need the ambient light is the light in the room in  
+
+26
+00:02:19,440 --> 00:02:25,280
+here you can turn the ambient light down it gets 
+darker in the room and if you do the point light  
+
+27
+00:02:25,280 --> 00:02:31,280
+as well it's going to be black i need a little 
+bit of ambient light in here otherwise we can't  
+
+28
+00:02:31,920 --> 00:02:39,040
+we can't see the surroundings now here we have 
+beam quality if you push this one uh you will  
+
+29
+00:02:39,040 --> 00:02:45,200
+have a lot of different options if you right click 
+you can see all the different options you have  
+
+30
+00:02:45,200 --> 00:02:51,760
+so right now we're just gonna set it to the 
+highest options we can so high shadow fancy is the  
+
+31
+00:02:51,760 --> 00:02:56,480
+one we selected right now the spot quality down 
+here if you right click again you can see we use  
+
+32
+00:02:56,480 --> 00:03:04,400
+gobo and the bloom incentive is set to on right 
+now this is already helping a lot on the quality  
+
+33
+00:03:05,600 --> 00:03:11,760
+if we go into the miscellaneous tab we can see 
+right now that we can't see any frames per second  
+
+34
+00:03:11,760 --> 00:03:17,680
+this is important if your computer is not so 
+powerful then you can see how much you're pushing  
+
+35
+00:03:17,680 --> 00:03:23,920
+it the lower the frame rate goes my screen 
+is only a 60 hertz screen so it can't go any  
+
+36
+00:03:23,920 --> 00:03:31,200
+higher but it's it's around 60 frames per second 
+which is which is fine you can turn on wireframe  
+
+37
+00:03:31,200 --> 00:03:37,840
+if you want to make it really simple this is how 
+it looked on the GrandMA 2 on the console itself  
+
+38
+00:03:37,840 --> 00:03:44,000
+but what we need to do especially if you attach a 
+computer to the console itself you can set the 3d  
+
+39
+00:03:44,000 --> 00:03:50,960
+priority if you set the 3d priority to the console 
+if you turn that on the console is going to use up  
+
+40
+00:03:50,960 --> 00:03:57,440
+all its energy on rendering the view here and 
+not on what it's supposed to do calculating all  
+
+41
+00:03:57,440 --> 00:04:04,160
+the dmx values but since we are on a on pc right 
+now we can just turn on the 3d priority like this  
+
+42
+00:04:04,160 --> 00:04:08,640
+and it's going to ask you are you sure you 
+want to enable 3d priority and we just say yes  
+
+43
+00:04:08,640 --> 00:04:15,520
+so right now if we are in a network and we have 
+multiple consoles and multiple ma computers  
+
+44
+00:04:16,240 --> 00:04:20,480
+running the same software we can set one of 
+them or two of them or whatever you want to do  
+
+45
+00:04:21,040 --> 00:04:27,280
+to have the 3d priority so it's going to do the 
+calculation and and leave the heavy lifting of the  
+
+46
+00:04:27,280 --> 00:04:34,560
+dmx calculation to the to the console in 
+here we have some other options lens shading  
+
+47
+00:04:35,120 --> 00:04:41,600
+we can turn that on and we have some 
+separated beams here and again if you  
+
+48
+00:04:41,600 --> 00:04:46,400
+right click you can see all the options you 
+have and we say single beam dynamic gobo
+
+49
+00:04:49,680 --> 00:04:54,800
+we can move into label a label i showed you in 
+the last episode and if you missed that one by  
+
+50
+00:04:54,800 --> 00:05:00,560
+the way how to set up your 3d view view how to 
+position all your fixtures in the 3d universe  
+
+51
+00:05:01,200 --> 00:05:07,360
+check out episode four i'm gonna link to the 
+episode right up in the top hand corner and by the  
+
+52
+00:05:07,360 --> 00:05:12,800
+end of the video i'm gonna link to the playlist so 
+you can see all the GrandMA 3 tutorial videos  
+
+53
+00:05:13,760 --> 00:05:19,520
+in here we have some labels we can put a label 
+on the body if we want to know which fixtures are  
+
+54
+00:05:19,520 --> 00:05:25,680
+where and then we can see okay what do we want to 
+see right now right now we see the fixture handle  
+
+55
+00:05:25,680 --> 00:05:31,280
+we can turn on the the cid which doesn't have 
+any right now we can turn on the patch to see  
+
+56
+00:05:31,280 --> 00:05:37,120
+where are they patched the different spots and if 
+they have a name if you named them right you can  
+
+57
+00:05:37,120 --> 00:05:43,920
+see the name as well and you can turn on all of 
+them and then you can't see anything so basically  
+
+58
+00:05:43,920 --> 00:05:49,280
+i just need to fix your id when i work with it 
+but in the 3d view i don't want to see the label  
+
+59
+00:05:50,160 --> 00:05:55,440
+right here you have the we'll just turn it on 
+again the background alpha you can turn that down  
+
+60
+00:05:55,440 --> 00:05:59,200
+and that means the the the label gets transparent  
+
+61
+00:05:59,840 --> 00:06:03,440
+and if you do the other one the text 
+itself is going to be transparent  
+
+62
+00:06:05,440 --> 00:06:10,560
+into the quality tab again you have some different 
+options if you can if you take this up or down  
+
+63
+00:06:10,560 --> 00:06:15,680
+you take this all the way down you can see the 
+the resolution on the footprint is going to be  
+
+64
+00:06:15,680 --> 00:06:20,640
+distorted if you take it all the way up to 100 
+again it's going to be much more sharp and it's  
+
+65
+00:06:20,640 --> 00:06:26,960
+going to use more resources to render that view 
+the light scale i don't really see any difference  
+
+66
+00:06:26,960 --> 00:06:31,520
+but if you uh maybe there's a difference in 
+the footprint yeah there is there's a small  
+
+67
+00:06:31,520 --> 00:06:36,320
+difference in the footprint you see it's it's 
+once again it's out of focus it's more distorted
+
+68
+00:06:38,400 --> 00:06:43,840
+and the same here how many pixels you're going 
+to use in the shadows i don't see much of a  
+
+69
+00:06:43,840 --> 00:06:50,400
+difference right here so this is basically how you 
+set up your 3d view and turn up the quality of the  
+
+70
+00:06:50,400 --> 00:06:56,320
+view itself if you find it interesting please give 
+the video a like and otherwise you can check out  
+
+71
+00:06:56,320 --> 00:07:02,240
+the next video it's on the playlist right here 
+in the top or the next video down in the bottom  
+
+72
+00:07:02,880 --> 00:07:11,040
+thank you for watching and i hope to see 
+you next time on my channel thank you bye
+

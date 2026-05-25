@@ -1,0 +1,486 @@
+1
+00:00:00,400 --> 00:00:05,840
+in this tutorial we're going to take a deeper 
+dive into macros in the last episode we built  
+
+2
+00:00:05,840 --> 00:00:11,680
+some predefined macros on the GrandMA 3 in this 
+tutorial we're going to go deeper and we're going  
+
+3
+00:00:11,680 --> 00:00:15,920
+to start writing our own macros i'm going to 
+show you where you find your inspiration to what  
+
+4
+00:00:15,920 --> 00:00:22,000
+to write if you haven't been working with macros 
+at any time so what we're going to build is this  
+
+5
+00:00:22,000 --> 00:00:28,080
+we have all our vipers up here if i turn 
+them on you can see it's only one cue  
+
+6
+00:00:29,040 --> 00:00:35,440
+and it it's just all the vipers on in a certain 
+position but if i push this button here you can  
+
+7
+00:00:35,440 --> 00:00:42,320
+see it creates two or sorry three extra cues here 
+with three different effects on it so if i push  
+
+8
+00:00:42,880 --> 00:00:48,960
+my go button now you can see effect number one 
+effect number two and effect number three and  
+
+9
+00:00:48,960 --> 00:00:58,160
+then it goes back to the first cue i can select 
+another sequence up here i can turn them on that's  
+
+10
+00:00:58,160 --> 00:01:03,840
+all our auras turn the vipers off i can push 
+the button and it does the exact same thing  
+
+11
+00:01:05,120 --> 00:01:11,440
+one effect two effect three effect and 
+nothing so this is what we're gonna build so  
+
+12
+00:01:12,080 --> 00:01:17,440
+hang tight and welcome to the channel if you 
+haven't been here before the first thing we need  
+
+13
+00:01:17,440 --> 00:01:25,600
+to do we select all our vipers again and we open 
+a new macro here and we go into the command line  
+
+14
+00:01:25,600 --> 00:01:30,960
+or the edit we need to create a new command 
+line but we have no idea what to write if  
+
+15
+00:01:30,960 --> 00:01:36,160
+we haven't worked with macros before so 
+here's a few tips on how to how to do that  
+
+16
+00:01:36,160 --> 00:01:43,040
+so let's just close this one down again and say 
+okay what do we want to do we need to take all  
+
+17
+00:01:43,040 --> 00:01:51,200
+our moving lights all our vipers and put them into 
+this position this is going to start a an effect  
+
+18
+00:01:51,840 --> 00:01:58,080
+and this is what we want to do we just want to 
+do it on a macro so let's clear this one out and  
+
+19
+00:01:58,080 --> 00:02:05,280
+say okay we close all them all the auras down 
+take all the vipers up again and say all right
+
+20
+00:02:07,520 --> 00:02:11,680
+we push all our vipers and how 
+can we make a macro that does that  
+
+21
+00:02:12,240 --> 00:02:16,800
+we go into our m a down here and 
+it's gonna tell you what it did  
+
+22
+00:02:16,800 --> 00:02:24,000
+all the last commands so the last command was cell 
+fix group number one but we don't want a selfix  
+
+23
+00:02:24,000 --> 00:02:30,320
+group number one because group number one is all 
+our vipers so basically we just needed to selfix
+
+24
+00:02:31,120 --> 00:02:37,200
+or select all our fixtures in a sequence 
+GrandMA 3 is so cool that if you have  
+
+25
+00:02:38,000 --> 00:02:44,800
+a sequence selected you can simply put selfix down 
+here and if we just turn off our shortcuts and say  
+
+26
+00:02:45,680 --> 00:02:52,240
+selfix select all fixtures it selects 
+everything that's inside the selected  
+
+27
+00:02:53,120 --> 00:02:58,880
+sequence so this is what we need to write 
+in our macro so let's just clear out here go  
+
+28
+00:02:58,880 --> 00:03:05,840
+into our macro go into edit and say insert 
+new macro line right click and say  
+
+29
+00:03:06,400 --> 00:03:14,320
+selfix there we go let's just go out here and see 
+if it worked so we run our macro and it selected  
+
+30
+00:03:14,320 --> 00:03:21,520
+everything that's in this sequence which is all 
+our vipers so now what do we need the vipers to do  
+
+31
+00:03:21,520 --> 00:03:27,760
+we need to go into this effect down here which is 
+in our all preset and if you can see the number 21  
+
+32
+00:03:27,760 --> 00:03:34,720
+here and if you can see the number two here on our 
+position 3 on gobo 6 on focus if we press this one  
+
+33
+00:03:35,360 --> 00:03:42,960
+and we go into our ma thing down here again you 
+can say it's selfix it and it went to add  
+
+34
+00:03:42,960 --> 00:03:52,560
+preset 21.1 and 21.1 is 21 as the preset pool if 
+you weigh and then number one is the first effect  
+
+35
+00:03:53,120 --> 00:04:00,320
+so basically we clear out here and we go into 
+our macro again and we say we just selfix  
+
+36
+00:04:00,320 --> 00:04:07,840
+all our moving lights if we insert a new 
+command line here and we say at preset  
+
+37
+00:04:08,640 --> 00:04:17,520
+21.1 and let's see what the console is doing 
+now so we clear out and we say run the macro  
+
+38
+00:04:18,640 --> 00:04:25,280
+you can see it selected the vipers and it 
+put it into 21.1 which is our dimmer sinus  
+
+39
+00:04:26,000 --> 00:04:31,040
+so basically now we have everything 
+in our macro to activate the  
+
+40
+00:04:31,920 --> 00:04:36,800
+effect so now we need to store it and and that 
+is really really easy because you basically  
+
+41
+00:04:36,800 --> 00:04:44,640
+just write out what you needed to do so insert a 
+new line go into it and say okay we store cue 2 
+
+42
+00:04:46,640 --> 00:04:52,800
+and we need to add a dash and an o which means 
+that it overrides the cue if there's a cue  
+
+43
+00:04:52,800 --> 00:04:57,920
+there already right now there's no cue 
+so it's going to work without the o but if  
+
+44
+00:04:57,920 --> 00:05:03,680
+the if the cue already exists it's actually 
+going to stop and ask you what you need to do  
+
+45
+00:05:04,400 --> 00:05:09,200
+if you want a merge if you want to insert or 
+if you want to override or whatever so that's  
+
+46
+00:05:09,200 --> 00:05:15,200
+why we put the dash and the o in and you can also 
+say dash m which is merge and that's i i think  
+
+47
+00:05:15,200 --> 00:05:21,920
+for insert and all the other you can say remove as 
+well so basically this is gonna store cue number  
+
+48
+00:05:21,920 --> 00:05:28,400
+two and override whatever is in it in the first 
+place so let's see if it works we run the macro  
+
+49
+00:05:29,840 --> 00:05:36,080
+there we go and it actually now has the dimmer 
+sinus as i can see i activated the macro when  
+
+50
+00:05:36,080 --> 00:05:42,160
+i built this tutorial so let's just delete 
+cue 2 through 4 that's another macro i have  
+
+51
+00:05:42,160 --> 00:05:48,960
+there we go so we clear it again and 
+we run the macro and it built the  
+
+52
+00:05:48,960 --> 00:05:55,440
+cue number 2 as we wanted to and there we 
+go so now we go into the macro again and say okay  
+
+53
+00:05:56,160 --> 00:05:59,360
+it start cue number 2 but 
+it's called it dimmer sinus  
+
+54
+00:06:00,400 --> 00:06:08,080
+we wanna we wanna decide what what to call it so 
+let's say insert new macro line let's say label  
+
+55
+00:06:09,920 --> 00:06:19,920
+cue 2 and then we put these quotation marks in 
+and say sinus effect like this and let's go  
+
+56
+00:06:19,920 --> 00:06:25,520
+back and see if it worked so we run it again 
+and let's see if the name changes up here  
+
+57
+00:06:25,520 --> 00:06:29,920
+and it did so now it's basically 
+copy paste what i need to do is  
+
+58
+00:06:30,480 --> 00:06:38,480
+my all preset here i want to use effect number one 
+number two and number four in basically cue two  
+
+59
+00:06:38,480 --> 00:06:48,640
+three and four so let's say we go into the macro 
+again and say we stored cue number two we put the  
+
+60
+00:06:48,640 --> 00:06:55,840
+the preset number 21.1 on the effect we stored 
+it in cue number two and we did some override  
+
+61
+00:06:55,840 --> 00:07:01,840
+we labeled cue 2 sinus effect so basically what we 
+need to do now is we still have the selection  
+
+62
+00:07:02,400 --> 00:07:09,600
+we made up here so it's very simple now 
+to copy whatever is in here just ctrl c  
+
+63
+00:07:09,600 --> 00:07:19,440
+and then paste it here and say now we need it 
+at preset 21.2 and we need to store that in cue 
+
+64
+00:07:20,560 --> 00:07:26,720
+we just i just copy it so we don't have to 
+write it out all the time we store this in cue 3  
+
+65
+00:07:27,920 --> 00:07:36,240
+we label cue 3 copy and paste it here we say snap on
+
+66
+00:07:39,520 --> 00:07:45,680
+snap on effect so let's see if that 
+worked let's run the macro again  
+
+67
+00:07:46,480 --> 00:07:54,560
+it now did it again here there we go maybe we did 
+something with the cue that is not right that's  
+
+68
+00:07:54,560 --> 00:08:00,480
+because i should change this to a 3 and that's 
+the cool thing about macros because then i can  
+
+69
+00:08:00,480 --> 00:08:05,680
+just run it again and everything is correct 
+so let's build out the last one we go into  
+
+70
+00:08:05,680 --> 00:08:13,600
+the macro again and we say we need it at preset 
+we just copy this one and go down here and say  
+
+71
+00:08:15,600 --> 00:08:21,200
+here we go at number 21.4 we need to store this in
+
+72
+00:08:23,360 --> 00:08:32,880
+we need to store this in cue number 4 so we 
+need to change this to a 4 and we need to label  
+
+73
+00:08:34,640 --> 00:08:37,120
+we need to label cue 4
+
+74
+00:08:39,120 --> 00:08:44,400
+there we go and we can call 
+it just wing effect maybe
+
+75
+00:08:46,960 --> 00:08:53,840
+wing effect there we go so now let's go out again 
+and see if it worked so we just clear everything  
+
+76
+00:08:54,560 --> 00:09:00,240
+and we run the macro and everything worked 
+fine so a good thing to do when you have done  
+
+77
+00:09:00,240 --> 00:09:04,560
+all this macro and you can you can see it's 
+working now we need to put the console into  
+
+78
+00:09:04,560 --> 00:09:10,880
+blind mode before we continue before we start the 
+macro and that is done by inserting a new macro  
+
+79
+00:09:10,880 --> 00:09:19,760
+line and simply typing blind there we go and we 
+can insert the last one where we take blind off  
+
+80
+00:09:21,760 --> 00:09:26,000
+i think it's only blind again i'm not sure 
+maybe it's going to work let's just try it out  
+
+81
+00:09:26,720 --> 00:09:33,440
+right now the disk is not in blind if we run 
+the macro everything is fine and it's not in  
+
+82
+00:09:33,440 --> 00:09:39,280
+blind so it takes it into blind and then goes 
+out but we need to add the clear command as well  
+
+83
+00:09:40,720 --> 00:09:43,840
+so and we need to do that 
+before the blind is turned  
+
+84
+00:09:43,840 --> 00:09:49,840
+off which is we just put it here and 
+insert new macro line and we say clear
+
+85
+00:09:52,720 --> 00:09:59,120
+all and for some reason you have to 
+do that twice uh i don't really get  
+
+86
+00:09:59,120 --> 00:10:04,240
+it because there was another command on it 
+uh on the GrandMA 2 but i don't know why  
+
+87
+00:10:05,600 --> 00:10:11,920
+this should work so let's just take this one 
+out we just clear everything here and run  
+
+88
+00:10:11,920 --> 00:10:19,520
+the macro like this and it just stays where 
+it is and right now you can use the effects  
+
+89
+00:10:19,520 --> 00:10:23,840
+and it's really cool but if we select 
+all our auras we need all ours to have  
+
+90
+00:10:23,840 --> 00:10:31,440
+the cue 2 - 3 and 4 as well and labeled in the same way 
+so basically we select it and say okay all our auras  
+
+91
+00:10:31,440 --> 00:10:38,880
+we turn them on we turn the vipers off there's 
+only one cue here but if we run our macro now  
+
+92
+00:10:38,880 --> 00:10:46,320
+it populated cue number 2 - 3 and 4 
+i can press go i have all the effects i want  
+
+93
+00:10:46,320 --> 00:10:50,720
+and that took only a second so basically 
+this macro is really cool if you need to do the  
+
+94
+00:10:50,720 --> 00:10:57,680
+same thing over and over again to apply effects 
+or colors or whatever i mean this is only for  
+
+95
+00:10:57,680 --> 00:11:04,400
+inspiration you can write very very complex macros 
+change timing and do whatever so this is just for  
+
+96
+00:11:04,400 --> 00:11:09,680
+inspiring you and if you enjoyed this video please like the video and maybe even subscribe to the  
+
+97
+00:11:09,680 --> 00:11:15,920
+channel that is going to help us against the evil 
+youtube algorithm and spread the video out to  
+
+98
+00:11:15,920 --> 00:11:22,160
+more people so thank you for watching and i 
+hope to see you next time on the channel bye bye
+

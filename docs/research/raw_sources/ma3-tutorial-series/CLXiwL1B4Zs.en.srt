@@ -1,0 +1,600 @@
+1
+00:00:00,240 --> 00:00:05,360
+today we're going to talk about layouts layouts 
+is a really powerful tool where you can select  
+
+2
+00:00:05,360 --> 00:00:10,640
+all your fixtures individually if you want to you 
+can build the layout view exactly as you want it  
+
+3
+00:00:10,640 --> 00:00:15,440
+it's completely customizable you can change 
+colors you can change fixtures you can change  
+
+4
+00:00:15,440 --> 00:00:21,280
+the appearances you can add groups you can add 
+all kinds of different things so in this tutorial  
+
+5
+00:00:21,280 --> 00:00:25,680
+we're going to build what you see on the screen 
+right now it's very simple it doesn't take very  
+
+6
+00:00:25,680 --> 00:00:30,560
+long so keep watching and i'll show you how it 
+works we are starting right here where we left off  
+
+7
+00:00:30,560 --> 00:00:37,040
+the last time when we built all our presets using 
+all the swiping commands you know this view and  
+
+8
+00:00:37,600 --> 00:00:43,520
+if you haven't seen that episode you can go back 
+and watch episode 5 it's about presets and using  
+
+9
+00:00:43,520 --> 00:00:49,840
+the swipey commands right now we need to close 
+this window down or clear this window and open  
+
+10
+00:00:49,840 --> 00:00:55,520
+another one to our layout view before we start 
+we need to clear the screen and if you remember  
+
+11
+00:00:55,520 --> 00:01:00,880
+how to do that we go up to the little icon up 
+here we press it and we say delete this screen  
+
+12
+00:01:01,440 --> 00:01:07,440
+now the screen is black we need to find the layout 
+view the layout view consists of two different  
+
+13
+00:01:07,440 --> 00:01:14,320
+things the layout view itself and some selection 
+tools next to it so if we start with opening the  
+
+14
+00:01:14,320 --> 00:01:20,880
+layout view here you go in under common and you 
+press the layout view this opens up the layout  
+
+15
+00:01:20,880 --> 00:01:25,120
+in a full window we need to scale it a little bit 
+down because we need the room for something else  
+
+16
+00:01:25,840 --> 00:01:30,320
+over here in the side we can make it maybe 
+make it a little bit bigger we press the  
+
+17
+00:01:30,320 --> 00:01:37,440
+square up here and we go into pools and we 
+find the layouts over here we need the layout  
+
+18
+00:01:38,080 --> 00:01:44,000
+pool over here because we can filter down what's 
+in the layout view but first of all we need to to  
+
+19
+00:01:44,000 --> 00:01:49,840
+build the rest right down here we need to save our 
+group so open our group window we do that under  
+
+20
+00:01:50,400 --> 00:01:56,720
+the pools command and we find the groups and they 
+can see this is the groups we stored the last time  
+
+21
+00:01:56,720 --> 00:02:01,920
+we can scale it down all the way down because 
+we only need these four right next to the  
+
+22
+00:02:01,920 --> 00:02:08,240
+group we need our sequences open so we open the 
+pools and we go down and we find the sequences  
+
+23
+00:02:08,240 --> 00:02:14,480
+i just stored a few ones here so we can see the 
+layout view in action so this is basically the  
+
+24
+00:02:14,480 --> 00:02:19,600
+view we need we can extend this further we can 
+use it with macros we can do all kinds of stuff  
+
+25
+00:02:19,600 --> 00:02:25,840
+i just wanted to explain to you the simplest 
+way to do a layout view so we store this view  
+
+26
+00:02:25,840 --> 00:02:30,240
+we can go up here into the command section 
+we can press store and we can store the  
+
+27
+00:02:30,240 --> 00:02:36,320
+view over here so right now we have stored 
+our view we'll just call it layout lay out  
+
+28
+00:02:37,840 --> 00:02:44,480
+there we go right now we see nothing if you worked 
+on the GrandMA 2 you know that you would choose  
+
+29
+00:02:44,480 --> 00:02:49,760
+your fixtures and you would store and merge them 
+into your layout view you would actually store it  
+
+30
+00:02:49,760 --> 00:02:54,960
+into these groups over here on the GrandMA 
+3 this has changed you up just a little bit  
+
+31
+00:02:54,960 --> 00:03:00,720
+now you assign your fixtures into your layout view 
+so what we can do first is choose all our vipers  
+
+32
+00:03:00,720 --> 00:03:07,120
+we do it like this we say alt plus a which is our 
+assign key if you have your shortcuts turned on  
+
+33
+00:03:07,840 --> 00:03:13,680
+now we have all our vipers we say assign and we 
+just push the screen up here that assigns all the  
+
+34
+00:03:13,680 --> 00:03:19,120
+fixtures all the mac vipers into our layout view 
+we can zoom in just a little bit and we can go  
+
+35
+00:03:19,120 --> 00:03:24,400
+into the setup menu over here in the setup menu 
+you have the option of moving things around you  
+
+36
+00:03:24,400 --> 00:03:32,720
+can add stuff you can delete stuff let's just try 
+to do that so let's just clear out of this one  
+
+37
+00:03:32,720 --> 00:03:38,880
+and we say the arrow up here and we say 
+number one we need to move it we take this one  
+
+38
+00:03:39,440 --> 00:03:44,640
+this is the move command we can just move it 
+wherever we want it and we just move it up here  
+
+39
+00:03:44,640 --> 00:03:50,320
+it's snapping is on right now if snapping 
+is not on you go into this command in here  
+
+40
+00:03:50,320 --> 00:03:55,600
+and you can see all the different options you 
+have in here snap to grid it's much easier to  
+
+41
+00:03:55,600 --> 00:03:59,920
+work with i think it's much easier to work 
+with but whatever makes you happy you can do  
+
+42
+00:03:59,920 --> 00:04:05,920
+whatever so you basically just move them around 
+until they are positioned the way you like it  
+
+43
+00:04:06,480 --> 00:04:11,280
+now all our vipers are lined up the way we want 
+it let's do the same with our auras i'm just  
+
+44
+00:04:11,280 --> 00:04:16,240
+going to speed this one up just a little bit 
+so you don't have to wait for me finishing it  
+
+45
+00:04:17,200 --> 00:04:22,080
+we stored all our vipers we stored all our auras 
+let's do the same for the atomics but let's just  
+
+46
+00:04:22,080 --> 00:04:28,080
+do it in a different way we assign the atomics 
+like we usually do then we place it here in  
+
+47
+00:04:28,080 --> 00:04:33,440
+the center between number six and number seven 
+there's 12 in total and then we do like we did  
+
+48
+00:04:33,440 --> 00:04:39,360
+in the 3d view we align them we take the the dash 
+right here and we turn the dial and then we can  
+
+49
+00:04:39,360 --> 00:04:44,000
+position it like this this as well so basically 
+you can do whatever you can do it with your  
+
+50
+00:04:45,600 --> 00:04:51,840
+fingers or with your mouse manually or you can do 
+it with the align key that's all up to you let's  
+
+51
+00:04:51,840 --> 00:04:56,400
+take our dimmers as the last thing and when 
+we have positioned them we can start working  
+
+52
+00:04:56,400 --> 00:05:02,720
+on storing some groups in the window as well 
+let's store some groups into the view as well  
+
+53
+00:05:02,720 --> 00:05:09,840
+and as you remember before we set all our vipers 
+and then we set assign like this now we're going  
+
+54
+00:05:09,840 --> 00:05:15,840
+to do a little bit different we're going to say 
+assign all our vipers and you can say assign group  
+
+55
+00:05:15,840 --> 00:05:22,400
+1 and we can simply just push a button up here 
+and it assigns all our vipers this is the group  
+
+56
+00:05:22,400 --> 00:05:28,960
+containing all our fixtures so if we go out of the 
+setup menu and we push this one it selects all our  
+
+57
+00:05:28,960 --> 00:05:34,080
+vipers because it's the same group as you have 
+down here you simply move the reference up here  
+
+58
+00:05:34,720 --> 00:05:39,440
+so into setup again maybe we should 
+just clear out here and say okay this  
+
+59
+00:05:39,440 --> 00:05:44,320
+is a little small we need it to be a little 
+bit bigger you have the width and the height  
+
+60
+00:05:44,320 --> 00:05:50,240
+right here so you can basically just say 100 in 
+the width or maybe that's too big maybe it's a  
+
+61
+00:05:51,840 --> 00:05:55,280
+and then the height is 75 as 
+well then we have another square  
+
+62
+00:05:55,280 --> 00:06:01,280
+but it's a little bit bigger than than the 
+fixtures themselves let's do the same for the uh  
+
+63
+00:06:02,720 --> 00:06:09,280
+for the mac auras we assign this one up here we can 
+do the same with the atomics we assign it up here  
+
+64
+00:06:09,280 --> 00:06:14,640
+and all our dimmers we assign them right here 
+let's do the same for the width and the height  
+
+65
+00:06:14,640 --> 00:06:24,000
+let's set them to 75 in width and 75 in height to 
+make them the same kind of same size of the other  
+
+66
+00:06:24,000 --> 00:06:30,560
+groups so right now we have we need to space that 
+maybe a little bit down so we get some more space  
+
+67
+00:06:30,560 --> 00:06:35,280
+that's the beauty another beauty of the layout 
+view you can set it up exactly the way you want it  
+
+68
+00:06:36,000 --> 00:06:39,760
+if you need more space if you need to cram 
+everything together because you are working on a  
+
+69
+00:06:39,760 --> 00:06:47,840
+large rig it's all up to you so now we're almost 
+here let's just make sure they are all straight
+
+70
+00:06:50,240 --> 00:06:56,480
+there we go there we go so right now we have all 
+our vipers all our auras all our atomics and all  
+
+71
+00:06:56,480 --> 00:07:02,320
+our dimmers and if we push them out of setup menu 
+push them you can see it selects all the fixtures  
+
+72
+00:07:02,320 --> 00:07:08,320
+which is brilliant now you can basically build any 
+group you want you can in your dimmers you can say  
+
+73
+00:07:08,320 --> 00:07:13,840
+okay you can build a group for the first two or 
+the next three or whatever on your vipers you  
+
+74
+00:07:13,840 --> 00:07:19,680
+could do an art group an even group for the left 
+fixtures the right fixtures that's all up to you  
+
+75
+00:07:19,680 --> 00:07:24,480
+and whatever makes your world easier whatever 
+makes your programming easier you should do  
+
+76
+00:07:25,120 --> 00:07:32,560
+lastly let's make some different colors for these 
+groups over here let's go back into the setup menu  
+
+77
+00:07:32,560 --> 00:07:38,400
+let's clear out of the selection let's choose 
+all our vipers with right clicking you go into  
+
+78
+00:07:38,400 --> 00:07:43,440
+the menu like this you have the appearance tab 
+right here we need to select something different  
+
+79
+00:07:43,440 --> 00:07:48,480
+and we have the options of choosing some different 
+colors i think i'll choose the red one for all the  
+
+80
+00:07:48,480 --> 00:07:54,960
+vipers and you see it instantly changes to red 
+now it's much easier to distinguish them from  
+
+81
+00:07:54,960 --> 00:08:01,040
+each other let's do the same for the auras we 
+picked the blue color let's do the same for the  
+
+82
+00:08:01,040 --> 00:08:05,840
+atomics we can pick the green color and 
+let's do the same for the dimmers we can  
+
+83
+00:08:05,840 --> 00:08:12,320
+choose the cyan color so now we built an 
+easy layout view it didn't take long even  
+
+84
+00:08:12,320 --> 00:08:17,760
+with explanation so without any talking you can do 
+this in three or four or five minutes you should  
+
+85
+00:08:17,760 --> 00:08:23,760
+do this every time you come out with a new rig 
+because it makes it a lot easier to work with  
+
+86
+00:08:23,760 --> 00:08:30,560
+afterwards right now all this is stored into 
+our default view up here but we need to copy  
+
+87
+00:08:30,560 --> 00:08:36,160
+this a few times if you need to separate it in 
+different views say we want a view where we only  
+
+88
+00:08:36,160 --> 00:08:41,440
+have all our vipers for instance i mean this is 
+not really important on a small rig like this but  
+
+89
+00:08:41,440 --> 00:08:46,880
+if you're working on larger shows you definitely 
+need this so if you take the default up here  
+
+90
+00:08:46,880 --> 00:08:53,840
+and you simply swipe down and you say copy and 
+you put it down here now we copied it down here  
+
+91
+00:08:53,840 --> 00:09:00,240
+still the default we can say we can rename 
+it with using our swipes we can say vipers
+
+92
+00:09:02,480 --> 00:09:06,720
+and we can simply go in here 
+select all of these ones  
+
+93
+00:09:07,440 --> 00:09:12,240
+say delete and then select all these ones and 
+they're gone we have the default view up here  
+
+94
+00:09:12,240 --> 00:09:18,160
+with all of it and we can select here with only 
+our vipers let's do that again we copy this one  
+
+95
+00:09:19,440 --> 00:09:26,000
+like this and we place it down 
+here oops we rename it to aura
+
+96
+00:09:29,600 --> 00:09:36,400
+there we go and we simply delete all the 
+vipers and all the atomics and all the dimmers  
+
+97
+00:09:37,040 --> 00:09:41,760
+and so on and so forth this is how it works 
+so we have the default view with all of it  
+
+98
+00:09:41,760 --> 00:09:47,360
+we have the vipers we have the auras let's 
+copy the default view down here oops  
+
+99
+00:09:47,920 --> 00:09:54,560
+wrong button let's copy this one 
+down here and call it atomics
+
+100
+00:09:57,360 --> 00:10:04,880
+and let's do the same up here let's copy this 
+one down here and we can call this dimmer  
+
+101
+00:10:06,800 --> 00:10:12,320
+there we go let's go to the atomics and we 
+can delete all our vipers auras and dimmers  
+
+102
+00:10:14,000 --> 00:10:19,760
+like this and we can go into dimmer and we 
+can delete basically everything else but the  
+
+103
+00:10:19,760 --> 00:10:25,280
+dimmers this gives you an advantage when you are 
+working the larger shows you can simply select  
+
+104
+00:10:25,280 --> 00:10:30,640
+i know i need to work with my vipers just clear 
+everything else out and now it's only the vipers  
+
+105
+00:10:30,640 --> 00:10:36,480
+up on the screen you can still change this i mean 
+you all have the default view now you have it in  
+
+106
+00:10:36,480 --> 00:10:41,840
+the center and it fills out almost the entire 
+screen which is fine you can go into the vipers  
+
+107
+00:10:41,840 --> 00:10:46,560
+and say okay now i have a little bit more room 
+maybe i need to position it differently or maybe  
+
+108
+00:10:46,560 --> 00:10:52,240
+i need to make these bigger so you can do this 
+and say okay now there's a room for them to be  
+
+109
+00:10:52,240 --> 00:10:57,920
+100 high and 100 wide like this if you want to 
+this gives you a little bit more detail you can  
+
+110
+00:10:57,920 --> 00:11:03,440
+move it around like you want to it's all up to 
+you how you how you want it but this is basically  
+
+111
+00:11:04,160 --> 00:11:10,160
+the layout view how it works it's really really 
+simple to work with and it's a it's a great great  
+
+112
+00:11:10,160 --> 00:11:16,240
+great tool for for working on on larger shows 
+the last thing i wanted to show you was simply  
+
+113
+00:11:16,240 --> 00:11:21,600
+that the layout view gives you some feedback when 
+you work with it if you go out of setup menu and  
+
+114
+00:11:21,600 --> 00:11:29,200
+you choose all your vipers and you say at full you 
+see they instantly change to a open white and if  
+
+115
+00:11:29,200 --> 00:11:34,320
+you go into my first view here and you choose 
+magenta or magenta and you go back you can see  
+
+116
+00:11:34,320 --> 00:11:41,600
+they also change color into magenta so having the 
+layout view open when you program actually helps  
+
+117
+00:11:41,600 --> 00:11:47,760
+you a lot because you can always see the level of 
+the light you can always see the color you can see  
+
+118
+00:11:47,760 --> 00:11:53,840
+if there's an effect running or something like 
+that so it's really really really powerful so i  
+
+119
+00:11:53,840 --> 00:11:59,600
+hope you enjoyed this video i hope you'll give a 
+like and i definitely hope to see you next time on  
+
+120
+00:11:59,600 --> 00:12:06,720
+this channel so thank you very much for watching 
+all the way to the end i'll see you next time bye
+

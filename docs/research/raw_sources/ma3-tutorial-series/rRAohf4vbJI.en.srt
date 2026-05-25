@@ -1,0 +1,435 @@
+1
+00:00:00,160 --> 00:00:07,040
+there is a new very cool and useful feature on 
+the GrandMA3 software called recast. GrandMA3  
+
+2
+00:00:07,040 --> 00:00:12,640
+recast is a new way of being able to change your 
+existing programming on your show file and you can  
+
+3
+00:00:12,640 --> 00:00:18,160
+find it in the settings of all your presets. And 
+you might think that this is not very important  
+
+4
+00:00:18,160 --> 00:00:23,200
+but i think that this feature will make your 
+life a lot easier as a GrandMA3 programmer  
+
+5
+00:00:23,760 --> 00:00:28,000
+especially if you are touring your show and 
+cloning new fixtures into your show all the time  
+
+6
+00:00:29,040 --> 00:00:33,120
+in this episode of our GrandMA3 
+tutorial i will show you how it works  
+
+7
+00:00:33,760 --> 00:00:38,800
+and i'll try to explain why i think it's so 
+groundbreaking that ma lighting incorporated this  
+
+8
+00:00:38,800 --> 00:00:45,520
+feature into the GrandMA3 software so let's get 
+into it to show you how recast works i've set up  
+
+9
+00:00:45,520 --> 00:00:51,520
+a new view here on the GrandMA3 on pc software 
+and i'm going to show you two examples of the  
+
+10
+00:00:51,520 --> 00:00:58,400
+different functionalities so first of all we have 
+our new view here i have a playback window up here  
+
+11
+00:00:58,400 --> 00:01:03,600
+i have my 3d window up here i have my sequence 
+down here and i have a fixture sheet over here  
+
+12
+00:01:04,160 --> 00:01:12,640
+so let's take all our wipers and put them into 
+a color of some sort let's say we need them in  
+
+13
+00:01:12,640 --> 00:01:18,320
+red so we turn them on at full and we put them 
+in some sort of position right here there we go  
+
+14
+00:01:19,040 --> 00:01:24,720
+we can store this as a preset as we've done many 
+times before in this tutorial series but this time  
+
+15
+00:01:24,720 --> 00:01:31,120
+i've chosen an all preset and all preset doesn't 
+filter down the functionality as you would see  
+
+16
+00:01:31,120 --> 00:01:38,240
+position do position only stores the position 
+values gobo only stores gobo values and so on  
+
+17
+00:01:38,800 --> 00:01:46,160
+all preset stores all values so whatever you have 
+active is going to be stored into the all preset  
+
+18
+00:01:46,160 --> 00:01:50,800
+but this time i'm just going to clear out because 
+i made a small mistake we turn on all the vipers  
+
+19
+00:01:50,800 --> 00:01:57,440
+we turn them on at full and we put them in the 
+position we talked about before like this let's  
+
+20
+00:01:57,440 --> 00:02:05,840
+store this into there we go into a sequence up 
+here so if we clear this one and say go to this  
+
+21
+00:02:05,840 --> 00:02:14,880
+one we have our preset so let's give it a color we 
+take all our wipers again and we put them in red  
+
+22
+00:02:16,400 --> 00:02:23,760
+like this there we go and let's store this in 
+our all preset now our old preset only contains  
+
+23
+00:02:23,760 --> 00:02:29,920
+color information so if i choose all my 
+vipers and put them into the red color  
+
+24
+00:02:29,920 --> 00:02:36,400
+i can store them in our sequence here in 
+cue number one so if we clear this one  
+
+25
+00:02:36,400 --> 00:02:43,040
+they will stay red so now i want to add some 
+zoom information to this just as an example  
+
+26
+00:02:44,160 --> 00:02:49,120
+normally if i order if i put zoom information 
+or any other value into this it's not going to  
+
+27
+00:02:49,120 --> 00:02:54,240
+affect the programming at all so let's try 
+this let's go to focus let's take the zoom  
+
+28
+00:02:54,960 --> 00:03:01,920
+all the way down to zero and let's store this into 
+our preset right here you'll see when i clear here  
+
+29
+00:03:01,920 --> 00:03:08,160
+they go back to whatever they were doing because 
+the preset i programmed with i choose i chose all  
+
+30
+00:03:08,160 --> 00:03:15,520
+my vipers put them in red and this preset at that 
+time only contained the red information i stored  
+
+31
+00:03:15,520 --> 00:03:21,760
+this in my sequence up here and now the problem 
+is that the sequence now only looks at the color  
+
+32
+00:03:22,400 --> 00:03:28,720
+but the really really cool thing is you can now go 
+down here and say edit settings and you can find  
+
+33
+00:03:28,720 --> 00:03:36,720
+this button down here saying recast preset if 
+i recast and i clear you will see now the value  
+
+34
+00:03:36,720 --> 00:03:42,960
+has changed for the sequence number one and it 
+now contains the zoom information and the color  
+
+35
+00:03:42,960 --> 00:03:49,280
+information as well and that is a really cool 
+thing to do i can see this functionality being  
+
+36
+00:03:49,280 --> 00:03:54,080
+really really useful if you are like touring 
+a show and you are cloning from one fixture  
+
+37
+00:03:54,080 --> 00:03:59,360
+type to another fixture type and say for 
+instance you have programmed your entire show  
+
+38
+00:03:59,360 --> 00:04:06,000
+on cmy colors or rgb colors and then the figure 
+you're cloning to only has static colors and you  
+
+39
+00:04:06,000 --> 00:04:10,960
+want to change all your programming so it contains 
+the right colors and you want to be a little bit  
+
+40
+00:04:10,960 --> 00:04:15,360
+more in charge of how the cloning process is 
+going to be so this is one of the use cases  
+
+41
+00:04:16,160 --> 00:04:22,480
+where i can really see it being helpful so let's 
+try something different let's say we choose all  
+
+42
+00:04:22,480 --> 00:04:31,280
+our vipers again we take the color out let's just 
+put it in maybe just put it in yellow and then we  
+
+43
+00:04:31,280 --> 00:04:40,320
+add a gobo to it so now it has a gobo if we store 
+this into the preset here and we say overwrite  
+
+44
+00:04:41,040 --> 00:04:46,000
+it's going to remove all the information that 
+it had previously it had some zoom information  
+
+45
+00:04:46,000 --> 00:04:52,960
+and it had some color information right now we 
+changed the color and we didn't store any zoom  
+
+46
+00:04:52,960 --> 00:04:59,440
+information and we put a gobo in start that as 
+well so if i clear out here it's going to go  
+
+47
+00:04:59,440 --> 00:05:05,680
+back to only the color preset we used before the 
+reason why it goes back to the color is the color  
+
+48
+00:05:05,680 --> 00:05:11,120
+it already knew the color value so we could 
+change the color we just couldn't change the  
+
+49
+00:05:11,120 --> 00:05:17,760
+gobo and the gobo disappeared so if i go into 
+our settings right now and recast our preset  
+
+50
+00:05:18,560 --> 00:05:23,840
+and we clear you can see the zoom information 
+disappeared because we removed it from this preset  
+
+51
+00:05:24,720 --> 00:05:30,960
+and it added the gobo information and it changed 
+the color information so that's another way of  
+
+52
+00:05:30,960 --> 00:05:37,200
+using the recast if you like this feature and 
+see the value in it i'm going to show you a much  
+
+53
+00:05:37,200 --> 00:05:42,480
+easier way to recast multiple presets at the same 
+time so be sure to stick around to the end of this  
+
+54
+00:05:42,480 --> 00:05:48,000
+video so you don't miss it and if you enjoy this 
+video and find it useful be sure to give it a like  
+
+55
+00:05:48,000 --> 00:05:53,520
+that's gonna help my channel to spread out to more 
+people on youtube. Liking videos is a great and  
+
+56
+00:05:53,520 --> 00:05:58,560
+free way to support any youtube channel and please 
+leave a comment below if you have any questions  
+
+57
+00:05:58,560 --> 00:06:04,240
+regarding GrandMA3 or suggestions for future 
+topics we could cover in this tutorial series. 
+
+58
+00:06:04,800 --> 00:06:10,160
+i'd love to help you in any way i can. And if 
+you are interested in GrandMA3 hardware i  
+
+59
+00:06:10,160 --> 00:06:15,120
+have some links in the description for all kinds 
+of different pieces of GrandMA3 hardware for a  
+
+60
+00:06:15,120 --> 00:06:19,280
+better overview of all the different models i have 
+a special landing page with a lot of different  
+
+61
+00:06:19,280 --> 00:06:25,520
+GrandMA3 consoles you can also find this link 
+in the description. And a small disclaimer the,  
+
+62
+00:06:25,520 --> 00:06:30,240
+links in the description are all affiliate links 
+and that means if you decide to purchase some of  
+
+63
+00:06:30,240 --> 00:06:35,520
+the products i will receive a small commission 
+on the sale. So with that out of the way let's  
+
+64
+00:06:35,520 --> 00:06:43,040
+continue learning GrandMA3 recast recasting 
+your presets through the settings menu is fine but  
+
+65
+00:06:43,040 --> 00:06:49,520
+we need a faster way of doing it so let's just 
+set it up we take all our vipers we put them  
+
+66
+00:06:49,520 --> 00:06:58,080
+in some sort of strobie mode here let's store 
+this into our preset right here and let's clear  
+
+67
+00:06:58,080 --> 00:07:03,360
+once again it stops strobing because it's only 
+looking at the color so if we want to recast  
+
+68
+00:07:03,360 --> 00:07:14,000
+that in a faster way we just use the command 
+line we say recast we say preset we say 21.37
+
+69
+00:07:14,000 --> 00:07:21,120
+and the reason why we call it 21 is you can see 
+our all preset is preset 21 as our gobo is 3 our  
+
+70
+00:07:21,120 --> 00:07:28,800
+focus is 6 and so on so now we want to recast 
+preset 21.37 because that's the preset number  
+
+71
+00:07:28,800 --> 00:07:35,360
+here if i press ok to that it's going to recast it 
+through the command line another cool way we can  
+
+72
+00:07:35,360 --> 00:07:42,880
+do that is copy this information here we make 
+a new macro we insert a new macro line and we  
+
+73
+00:07:42,880 --> 00:07:48,720
+paste our recast preset in as we just wrote 
+there we go and we can rename this one
+
+74
+00:07:53,200 --> 00:07:59,680
+re -cast there we go and then we clear out 
+here and then let's say we want to remove  
+
+75
+00:07:59,680 --> 00:08:05,760
+the global information we take our vipers 
+maybe we double click on this one and we say  
+
+76
+00:08:07,600 --> 00:08:15,680
+remove and we store this in our preset we clear 
+and now we can simply press the macro we just made  
+
+77
+00:08:16,320 --> 00:08:23,280
+and it stops so recasting presets is really really 
+cool you can recast as we did here we recasted  
+
+78
+00:08:23,280 --> 00:08:34,640
+preset 21.37 you can recast multiple presets 
+here 37 through uh if we said through 500 it  
+
+79
+00:08:34,640 --> 00:08:42,880
+would recast all the presets in that range so this 
+is how recast works GrandMA3 programming is kind  
+
+80
+00:08:42,880 --> 00:08:48,720
+of fun and remember that we are still in the very 
+early stages of the software i'm sure that GrandMA3  
+
+81
+00:08:48,720 --> 00:08:53,920
+software will evolve a lot over the next few 
+years just like the early days of the GrandMA2 
+
+82
+00:08:53,920 --> 00:08:59,280
+software be sure to give this video a like so 
+it can spread out to more people and subscribe to  
+
+83
+00:08:59,280 --> 00:09:04,160
+the channel if you don't want to miss any future 
+episodes and if you're on the journey of learning  
+
+84
+00:09:04,160 --> 00:09:10,320
+GrandMA3 from scratch i highly suggest that you 
+watch this next video you can see on your screen  
+
+85
+00:09:10,320 --> 00:09:16,960
+right now in this video i'll show you some other 
+cool features of the GrandMA3 software i try to  
+
+86
+00:09:16,960 --> 00:09:22,080
+release one new video per week so please come back 
+if you want to continue learning GrandMA3  
+
+87
+00:09:22,640 --> 00:09:29,440
+i hope to see you on the channel again sometime 
+in the future and until then happy programming
+

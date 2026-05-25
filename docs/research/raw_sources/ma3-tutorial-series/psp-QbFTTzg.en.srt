@@ -1,0 +1,394 @@
+1
+00:00:03,284 --> 00:00:09,604
+right over here the 3d setup as you can see right 
+here we have a representation of like a room  
+
+2
+00:00:10,804 --> 00:00:16,804
+and to start setting up our fixtures we need to 
+start by going into the setup menu right here  
+
+3
+00:00:17,444 --> 00:00:22,724
+if you look at the positions right now you have 
+pan and you have tilt as soon as you enter the  
+
+4
+00:00:22,724 --> 00:00:32,004
+setup then it changes to position x y and z and 
+rotation x y and z and again if you exit the setup  
+
+5
+00:00:32,004 --> 00:00:37,604
+it goes back to normal but to start setting up 
+your 3d view you need to go into the setup first  
+
+6
+00:00:37,604 --> 00:00:43,444
+and activate that right now we have our four 
+groups up here let's just select our vipers  
+
+7
+00:00:43,444 --> 00:00:49,844
+and as you can see over here this small yellow 
+square down here and that that's actually because  
+
+8
+00:00:49,844 --> 00:00:56,804
+all our fixtures are below the floor right now 
+what we can do is start by raising them up into  
+
+9
+00:00:56,804 --> 00:01:01,444
+the air and you can simply push this one you can 
+you can dial this one and that will move them up  
+
+10
+00:01:02,004 --> 00:01:08,804
+up or down or you can just push it and say six 
+please that will put it at six meters height  
+
+11
+00:01:09,524 --> 00:01:14,964
+then we need to push it back because it's it's 
+on our zero point right now so if we push that  
+
+12
+00:01:14,964 --> 00:01:22,564
+one and say okay we need this in the depth of 
+six meters once again press six and it goes  
+
+13
+00:01:22,564 --> 00:01:30,004
+back into the 3d world here right here we have 
+position x and what we can do here is we can move  
+
+14
+00:01:31,444 --> 00:01:37,204
+move it from side to side which is great except 
+for we are moving all 12 fixtures right now  
+
+15
+00:01:37,204 --> 00:01:42,884
+there's actually 12 fixtures selected but they're 
+right on top of each other so you can only see one  
+
+16
+00:01:42,884 --> 00:01:48,564
+so we want to reset this one to zero and then 
+we're going to go over to our align tool over  
+
+17
+00:01:48,564 --> 00:01:55,284
+here and if you push that once you will have 
+this dash here and then when you start dialing  
+
+18
+00:01:55,284 --> 00:02:03,364
+this in you will see it spaces them out right 
+now we are at six meters so this is from center  
+
+19
+00:02:03,364 --> 00:02:10,084
+this is center so this is minus six meters in one 
+direction and plus six meters in another direction  
+
+20
+00:02:10,084 --> 00:02:18,244
+which gives us a total of 12 meters so right 
+now they are positioned from -6 to 6 meters here  
+
+21
+00:02:18,964 --> 00:02:25,444
+6 meters back into the 3d world and 6 
+meters up into the air in the 3d world  
+
+22
+00:02:26,004 --> 00:02:32,404
+so that would be our vipers let's push this one 
+down here called at and then you can simply clear  
+
+23
+00:02:33,204 --> 00:02:41,444
+three times and that will release all the fixtures 
+then we take our auras we do the same thing we  
+
+24
+00:02:42,724 --> 00:02:47,524
+find the z-axis or the z-axis and 
+we put them the last ones we put in  
+
+25
+00:02:47,524 --> 00:02:52,884
+six meters so we put these ones in six point 
+five meters just a little bit above the  
+
+26
+00:02:52,884 --> 00:02:59,764
+other ones and then we move it back to 5.5 
+meters so we space them half a meter apart  
+
+27
+00:03:00,404 --> 00:03:07,684
+and then we do the same thing we align and we 
+start dialing the the knob here and that would  
+
+28
+00:03:07,684 --> 00:03:15,284
+again put it to six meters in each direction what 
+we can do right now is because i don't know if we  
+
+29
+00:03:15,284 --> 00:03:21,364
+if we started the spacing uh the wrong way 
+so what we can do now is show label on body  
+
+30
+00:03:22,244 --> 00:03:31,924
+that will show that we have 601 2 3 4 5 all 
+the way up to 12 but our vipers is upside down  
+
+31
+00:03:31,924 --> 00:03:38,164
+or it should be the other way around i want the 
+number one down here what we can do now is select  
+
+32
+00:03:38,164 --> 00:03:44,564
+all our wipers oh sorry we need to clear first 
+select our wipers select the align tool again  
+
+33
+00:03:45,284 --> 00:03:52,084
+and then start dialing in here and we simply 
+go to center and continue the other way  
+
+34
+00:03:52,084 --> 00:03:58,884
+and we once again hit if we can hit it six 
+meters in each direction it's kind of hard to hit
+
+35
+00:04:01,524 --> 00:04:02,404
+oh come on
+
+36
+00:04:05,444 --> 00:04:11,844
+there we go six meters in each direction um so 
+that's how it works it's it's very very very cool  
+
+37
+00:04:11,844 --> 00:04:16,564
+that you can show the label on the body and you 
+can you can actually show the label on the spot as  
+
+38
+00:04:16,564 --> 00:04:24,004
+well if i take all my vipers go into the ad here 
+and say add full you can actually see the numbers  
+
+39
+00:04:24,004 --> 00:04:29,044
+on the floor as well where each cone is hitting 
+but i don't like that that's not necessary so we  
+
+40
+00:04:29,044 --> 00:04:33,604
+can just turn this one off so there we go i just 
+keep the label on the body right now because we  
+
+41
+00:04:33,604 --> 00:04:41,524
+need to align the atomics as well and the dimmers 
+as well so select the atomics put them up into  
+
+42
+00:04:41,524 --> 00:04:49,844
+maybe seven meters and push them back to maybe 
+five meters and then once again we align it and we  
+
+43
+00:04:49,844 --> 00:04:58,324
+space them out the way we want it like this maybe 
+five and a half minus two positive five five and  
+
+44
+00:04:58,324 --> 00:05:06,724
+a half meters we clear that and we go into dimmer 
+and we do exactly the same thing again so we go to  
+
+45
+00:05:08,564 --> 00:05:13,604
+7.5 meters maybe then we 
+push it back to 4.5 meters  
+
+46
+00:05:15,044 --> 00:05:20,884
+and then we space it like last time 
+there we go and we see if we can hit the  
+
+47
+00:05:21,764 --> 00:05:28,484
+six meter mark again there we go so right now 
+we actually set up all our fixtures in the 3d  
+
+48
+00:05:28,484 --> 00:05:37,364
+world if we clear this this out here and we 
+turn off the label here you can say all vipers  
+
+49
+00:05:38,884 --> 00:05:47,604
+add full all auras at full all atomics and they 
+will probably not show up correct because it's  
+
+50
+00:05:47,604 --> 00:05:54,404
+a strobe and then all dimmers at full so there 
+we go that's the fixtures we patched last time  
+
+51
+00:05:56,004 --> 00:06:01,764
+after we set up our 3d view and set 
+all our fixtures up in the 3d world  
+
+52
+00:06:01,764 --> 00:06:07,444
+we just have a brief look in some of the options 
+in here you have some selection modes we have some  
+
+53
+00:06:07,444 --> 00:06:13,844
+labels on the spot as i showed you some labels on 
+the body which can help you to navigate around you  
+
+54
+00:06:13,844 --> 00:06:21,924
+have some quality body quality to to to basically 
+be nicer to the computer if it needs to render the  
+
+55
+00:06:21,924 --> 00:06:29,124
+the view you have some beam quality here as well 
+depending on how much detail you want to see  
+
+56
+00:06:30,004 --> 00:06:37,204
+stage view some front view you can change these 
+ones to to all kinds of different views but that's  
+
+57
+00:06:37,204 --> 00:06:43,924
+for a different tutorial if you press the ma logo 
+up here there's some other options the first one  
+
+58
+00:06:43,924 --> 00:06:50,244
+down here you see the rendering miscellaneous 
+label and quality rendering is where you can tweak  
+
+59
+00:06:50,244 --> 00:06:54,804
+like the beams and the spot and the ambient light 
+for instance if you want to turn that up or you  
+
+60
+00:06:54,804 --> 00:07:00,244
+want to turn it down you can do that right here 
+and some other stuff go play with it and see if  
+
+61
+00:07:01,044 --> 00:07:06,724
+if there's any stuff in here that that suits you 
+better the miscellaneous one as you can see up  
+
+62
+00:07:06,724 --> 00:07:13,044
+here i have frames per second if you push that one 
+it goes away i like to have it on to see how much  
+
+63
+00:07:13,044 --> 00:07:20,004
+load i'm putting on the computer itself you can 
+go into a wireframe a wireframe view which will
+
+64
+00:07:22,164 --> 00:07:27,844
+make much less load on the computer 
+this is how it looked on the GrandMA2  
+
+65
+00:07:29,204 --> 00:07:35,284
+but but now we actually have a much better view 
+in the 3d built into the built into the GrandMA 3 
+
+66
+00:07:36,324 --> 00:07:43,524
+the 3d priority if you are on a real lighting 
+desk and doing a big show a real granite may full  
+
+67
+00:07:43,524 --> 00:07:50,724
+size or light or whatever you would probably not 
+want the 3d priority to be on the desk you wanted  
+
+68
+00:07:50,724 --> 00:07:58,004
+to have it on a separate machine a laptop or a 
+stationary computer somewhere so but here you can  
+
+69
+00:07:58,004 --> 00:08:04,724
+simply go in and say okay i have 3d priority and 
+they didn't it would prioritize the the the power  
+
+70
+00:08:04,724 --> 00:08:09,844
+to to do all the rendering but uh not necessarily 
+a good idea to do it on the desk itself if you  
+
+71
+00:08:09,844 --> 00:08:16,564
+are running larger shows some shading options 
+some touch modes options i mean you have to  
+
+72
+00:08:16,564 --> 00:08:22,244
+play around with this to see exactly what it is 
+you what it is you need and what it is you like  
+
+73
+00:08:23,044 --> 00:08:29,844
+some labels again label and body label on spot you 
+can add different things that that's under labels  
+
+74
+00:08:30,884 --> 00:08:35,204
+like patch information names and stuff 
+like that but again up to you what you  
+
+75
+00:08:35,204 --> 00:08:40,804
+want to do last time the quality render 
+lights yellow pictures again play with it  
+
+76
+00:08:40,804 --> 00:08:50,964
+see if if you can have any fun with it but that's 
+basically a very simple setup of our 3d GrandMA 3 
+
+77
+00:08:52,084 --> 00:08:57,444
+in this tutorial thank you very much for 
+watching this video and if you find any  
+
+78
+00:08:57,444 --> 00:09:02,564
+value in it please please give the video a 
+like or maybe even subscribe to our channel  
+
+79
+00:09:03,924 --> 00:09:10,404
+but i hope to see you next time thank you 
+very much for watching this episode bye
+

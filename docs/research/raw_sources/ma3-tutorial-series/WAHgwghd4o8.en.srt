@@ -1,0 +1,565 @@
+1
+00:00:01,280 --> 00:00:07,520
+in the last episode we exported an mvr file from 
+wysiwyg lighting design software from cast-soft  
+
+2
+00:00:08,080 --> 00:00:12,880
+this time i'll show you the easy way to set up 
+your GrandMA3 layout to reflect what's in your  
+
+3
+00:00:12,880 --> 00:00:18,880
+GrandMA3 3D window GrandMA3 has a great and simple 
+tool that's going to help you make your setup  
+
+4
+00:00:18,880 --> 00:00:24,720
+based on your fixtures position in the 3d universe 
+so if you want to be a better and faster GrandMA3  
+
+5
+00:00:24,720 --> 00:00:30,960
+programmer this tutorial is definitely for you 
+if you haven't watched the last episode i'll link  
+
+6
+00:00:30,960 --> 00:00:35,200
+it in the corner right now but you don't have 
+to use that setup you can follow along if you  
+
+7
+00:00:35,200 --> 00:00:41,280
+made your own 3d setup but you must have some 
+fixtures ready in your GrandMA3 3d window for  
+
+8
+00:00:41,280 --> 00:00:46,880
+this technique to work in the description below 
+i've shared a onedrive link where you can download  
+
+9
+00:00:46,880 --> 00:00:52,400
+this GrandMA3 show file feel free to use it for 
+this tutorial if you don't have something of your  
+
+10
+00:00:52,400 --> 00:00:59,840
+own setup right now if you go into the folder 
+it's the episode 18 folder so let's get into it  
+
+11
+00:01:00,960 --> 00:01:06,400
+as you might remember from the last tutorial 
+we imported this mvr file as you can see right  
+
+12
+00:01:06,400 --> 00:01:13,120
+here and this consists of a lot of fixtures and 
+building a layout file from all these fixtures  
+
+13
+00:01:13,120 --> 00:01:18,880
+in the right position is going to take you a long 
+time and that's why GrandMA3 has a really really  
+
+14
+00:01:18,880 --> 00:01:23,040
+great tool which is going to help you in that 
+in that regard but the first thing here we look  
+
+15
+00:01:23,040 --> 00:01:29,520
+at it in 3d and then we have our cameras up here 
+which determines from which angle we are watching  
+
+16
+00:01:29,520 --> 00:01:34,800
+it right now so if i press the front it's going to 
+show us the front it's going to show us front and  
+
+17
+00:01:34,800 --> 00:01:41,040
+left left back lift back and so on and so forth 
+and this is this is something that's going to help  
+
+18
+00:01:41,040 --> 00:01:46,560
+us in a minute when we build our layout but before 
+we build our layout i you have to build a layout  
+
+19
+00:01:46,560 --> 00:01:51,120
+view which i've done here i have some groups i 
+have some playbacks here which we're going to  
+
+20
+00:01:51,120 --> 00:01:56,000
+need later i have some macros for easy access 
+instead of writing everything out in the command  
+
+21
+00:01:56,000 --> 00:02:01,440
+line i have my sequences ready down here i can 
+see what's in the sequence when i store some  
+
+22
+00:02:01,440 --> 00:02:06,560
+and i have my fixture sheet here so there's a few 
+different ways you can make a group first of all  
+
+23
+00:02:06,560 --> 00:02:11,760
+you can of course just type the numbers you can 
+type fixture one through and the last one in in  
+
+24
+00:02:11,760 --> 00:02:17,200
+that chain of the fixtures and another thing 
+is you can go over here and you can simply 
+
+25
+00:02:17,760 --> 00:02:23,920
+drag drag the cursor down until you you select 
+all the fixtures in a certain fixture type  
+
+26
+00:02:23,920 --> 00:02:28,320
+this time i'm going to do it with all our two 
+lights right now and it's a little bit difficult  
+
+27
+00:02:28,320 --> 00:02:35,120
+because it reacts really fast sometimes but i 
+think i've put in 175 two lights we have marked  
+
+28
+00:02:35,120 --> 00:02:40,640
+them out now we can simply say store and put 
+them into a group up here we label the group  
+
+29
+00:02:41,520 --> 00:02:48,640
+all two lights like this and then i'm going to 
+speed up the video and do exactly the same thing  
+
+30
+00:02:48,640 --> 00:02:56,480
+for the other moving lines and the other fixtures 
+in our 3d space once you've stored everything into  
+
+31
+00:02:56,480 --> 00:03:01,120
+its own group it's much easier to work with 
+not that we have to do that we could actually  
+
+32
+00:03:01,120 --> 00:03:05,200
+basically just select all fixtures and put them 
+into the view but this way we have a little bit  
+
+33
+00:03:05,200 --> 00:03:10,480
+more control when we need to work with them later 
+but as we have done we have a build our layout  
+
+34
+00:03:10,480 --> 00:03:14,960
+right here we just need to scale this a little bit 
+down and we need our layout pool in here as well  
+
+35
+00:03:15,600 --> 00:03:20,560
+and it's over here somewhere and we're going to 
+need that in a minute let's just store this into  
+
+36
+00:03:20,560 --> 00:03:27,680
+our current layout view right here there we go so 
+clear this now we go we need our two lights our  
+
+37
+00:03:27,680 --> 00:03:34,720
+atomics our spiders mega points auras and vipers 
+and we need to assign them into this layout view  
+
+38
+00:03:34,720 --> 00:03:40,240
+so we have just selected all of them and we simply 
+say assign and we put them in here and as you can  
+
+39
+00:03:40,240 --> 00:03:45,920
+see this is all our fixtures but they are just 
+in one big long line right now and we can't use  
+
+40
+00:03:45,920 --> 00:03:51,440
+that for anything really so here comes the cool 
+part you can go up into your setup menu here  
+
+41
+00:03:51,440 --> 00:03:56,480
+with everything selected you can go into your 
+position down here and you can click it and say  
+
+42
+00:03:56,480 --> 00:04:04,160
+arrangement you can right click this one and say 
+camera and if you remember before we used we could  
+
+43
+00:04:04,160 --> 00:04:11,120
+we switch around the cameras in 3d window so here 
+in the camera setting you can simply right click  
+
+44
+00:04:11,120 --> 00:04:17,120
+or left click and and go up and say okay from 
+which angle do i need to set this up right now  
+
+45
+00:04:17,680 --> 00:04:23,360
+if you do it from the front view like this one 
+it's gonna be basically set up the layout of  
+
+46
+00:04:23,360 --> 00:04:28,240
+if you see it from the front i love to see it from 
+the top this is the way i like to work with it  
+
+47
+00:04:28,240 --> 00:04:34,800
+so i select the top view and then we go down 
+into our settings down here and we say apply  
+
+48
+00:04:35,520 --> 00:04:42,800
+and now we actually set up everything as we're 
+supposed to we can mark everything here and we can  
+
+49
+00:04:42,800 --> 00:04:48,480
+take our little move tool here and we can move it 
+into the center and now we very very quickly built  
+
+50
+00:04:48,480 --> 00:04:54,560
+a layout for our setup but as you can see this 
+layout is practically useless because everything  
+
+51
+00:04:54,560 --> 00:04:58,720
+is positioned on top of each other so we need 
+to separate this out the easiest way we can  
+
+52
+00:04:59,360 --> 00:05:03,920
+so we have all our fixtures stored in this first 
+one up here so when we press that that's the  
+
+53
+00:05:03,920 --> 00:05:08,560
+the view with all our fixtures in it so let's 
+just copy this one and move it down here and  
+
+54
+00:05:08,560 --> 00:05:17,840
+we can relabel this to all atomics for instance 
+like this and then we can go in and select it  
+
+55
+00:05:17,840 --> 00:05:23,120
+and it looks exactly the same because it's a 
+copy of course so we say edit and then we find  
+
+56
+00:05:23,120 --> 00:05:28,000
+everything in here which is not an atomic and we 
+simply delete it so we start up here with all the  
+
+57
+00:05:28,000 --> 00:05:33,840
+two lights we select them and we delete them we 
+go below the atomics and we find all the spiiders  
+
+58
+00:05:33,840 --> 00:05:38,400
+and all the way down and we delete that and then 
+we close this one down and then we suddenly only  
+
+59
+00:05:38,400 --> 00:05:43,360
+have all our atomics in our view but it's still 
+a little clunky because we are looking from the  
+
+60
+00:05:43,360 --> 00:05:47,840
+the top and you can see they are a little bit 
+on top of each other so we just simply select  
+
+61
+00:05:49,520 --> 00:05:59,040
+all of them here all the the weird ones from 307 
+up to 3 11 312 here and we reposition them just  
+
+62
+00:05:59,040 --> 00:06:04,720
+a little bit and this is basically what the layout 
+view is really good at so let's just do that again  
+
+63
+00:06:04,720 --> 00:06:12,080
+and make sure that we selected all of them like 
+this and then we go into the move tool here and  
+
+64
+00:06:12,080 --> 00:06:17,920
+we simply drag them a little bit back and now 
+we have them all separated so now we can work a  
+
+65
+00:06:17,920 --> 00:06:23,360
+little bit better with them so let's select all of 
+them and let's go down into our controls down here  
+
+66
+00:06:23,360 --> 00:06:28,640
+and they have a width of 50 pixels and a height 
+of 50 pixels let's just increase that a little bit  
+
+67
+00:06:29,440 --> 00:06:36,320
+to make them a little bit more visible like we 
+want them like this maybe 80 and 80. maybe that's  
+
+68
+00:06:36,320 --> 00:06:42,480
+fine and then we can certainly much better grab 
+them and move them around the way we want it so  
+
+69
+00:06:42,480 --> 00:06:49,040
+the layout is basically just a starting point when 
+we import it from 3d and then we can rearrange it  
+
+70
+00:06:49,040 --> 00:06:54,800
+a little bit like we like we just did here 
+so let's just uh once again move them into  
+
+71
+00:06:54,800 --> 00:06:59,040
+this one and then i'm going to do the rest of 
+the fixtures right here and then we're going to  
+
+72
+00:06:59,040 --> 00:07:03,760
+go into the next step afterwards so this one this 
+time i'm going to speed up the video once again  
+
+73
+00:07:03,760 --> 00:07:08,880
+and i'm going to do all the other other views 
+for the other fixtures and then when we have done  
+
+74
+00:07:08,880 --> 00:07:14,080
+that we can go and proceed to the next step if you 
+think you have learned something so far be sure to  
+
+75
+00:07:14,080 --> 00:07:19,440
+give this video a like to give some free support 
+to my channel i really appreciate it and it really  
+
+76
+00:07:19,440 --> 00:07:24,640
+helps the youtube algorithm to push my video out 
+to more people and you're also very welcome to  
+
+77
+00:07:24,640 --> 00:07:30,080
+subscribe to the channel i try to upload a video 
+a new video every week so if you want to continue  
+
+78
+00:07:30,080 --> 00:07:34,880
+learning GrandMA3 this is a good place to be 
+so subscribe and hit that bell notification  
+
+79
+00:07:34,880 --> 00:07:40,400
+so you don't miss any future uploads another cool 
+thing we can do after we've done all these layout  
+
+80
+00:07:40,400 --> 00:07:47,120
+windows is to give each fixture type its own color 
+so if we go into the atomics into the edit again  
+
+81
+00:07:47,120 --> 00:07:53,200
+we can scroll all the way down i've tried 
+it with the with some of the the different  
+
+82
+00:07:53,200 --> 00:07:58,560
+appearances and it doesn't seem to work for me 
+i think it's a some kind of bug right now in  
+
+83
+00:07:58,560 --> 00:08:04,720
+the software i hope it's going to be better but i 
+find kind of a work around is to color the border  
+
+84
+00:08:04,720 --> 00:08:09,280
+and as you can see on all the atomics here all 
+the borders are hidden but we can simply mark  
+
+85
+00:08:09,280 --> 00:08:15,360
+them all the way down and say visible and then 
+we can scroll down to border color right here  
+
+86
+00:08:15,360 --> 00:08:20,960
+and then we can mark them once again and we can 
+choose a border color for our atomic fixtures  
+
+87
+00:08:20,960 --> 00:08:26,400
+so let's just make a kind of a cyan border 
+color right here close this one down and if  
+
+88
+00:08:26,400 --> 00:08:31,920
+we clear out you can see they are all in a cyan 
+color once again i'm going to do this to all of  
+
+89
+00:08:32,480 --> 00:08:37,120
+the other fixtures so we can have them each 
+and and everyone can have their same color  
+
+90
+00:08:37,760 --> 00:08:42,560
+so now i colored all the different fixtures they 
+all have the same color so you can much better  
+
+91
+00:08:42,560 --> 00:08:47,520
+differentiate one from the other i can see there's 
+some similar colors over here but never mind the  
+
+92
+00:08:47,520 --> 00:08:51,760
+last thing i'm going to show you in this tutorial 
+is to be a little bit more specific about what is  
+
+93
+00:08:51,760 --> 00:08:57,440
+in each window because you can actually draw 
+a large border around a fixture collection as  
+
+94
+00:08:57,440 --> 00:09:03,600
+i'm going to show you right now like this one i 
+have this selected and i can right click on it  
+
+95
+00:09:04,720 --> 00:09:10,160
+and go into the setup menu if i can hit the 
+controls and then we can rename it this is  
+
+96
+00:09:10,160 --> 00:09:17,120
+another element we can say custom text we can 
+say all two lights like this and as you can see  
+
+97
+00:09:17,120 --> 00:09:23,520
+the text come up here in the center and it's very 
+small so we can set the default font size to 32  
+
+98
+00:09:23,520 --> 00:09:29,920
+and we can set the text vertical up to the top 
+and that makes it a lot easier when we go into  
+
+99
+00:09:29,920 --> 00:09:36,320
+a setup or into a layout view to see what's 
+actually in it so if we for instance go into  
+
+100
+00:09:36,320 --> 00:09:41,280
+let's say all our atomics and let's just say for 
+the fun of it that these ones are on the floor  
+
+101
+00:09:41,280 --> 00:09:47,200
+we can simply choose this plus icon up here 
+and we can draw a border around these atomics  
+
+102
+00:09:48,080 --> 00:09:52,960
+only and then we can right click and it can be a 
+little bit hard to hit we can right click and say  
+
+103
+00:09:53,520 --> 00:10:01,200
+floor atomics like this and you can it's 
+very hard to see but there's a small name  
+
+104
+00:10:01,200 --> 00:10:07,920
+right here in the in the center so we can set the 
+default font size to 32 for instance and we can  
+
+105
+00:10:07,920 --> 00:10:13,920
+place the text all the way to the top and then we 
+can simply align this this border just a little  
+
+106
+00:10:13,920 --> 00:10:20,400
+bit oh i need to change this up a little bit 
+delete these ones and then i can just go up with  
+
+107
+00:10:20,400 --> 00:10:27,360
+the with the this border like this so basically 
+now if we go out of the setup menu you will have  
+
+108
+00:10:27,360 --> 00:10:32,480
+this one marked out as the flow atomics and then 
+you know everything else is in the in the roof or  
+
+109
+00:10:32,480 --> 00:10:36,800
+in the trusses i release a new video every week 
+on this channel so be sure to subscribe and click  
+
+110
+00:10:36,800 --> 00:10:42,080
+the little bell icon if you want to be notified 
+when i release new content if you are interested  
+
+111
+00:10:42,080 --> 00:10:47,280
+in GrandMA3 be sure to watch this next video 
+you can see on the screen right now where i will  
+
+112
+00:10:47,280 --> 00:10:52,560
+go through even more GrandMA3 features on our 
+quest to learn GrandMA3 programming i hope  
+
+113
+00:10:52,560 --> 00:10:58,800
+to see you on the channel again in the future 
+and until then happy GrandMA3 programming - BYE! :-)
+

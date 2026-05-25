@@ -1,0 +1,437 @@
+1
+00:00:00,160 --> 00:00:05,680
+patching GrandMA3 is easy when your show and 
+everything is planned out so you can patch it in  
+
+2
+00:00:05,680 --> 00:00:11,120
+descending order but sometimes you'll encounter a 
+lighting rig where the fixtures are not patched in  
+
+3
+00:00:11,120 --> 00:00:16,800
+a smart order this video is actually inspired from 
+a question i received in the comment section from  
+
+4
+00:00:16,800 --> 00:00:24,160
+Gkats5513 from Athens in Greece and it says 
+great video thank you what if you can't patch  
+
+5
+00:00:24,160 --> 00:00:30,000
+the fixtures in groups but need to go viper 
+aura viper aura etc what's the fastest way to do  
+
+6
+00:00:30,000 --> 00:00:34,640
+that so in this video i'm going to show you three 
+different ways you can patch your GrandMA3   
+
+7
+00:00:34,640 --> 00:00:40,640
+console so let's get into it in the description 
+below you can find a onedrive shared folder with  
+
+8
+00:00:40,640 --> 00:00:46,640
+some files in it and the files for this episode 
+is episode 19 and as you can see we have a  
+
+9
+00:00:46,640 --> 00:00:53,600
+2d plane we have a patch by spot we have patch 
+by universe 1 and we have patch by universe 2.  
+
+10
+00:00:54,160 --> 00:01:00,000
+so for the first one we need to go into our 
+2d plan right here and if we select then  
+
+11
+00:01:00,000 --> 00:01:05,680
+you can see exactly how many fixtures you 
+need to to put into your GrandMA3  console  
+
+12
+00:01:06,320 --> 00:01:12,880
+and in which mode they have to be in so what 
+i've done here is all my atomics is in mode 4  
+
+13
+00:01:12,880 --> 00:01:18,400
+all my vipers is in the 16-bit standard mode 
+NOT the extended mode and you can see it uses  
+
+14
+00:01:18,400 --> 00:01:25,760
+26 channels and the Aurasis also in the standard 
+mode of 14 channels so start by putting that  
+
+15
+00:01:25,760 --> 00:01:32,400
+amount into your console and as you can see that 
+is what i have done right here so for to be able  
+
+16
+00:01:32,400 --> 00:01:38,800
+to patch this you need to go into to patch by spot 
+which is the first technique we're going to use  
+
+17
+00:01:38,800 --> 00:01:45,840
+and as you can see right here we have 301 
+through 304 is on universe 1. so let's  
+
+18
+00:01:45,840 --> 00:01:53,840
+find all our atomics they're all down here and we 
+need 301 through 304 so we simply select them here  
+
+19
+00:01:55,040 --> 00:02:05,120
+and we right click and we say they need to be 
+patched at 1.297 so we simply patch to 1.297  
+
+20
+00:02:05,760 --> 00:02:11,920
+please so you can see we just patched our first 
+fixtures now we look for the next thing that  
+
+21
+00:02:11,920 --> 00:02:21,520
+goes into universe number one that is Mac Auras 601 
+through 610 so we find all our auras 601 and we  
+
+22
+00:02:21,520 --> 00:02:29,360
+go all the way down to 610 right here we right 
+click and we say it need to be on universe 1.157  
+
+23
+00:02:30,240 --> 00:02:43,360
+universe 1.157 please and now we need to 
+find all our vipers they are 701 through 706  
+
+24
+00:02:44,320 --> 00:02:53,840
+so we find them down here 701 through to 706. 
+and we right click and we patch them at 1.1  
+
+25
+00:02:55,120 --> 00:03:00,000
+so that's basically the first universe this 
+is the technique we know this is kind of slow  
+
+26
+00:03:00,000 --> 00:03:05,520
+kind of tedious it's a way of doing it we just 
+patched one universe right now and we did it the  
+
+27
+00:03:05,520 --> 00:03:10,560
+old-fashioned way so this is the normal way of 
+patching a GrandMA3  show in a minute i'll show  
+
+28
+00:03:10,560 --> 00:03:15,520
+you technique number two which is very easy to do 
+and can be used if the fixtures are planned out  
+
+29
+00:03:15,520 --> 00:03:20,640
+in a more random order just like the one i just 
+showed you but before we get into that if you  
+
+30
+00:03:20,640 --> 00:03:25,840
+have learned something so far be sure to give this 
+video a thumbs up this gives me some free support  
+
+31
+00:03:25,840 --> 00:03:30,640
+and indicates to youtube that it should spread 
+out to more people and subscribe to the channel  
+
+32
+00:03:30,640 --> 00:03:35,440
+is definitely a good option so you don't miss any 
+future episodes from this channel in the future  
+
+33
+00:03:36,640 --> 00:03:42,000
+so let's look at patch technique number two i have 
+deleted the patch we just made and now i'll show  
+
+34
+00:03:42,000 --> 00:03:47,440
+you technique number two to patch the GrandMA3  
+show file this time we go back into the shared  
+
+35
+00:03:47,440 --> 00:03:54,000
+folder we find the the file called patch by 
+universe1 we open it up and as you can see here  
+
+36
+00:03:54,000 --> 00:03:58,480
+this time all the fixtures are sorted in 
+the order of the patch everything is from  
+
+37
+00:03:58,480 --> 00:04:05,680
+universe 1 and it starts at 1 and goes all the 
+way down so what we have here is 701 through 706  
+
+38
+00:04:05,680 --> 00:04:12,480
+so basically what we need to do is go over 
+here again and say 701 through 706. we take  
+
+39
+00:04:12,480 --> 00:04:16,960
+them over here and we start with number one 
+we go all the way down to six and then we just  
+
+40
+00:04:16,960 --> 00:04:23,440
+leave it like that what else do we need now 601 
+through 610 we go over here and take this small  
+
+41
+00:04:23,440 --> 00:04:30,480
+little one over here and we move all the way 
+up into we find unit fixture or sorry fixture  
+
+42
+00:04:30,480 --> 00:04:39,040
+601 we press down and hold down CTRL on your 
+keyboard and then you mark 601 all the way down  
+
+43
+00:04:39,040 --> 00:04:47,120
+to 610 like this we release and then we find 
+the last ones which is 301 through 304 once again
+
+44
+00:04:49,360 --> 00:04:54,560
+we move this little one all the way down be 
+sure not to scroll on your mouse because then  
+
+45
+00:04:54,560 --> 00:04:59,360
+it's going to forget the selection order 
+you have right now so 301 through 304 once  
+
+46
+00:04:59,360 --> 00:05:04,560
+again we press down and hold CTRL and we 
+select all the way down to number four  
+
+47
+00:05:04,560 --> 00:05:10,720
+we release and that's it now we have selected 
+everything in the right order as you can see  
+
+48
+00:05:10,720 --> 00:05:15,840
+right now so what we need to do now is right click 
+here and say where do we want to start we want to  
+
+49
+00:05:15,840 --> 00:05:25,680
+start at 1.1 so we patch to 1.1 please and now 
+we patched the entire universe with only one  
+
+50
+00:05:26,240 --> 00:05:34,000
+single little click and as you can see here the 
+last atomic address is 309 and right here it's  
+
+51
+00:05:34,000 --> 00:05:41,120
+309 so this is basically how technique number two 
+works you simply select them in the right order  
+
+52
+00:05:41,920 --> 00:05:46,480
+all of them and you don't use your scroller you 
+simply use this one up here to to go up and down  
+
+53
+00:05:46,480 --> 00:05:51,920
+you select the one you press control you select 
+and then you right click and patch them that is  
+
+54
+00:05:51,920 --> 00:05:57,440
+technique number two in a minute i'll show you 
+technique number three to patching your GrandMA3   
+
+55
+00:05:57,440 --> 00:06:01,760
+console so be sure to stick around for that 
+and please leave a comment below if you have  
+
+56
+00:06:01,760 --> 00:06:06,560
+anything on your mind i can tell you i had many 
+discussions in the comments section with you guys  
+
+57
+00:06:06,560 --> 00:06:11,840
+already and it's really motivating for me to know 
+that someone is watching and sometimes i can even  
+
+58
+00:06:11,840 --> 00:06:17,440
+help you with some GrandMA3  related questions 
+if you get stuck with something so please let  
+
+59
+00:06:17,440 --> 00:06:22,960
+me hear from you in the comment section and if 
+you're looking at getting some GrandMA3  
+
+60
+00:06:23,680 --> 00:06:28,720
+hardware yourself i have a bunch of links in the 
+description where you can have a good look at them  
+
+61
+00:06:28,720 --> 00:06:33,920
+you can see the different models and you can go 
+in and study each of them so you know how they're  
+
+62
+00:06:33,920 --> 00:06:39,200
+configured and what model would be the right fit 
+for you the last GrandMA3 -patch technique i'll  
+
+63
+00:06:39,200 --> 00:06:44,880
+show you is probably the fastest if you have a 
+patch sheet in front of you and this is basically  
+
+64
+00:06:44,880 --> 00:06:50,720
+the way we used to do it on whole hog consoles 
+and and different other models as well so let's 
+
+65
+00:06:50,720 --> 00:06:56,080
+let's get right into that once again we select all 
+our patch here we right click and we say on patch  
+
+66
+00:06:57,040 --> 00:07:02,480
+and now we have everything in here there's 
+nothing patched but we have all our fixtures as we  
+
+67
+00:07:02,480 --> 00:07:07,120
+as we did before so this time we're simply going 
+to close the patch we're going to save and exit  
+
+68
+00:07:07,120 --> 00:07:11,920
+and we are going to use the command line so 
+if we have the patch sheet in front of us  
+
+69
+00:07:13,040 --> 00:07:19,280
+you can see that it is the same sheet patch by 
+universe we have spot number 701 through 706 and  
+
+70
+00:07:19,280 --> 00:07:22,560
+and so forth this time we're going 
+to use the command line and we have  
+
+71
+00:07:22,560 --> 00:07:25,840
+the command line right here in front of us 
+so basically we're just going to say patch
+
+72
+00:07:28,320 --> 00:07:38,240
+fixture and we say 701 through 706 plus
+
+73
+00:07:40,640 --> 00:07:53,920
+601 through 610 plus 301 through 304 and we say  
+
+74
+00:07:53,920 --> 00:08:00,400
+enter and it's going to ask us where do you 
+want to patch it we simply say patch to 1.1
+
+75
+00:08:00,960 --> 00:08:06,720
+please and it exits the patch again and we're 
+done so right now if we open the patch up  
+
+76
+00:08:07,760 --> 00:08:12,800
+you will see that everything is patched 
+the way we wanted it on universe number one  
+
+77
+00:08:12,800 --> 00:08:17,040
+so this is basically the fastest way you 
+can patch it and it's also a little bit  
+
+78
+00:08:17,040 --> 00:08:21,200
+dangerous so be careful in here because if 
+you patch something to the wrong address  
+
+79
+00:08:21,200 --> 00:08:27,120
+it's gonna warn you but still working in the patch 
+it gives you maybe a bit better clarity over what  
+
+80
+00:08:27,120 --> 00:08:32,000
+you what it is you're doing i hope this video 
+gives you a better understanding of the GrandMA3 
+
+81
+00:08:32,000 --> 00:08:37,440
+ patch techniques and as maybe you can see 
+the benefit in all three different kinds of  
+
+82
+00:08:37,440 --> 00:08:42,560
+of techniques i mean sometimes you'll use one 
+sometimes you use the other and that's fine  
+
+83
+00:08:42,560 --> 00:08:47,840
+if you are interested in being a better GrandMA3  programmer make sure you watch this next video  
+
+84
+00:08:47,840 --> 00:08:52,960
+and please follow along on your granny may on 
+pc at home watching someone program GrandMA3   
+
+85
+00:08:52,960 --> 00:08:58,880
+is fine but doing it yourself will help 
+you remember when you need it in real life i  
+
+86
+00:08:58,880 --> 00:09:04,000
+release one video every week on this channel so be 
+sure to subscribe and click the little bell icon  
+
+87
+00:09:04,560 --> 00:09:10,320
+if you don't want to miss the next episode 
+you'll be notified when we release new content  
+
+88
+00:09:10,320 --> 00:09:16,640
+i hope to see you on the channel again in the 
+future and until then happy GrandMA3 programming
+

@@ -1,0 +1,239 @@
+1
+00:00:00,320 --> 00:00:06,640
+one really great tool in the grandma3 software is 
+the new way of making your presets your macros and  
+
+2
+00:00:06,640 --> 00:00:11,680
+lots of other things look just the way you like it 
+you can do that with a few different tools and in  
+
+3
+00:00:11,680 --> 00:00:16,720
+this video i'll go through some of the different 
+functionalities you can use to accomplish the look  
+
+4
+00:00:16,720 --> 00:00:21,760
+you're trying to achieve i'm talking 
+about appearances. Appearances is a cool  
+
+5
+00:00:21,760 --> 00:00:27,440
+and simple way for you to customize the look of 
+different aspects of your grandma 3 appearance  
+
+6
+00:00:28,000 --> 00:00:34,240
+you can color almost everything to distinguish 
+one preset from the other or make your store macro  
+
+7
+00:00:34,240 --> 00:00:40,160
+stand out so you don't press it by mistake so 
+let's get into this GrandMA3 appearance tutorial  
+
+8
+00:00:40,160 --> 00:00:46,960
+the GrandMA3 appearances can be used to change 
+the look of a preset macro fader and even the led  
+
+9
+00:00:46,960 --> 00:00:52,480
+light on the physical faders on the real GrandMA3 consoles and it's not even limited to that  
+
+10
+00:00:52,480 --> 00:00:56,880
+you can assign your appearances to a lot of 
+different places in the console and as you  
+
+11
+00:00:56,880 --> 00:01:02,240
+can see i prepared a little show file for us right 
+here let's first go into this empty area or create  
+
+12
+00:01:02,240 --> 00:01:09,360
+your own area and let's find our appearances it's 
+right here that's our appearance tab let's just  
+
+13
+00:01:10,400 --> 00:01:15,040
+make this a little bit smaller and let's 
+start to uh to see what we can do with it  
+
+14
+00:01:15,040 --> 00:01:21,040
+you have all these appearances right here and they 
+don't really make any sense to begin with but to  
+
+15
+00:01:21,040 --> 00:01:28,320
+see how appearances work let's start over here in 
+our master cue lists so if we press this one and  
+
+16
+00:01:28,320 --> 00:01:34,240
+we go into the settings right here you have this 
+appearances tab right here if you click that one  
+
+17
+00:01:34,240 --> 00:01:41,600
+you can select one of the images i just showed you 
+over and in the appearance tab but if you go down  
+
+18
+00:01:41,600 --> 00:01:49,120
+to new you get this one up here so let's start 
+with making a color appearance let's just put  
+
+19
+00:01:49,120 --> 00:01:55,920
+it into red for now like this let's just close it 
+down and as you can see it's red now let's close  
+
+20
+00:01:55,920 --> 00:02:02,800
+this one down everything over here turned red and 
+as you can see a new appearance turned up here so  
+
+21
+00:02:02,800 --> 00:02:08,960
+you have the appearance pool and in the appearance 
+pool every time you build a new appearance it it  
+
+22
+00:02:08,960 --> 00:02:14,800
+comes up here and the cool thing about appearances 
+is you can use them and you can reuse them so if i  
+
+23
+00:02:14,800 --> 00:02:20,400
+go into my store macro right here and say okay 
+i want my store macro to be red i can simply  
+
+24
+00:02:20,400 --> 00:02:27,040
+say edit go up into the appearance tab here and 
+now i can select the red appearance we just made  
+
+25
+00:02:27,680 --> 00:02:33,440
+so we click this one down and this one is now red 
+the cool thing is then you can say okay i want to  
+
+26
+00:02:33,440 --> 00:02:39,040
+change this appearance i want it to be blue and 
+as you can see it changed here and it changed up  
+
+27
+00:02:39,040 --> 00:02:44,240
+here so this one over here is a reference we can 
+use it and we can reuse it everywhere we want so  
+
+28
+00:02:44,240 --> 00:02:52,560
+let's just put it back into red like this this is 
+our first appearance but appearances is a two-part  
+
+29
+00:02:52,560 --> 00:02:59,040
+thing let's just try to build a new one let's say 
+edit we have the image color or the foreground  
+
+30
+00:02:59,040 --> 00:03:04,560
+and you have the background color so before 
+we just use the image color let's just try to  
+
+31
+00:03:04,560 --> 00:03:08,960
+use the background color let's put it into blue 
+and let's turn the alpha channel all the way up  
+
+32
+00:03:08,960 --> 00:03:13,920
+and let's turn the alpha channel all the way 
+down on the image color and we clear this one  
+
+33
+00:03:13,920 --> 00:03:21,440
+out then we go into our color cue right here we 
+go into appearances and as you can see down here  
+
+34
+00:03:21,440 --> 00:03:28,000
+this selects a border around the the fader like 
+this so if we clear this one down it builds a  
+
+35
+00:03:28,000 --> 00:03:33,360
+border around it so basically we can still change 
+this and say okay this is our background color  
+
+36
+00:03:33,360 --> 00:03:39,120
+i want to edit this and put it into maybe yellow 
+on our foreground so we turn this one all the  
+
+37
+00:03:39,120 --> 00:03:44,960
+way up and as you can see it has a background 
+color of blue and a foreground or image color of  
+
+38
+00:03:44,960 --> 00:03:51,760
+yellow so this is going to change our fader 
+to look like this the background color affects  
+
+39
+00:03:51,760 --> 00:03:57,440
+the physical faders you you've seen the images 
+of the real GrandMA3 consoles you have like an  
+
+40
+00:03:57,440 --> 00:04:02,240
+led light on the fader and you can 
+change the color by using the appearances  
+
+41
+00:04:02,240 --> 00:04:08,560
+and you can use the background color like this so 
+in this case if we had a real GrandMA3 console  
+
+42
+00:04:08,560 --> 00:04:13,200
+our faders led light would now be blue 
+because we use the background color  
+
+43
+00:04:13,200 --> 00:04:17,040
+what i just showed you is something you 
+can use in your GrandMA3 programming  
+
+44
+00:04:17,040 --> 00:04:21,680
+but as with everything else you don't have to 
+use it you can customize your show file just  
+
+45
+00:04:21,680 --> 00:04:26,880
+the way you like it and how much work you want 
+to put into it is all up to you you could check  
+
+46
+00:04:26,880 --> 00:04:31,520
+out this next video you can see on your screen 
+right now it'll guide you to another cool part  
+
+47
+00:04:31,520 --> 00:04:36,560
+of the GrandMA3 software and possibly give 
+you some new insights of the GrandMA3 software  
+
+48
+00:04:37,200 --> 00:04:41,840
+i hope i see you in the next video but until 
+i see you again happy GrandMA3 programming
+

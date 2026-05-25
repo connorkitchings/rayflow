@@ -1,0 +1,880 @@
+1
+00:00:03,120 --> 00:00:10,360
+hi everybody my name is Luke Straton I
+
+2
+00:00:05,319 --> 00:00:10,360
+do sound and lights for doai this is my
+
+3
+00:00:17,119 --> 00:00:20,640
+world so I guess I'll start with my
+
+4
+00:00:19,199 --> 00:00:23,279
+Lighting World and then we'll go through
+
+5
+00:00:20,640 --> 00:00:27,240
+that and then move over here to audio um
+
+6
+00:00:23,279 --> 00:00:29,720
+I use a program called Grand Ma 2 uh on
+
+7
+00:00:27,240 --> 00:00:32,920
+PC uh it's designed to run on a big full
+
+8
+00:00:29,720 --> 00:00:36,360
+ligh console but basically I've uh I
+
+9
+00:00:32,920 --> 00:00:38,600
+used to be a software programmer so I I
+
+10
+00:00:36,360 --> 00:00:41,680
+programmed the whole desk onto a bunch
+
+11
+00:00:38,600 --> 00:00:45,480
+of uh mini boards so these are like this
+
+12
+00:00:41,680 --> 00:00:50,399
+is APC 20 and an APC 40 and inovation
+
+13
+00:00:45,480 --> 00:00:52,559
+Launchpad mini and an aai lpk25
+
+14
+00:00:50,399 --> 00:00:54,640
+um and they're you know they're usually
+
+15
+00:00:52,559 --> 00:00:57,039
+for a DJ or whatnot and I've kind of put
+
+16
+00:00:54,640 --> 00:01:00,879
+them all together inside of a DJ case
+
+17
+00:00:57,039 --> 00:01:04,479
+that treated as a lighting so uh grandom
+
+18
+00:01:00,879 --> 00:01:05,960
+a is pretty sophisticated software um so
+
+19
+00:01:04,479 --> 00:01:07,759
+I guess I kind of just quickly go
+
+20
+00:01:05,960 --> 00:01:10,439
+through how my board's laid out for
+
+21
+00:01:07,759 --> 00:01:13,600
+those nerds out there that are super
+
+22
+00:01:10,439 --> 00:01:16,840
+interested um the APC 20 is usually
+
+23
+00:01:13,600 --> 00:01:18,960
+colors um and the APC 40 is most
+
+24
+00:01:16,840 --> 00:01:20,759
+everything else it's got a few more uh
+
+25
+00:01:18,960 --> 00:01:23,479
+buttons and knobs so I've got some
+
+26
+00:01:20,759 --> 00:01:25,840
+effects and stuff but uh on my normal
+
+27
+00:01:23,479 --> 00:01:28,000
+page this is all this is my color grid
+
+28
+00:01:25,840 --> 00:01:31,680
+so the top here I've got solid colors
+
+29
+00:01:28,000 --> 00:01:34,920
+for the whole rig you can see here
+
+30
+00:01:31,680 --> 00:01:37,560
+up and they're kind of in order as they
+
+31
+00:01:34,920 --> 00:01:39,360
+are on the color wheel inside my lights
+
+32
+00:01:37,560 --> 00:01:41,759
+so that if I go from I know that red and
+
+33
+00:01:39,360 --> 00:01:44,719
+blue are close so I can do quick
+
+34
+00:01:41,759 --> 00:01:48,439
+movements without without seeing a jump
+
+35
+00:01:44,719 --> 00:01:50,840
+like if you go from Blue to to UV here
+
+36
+00:01:48,439 --> 00:01:52,479
+you see it jumps through the wheel and
+
+37
+00:01:50,840 --> 00:01:54,560
+then I have it sorted by fixture so if I
+
+38
+00:01:52,479 --> 00:01:58,880
+wanted to color the movers yellow and
+
+39
+00:01:54,560 --> 00:02:02,399
+the upstage wash blue down stage wash
+
+40
+00:01:58,880 --> 00:02:03,759
+purple I can I do that all manually down
+
+41
+00:02:02,399 --> 00:02:06,960
+now I've also got all that stuff on a
+
+42
+00:02:03,759 --> 00:02:08,640
+fader here like a a fade time fader if
+
+43
+00:02:06,960 --> 00:02:11,959
+you will so I can actually put this guy
+
+44
+00:02:08,640 --> 00:02:13,879
+all the way up dial a new look in and
+
+45
+00:02:11,959 --> 00:02:16,120
+then snap it down when I'm ready for
+
+46
+00:02:13,879 --> 00:02:18,440
+that look to hit uh I can also kind of
+
+47
+00:02:16,120 --> 00:02:20,959
+give it a fade so if I I want to go Fade
+
+48
+00:02:18,440 --> 00:02:24,680
+to Red here just put the fader up a
+
+49
+00:02:20,959 --> 00:02:27,400
+little bit the whole rig will slowly
+
+50
+00:02:24,680 --> 00:02:29,360
+turn um below that I got some Goos and
+
+51
+00:02:27,400 --> 00:02:31,319
+some other Page Changing buttons but
+
+52
+00:02:29,360 --> 00:02:34,879
+then on the bottom of each APC I have
+
+53
+00:02:31,319 --> 00:02:36,720
+this little Big Grid here I um I use use
+
+54
+00:02:34,879 --> 00:02:39,599
+what's I call it color theory so
+
+55
+00:02:36,720 --> 00:02:41,800
+basically I go from um from like magenta
+
+56
+00:02:39,599 --> 00:02:43,680
+and pink through red and through all the
+
+57
+00:02:41,800 --> 00:02:46,360
+colors of the rainbow up here back
+
+58
+00:02:43,680 --> 00:02:49,080
+through to Pink and then I try to go
+
+59
+00:02:46,360 --> 00:02:51,560
+bright looks medium looks and dark looks
+
+60
+00:02:49,080 --> 00:02:52,920
+so that way I can kind of hit a color
+
+61
+00:02:51,560 --> 00:02:54,400
+look without having to think about it so
+
+62
+00:02:52,920 --> 00:02:56,560
+for example if I want a bright yellow
+
+63
+00:02:54,400 --> 00:02:58,440
+look I can click this button and it'll
+
+64
+00:02:56,560 --> 00:03:00,440
+pop to a rig that has yellow in it
+
+65
+00:02:58,440 --> 00:03:02,560
+that's bright it may not be all yellow
+
+66
+00:03:00,440 --> 00:03:07,120
+but then if I want like a dark green
+
+67
+00:03:02,560 --> 00:03:08,840
+green look over here um now as far as
+
+68
+00:03:07,120 --> 00:03:10,280
+the actual color looks I I have a small
+
+69
+00:03:08,840 --> 00:03:11,840
+system where I've got them all named
+
+70
+00:03:10,280 --> 00:03:13,920
+with really creative names to help me
+
+71
+00:03:11,840 --> 00:03:16,239
+remember how to use them um for example
+
+72
+00:03:13,920 --> 00:03:19,560
+the one I just hit was called Alon I'm a
+
+73
+00:03:16,239 --> 00:03:21,680
+big Star Wars GE um you know over here
+
+74
+00:03:19,560 --> 00:03:25,040
+I've got fireplace which is kind of
+
+75
+00:03:21,680 --> 00:03:26,599
+obvious you know um but there's I've got
+
+76
+00:03:25,040 --> 00:03:28,799
+probably a hundred of different color
+
+77
+00:03:26,599 --> 00:03:30,480
+looks to help me kind of remember how I
+
+78
+00:03:28,799 --> 00:03:34,640
+use it
+
+79
+00:03:30,480 --> 00:03:37,879
+classic yet obvious ones are rainbow and
+
+80
+00:03:34,640 --> 00:03:40,640
+rosta yeah so that's mostly the 20 and
+
+81
+00:03:37,879 --> 00:03:42,799
+part of the 40 down here on the bottom
+
+82
+00:03:40,640 --> 00:03:44,200
+I've got faders on the left one the left
+
+83
+00:03:42,799 --> 00:03:46,680
+side faders here are usually for what
+
+84
+00:03:44,200 --> 00:03:49,480
+are called specials so I can Spotlight
+
+85
+00:03:46,680 --> 00:03:51,040
+on a member of the band um but on a
+
+86
+00:03:49,480 --> 00:03:52,760
+bigger rig where I've got a lot of
+
+87
+00:03:51,040 --> 00:03:54,799
+conventional lights sometimes I'll have
+
+88
+00:03:52,760 --> 00:03:56,480
+to use some of these faders to control
+
+89
+00:03:54,799 --> 00:03:59,000
+the red Park
+
+90
+00:03:56,480 --> 00:04:00,920
+Hands the second set here are some
+
+91
+00:03:59,000 --> 00:04:02,760
+movement fers so if I want to make the
+
+92
+00:04:00,920 --> 00:04:04,760
+lights move in a certain kind of
+
+93
+00:04:02,760 --> 00:04:07,400
+Direction I
+
+94
+00:04:04,760 --> 00:04:09,040
+can now over on the on APC 40 I got a
+
+95
+00:04:07,400 --> 00:04:11,159
+bunch of other stuff uh this top row
+
+96
+00:04:09,040 --> 00:04:14,680
+here is positions so I could you know
+
+97
+00:04:11,159 --> 00:04:17,799
+point the lights down or make it uh X's
+
+98
+00:04:14,680 --> 00:04:19,840
+or uh Point them at the wall um but
+
+99
+00:04:17,799 --> 00:04:22,240
+those all key off this fader here so if
+
+100
+00:04:19,840 --> 00:04:23,600
+I want them to fade slowly to down I
+
+101
+00:04:22,240 --> 00:04:26,919
+just put this fader that way and hit
+
+102
+00:04:23,600 --> 00:04:28,840
+down and it goes it's kind of fun I got
+
+103
+00:04:26,919 --> 00:04:30,400
+a lot of positions and I got some double
+
+104
+00:04:28,840 --> 00:04:33,320
+stacked positions so if I hit the button
+
+105
+00:04:30,400 --> 00:04:35,960
+twice it goes to a different position um
+
+106
+00:04:33,320 --> 00:04:38,199
+what else I so this this little button
+
+107
+00:04:35,960 --> 00:04:41,320
+grid here are my strobes so I've got
+
+108
+00:04:38,199 --> 00:04:43,960
+like a Paran you know wash strobe and
+
+109
+00:04:41,320 --> 00:04:46,199
+then a mover strobe uh I've got a all
+
+110
+00:04:43,960 --> 00:04:47,720
+white strobe uh and then I've got a
+
+111
+00:04:46,199 --> 00:04:51,560
+button called freak out which is
+
+112
+00:04:47,720 --> 00:04:54,160
+basically color Spin and prism it's the
+
+113
+00:04:51,560 --> 00:04:56,240
+works uh then the next little grid
+
+114
+00:04:54,160 --> 00:04:58,360
+section down here are all my chases and
+
+115
+00:04:56,240 --> 00:05:00,560
+those key off the fader too so I can
+
+116
+00:04:58,360 --> 00:05:02,320
+kind of play things
+
+117
+00:05:00,560 --> 00:05:06,160
+uh along with the
+
+118
+00:05:02,320 --> 00:05:07,720
+band um over here are Iris buttons to
+
+119
+00:05:06,160 --> 00:05:10,080
+kind of change the shape of the beam you
+
+120
+00:05:07,720 --> 00:05:12,240
+can see small Iris or big Iris or you
+
+121
+00:05:10,080 --> 00:05:15,280
+can Frost it all the way
+
+122
+00:05:12,240 --> 00:05:16,840
+out um and then some you know kind of
+
+123
+00:05:15,280 --> 00:05:20,199
+color effects all kinds of stuff
+
+124
+00:05:16,840 --> 00:05:22,800
+scattered in here got some uh some Goos
+
+125
+00:05:20,199 --> 00:05:24,240
+over here which for those not in the
+
+126
+00:05:22,800 --> 00:05:26,039
+industry those are like the shape that
+
+127
+00:05:24,240 --> 00:05:30,039
+the light makes to you'll see this is a
+
+128
+00:05:26,039 --> 00:05:31,240
+triangle or a circle
+
+129
+00:05:30,039 --> 00:05:35,080
+some
+
+130
+00:05:31,240 --> 00:05:36,280
+lines um as far as my knobs I got these
+
+131
+00:05:35,080 --> 00:05:38,680
+are mostly all
+
+132
+00:05:36,280 --> 00:05:41,759
+movements and then things like prism
+
+133
+00:05:38,680 --> 00:05:44,000
+speed Gobo scroll speed Gobo rotation
+
+134
+00:05:41,759 --> 00:05:46,680
+speed and color
+
+135
+00:05:44,000 --> 00:05:48,120
+speed um then you know I get asked a lot
+
+136
+00:05:46,680 --> 00:05:49,840
+what what all is going on I've he people
+
+137
+00:05:48,120 --> 00:05:52,080
+see the keyboard they like you got a
+
+138
+00:05:49,840 --> 00:05:54,280
+keyboard what you you play notes back
+
+139
+00:05:52,080 --> 00:05:56,160
+there and these are all bumps for the
+
+140
+00:05:54,280 --> 00:05:58,199
+rig so I've got some I can black out the
+
+141
+00:05:56,160 --> 00:06:00,680
+rig and I can bump in the LEDs for all
+
+142
+00:05:58,199 --> 00:06:03,680
+these different colors or if I've got
+
+143
+00:06:00,680 --> 00:06:05,199
+the rig on it'll still it'll shift the
+
+144
+00:06:03,680 --> 00:06:08,039
+rig to that color but they're temporary
+
+145
+00:06:05,199 --> 00:06:11,440
+so when I let go they kind of go back to
+
+146
+00:06:08,039 --> 00:06:15,479
+it I've got some blackout
+
+147
+00:06:11,440 --> 00:06:19,560
+bumps and some uh turn on
+
+148
+00:06:15,479 --> 00:06:23,880
+bumps some some wipes
+
+149
+00:06:19,560 --> 00:06:26,160
+here and um yeah that kind of stuff so I
+
+150
+00:06:23,880 --> 00:06:27,400
+guess that's pretty much my light rig
+
+151
+00:06:26,160 --> 00:06:28,960
+more or less I guess I should talk real
+
+152
+00:06:27,400 --> 00:06:32,960
+quick about what we're using our touring
+
+153
+00:06:28,960 --> 00:06:36,240
+rig is six Elation Platinum spot 5 RS
+
+154
+00:06:32,960 --> 00:06:39,440
+it's a it's a pretty uh relatively cheap
+
+155
+00:06:36,240 --> 00:06:41,599
+bright fixture that moves pretty quick
+
+156
+00:06:39,440 --> 00:06:43,039
+uh and it's kind of my main Workhorse so
+
+157
+00:06:41,599 --> 00:06:45,440
+all my programming that I have for those
+
+158
+00:06:43,039 --> 00:06:47,160
+5 hours I'll walk into a bigger room and
+
+159
+00:06:45,440 --> 00:06:50,440
+and I'll do what's called clone I'll
+
+160
+00:06:47,160 --> 00:06:53,560
+clone that programming from our
+
+161
+00:06:50,440 --> 00:06:56,720
+light then we also have a bunch of LED
+
+162
+00:06:53,560 --> 00:07:00,240
+uh LEDs that we have so uh this is my
+
+163
+00:06:56,720 --> 00:07:04,440
+audio world yeah so we uh we tour with a
+
+164
+00:07:00,240 --> 00:07:09,360
+pronus uh Studio live uh
+
+165
+00:07:04,440 --> 00:07:11,560
+2442 uh it's 24 Channel console um and
+
+166
+00:07:09,360 --> 00:07:13,639
+uh for years we tour with my 16 channel
+
+167
+00:07:11,560 --> 00:07:15,560
+one but we finally grew out of that one
+
+168
+00:07:13,639 --> 00:07:18,160
+and this board gives me a few more
+
+169
+00:07:15,560 --> 00:07:20,720
+options we get to have a few more things
+
+170
+00:07:18,160 --> 00:07:23,680
+in Stereo make a few more
+
+171
+00:07:20,720 --> 00:07:25,680
+drums um I'm running this guy with a
+
+172
+00:07:23,680 --> 00:07:28,319
+through fire wire 800 right into our
+
+173
+00:07:25,680 --> 00:07:30,960
+MacBook Pro uh and on this I'm running
+
+174
+00:07:28,319 --> 00:07:32,800
+two pieces of software I'm running um
+
+175
+00:07:30,960 --> 00:07:35,319
+the main control program which is called
+
+176
+00:07:32,800 --> 00:07:38,039
+universal control uh which is great for
+
+177
+00:07:35,319 --> 00:07:40,160
+kind of uh seeing spectrographs of
+
+178
+00:07:38,039 --> 00:07:43,560
+what's going on with the audio but then
+
+179
+00:07:40,160 --> 00:07:45,759
+also um it's what lets the guys control
+
+180
+00:07:43,560 --> 00:07:48,919
+their in your monitor mixes over their
+
+181
+00:07:45,759 --> 00:07:51,400
+their iPhones um this program is the is
+
+182
+00:07:48,919 --> 00:07:54,759
+the key for that happen um the other
+
+183
+00:07:51,400 --> 00:07:56,800
+thing I use is uh prus capture 2 which
+
+184
+00:07:54,759 --> 00:07:58,800
+is just a really simple audio recording
+
+185
+00:07:56,800 --> 00:08:00,639
+program it basically records everything
+
+186
+00:07:58,800 --> 00:08:02,720
+that comes into this board before I've
+
+187
+00:08:00,639 --> 00:08:05,120
+even done anything to it to the hard
+
+188
+00:08:02,720 --> 00:08:07,560
+drive so no matter what I do with the
+
+189
+00:08:05,120 --> 00:08:10,479
+mix if I get creative or or something's
+
+190
+00:08:07,560 --> 00:08:12,639
+too loud this will capture it before
+
+191
+00:08:10,479 --> 00:08:15,280
+that so if I go back to mix a show and
+
+192
+00:08:12,639 --> 00:08:18,919
+release it online it's
+
+193
+00:08:15,280 --> 00:08:19,919
+already it's it's unprocessed pre pre-
+
+194
+00:08:18,919 --> 00:08:23,159
+Dynamics
+
+195
+00:08:19,919 --> 00:08:24,800
+inq um it's a great console um one of my
+
+196
+00:08:23,159 --> 00:08:26,280
+thing things I love about it I mean a
+
+197
+00:08:24,800 --> 00:08:28,800
+lot of digital consoles have a lot of
+
+198
+00:08:26,280 --> 00:08:30,680
+these features now but um when I first
+
+199
+00:08:28,800 --> 00:08:34,640
+made the switch you know every channel
+
+200
+00:08:30,680 --> 00:08:38,719
+has uh 4 band parametric EQ uh
+
+201
+00:08:34,640 --> 00:08:40,959
+compression um key Gates or expanders
+
+202
+00:08:38,719 --> 00:08:43,399
+limiters it's just it lets me really
+
+203
+00:08:40,959 --> 00:08:47,200
+dial in every single channel so that I'm
+
+204
+00:08:43,399 --> 00:08:48,680
+not necessarily worried about each
+
+205
+00:08:47,200 --> 00:08:50,240
+individual channel so much more I can
+
+206
+00:08:48,680 --> 00:08:53,800
+just focus on the
+
+207
+00:08:50,240 --> 00:08:57,839
+overall um everybody's on in now except
+
+208
+00:08:53,800 --> 00:09:01,560
+for Rob who's he's got his own um uh QSC
+
+209
+00:08:57,839 --> 00:09:04,040
+monitor so we lets us fall into any room
+
+210
+00:09:01,560 --> 00:09:08,160
+and kind of be able to put the same sh
+
+211
+00:09:04,040 --> 00:09:10,160
+on um yeah think that's pretty much it
+
+212
+00:09:08,160 --> 00:09:12,880
+you know I could go into the the
+
+213
+00:09:10,160 --> 00:09:14,079
+microphone cabinet that we tour with but
+
+214
+00:09:12,880 --> 00:09:15,800
+I think I'll save that for more of the
+
+215
+00:09:14,079 --> 00:09:18,600
+audio nerd type
+
+216
+00:09:15,800 --> 00:09:20,360
+so yeah any questions feel free to email
+
+217
+00:09:18,600 --> 00:09:22,720
+me at ldap
+
+218
+00:09:20,360 --> 00:09:24,850
+pod.com and hope to see you guys at a
+
+219
+00:09:22,720 --> 00:09:31,659
+show
+
+220
+00:09:24,850 --> 00:09:31,659
+[Music]
+

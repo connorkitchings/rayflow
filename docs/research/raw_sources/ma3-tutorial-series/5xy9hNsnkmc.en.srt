@@ -1,0 +1,150 @@
+1
+00:00:00,160 --> 00:00:05,680
+in this episode i'm going to show you how to 
+build a flyout effect on the GrandMA 3 software  
+
+2
+00:00:05,680 --> 00:00:12,800
+from scratch last episode we used a macro to load 
+some predefined effects we have them right here if  
+
+3
+00:00:12,800 --> 00:00:18,560
+you missed that one that's episode 10 you can find 
+that on our playlist but in this episode i think  
+
+4
+00:00:18,560 --> 00:00:23,680
+we should try to build a fly out effect from 
+scratch to better understand what is happening  
+
+5
+00:00:23,680 --> 00:00:31,200
+when you do so so first of all let's open our 
+phaser editor we go into our common window in  
+
+6
+00:00:31,200 --> 00:00:38,320
+here and add the phaser editor i'm gonna make this 
+a little bit smaller because we need another step  
+
+7
+00:00:38,320 --> 00:00:46,400
+bar which we find down here right here this is 
+the different programming steps we can use when  
+
+8
+00:00:46,400 --> 00:00:53,920
+we program the phaser to build our flyout effect 
+we need two steps the first step is dimmer at zero  
+
+9
+00:00:53,920 --> 00:01:00,400
+and the first position the next step is dimmer 
+at full and the second position so let's start  
+
+10
+00:01:00,400 --> 00:01:06,640
+by building the first one we choose all our vipers 
+we go down into dimmer and we set the dimmer value  
+
+11
+00:01:06,640 --> 00:01:15,360
+at zero for step one then we go into step number 
+two and we select our dimmer again we set it to  
+
+12
+00:01:15,360 --> 00:01:22,480
+full now the dimmer effect starts to pulsate we go 
+back into step number one and deselect step number  
+
+13
+00:01:22,480 --> 00:01:29,040
+two and we select our position down here and we 
+press the button down here and we find our presets  
+
+14
+00:01:29,040 --> 00:01:33,840
+and say okay our position number one i think 
+i'll choose my position number one for that  
+
+15
+00:01:33,840 --> 00:01:40,560
+one so right now it goes into position number one 
+then we select step two and we deselect step one  
+
+16
+00:01:40,560 --> 00:01:48,720
+we go back into pen and tilt and we select our 
+roof position now the effect starts moving but  
+
+17
+00:01:48,720 --> 00:01:53,840
+it doesn't really look like a fly out yet because 
+we have to edit some some different things in here  
+
+18
+00:01:54,400 --> 00:02:00,000
+you can see the pan we can see the tilt here and 
+we can see the dimmer values up here we need to  
+
+19
+00:02:00,000 --> 00:02:06,160
+have a different dimmer curve on the dimmer so 
+we deselect the pen and we deselect the tilt  
+
+20
+00:02:06,160 --> 00:02:13,600
+and we go into this one down here and we select 
+a hard cut for the dimmer effect so right now it  
+
+21
+00:02:13,600 --> 00:02:20,960
+turns it snaps on and it snaps off so 
+basically now we already built a cool flyout  
+
+22
+00:02:20,960 --> 00:02:27,280
+so we need to space it out a little bit so we 
+select everything again and then we go into our 
+
+23
+00:02:28,320 --> 00:02:35,520
+face down here and we select zero through 
+360 for instance and then you can see a nice  
+
+24
+00:02:35,520 --> 00:02:42,480
+flyout so that's how easy it is to build a flyout 
+effect on the GrandMA 3 software you can start  
+
+25
+00:02:42,480 --> 00:02:50,160
+playing with the phase you can do all kinds of 
+things we haven't touched GrandMA 3 MAtricks yet in  
+
+26
+00:02:50,160 --> 00:02:57,040
+this tutorial series but there you can randomize 
+the the way it moves when it applies the phase let  
+
+27
+00:02:57,040 --> 00:03:02,880
+me just show you if i go into matrix here and i go 
+into shuffle and i just give it some random value  
+
+28
+00:03:03,440 --> 00:03:09,840
+and i apply the phase again you can see it 
+randomizes the flyout so as you can see it's quite  
+
+29
+00:03:09,840 --> 00:03:16,240
+easy to build a flyout effect from scratch please 
+give the video a like if you learned something and  
+
+30
+00:03:16,880 --> 00:03:25,600
+and subscribe to the channel if you don't want to 
+miss any future episodes see you next time bye bye
+

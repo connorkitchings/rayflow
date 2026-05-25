@@ -1,0 +1,475 @@
+1
+00:00:00,560 --> 00:00:07,520
+hi and welcome back to another tutorial in the 
+GrandMA 3 tutorial series for beginners this  
+
+2
+00:00:07,520 --> 00:00:16,160
+time it's about sequences or GrandMA 3 sequences 
+what is a sequence you can think of a sequence as  
+
+3
+00:00:16,160 --> 00:00:22,080
+a container of cues in a sequence you can have 
+multiple cues you can have only one que but  
+
+4
+00:00:22,080 --> 00:00:28,000
+basically this is where cues live the reason 
+why you have sequences is that you can record  
+
+5
+00:00:28,000 --> 00:00:33,360
+cues in a sequence and when you do that it's going 
+to appear here on sequence number one or number  
+
+6
+00:00:33,360 --> 00:00:38,480
+two or whichever one you're working at the cool 
+thing is you can move them around afterwards so  
+
+7
+00:00:38,480 --> 00:00:42,480
+depending on where you want to use it you can you 
+can move it you can assign it to a fader you can  
+
+8
+00:00:42,480 --> 00:00:47,840
+assign it to a button that doesn't matter as long 
+as you have it in your sequence pool it's safe  
+
+9
+00:00:47,840 --> 00:00:54,400
+and you can use it wherever so let's start 
+by building our first sequence what you do is  
+
+10
+00:00:54,400 --> 00:01:00,000
+you turn on basically some of your moving lights 
+are some of your dimmers in this case we're doing  
+
+11
+00:01:00,000 --> 00:01:06,400
+it with our vipers we put them in a position we 
+give them a color we maybe give the magenta it's  
+
+12
+00:01:06,400 --> 00:01:16,080
+easy to see and then we can zoom them in if we 
+want to and store this in a sequence number one  
+
+13
+00:01:16,080 --> 00:01:24,960
+right now we stored one cue in one sequence a good 
+thing when you work on lighting in general is to  
+
+14
+00:01:24,960 --> 00:01:34,800
+label everything so let's just label this one to 
+our master cue list there we go so now we have  
+
+15
+00:01:34,800 --> 00:01:40,560
+our master cue list our master cue list has only 
+one queue in it but if we need to record any more  
+
+16
+00:01:40,560 --> 00:01:44,960
+cues we need to have a different view because 
+we can't see what we're doing right now we need  
+
+17
+00:01:44,960 --> 00:01:49,520
+to change it around just a little bit this is a 
+great view we built it on episode i think it was  
+
+18
+00:01:49,520 --> 00:01:54,080
+episode number two episode number three in 
+this tutorial series we need to change it  
+
+19
+00:01:54,080 --> 00:01:58,880
+up a little bit just to be sure that we can 
+work with it that we can see what we're doing  
+
+20
+00:01:58,880 --> 00:02:04,960
+so let's start by deleting the 3d window just 
+for a second we delete the the beam directory  
+
+21
+00:02:04,960 --> 00:02:10,640
+over here we don't really use it anyway we put our 
+focus down here and then we move all our colors  
+
+22
+00:02:11,360 --> 00:02:16,800
+down in the bottom maybe we rescale the sequence 
+sheet just a little bit here or the secret pool  
+
+23
+00:02:17,360 --> 00:02:24,800
+sequence pool sorry then we open up our 3d 
+window again we scale it all the way down  
+
+24
+00:02:24,800 --> 00:02:30,000
+like this and we move it to the side right here 
+you can see this little lock up here that's  
+
+25
+00:02:30,000 --> 00:02:35,120
+because we need to change the camera to the front 
+camera we need to zoom in just a little bit so we  
+
+26
+00:02:35,120 --> 00:02:42,320
+can see what's going on and up here we need to 
+open the playbacks or the playback the playback  
+
+27
+00:02:42,320 --> 00:02:47,760
+is a representation of the first 10 faders on 
+your console so if you store something right  
+
+28
+00:02:47,760 --> 00:02:52,880
+here for instance that's the first fader it's 
+a little bit big right now we have the first  
+
+29
+00:02:52,880 --> 00:02:57,680
+10 faders we only need the first five so we can 
+see what we're doing so we go into sections here  
+
+30
+00:02:57,680 --> 00:03:01,680
+repress it once or you can right click it 
+and see how many sections do you want to see  
+
+31
+00:03:01,680 --> 00:03:07,680
+at the same time we close this one down and then 
+we have our first five faders we can rescale it  
+
+32
+00:03:08,480 --> 00:03:16,640
+like this so we can see what's happening and then 
+we can open our sequence sheet down here this is  
+
+33
+00:03:16,640 --> 00:03:24,240
+our cue list or our sequence sheet and we stored 
+a cue before and we have the queue right here with  
+
+34
+00:03:24,240 --> 00:03:32,240
+our information in it so we we have our sequence 
+the sequence is living in the sequence pool right  
+
+35
+00:03:32,240 --> 00:03:36,320
+here we can't really work with it because 
+it's not assigned to anything so if we want  
+
+36
+00:03:36,320 --> 00:03:43,600
+to assign it we press alt plus a for the assign 
+if you have the shortcuts activated over here  
+
+37
+00:03:43,600 --> 00:03:52,000
+we press the master cue list and we assign it to 
+201 this is the first fader on the console that  
+
+38
+00:03:52,000 --> 00:03:58,240
+gives us a go button right here so now we can go 
+our cue list the way we want to let's make some  
+
+39
+00:03:58,240 --> 00:04:05,040
+sort of change we have our cue now and we need to 
+record some other stuff let's say we take all our  
+
+40
+00:04:05,040 --> 00:04:10,160
+vipers again and move them to a different position 
+let's move them to our roof position like this  
+
+41
+00:04:10,960 --> 00:04:17,040
+we need to once again store it and we store it 
+on our master cue list and now it asks us a few  
+
+42
+00:04:17,040 --> 00:04:21,840
+questions do you want to override the que 
+you're in do you want to merge it into the que 
+
+43
+00:04:21,840 --> 00:04:26,080
+do you want to remove some values do you 
+want to release it or do you want to create  
+
+44
+00:04:26,080 --> 00:04:31,280
+a second cue in this case we want to create a 
+second queue because we are building a cue list  
+
+45
+00:04:32,000 --> 00:04:38,880
+that contains more than one queue so the first 
+time you try to store into a sequence that has  
+
+46
+00:04:38,880 --> 00:04:44,400
+only one que in it it's going to ask you if 
+you want to create a second que if we say yes  
+
+47
+00:04:44,400 --> 00:04:50,240
+it creates que number two but the next time 
+we try to store into the same cue list it's not  
+
+48
+00:04:50,240 --> 00:04:56,240
+gonna ask us it's just automatically gonna assume 
+that you want an extra cue so next time it's gonna  
+
+49
+00:04:56,240 --> 00:05:04,240
+automatically create cue number three so let's 
+clear out here we moved the the moving lights into  
+
+50
+00:05:04,240 --> 00:05:09,280
+a new position when we clear out it goes back 
+to what it was doing before because we're still  
+
+51
+00:05:09,280 --> 00:05:15,200
+in que number one but if i press the go button 
+up here it's going to do what we just asked it  
+
+52
+00:05:15,200 --> 00:05:20,000
+to do because we are now in cue number two if 
+we press go again it goes back to cue number  
+
+53
+00:05:20,000 --> 00:05:25,520
+one and we say okay we can just try it again say 
+it's very fast when it goes into cue number one  
+
+54
+00:05:26,480 --> 00:05:33,120
+but maybe it's a little too fast so i can say down 
+here on our fade time if i right click here and i  
+
+55
+00:05:33,120 --> 00:05:41,120
+say i wanted to do it in five seconds please it 
+changed to five seconds then if i go back to cue  
+
+56
+00:05:41,120 --> 00:05:46,320
+number one like we have here and then now i go 
+into cue number two we just set a fade time of  
+
+57
+00:05:46,320 --> 00:05:53,920
+five seconds we press go and the change is now 
+going to be five seconds which is really cool  
+
+58
+00:05:54,640 --> 00:05:58,960
+now we can go back to cue number one and say 
+okay are we done with cue number one do we  
+
+59
+00:05:58,960 --> 00:06:05,520
+need to add something to it i think we need to 
+add all our auras in position number two maybe  
+
+60
+00:06:05,520 --> 00:06:12,000
+we need to have them in open white we need to 
+have a narrow beam and we need to turn them on  
+
+61
+00:06:12,000 --> 00:06:15,840
+like this maybe we need to take them 
+in the roof position yeah there we go  
+
+62
+00:06:16,720 --> 00:06:23,520
+so to store this in cue number one we just press 
+store and we push this one queue number one and  
+
+63
+00:06:23,520 --> 00:06:27,920
+it's going to ask you do you want to merge 
+do you want to remove release or overwrite  
+
+64
+00:06:28,560 --> 00:06:34,640
+i think i would like to merge it into cue number 
+one so i select that one if i clear out now cue  
+
+65
+00:06:34,640 --> 00:06:39,920
+number one now consists of our vipers as 
+we did before and now our auras as well  
+
+66
+00:06:40,640 --> 00:06:46,320
+if i press the go button it's going to do the 
+change for the viper as we did before and the  
+
+67
+00:06:47,120 --> 00:06:51,840
+auras are going to stay in their position because 
+we didn't give them any other information it's  
+
+68
+00:06:51,840 --> 00:06:58,160
+just going to track the values i'm going to do a 
+tutorial on tracking in a in a later series here  
+
+69
+00:06:58,160 --> 00:07:02,560
+on a later tutorial because it's a little bit 
+more complex if you don't know what tracking is  
+
+70
+00:07:03,360 --> 00:07:08,480
+so here we go we have cue number one and cue 
+number two let's just for the fun of it   
+
+71
+00:07:08,480 --> 00:07:16,720
+record another cue let's say all our auras 
+again let's just change them to blue and we  
+
+72
+00:07:16,720 --> 00:07:23,440
+once again store it in our master cue list and 
+now it automatically just created cue number three  
+
+73
+00:07:24,640 --> 00:07:28,800
+the next time we're going to store a queue in 
+this cue list it's going to be cue number four  
+
+74
+00:07:28,800 --> 00:07:33,600
+but as you can see we are already running out 
+of room here so a cool little feature you can  
+
+75
+00:07:33,600 --> 00:07:42,000
+do in the GrandMA 3 software is you can go in here 
+and you can find the font size and you can right  
+
+76
+00:07:42,000 --> 00:07:48,640
+click and set the font size to 10 for instance and 
+when we go back the font size is a lot smaller so  
+
+77
+00:07:48,640 --> 00:07:54,720
+we can see a lot more of the cue list 
+and we can even rescale some of this to  
+
+78
+00:07:56,560 --> 00:08:02,800
+to remove some of the things we don't really need 
+right now this brings some of this stuff like  
+
+79
+00:08:02,800 --> 00:08:09,280
+duration and que time fade time a little bit 
+closer  to us so we can better work with it  
+
+80
+00:08:09,840 --> 00:08:15,360
+we built our view we played with our ques let's 
+just store this view so we have it next time we go  
+
+81
+00:08:15,360 --> 00:08:23,520
+down and we press store and we store it up here 
+in this view pool up here and we say see coins  
+
+82
+00:08:24,880 --> 00:08:29,760
+and that way we can access it next time we still 
+have our first view as we build in the one of  
+
+83
+00:08:29,760 --> 00:08:34,960
+the first episodes and now we have our sequence 
+view here when we need to work with our cue lists  
+
+84
+00:08:35,680 --> 00:08:41,280
+working with cues is can be pretty simple but you 
+can start combining one cue list with another cue  
+
+85
+00:08:41,280 --> 00:08:47,280
+list you can have moving lights like we have 
+now which are turned on in say magenta like the  
+
+86
+00:08:47,280 --> 00:08:51,840
+vipers are now and then you can have another 
+cue list who bumps out the color if you want  
+
+87
+00:08:51,840 --> 00:08:58,480
+to do like a festival gig or something like that 
+so we need to assign it to our faders we need to  
+
+88
+00:08:58,480 --> 00:09:04,640
+have our go buttons we need to have our flash 
+buttons we need to to assign this room up here and  
+
+89
+00:09:04,640 --> 00:09:10,080
+and to to use the turn knobs and all that stuff 
+if you want to know more about that you have to  
+
+90
+00:09:10,800 --> 00:09:18,080
+check out the next episode in this tutorial series 
+on GrandMA 3 programming i hope you enjoyed  
+
+91
+00:09:18,080 --> 00:09:23,200
+this episode if you have any comments or anything 
+you want to say to me please leave a comment down  
+
+92
+00:09:23,760 --> 00:09:28,640
+in the comment section and i definitely hope to 
+see you next time if you get any value out of  
+
+93
+00:09:28,640 --> 00:09:34,640
+these videos please consider subscribing to the 
+channel so you get a notification next time we  
+
+94
+00:09:34,640 --> 00:09:40,480
+upload a video or maybe you could check out some 
+of our other videos they are linked right here on  
+
+95
+00:09:40,480 --> 00:09:48,800
+the screen right now i hope to see you next time 
+on the channel and thank you very much bye bye
+

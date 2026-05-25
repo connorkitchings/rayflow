@@ -1,0 +1,485 @@
+1
+00:00:00,160 --> 00:00:05,280
+in this video we're going to talk about 
+executors and what are executors? executors  
+
+2
+00:00:05,280 --> 00:00:12,960
+are physical keys buttons knobs faders you can 
+find on the GrandMA 3 hardware they can also  
+
+3
+00:00:12,960 --> 00:00:18,800
+be represented as on-screen virtual executors and 
+can be viewed and operated in the playback window  
+
+4
+00:00:19,520 --> 00:00:23,440
+if you want to know how it works be sure to 
+watch the video all the way to the end as i will  
+
+5
+00:00:23,440 --> 00:00:28,640
+go through all the different functionalities you 
+can find in the GrandMA 3 console and the keys and  
+
+6
+00:00:28,640 --> 00:00:32,960
+all the faders and buttons and configuration 
+of those but how do we work with them how do  
+
+7
+00:00:32,960 --> 00:00:38,160
+we assign sequences to them and what else 
+can we do with them so let's start here and  
+
+8
+00:00:38,160 --> 00:00:42,640
+and look at the screen here if you don't have 
+this window here if you push this little button  
+
+9
+00:00:42,640 --> 00:00:50,800
+right down here you will open the uh the overview 
+of the executors of of the first 10 faders on your  
+
+10
+00:00:50,800 --> 00:00:56,400
+console and the first 10 faders right here is 
+or the first 10 sections because it's not only  
+
+11
+00:00:56,400 --> 00:01:01,040
+the faders now on the GrandMA 2  you would 
+have a fader below that fader you would have  
+
+12
+00:01:01,040 --> 00:01:07,760
+a button and above that fader you would have 
+two buttons those four items were tied together  
+
+13
+00:01:07,760 --> 00:01:12,800
+if you stored something on your fader those 
+two buttons on top of the button underneath  
+
+14
+00:01:12,800 --> 00:01:18,560
+would be one and the same thing a roll manipulate 
+the same cue list or whatever you had on your  
+
+15
+00:01:18,560 --> 00:01:25,040
+fader the bottom row on the GrandMA 2 was 
+on its own and you could store stuff on that  
+
+16
+00:01:25,040 --> 00:01:30,800
+independently on what you did on the on the 
+faders the GrandMA 3 changed up a little  
+
+17
+00:01:30,800 --> 00:01:38,480
+bit now you have rows here you have a row 101 
+201, 301 and 401 as you can see in this window  
+
+18
+00:01:38,480 --> 00:01:46,160
+101 represents the bottom row down here below the 
+faders 201 represents the next row here and they  
+
+19
+00:01:46,160 --> 00:01:52,720
+are tied into the fader i'm going to show you this 
+in a minute but 201 and the fader is basically one  
+
+20
+00:01:52,720 --> 00:01:57,280
+and the same thing you can have one function here 
+and of course you can turn the fader up and down  
+
+21
+00:01:57,920 --> 00:02:05,360
+301 is this button up here and the first knob 
+you can find right here and 401 is the same  
+
+22
+00:02:05,360 --> 00:02:12,160
+it's the button here and the rotary knob on the 
+on top of it but how does this work how can we  
+
+23
+00:02:12,160 --> 00:02:18,880
+manipulate it how can we store cue lists to our 
+sequences to to the faders and how can we have the  
+
+24
+00:02:18,880 --> 00:02:24,720
+go buttons we want the go minus button we want the 
+top button we want the flash button we want that's  
+
+25
+00:02:24,720 --> 00:02:30,560
+a kind of a different way and a different approach 
+that that we used to have in the GrandMA 2 but  
+
+26
+00:02:30,560 --> 00:02:35,440
+let me show you right here we have the playback 
+window up here as we built last time and as you  
+
+27
+00:02:35,440 --> 00:02:40,960
+can see here i deleted all my sequences and we are 
+ready to build some new ones so let's just build  
+
+28
+00:02:40,960 --> 00:02:48,320
+a sequence here with all our vipers in our let's 
+say our position number one at full we give it a  
+
+29
+00:02:48,320 --> 00:02:55,920
+magenta color and we store this in sequence number 
+one we name the sequence again we just call it  
+
+30
+00:02:57,360 --> 00:03:08,000
+master cue list there we go as i showed you in the 
+last tutorial you can simply assign this cue list  
+
+31
+00:03:08,000 --> 00:03:14,000
+by writing a sign down here remember your 
+shortcuts down here if your shortcuts are active  
+
+32
+00:03:14,000 --> 00:03:20,560
+you can simply use the the shortcut menu which 
+is pretty powerful so assign the master cue list  
+
+33
+00:03:21,120 --> 00:03:30,400
+to 201 now we assigned our cue list here to the 
+bottom button down here in the bottom and the  
+
+34
+00:03:30,400 --> 00:03:36,960
+first fader and that's it these buttons on top 
+and the button below it is not tied into this  
+
+35
+00:03:36,960 --> 00:03:43,760
+one yet but we can do that if we want to to be 
+able to do that we have to go in and manipulate  
+
+36
+00:03:43,760 --> 00:03:48,640
+whatever is going on on our screen here so if 
+we press here where it says master cue list  
+
+37
+00:03:49,360 --> 00:03:54,320
+this window opens and if this 
+window doesn't open the same way on  
+
+38
+00:03:54,320 --> 00:04:01,120
+on your machine as it does on mine it's because 
+i set it to window number two screen number two  
+
+39
+00:04:02,160 --> 00:04:07,680
+right here and then and then when i open it i 
+can simply say where do i want it to open so if  
+
+40
+00:04:07,680 --> 00:04:12,320
+it opens on screen number one you can simply 
+say i want it to open on screen number two  
+
+41
+00:04:12,880 --> 00:04:17,680
+let me show you real quick to be able to 
+manipulate what's going on in this cue list  
+
+42
+00:04:17,680 --> 00:04:23,120
+or maybe extend it and make use of the other 
+buttons and rotary knobs on this fader on this  
+
+43
+00:04:23,920 --> 00:04:31,120
+sequence you can simply go into master cue list 
+here and push it it opens up a new window but to  
+
+44
+00:04:31,120 --> 00:04:36,160
+be able to compare it to what we're doing we need 
+it to open in another window so if we go up here  
+
+45
+00:04:36,160 --> 00:04:42,160
+into the small screen here you push it and you say 
+i wanted to open on internal screen number two you  
+
+46
+00:04:42,160 --> 00:04:46,480
+push that one and it opens in its own window it's 
+probably going to open if you have two screens  
+
+47
+00:04:46,480 --> 00:04:51,200
+it's probably going to open on the other screen 
+so you basically just take it over here and  
+
+48
+00:04:51,200 --> 00:04:58,160
+then we can see what we're doing we store our 
+cue list here on number 201 this is the 200  
+
+49
+00:04:58,160 --> 00:05:05,440
+range here if you store the next cue list on this 
+one it's gonna be in this row right here so let's  
+
+50
+00:05:05,440 --> 00:05:10,160
+do some manipulation we can extend the cue 
+list and say right now i want to make use  
+
+51
+00:05:10,160 --> 00:05:15,920
+of the button above it which is this button and 
+this rotary knob up here so i can just push this  
+
+52
+00:05:15,920 --> 00:05:22,080
+one and as you can see this extends the cue list 
+or the sequence to the next row of buttons and  
+
+53
+00:05:22,080 --> 00:05:27,600
+now we can make use of the button above it and 
+the rotary knob above it if we want to we can  
+
+54
+00:05:27,600 --> 00:05:32,560
+do it again and say i want even more room and 
+we can push to 400 and it goes all the way up  
+
+55
+00:05:34,320 --> 00:05:39,920
+we can't choose the one below it for some 
+reason but what we can do is we just close  
+
+56
+00:05:39,920 --> 00:05:47,440
+this window down again we simply delete the cue 
+list right here and instead of assigning it to  
+
+57
+00:05:47,440 --> 00:05:55,360
+201 we can simply assign it to 101 and if we go 
+into the cue list again now we can extend it up  
+
+58
+00:05:55,360 --> 00:06:00,000
+and make use of stuff above it so it starts 
+from the bottom and it goes all the way up  
+
+59
+00:06:00,560 --> 00:06:05,520
+you can actually extend it to the side as well 
+if you want to and then have even more buttons  
+
+60
+00:06:05,520 --> 00:06:11,360
+to manipulate if you want some learn learn buttons 
+or whatever macros or something between it here  
+
+61
+00:06:11,360 --> 00:06:16,480
+that's also possible and you can do that if you 
+want some more functionality some more buttons  
+
+62
+00:06:16,480 --> 00:06:21,600
+to make use of we're not going to do this in 
+this case to delete this row we just extended  
+
+63
+00:06:21,600 --> 00:06:27,360
+it to just press the one again this is the way it 
+functions this is the way it works press number  
+
+64
+00:06:27,360 --> 00:06:32,960
+two it extends to your your right number three 
+it extends to your right and back down if you  
+
+65
+00:06:32,960 --> 00:06:40,320
+just check it that way and then delete it that way 
+so now we have the 100 range which is the bottom  
+
+66
+00:06:40,320 --> 00:06:46,160
+button the 200 range which is the next button 
+and the fader and we can extend it up into the  
+
+67
+00:06:46,160 --> 00:06:52,400
+300 range which is the next row of buttons and so 
+on so let's say okay what do we want to do here  
+
+68
+00:06:52,400 --> 00:06:57,920
+i would like this one to go to the top of my cue 
+list say i have 10 cues with all my colors in  
+
+69
+00:06:57,920 --> 00:07:04,960
+for instance i would like this one to go to the 
+first cue so i push it and set it to top and  
+
+70
+00:07:04,960 --> 00:07:11,360
+that's the way it's going to work now the next 
+one is my go plus and for some reason i want my  
+
+71
+00:07:11,360 --> 00:07:17,200
+bottom one to be go plus and the next one to be 
+go minus so we choose that one and say go minus  
+
+72
+00:07:17,920 --> 00:07:24,400
+so let's just close this down and see where we're 
+at right now we have our master cue list here and  
+
+73
+00:07:24,400 --> 00:07:31,120
+we have our top button and we have our go minus 
+and we have our goplus to be able to see a little  
+
+74
+00:07:31,120 --> 00:07:37,200
+bit better i actually built a different view so we 
+can go into our faders and buttons here and this  
+
+75
+00:07:37,200 --> 00:07:43,200
+extends the playback window so we can better see 
+what's going on we have our fader here we can take  
+
+76
+00:07:43,200 --> 00:07:48,560
+it up and down we have our rotary knob we have 
+the top button and go plus and go minus button  
+
+77
+00:07:48,560 --> 00:07:54,480
+down here let's just clear what we put in the 
+programmer before so let's build a few extra cues  
+
+78
+00:07:54,480 --> 00:08:01,520
+i choose all my vipers i put them into white and 
+into the audience for instance i store this on my  
+
+79
+00:08:01,520 --> 00:08:07,920
+master cue list and i create my second cue as we 
+talked about in the last episode let's do it again  
+
+80
+00:08:07,920 --> 00:08:15,680
+and say i need a cyan color and i put it into my 
+position one and i store this as cue number three  
+
+81
+00:08:16,320 --> 00:08:22,560
+so there we go we now have three cues in our cue 
+lists so let's just clear out here and say now we  
+
+82
+00:08:22,560 --> 00:08:28,080
+have our go minus and go plus we are currently in 
+cue number one i can say go plus to cue number  
+
+83
+00:08:28,080 --> 00:08:34,720
+two go plus to cue number three and then it goes 
+all the way back but if i go into cue number two  
+
+84
+00:08:34,720 --> 00:08:40,320
+and say we have ten cues here and i just want to 
+go up to the top where my white color is or open  
+
+85
+00:08:40,320 --> 00:08:45,600
+white color i can just push the top button and it 
+goes straight up regardless of how many cues there  
+
+86
+00:08:45,600 --> 00:08:51,440
+there is in it we can also assign the rotary knob 
+to do different things so let's just go back into  
+
+87
+00:08:51,440 --> 00:08:58,720
+our setup window here and say my encoder 
+left i want this to be a go minus button  
+
+88
+00:08:59,600 --> 00:09:07,360
+and you can see it recognizes it over here my 
+encoder to the right needs to be a go plus button  
+
+89
+00:09:07,360 --> 00:09:14,320
+for instance so here we go now we have the option 
+of turning your cues up and down with the rotary  
+
+90
+00:09:14,320 --> 00:09:21,440
+knob and we can even go further and say if we put 
+something down here this is what it does when the  
+
+91
+00:09:21,440 --> 00:09:28,400
+rotary knob is rotated but pushed down at the 
+same time but let's not do that in this episode  
+
+92
+00:09:29,200 --> 00:09:34,400
+you can also change the functionality of your 
+master if you wanted to be for instance a temp  
+
+93
+00:09:34,400 --> 00:09:40,320
+fader or let's just put it back to master again 
+but there is about a gazillion different options  
+
+94
+00:09:40,320 --> 00:09:45,760
+in here in the settings of every sequence but 
+that's for a different tutorial right now you can  
+
+95
+00:09:45,760 --> 00:09:52,320
+check out one of the other videos from our channel 
+they are linked on the screen right now and please  
+
+96
+00:09:52,320 --> 00:09:57,440
+like the video and maybe even subscribe to the 
+channel if you don't want to miss any future  
+
+97
+00:09:57,440 --> 00:10:03,520
+episodes from us thank you for watching this time 
+and i hope you'll check out the next video bye
+

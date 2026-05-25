@@ -1,0 +1,858 @@
+1
+00:00:00,320 --> 00:00:06,320
+in this episode we're going to look at swipey 
+commands swipey commands is a new concept that  
+
+2
+00:00:06,320 --> 00:00:13,200
+is introduced on the GrandMA 3. it wasn't 
+a thing on GrandMA 1 or GrandMA 2  
+
+3
+00:00:13,200 --> 00:00:18,080
+but they introduced it now and when i saw 
+it for the first time i wasn't really sure  
+
+4
+00:00:18,080 --> 00:00:23,920
+if it was this thing i was going to use because i 
+mean there's a lot of buttons on the desk and we  
+
+5
+00:00:23,920 --> 00:00:32,720
+can put macros in the windows and stuff like that 
+so the reason why it being being there was kind of  
+
+6
+00:00:32,720 --> 00:00:39,040
+weird to me but now i tried starting to use it 
+and i think it's really really really really cool  
+
+7
+00:00:39,040 --> 00:00:46,160
+but what is swipi commands the way we used to 
+work is you go into the group window for instance  
+
+8
+00:00:46,720 --> 00:00:54,400
+and then you say okay i have all my wipers i want 
+to activate them i can say add full and then i can  
+
+9
+00:00:54,400 --> 00:01:01,600
+move them around if i want to store this somewhere 
+i can go up into my command section up here open  
+
+10
+00:01:01,600 --> 00:01:08,800
+the window go down and locate the store button 
+i can close the command section and then i can  
+
+11
+00:01:08,800 --> 00:01:15,200
+store position preset right here that's kind of 
+cool but the new thing is that now you can store  
+
+12
+00:01:15,200 --> 00:01:20,320
+it directly here without having to open the 
+command section for the most common commands  
+
+13
+00:01:20,880 --> 00:01:27,760
+so if we say this one we just saved this 
+one maybe if we try to delete it we can  
+
+14
+00:01:27,760 --> 00:01:33,840
+press it and hold the mouse down or your finger 
+if you're working on a real console and then you  
+
+15
+00:01:33,840 --> 00:01:41,120
+simply drag the mouse outside the preset box and 
+then this appears and this is the swipey 
+
+16
+00:01:41,120 --> 00:01:46,080
+so if we say okay now we save the preset right 
+here but we want to delete it we don't want it  
+
+17
+00:01:46,080 --> 00:01:50,960
+anyway we can simply while we're still holding 
+the mouse or the finger on the screen you can  
+
+18
+00:01:50,960 --> 00:01:57,120
+simply hold your mouse on top of delete and let 
+go and it's gone so now if we want to program  
+
+19
+00:01:58,000 --> 00:02:03,520
+positions for instance like we did before we can 
+say okay we find a nice position right here and  
+
+20
+00:02:03,520 --> 00:02:11,760
+we can press an empty one and drag it outside and 
+say store now we start a preset and we didn't have  
+
+21
+00:02:11,760 --> 00:02:19,040
+to open the command section this works for some 
+some different things but not for everything of  
+
+22
+00:02:19,040 --> 00:02:26,320
+course but but for the most common commands copy 
+move delete stuff like that it works so basically  
+
+23
+00:02:26,320 --> 00:02:32,400
+now we made our first position and now we can 
+start building our show here our palette as we  
+
+24
+00:02:33,280 --> 00:02:40,240
+as we prepared for last time we set up our 3d 
+view last time and we can start programming some  
+
+25
+00:02:40,240 --> 00:02:46,000
+fixture positions i hope you like these videos 
+and if you do please uh give the video a thumbs  
+
+26
+00:02:46,000 --> 00:02:50,080
+up that will mean a lot to us and maybe even 
+subscribe to the channel to be notified when  
+
+27
+00:02:50,080 --> 00:02:56,720
+we upload new videos so right now my vipers are in 
+the first position right now they're just pointing  
+
+28
+00:02:56,720 --> 00:03:03,920
+straight out what we can do now as we did in the 
+last one we can take our align tool the align tool  
+
+29
+00:03:03,920 --> 00:03:10,720
+will fan the fixtures one way or the other way 
+depending on which which one of these you choose  
+
+30
+00:03:12,160 --> 00:03:18,160
+but if we want to fade them to center or from 
+center you can simply have the dash here like  
+
+31
+00:03:18,160 --> 00:03:25,600
+we did last time and then you can dial dial the 
+pan here and it will fan from center and out  
+
+32
+00:03:26,800 --> 00:03:33,360
+on the GrandMA 1 uh or sorry on the 
+GrandMA 2 the align function for this was  
+
+33
+00:03:33,360 --> 00:03:38,080
+this one and the previous one i don't know 
+why they changed it but let's see if we can  
+
+34
+00:03:38,080 --> 00:03:44,240
+make it work so we just clear again take all 
+the vibers turn them on put them on preset one  
+
+35
+00:03:44,240 --> 00:03:49,600
+and then take the align function the first one 
+the dash and then just fan them out a little bit  
+
+36
+00:03:50,320 --> 00:03:56,000
+then we can say okay this is our second position 
+we simply drag it outside the box and say store  
+
+37
+00:03:56,960 --> 00:04:04,560
+there we go and we merge it in so we want to 
+make let's say we want to make four positions  
+
+38
+00:04:05,200 --> 00:04:10,400
+we tilt it up and we have a maybe 
+into the audience position here
+
+39
+00:04:12,480 --> 00:04:14,800
+there we go maybe a little bit more
+
+40
+00:04:17,360 --> 00:04:24,320
+there we go we store this one and then we 
+can take it all the way up into the air  
+
+41
+00:04:25,120 --> 00:04:33,200
+and we store this right here now we made four 
+presets with our vipers our positions right here  
+
+42
+00:04:33,200 --> 00:04:39,200
+and we didn't have to go into the command section 
+one time what we can do is continue and say okay  
+
+43
+00:04:39,200 --> 00:04:44,640
+we want to label these presets we do it again 
+we push it we drag it outside the box and we say  
+
+44
+00:04:44,640 --> 00:04:55,840
+label and we can just say position 
+one we can say position two we can say
+
+45
+00:04:58,000 --> 00:05:10,880
+audience and we can say maybe roof there we go 
+now we just saved our four positions on stage so  
+
+46
+00:05:10,880 --> 00:05:18,000
+let's uh continue and say okay what else can we 
+do about these uh pellets and and positions like  
+
+47
+00:05:18,000 --> 00:05:23,840
+this we need we have our vipers up here we just 
+saved our four positions but when i push my auras  
+
+48
+00:05:24,480 --> 00:05:28,640
+you can see they're kind of grayed out 
+and that's because there's no information  
+
+49
+00:05:28,640 --> 00:05:35,760
+inside these pallets that is referring to 
+the auras so let's just do the same thing  
+
+50
+00:05:35,760 --> 00:05:40,400
+and save our four positions similar to the 
+other ones we'll just take the first one  
+
+51
+00:05:41,520 --> 00:05:47,840
+like this one and we drag it out 
+and we say store and we merge it  
+
+52
+00:05:49,680 --> 00:05:57,920
+then we fan it out a little bit like the other 
+ones we store it into position number two  
+
+53
+00:05:58,880 --> 00:06:07,680
+and we merge then we take it to the audience 
+like this and we merge it in here and then we  
+
+54
+00:06:07,680 --> 00:06:19,840
+point it up into the roof like this into the 
+air and we store it into this one there you go
+
+55
+00:06:22,640 --> 00:06:27,760
+now we made our four positions for our 
+vipers and our auras and we didn't even leave  
+
+56
+00:06:27,760 --> 00:06:33,040
+this window under normal circumstances you 
+would have to open this one and say store  
+
+57
+00:06:33,600 --> 00:06:38,640
+and then close it and push a button or 
+you could write store in the command line  
+
+58
+00:06:38,640 --> 00:06:42,560
+we'll get back to the command line in a 
+later tutorial because you can actually do  
+
+59
+00:06:42,560 --> 00:06:46,240
+everything from here as well but 
+that's that's for a different tutorial  
+
+60
+00:06:46,960 --> 00:06:53,280
+so while we're at it let's uh let's make some 
+colors let's take the vipers and let's just uh  
+
+61
+00:06:54,080 --> 00:07:00,320
+no let's actually do something different let's 
+just take the first viper and that's called 701  
+
+62
+00:07:01,120 --> 00:07:09,040
+i push that one and only this fixture appears 
+let's go uh play with the colors a little bit  
+
+63
+00:07:09,040 --> 00:07:13,840
+we don't have any colors lined up right now we 
+have the colors down here and of course we can  
+
+64
+00:07:15,040 --> 00:07:21,600
+if we turn it on like this we can mix some colors 
+and and start playing around with it but of course  
+
+65
+00:07:21,600 --> 00:07:28,800
+there's an easier way to do that we want to make 
+our color presets up here in this color pool up  
+
+66
+00:07:28,800 --> 00:07:36,400
+here but we need to make a view with our color 
+picker first so what we can do now is delete our  
+
+67
+00:07:36,400 --> 00:07:41,920
+screen we have our view stored up here like we 
+did in one of the first episodes of the tutorial  
+
+68
+00:07:43,280 --> 00:07:48,880
+if we push that one up here remember we could 
+delete this screen over here if we push that  
+
+69
+00:07:48,880 --> 00:07:56,720
+button under the display tab it's black and then 
+we push the button up here i just pushed any area  
+
+70
+00:07:56,720 --> 00:08:04,480
+in inside the the the black part of the screen 
+and we under the common select our color picker  
+
+71
+00:08:05,200 --> 00:08:10,240
+and that opens up a color picker you have four 
+different ways of doing it you have the swatch  
+
+72
+00:08:10,240 --> 00:08:15,840
+book where you can go in and say okay i want a lee 
+color and if you are old like me you will remember  
+
+73
+00:08:16,720 --> 00:08:21,520
+181 is congo blue and you'll 
+remember 106 being red and so on but  
+
+74
+00:08:22,320 --> 00:08:26,240
+that's basically not the way we do it 
+anymore that's from the good old par cans 
+
+75
+00:08:27,520 --> 00:08:33,360
+we can use our faders we can say okay i want a 
+full cyan no magenta and no yellow that'll just  
+
+76
+00:08:33,360 --> 00:08:39,840
+give us a cyan or we can take the color picker 
+right here and say okay where do we want to be  
+
+77
+00:08:40,640 --> 00:08:46,400
+for my sake i always want to start with having 
+an open white color on my color preset so i can  
+
+78
+00:08:46,400 --> 00:08:51,120
+always get rid of the any color that's that's in 
+the preset so let's just drag it down to white  
+
+79
+00:08:52,080 --> 00:08:58,400
+go back to my first view and then we can just 
+store this one up here now we made our first  
+
+80
+00:08:58,400 --> 00:09:03,040
+color preset and we forgot to store 
+the view so let's just do this again  
+
+81
+00:09:04,960 --> 00:09:08,960
+delete the screen and open the color 
+picker and we're back and then we can  
+
+82
+00:09:10,240 --> 00:09:13,840
+i wonder if the swipeys are working up here 
+they're actually they're not i hope they will  
+
+83
+00:09:13,840 --> 00:09:20,080
+someday so we go back into this one store this 
+one right up here and we just call it color  
+
+84
+00:09:21,520 --> 00:09:26,640
+there we go so now we can switch between those 
+two views right here we start the white one up  
+
+85
+00:09:26,640 --> 00:09:32,800
+here we can go back into the color tab select the 
+color picker right here and say okay the next one  
+
+86
+00:09:32,800 --> 00:09:41,360
+is cyan maybe you see it turned cyan color 
+right here we can use our swipey to store the  
+
+87
+00:09:41,360 --> 00:09:52,240
+cyan we can go into the maybe a magenta and 
+we go back and we store them at magenta color
+
+88
+00:09:55,040 --> 00:09:58,400
+and you see it always opens 
+on the wrong tab right here  
+
+89
+00:09:58,960 --> 00:10:03,840
+and that's a that's one of the things about views 
+wherever you leave it it's going to come back to  
+
+90
+00:10:03,840 --> 00:10:09,280
+when you so if you store it like this every time 
+you push it it's going to be like this so if we  
+
+91
+00:10:10,080 --> 00:10:18,320
+push this one and say okay this is what i want 
+to see all the time then you can say store  
+
+92
+00:10:18,320 --> 00:10:25,040
+and on top of the color we say okay and now when 
+i go back to the view we have our color picker  
+
+93
+00:10:25,040 --> 00:10:31,840
+so right now we start our cyan we start 
+our magenta let's just store a yellow
+
+94
+00:10:32,400 --> 00:10:34,080
+maybe red color
+
+95
+00:10:38,160 --> 00:10:43,040
+and let's just uh let's just find the 
+blue color and then let's call it a day
+
+96
+00:10:45,520 --> 00:10:51,600
+all right now we stored white cyan magenta yellow 
+red and blue i like to i like to label them and  
+
+97
+00:10:51,600 --> 00:10:55,920
+we can use the swiping command to do that as 
+well you drag it outside the box you label it  
+
+98
+00:10:57,680 --> 00:10:59,840
+we label it white
+
+99
+00:11:01,840 --> 00:11:03,920
+we label this one cyan
+
+100
+00:11:06,320 --> 00:11:07,920
+we label it magenta
+
+101
+00:11:12,880 --> 00:11:14,400
+and we take yellow here
+
+102
+00:11:21,120 --> 00:11:32,640
+red and finally the blue color but remember we 
+only stored one light inside these pallets we only  
+
+103
+00:11:32,640 --> 00:11:39,120
+took the first uh moving light right here but we 
+have 11 others of this type and we have 12 other  
+
+104
+00:11:40,000 --> 00:11:46,400
+auras up here so what are we going to do if 
+we clear this out and we select the vipers  
+
+105
+00:11:47,120 --> 00:11:52,400
+and we turn them on at full and we go into 
+cyan notice that they are all cyan right  
+
+106
+00:11:52,400 --> 00:11:58,160
+now and that's because we just stored a 
+global preset up here a global preset is  
+
+107
+00:11:59,920 --> 00:12:06,480
+a reference to the color wheels you have on your 
+fixtures you have a cyan magenta yellow or you  
+
+108
+00:12:06,480 --> 00:12:16,160
+have a rgb or you have amber or blue depending on 
+what kind of fixture it is and the desk recognize  
+
+109
+00:12:16,160 --> 00:12:22,000
+that if the fixture has the same parameters you 
+can make a global preset and then it work on  
+
+110
+00:12:22,000 --> 00:12:28,560
+all the moving lights so if we clear this out 
+and we take the auras and we turn them at full  
+
+111
+00:12:29,200 --> 00:12:33,200
+sorry we need to clear out the vipers 
+there we go and then we take the rs  
+
+112
+00:12:33,920 --> 00:12:38,880
+at full and we try it again up here now it 
+doesn't work because it's not the same fixture  
+
+113
+00:12:39,600 --> 00:12:47,680
+so now we save the color information for all the 
+vipers like this let's clear out and let's take  
+
+114
+00:12:47,680 --> 00:12:52,480
+the auras and see okay now it it's grayed out 
+again so we need to do the same thing again  
+
+115
+00:12:52,480 --> 00:12:57,120
+for all the auras but we can just merge it in 
+on top of the other one so let's just say it  
+
+116
+00:12:57,120 --> 00:13:03,920
+full go into the color picker pick cyan and so on 
+and do all the other colors as well i'm going to  
+
+117
+00:13:03,920 --> 00:13:08,720
+speed up the video right here so you can you 
+don't have to watch me do it all over again  
+
+118
+00:13:10,240 --> 00:13:17,040
+so now we stored all our vipers and all our auras 
+on top of this on these ones they're still global  
+
+119
+00:13:17,040 --> 00:13:23,680
+now so now they contain the information from all 
+the vipers and all the auras you have to be a  
+
+120
+00:13:23,680 --> 00:13:29,040
+little bit careful with using the color picker if 
+you use the color picker it will it will be more  
+
+121
+00:13:29,040 --> 00:13:35,040
+creative for you because you can you can find 
+the exact blue color you want but the danger is  
+
+122
+00:13:35,680 --> 00:13:40,080
+that you're going to lose some light because 
+if you want to do a proper blue and only want  
+
+123
+00:13:40,080 --> 00:13:45,840
+to turn on the blue leds in the moving light you 
+would want the cyan and magenta to be at full both  
+
+124
+00:13:45,840 --> 00:13:51,680
+of them if you have a little bit of yellow inside 
+or a little bit less cyan as we did right before  
+
+125
+00:13:52,720 --> 00:13:56,640
+you lose a little bit of light but then 
+it's up to you how creative you want to be  
+
+126
+00:13:56,640 --> 00:14:01,360
+but if you want full power make sure just to 
+turn on the blue led like you can see over here  
+
+127
+00:14:01,360 --> 00:14:08,240
+when you use the the rgb color mixer over here 
+this is full blue and if you see right here it  
+
+128
+00:14:08,240 --> 00:14:13,040
+adds some red to it so that's the danger of 
+using the color picker but it doesn't matter  
+
+129
+00:14:13,040 --> 00:14:16,720
+which one you use as long as you're happy 
+and as long as you you like the way it looks  
+
+130
+00:14:18,560 --> 00:14:24,000
+let's clear this and then say okay what do we 
+need to do now let's just do a little bit of  
+
+131
+00:14:24,000 --> 00:14:29,440
+global information and last time i saved my gobo 
+information up here but i'd rather have it down  
+
+132
+00:14:29,440 --> 00:14:35,520
+here actually so let's just close the focus window 
+move the gobo down here and then drag it all the  
+
+133
+00:14:35,520 --> 00:14:44,640
+way out and then add the focus information up here 
+so let's say we have all the vipers we turn them  
+
+134
+00:14:44,640 --> 00:14:51,200
+at full and we say okay the focus information it's 
+this one down here let's see what options we have  
+
+135
+00:14:51,200 --> 00:14:57,840
+we have some zoom information let's just 
+zoom them all the way in and we store this  
+
+136
+00:14:58,720 --> 00:15:02,560
+i'd like to have the the standard 
+here so this would be my normal 50  
+
+137
+00:15:03,200 --> 00:15:06,960
+then we could do a narrow here and we can 
+do a wide here but that's up to you how you  
+
+138
+00:15:06,960 --> 00:15:11,840
+how you want to work so we store this 
+one then we zoom it all the way out
+
+139
+00:15:14,480 --> 00:15:21,040
+there we go and we store this one here and 
+then we see if we can find the the default  
+
+140
+00:15:21,920 --> 00:15:31,440
+and we store this one right here so now let's 
+just label this we label it and we say standard
+
+141
+00:15:34,320 --> 00:15:34,880
+we say
+
+142
+00:15:36,960 --> 00:15:44,240
+narrow and when you label these ones you don't 
+have to you basically don't have to use the  
+
+143
+00:15:44,240 --> 00:15:51,760
+the swipeys and push the label button you can 
+just press it and say wide on your keyboard  
+
+144
+00:15:51,760 --> 00:15:57,760
+so that's the same thing depending on how you 
+want to work what we can also look at on the swipe  
+
+145
+00:15:57,760 --> 00:16:04,400
+is some of the other other things here you can 
+assign stuff to different views that's also for a  
+
+146
+00:16:04,400 --> 00:16:15,040
+later tutorial you can delete them like this it's 
+gone then we can just type oops down here we can  
+
+147
+00:16:16,240 --> 00:16:23,360
+move it over here or we can copy it over 
+here let's just delete that one again  
+
+148
+00:16:23,360 --> 00:16:26,560
+and let's just move this one 
+back into position right here  
+
+149
+00:16:26,560 --> 00:16:31,920
+so that's pretty cool that's working with 
+swipey swipe is is brilliant and while we've  
+
+150
+00:16:31,920 --> 00:16:37,600
+been working with swipes we actually started our 
+programming session for all this stuff up here and  
+
+151
+00:16:38,160 --> 00:16:45,120
+this is going to be the basis for when we start 
+to program our show for real so let's just finish  
+
+152
+00:16:45,120 --> 00:16:50,880
+it with the some global information down here and 
+say okay which of these moving lights contain gobo  
+
+153
+00:16:50,880 --> 00:16:56,800
+information that would be the vipers we go into 
+gobo we take gobo number one gobo wheel number one  
+
+154
+00:16:57,440 --> 00:17:03,840
+and we go into channel sets and there you'll 
+see the the five gobos and the the open gobo  
+
+155
+00:17:05,120 --> 00:17:09,840
+you can just push it and select it and then we can 
+store it right here that would be the open gobo  
+
+156
+00:17:10,720 --> 00:17:17,520
+and dots in space we store this right here and 
+you can see the gobo appears on the palette which  
+
+157
+00:17:17,520 --> 00:17:26,800
+is pretty cool then we can say happy down here 
+and then we can say oh i don't like the limbo  
+
+158
+00:17:26,800 --> 00:17:33,200
+one i like this one this one and we store 
+this one down here so now we have no gobo  
+
+159
+00:17:33,920 --> 00:17:38,880
+gobo number one which we want to use the second 
+one we only use and the third one we're gonna use  
+
+160
+00:17:39,520 --> 00:17:44,960
+depending on what kind of show you do i don't 
+know i i always store two maybe three gobos  
+
+161
+00:17:44,960 --> 00:17:51,360
+and then then that's gonna be fine last but not 
+least we have the beam here and the beam option is  
+
+162
+00:17:51,360 --> 00:17:58,000
+some strobe options some iris options some frost 
+and you can see right here it says beam one of  
+
+163
+00:17:58,000 --> 00:18:04,640
+three so this is basically page one you have 
+your four encoder wheels that's number one  
+
+164
+00:18:05,600 --> 00:18:12,080
+you pay press it right here and then it changes 
+to four other options and last but not least you  
+
+165
+00:18:12,080 --> 00:18:19,200
+push it on to page number three and then you have 
+the last option so beware that in some cases stuff  
+
+166
+00:18:19,200 --> 00:18:24,640
+will be hidden behind this one you can see rgb 
+here on the color tab if you push it you will  
+
+167
+00:18:24,640 --> 00:18:29,840
+have some static colors you have some cto some 
+more color mixing some you can tweak the color  
+
+168
+00:18:29,840 --> 00:18:35,360
+temperature if you're making a tv show but but 
+just be aware if there's something you can't find  
+
+169
+00:18:36,800 --> 00:18:43,120
+most likely it'll be hidden between these ones and 
+somewhere right here on the right side of the left  
+
+170
+00:18:43,120 --> 00:18:49,440
+side or i don't remember where they are there's a 
+suggestions for a playlist that will cover all the  
+
+171
+00:18:49,440 --> 00:18:55,760
+episodes on our GrandMA 3 tutorial journey so 
+if you want to learn GrandMA 3 programming or if  
+
+172
+00:18:55,760 --> 00:19:01,200
+you want to learn to use the GrandMA 3 lighting 
+desk of the lighting console from MA lighting  
+
+173
+00:19:02,080 --> 00:19:07,920
+please check one of our other videos thanks for 
+watching and i hope to see you next time bye bye
+

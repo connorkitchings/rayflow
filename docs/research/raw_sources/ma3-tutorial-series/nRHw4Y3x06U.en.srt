@@ -1,0 +1,345 @@
+1
+00:00:00,480 --> 00:00:07,360
+if you are interested in GrandMA 3 macros this 
+is the right video for you and what are macros  
+
+2
+00:00:07,360 --> 00:00:14,240
+macros according to the GrandMA 3 manual 
+are commands stored in the pool object the  
+
+3
+00:00:14,240 --> 00:00:19,840
+commands can be very complex or they can be very 
+simple and they can be everything in between  
+
+4
+00:00:20,400 --> 00:00:25,440
+macros can make programming faster and more 
+convenient and macros can make it possible  
+
+5
+00:00:25,440 --> 00:00:32,240
+to do trivial or complex operations by a simple 
+push of a button macros are stored in the macro  
+
+6
+00:00:32,240 --> 00:00:37,840
+pool but can be assigned to physical keys and 
+view buttons so if you see here i opened a  
+
+7
+00:00:38,480 --> 00:00:42,960
+our macro pool here and there's no macros 
+right now if you watch the last episode we  
+
+8
+00:00:42,960 --> 00:00:49,200
+used the macro to load some predefined faces but 
+this time we're going to load some predefined  
+
+9
+00:00:49,200 --> 00:00:55,920
+macros the GrandMA 3 when you open it up doesn't 
+have any predefined macros in it so you have to to  
+
+10
+00:00:55,920 --> 00:01:02,080
+go in and find them import the ones you need and 
+and forget about the rest and it's quite simple  
+
+11
+00:01:02,080 --> 00:01:09,360
+if you go over here and hover and push it down and 
+use our swipes and say edit we open up this window  
+
+12
+00:01:09,360 --> 00:01:14,400
+here and as you can see i opened it up on our 
+screen number two we can just enlarge it a little  
+
+13
+00:01:14,400 --> 00:01:20,400
+bit here if you don't know how to do that you 
+simply push it up here and decides where to open  
+
+14
+00:01:20,400 --> 00:01:26,160
+it up and then it opens up in a separate window 
+it's a little bit easier to to watch and see how  
+
+15
+00:01:26,720 --> 00:01:33,360
+everything is done there we go so we have our new 
+macro lineup here and we have all these confusing  
+
+16
+00:01:33,360 --> 00:01:38,080
+things down here but what you need to know in 
+the beginning is just to import a predefined  
+
+17
+00:01:38,080 --> 00:01:44,640
+macro and what you do is you you you push it up 
+here new macro line and you say import down here  
+
+18
+00:01:44,640 --> 00:01:50,800
+you push it and then you have all these macros 
+coming up all these pre-defined GrandMA 3 macros  
+
+19
+00:01:51,360 --> 00:01:57,120
+so what we can do is say okay what do we need 
+we need maybe a store button so we simply type  
+
+20
+00:01:58,480 --> 00:02:03,440
+store here or start typing store and then you 
+can see the different options that comes up each  
+
+21
+00:02:03,440 --> 00:02:09,680
+of these is a separate macro we just need a simple 
+store command so we choose this one and say import  
+
+22
+00:02:10,320 --> 00:02:16,640
+when we close the window down you can see here 
+it already labeled it this is now a store macro  
+
+23
+00:02:16,640 --> 00:02:22,080
+so what we can do with it is to just clear out the 
+programmer and say okay we choose all our vipers  
+
+24
+00:02:22,720 --> 00:02:29,120
+we turn them on at full we put them in a position 
+we maybe give them a color and we want to store  
+
+25
+00:02:29,120 --> 00:02:34,560
+it somewhere previously when we stored something 
+we would go up here and open the command section  
+
+26
+00:02:34,560 --> 00:02:39,360
+we would push store here and then we will close 
+it down again and then we will decide where to  
+
+27
+00:02:39,360 --> 00:02:45,840
+store it you could also use the shortcuts if you 
+turn on the shortcut menu down here and once again  
+
+28
+00:02:45,840 --> 00:02:52,000
+go in here and you can see all the shortcuts here 
+and you can see store shortcut is s so depending  
+
+29
+00:02:52,000 --> 00:02:56,720
+on the way you want to work there's a lot of 
+different ways to do this right now we have our  
+
+30
+00:02:56,720 --> 00:03:01,520
+store macro and we put something in the programmer 
+which is all our vipers in a color and a position  
+
+31
+00:03:01,520 --> 00:03:07,920
+and we need to store it somewhere up here so now 
+we can simply say store and then up here push one  
+
+32
+00:03:07,920 --> 00:03:15,280
+of the buttons up here and that is a store command 
+so this one this store macro works exactly like  
+
+33
+00:03:15,280 --> 00:03:20,880
+the store button on the physical console remember 
+if you like what you see here consider liking the  
+
+34
+00:03:20,880 --> 00:03:25,680
+video and maybe even subscribing to the channel 
+that way you're going to get a notification next  
+
+35
+00:03:25,680 --> 00:03:31,440
+time we upload a video but let's see what else 
+we can find in here let's do the next one we  
+
+36
+00:03:31,440 --> 00:03:36,080
+push it down we drag it outside the box and 
+we say edit and say what else would we need  
+
+37
+00:03:36,960 --> 00:03:44,160
+let's say we might want to have a highlight 
+button so we search for highlight we find it and  
+
+38
+00:03:44,160 --> 00:03:51,200
+we import it close this one down and now we have 
+a highlight button we don't want it right here oh  
+
+39
+00:03:51,200 --> 00:03:56,880
+sorry we don't want it right here we want to move 
+it somewhere else so we say move maybe over here  
+
+40
+00:03:58,000 --> 00:04:03,040
+and we take the store button as well and we 
+move that down here so here we could have  
+
+41
+00:04:03,040 --> 00:04:10,080
+a next button for instance so we push it down 
+drag it out and say edit we import we search for  
+
+42
+00:04:11,840 --> 00:04:19,200
+we search for next like this and we just need a 
+simple next button right here we close it down and  
+
+43
+00:04:19,200 --> 00:04:25,440
+we say if we have a next button we need a previous 
+button as well do the same thing edit import  
+
+44
+00:04:25,440 --> 00:04:31,520
+we search for previous if we could spell 
+there we go previous we import that one  
+
+45
+00:04:32,080 --> 00:04:35,920
+and we close it down so now we have a next and 
+a previous button we have a store and highlight  
+
+46
+00:04:36,560 --> 00:04:40,880
+so what is highlight we can just push it right 
+now and you can see everything goes white up here  
+
+47
+00:04:40,880 --> 00:04:45,360
+because highlight takes all the moving lights 
+and take all the colors gobos everything out of  
+
+48
+00:04:45,360 --> 00:04:50,640
+it so you can identify the right fixture if you 
+want to work with it and then you can simply say  
+
+49
+00:04:50,640 --> 00:04:58,400
+next next next next or previous previous previous 
+this works exactly the same as if you push the  
+
+50
+00:04:58,400 --> 00:05:05,680
+previous and the next button up here so what else 
+do we need maybe we need an align button or key we  
+
+51
+00:05:05,680 --> 00:05:10,880
+use the align down here all the time where we push 
+this one in some of the previous episodes maybe  
+
+52
+00:05:10,880 --> 00:05:17,920
+it's clever to have an align on and another line 
+off so let's just see what we can import we have  
+
+53
+00:05:17,920 --> 00:05:24,080
+a line off right here so let's just import that 
+one and that would be the equivalent of choosing  
+
+54
+00:05:24,080 --> 00:05:30,400
+off right down here and then let's see if we can 
+find the other align tool which one is that that  
+
+55
+00:05:30,400 --> 00:05:39,040
+is the align rotate i am pretty sure it is there 
+it is yes so now we can say instead of choosing  
+
+56
+00:05:39,040 --> 00:05:44,960
+it down here we can simply push it up here and you 
+can see it's on the the dash right here the rotate  
+
+57
+00:05:44,960 --> 00:05:50,800
+the one we used all the time and we can say off on 
+this one so as you can see you can use macros for  
+
+58
+00:05:50,800 --> 00:05:55,520
+very simple tasks but if you want to work 
+directly on a touchscreen and you don't uh  
+
+59
+00:05:55,520 --> 00:06:01,680
+especially if you're working on the granima 3 on 
+pc version it's really clever to to to get as much  
+
+60
+00:06:01,680 --> 00:06:08,080
+up on the screen as possible because then you 
+can better and you can work faster so what i've  
+
+61
+00:06:08,080 --> 00:06:14,960
+just shown you here is macros GrandMA 3 macros 
+in its simplest form macros can be incredibly  
+
+62
+00:06:14,960 --> 00:06:20,960
+complex and they can be thousands and thousands 
+of lines of code if you want to that all depends  
+
+63
+00:06:20,960 --> 00:06:25,520
+on what you want to do but basically you can 
+ask the disk to do almost anything with macros  
+
+64
+00:06:26,320 --> 00:06:32,000
+in the next video linked on the screen right now 
+i'm gonna go deeper into macros and and into how  
+
+65
+00:06:32,000 --> 00:06:38,960
+you can use them to do more complex everyday tasks 
+so when that one is ready it's going to be linked  
+
+66
+00:06:38,960 --> 00:06:43,920
+up here until then it's going to be one of the 
+other videos from our channel and if you like  
+
+67
+00:06:43,920 --> 00:06:49,760
+anything you have seen today please like the video 
+and maybe even consider subscribing to the channel  
+
+68
+00:06:49,760 --> 00:06:54,880
+that way you're going to get a notification every 
+time we upload a new video in this GrandMA 3 
+
+69
+00:06:55,840 --> 00:07:01,680
+programming tutorial series so thank you for 
+watching and i hope to see you next time bye bye
+

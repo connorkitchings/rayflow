@@ -1,0 +1,344 @@
+1
+00:00:00,320 --> 00:00:06,080
+Hi and welcome to this first Grand MA 3 
+tutorial there's a lot of tutorials  
+
+2
+00:00:06,080 --> 00:00:12,160
+out there but i wanted to start over and make 
+the simplest form of tutorial that i could  
+
+3
+00:00:13,680 --> 00:00:18,560
+based on just starting the console up for the 
+first time or the on pc version up for the first  
+
+4
+00:00:18,560 --> 00:00:24,800
+time so basically what we want to do to get 
+started is to head over to malighting.com i  
+
+5
+00:00:24,800 --> 00:00:31,440
+will drop a link down in the description below so 
+you can go in here and you can download the the  
+
+6
+00:00:31,440 --> 00:00:39,040
+software so start here uh with the downloads click 
+that one go down to GrandMA 3 and click that one  
+
+7
+00:00:39,040 --> 00:00:45,120
+and then you have software and release notes 
+down here so if you push this one you will go  
+
+8
+00:00:45,120 --> 00:00:50,960
+down to the on pc versions there's two versions 
+now compared to the Grand MA 2 -  the GrandMA 2 
+
+9
+00:00:50,960 --> 00:00:58,240
+Only had a windows version but GrandMA 
+3 comes for mac os and windows which is  
+
+10
+00:00:58,240 --> 00:01:05,440
+really really great so depending on the operating 
+system you have download the correct version and  
+
+11
+00:01:05,440 --> 00:01:11,840
+install it and when you have done that close 
+this one again you will have this icon up here  
+
+12
+00:01:12,560 --> 00:01:19,120
+GrandMA 3 OnPC so if you double tap that one it 
+will start up the application for the first time  
+
+13
+00:01:19,840 --> 00:01:24,880
+so basically what i want to do in this first 
+tutorial is just to make a brief run through  
+
+14
+00:01:24,880 --> 00:01:31,440
+and and like tell you what what is where if 
+you compare to the real console the first  
+
+15
+00:01:31,440 --> 00:01:38,400
+screen you are watching right here is is the same 
+as the screen number one over here on the on the  
+
+16
+00:01:38,400 --> 00:01:44,880
+right console there's a few things missing down 
+here right now which is the encoder wheels and and  
+
+17
+00:01:44,880 --> 00:01:50,800
+a lot of buttons and they they don't they don't 
+show up before you have patched uh a few fixtures  
+
+18
+00:01:51,520 --> 00:01:56,960
+so right now it might look a little odd but 
+that is actually correct to navigate around  
+
+19
+00:01:56,960 --> 00:02:03,040
+the console we have on the on the real console 
+you have on the full size version three major  
+
+20
+00:02:03,040 --> 00:02:09,680
+screens three big screens right below that you 
+have three smaller screens and below that on the  
+
+21
+00:02:10,320 --> 00:02:16,160
+on the surface surface itself you have two 
+small screens so if you wanna find those  
+
+22
+00:02:16,160 --> 00:02:20,000
+screens in the on pc version you simply click 
+this button right here which is the screens  
+
+23
+00:02:20,880 --> 00:02:28,080
+and this will show you screen one two and three 
+and this is one this is two and this is three  
+
+24
+00:02:28,080 --> 00:02:34,240
+on the full size console then you have the 
+option of two external screens here external uh  
+
+25
+00:02:34,800 --> 00:02:40,160
+which is screen output 4 and screen output 5 and 
+then you have the two small screens which you  
+
+26
+00:02:40,160 --> 00:02:47,440
+can see here on the real console which doesn't 
+uh which shows up on the Grand MA 3 full size  
+
+27
+00:02:47,440 --> 00:02:54,800
+console and the GrandMA 3 light console i don't 
+think it's on the smaller versions so basically  
+
+28
+00:02:54,800 --> 00:03:00,160
+in the onpc version you can choose what you want 
+to see so you can open the screen you want to  
+
+29
+00:03:00,800 --> 00:03:07,920
+see and want to work with but screens is not 
+all of it whoops up here if you push that button  
+
+30
+00:03:08,480 --> 00:03:13,040
+this one up here that will open up the command 
+section where you do all your programming where  
+
+31
+00:03:13,040 --> 00:03:22,240
+you have all your buttons your numeric keypad your 
+dimmers and where you save where you uh escape or  
+
+32
+00:03:22,240 --> 00:03:28,640
+press oops or whatever this is all 
+hidden in in the under this button here  
+
+33
+00:03:29,920 --> 00:03:37,280
+right below that one you have a fader section 
+which is like your master controls where you can  
+
+34
+00:03:37,280 --> 00:03:43,920
+set your selected masters you can manipulate the 
+Grandmaster output the world master the highlight  
+
+35
+00:03:43,920 --> 00:03:51,200
+the low light there's loads of different options 
+in here many of them i haven't really seen before  
+
+36
+00:03:51,200 --> 00:03:56,800
+in the Grand MA 2 so some of it is new and 
+during this tutorial series we're going to look  
+
+37
+00:03:56,800 --> 00:04:06,000
+at at most of it right below that one you have 
+your playback controls which is your basically  
+
+38
+00:04:06,000 --> 00:04:11,120
+your your first fader bank section which 
+you will find over here on the real console  
+
+39
+00:04:12,480 --> 00:04:19,680
+so when you start saving executors and manipulate 
+this this will show up in this in this area right  
+
+40
+00:04:19,680 --> 00:04:28,160
+here and right below that one another master 
+section or custom master section as it is called  
+
+41
+00:04:28,720 --> 00:04:36,880
+and this is also part of part of 
+the the desks what would you call it
+
+42
+00:04:38,960 --> 00:04:45,840
+default control that you can manipulate in here 
+you can set some rate masters rate masters, speed  
+
+43
+00:04:45,840 --> 00:04:52,240
+masters and and stuff like that on the back side 
+of the rear side of the console you have a lot of  
+
+44
+00:04:52,960 --> 00:04:58,800
+connectors that can do different things so 
+if we zoom in here you will see starting  
+
+45
+00:04:58,800 --> 00:05:05,280
+from the left side you have your desk light 
+output you have your power input for your  
+
+46
+00:05:05,280 --> 00:05:12,320
+powercon true1 you have your on and off switch 
+and then you have your six dmx outputs that is  
+
+47
+00:05:12,320 --> 00:05:19,120
+the same amount of outputs as you had on the 
+Grand MA 2 and right next to that one is your dmx  
+
+48
+00:05:19,680 --> 00:05:25,760
+dmx input which you can use right here and you 
+can confirm you can configure all of them to  
+
+49
+00:05:25,760 --> 00:05:31,520
+be input or output that depends on whatever you 
+need to do so the versatility in the disk is is  
+
+50
+00:05:31,520 --> 00:05:36,880
+pretty amazing right next to that you have 
+your midi in and outputs and right next to  
+
+51
+00:05:36,880 --> 00:05:42,800
+that you have your time code input we will do a 
+separate tutorial on time code at a later point  
+
+52
+00:05:43,760 --> 00:05:51,440
+on this channel you have your usbs everywhere 
+usb 2 and usb 3 and right next to that  
+
+53
+00:05:51,440 --> 00:05:56,320
+you have your sound input which which you can 
+use if you need to do some sort of sound to light  
+
+54
+00:05:57,520 --> 00:06:03,840
+to the right side you have your spdif in an 
+output and to the right again you have your three  
+
+55
+00:06:04,640 --> 00:06:11,840
+ethernet ports on the Grand MA 2 you only had 
+two ethernet ports two separate network cards  
+
+56
+00:06:11,840 --> 00:06:16,000
+on the GrandMA 3 you have three 
+separate networks card network cards  
+
+57
+00:06:16,000 --> 00:06:22,880
+as my understanding right now is that only one and 
+two are active where one is your ma net and your  
+
+58
+00:06:22,880 --> 00:06:31,680
+acn streaming acn and port number two is your ma 
+net i have heard rumors about port number three in  
+
+59
+00:06:32,320 --> 00:06:39,040
+terms of ndi or citip or different 
+other protocols but i don't know if that's  
+
+60
+00:06:39,040 --> 00:06:44,880
+that's the case yet at the top you have your 
+displayport outputs for your external screens  
+
+61
+00:06:44,880 --> 00:06:51,760
+so you can connect up to two external screens 
+on the on the desk to give you more real estate  
+
+62
+00:06:53,760 --> 00:07:01,440
+for your buttons and for all your folio stuff and 
+everything you want to to see when you open up the  
+
+63
+00:07:01,440 --> 00:07:08,720
+console like this there's nothing in it this is 
+just a clean show so in the next episode we will  
+
+64
+00:07:09,520 --> 00:07:16,880
+be patching a few fixtures and we will be looking 
+at different views and ways to manipulate them  
+
+65
+00:07:17,520 --> 00:07:24,480
+so thank you for watching this episode and if you 
+find any value in this please like the video maybe  
+
+66
+00:07:24,480 --> 00:07:29,600
+even subscribe to the channel that would that will 
+help us a lot and please if you have any questions  
+
+67
+00:07:29,600 --> 00:07:34,880
+leave a comment down below so we can uh so we can 
+answer them uh as good as we can and that could  
+
+68
+00:07:34,880 --> 00:07:43,840
+be suggestions for future tutorials so whatever 
+you need to uh to talk about so see you next time
+
+69
+00:07:44,720 --> 00:07:45,220
+ 
+

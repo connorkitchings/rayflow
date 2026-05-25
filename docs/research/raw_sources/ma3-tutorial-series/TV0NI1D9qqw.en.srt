@@ -1,0 +1,330 @@
+1
+00:00:00,480 --> 00:00:06,000
+in this episode we're going to take a step back 
+back to one of the most important tasks when you  
+
+2
+00:00:06,000 --> 00:00:12,560
+work as a GrandMA3 programmer this granuma3 
+tutorial is all about the merge override and  
+
+3
+00:00:12,560 --> 00:00:18,240
+remove function you use when you start to make 
+some actual programming understanding those  
+
+4
+00:00:18,240 --> 00:00:24,480
+functions is something you must master if you 
+want to work as a GrandMA3 programmer storing  
+
+5
+00:00:24,480 --> 00:00:30,000
+something into a sequence is easy and something 
+everybody can do but removing values from your  
+
+6
+00:00:30,000 --> 00:00:34,960
+GrandMA3 sequences and cues is equally 
+important and it's something you have to know  
+
+7
+00:00:34,960 --> 00:00:40,560
+to be a fast and good GrandMA3 programmer 
+so without further ado let's just get into it  
+
+8
+00:00:41,360 --> 00:00:46,560
+first let's look at the GrandMA3 merge 
+function the merge function will prompt you if  
+
+9
+00:00:46,560 --> 00:00:52,640
+you are trying to store something into an already 
+existing queue as you can see i prepared a little  
+
+10
+00:00:52,640 --> 00:00:59,120
+scene for us here with a lot of this time mega 
+points let's just select all of them like this  
+
+11
+00:00:59,120 --> 00:01:04,640
+and turn them on at full and maybe put them 
+into a position so this is basically just a  
+
+12
+00:01:05,280 --> 00:01:10,080
+normal you put in some lights in a position and 
+you turn them on you want to store it somewhere  
+
+13
+00:01:10,080 --> 00:01:15,360
+so let's just store this into our sequence right 
+here and as you can see it created cue number one  
+
+14
+00:01:16,000 --> 00:01:23,120
+if we uh clear this scene and we go this cue list 
+you can see we now have all our mega points let's  
+
+15
+00:01:23,120 --> 00:01:29,840
+do the same for our two lights and put some two 
+lights on at full like this you can see there  
+
+16
+00:01:29,840 --> 00:01:34,640
+up right now once again we can simply store 
+this into the same sequence and it's going  
+
+17
+00:01:34,640 --> 00:01:39,760
+to ask us what do you want to do in this case i 
+want to merge it into the same cue as i'm in  
+
+18
+00:01:39,760 --> 00:01:46,720
+already so if i just press merge and i clear 
+my console you can see everything is now  
+
+19
+00:01:46,720 --> 00:01:52,880
+into our master sequence and this is basically 
+the most simple function ever this is merge you  
+
+20
+00:01:52,880 --> 00:01:59,200
+can put something on top of other things into 
+your sequence and that is very very easy to do  
+
+21
+00:02:00,080 --> 00:02:06,480
+you will find yourself merging into cues all the 
+time as a GrandMA3 programmer now we master  
+
+22
+00:02:06,480 --> 00:02:12,480
+the merge function and in a minute we'll take a 
+look at the GrandMA3 override function but just  
+
+23
+00:02:12,480 --> 00:02:17,120
+before we do that if you like this content and 
+get any value out of this video be sure to give  
+
+24
+00:02:17,120 --> 00:02:23,200
+it a like liking the videos is a free and good 
+way to support any youtube channel with that  
+
+25
+00:02:23,200 --> 00:02:28,880
+out of the way let's just continue let's take a 
+look at option number two when you store into an  
+
+26
+00:02:28,880 --> 00:02:34,560
+existing cue on a GrandMA3 console this time 
+we're going to talk about the override function  
+
+27
+00:02:35,120 --> 00:02:40,000
+so the override function takes something 
+and replaces it with something else that's  
+
+28
+00:02:40,000 --> 00:02:44,800
+basically what's happening here so let's 
+just take all our two lights here and  
+
+29
+00:02:44,800 --> 00:02:52,240
+just turn them off and store that into our 
+sequence right here and let's just merge it  
+
+30
+00:02:52,240 --> 00:02:56,000
+in for now we clear it out and you as you 
+can see all the two lights are gone again  
+
+31
+00:02:56,800 --> 00:03:04,240
+now we have all our mega points on and all our 
+two lights off let's say we turn all our two  
+
+32
+00:03:04,240 --> 00:03:13,280
+lights on again and we say store into cue number 
+one and we say override as you can see all the  
+
+33
+00:03:13,280 --> 00:03:19,040
+mega points disappeared and all the two lights are 
+left we clear out here and you you can simply see  
+
+34
+00:03:19,680 --> 00:03:24,320
+everything we put into our programmer we 
+stored that into the cue and we removed  
+
+35
+00:03:24,320 --> 00:03:29,920
+everything else that was already in the cue 
+that is basically how the override function works  
+
+36
+00:03:29,920 --> 00:03:35,440
+the override function works if you take something 
+into your programmer and you say okay this is my  
+
+37
+00:03:35,440 --> 00:03:41,120
+new cue this is i know my my cue was like this 
+before but now this is the way i want it you can  
+
+38
+00:03:41,120 --> 00:03:47,920
+simply store it into your cue and say override 
+it replaces everything with the new look you just  
+
+39
+00:03:47,920 --> 00:03:53,600
+made next up is the remove function but before 
+that i'll urge you to leave a comment below if  
+
+40
+00:03:53,600 --> 00:03:59,040
+you have any questions or comments to this video 
+i love to help you if you get stuck with something  
+
+41
+00:03:59,040 --> 00:04:04,800
+in these GrandMA3 tutorial videos and check out 
+the links below if you want to look at some real  
+
+42
+00:04:04,800 --> 00:04:10,560
+GrandMA3 hardware it'll tell you what you need to 
+know in terms of what the different models have to  
+
+43
+00:04:10,560 --> 00:04:17,200
+offer but last but not least let's look at the 
+remove option removing values from your cues  
+
+44
+00:04:17,200 --> 00:04:23,120
+is just as important as merging them into your 
+cues in the first place knowing how the GrandMA3  
+
+45
+00:04:23,120 --> 00:04:28,720
+console removes values from your cues will 
+help you later down the line when you must change  
+
+46
+00:04:28,720 --> 00:04:34,240
+something in your existing programming and it will 
+help you when you start learning about tracking on  
+
+47
+00:04:34,240 --> 00:04:40,080
+the GrandMA3 console we'll not get into tracking 
+in this tutorial but we definitely will in one of  
+
+48
+00:04:40,080 --> 00:04:46,000
+the next episodes just remember that tracking 
+is really important removing values is really  
+
+49
+00:04:46,000 --> 00:04:50,800
+important and as you can see here we just simply 
+just continue with all our two lights they are all  
+
+50
+00:04:50,800 --> 00:04:56,480
+turned on if we want to remove some of them out 
+of our programming we could simply just start by  
+
+51
+00:04:57,200 --> 00:05:02,560
+taking them like this and we could turn them 
+off but if we turn them off we still have  
+
+52
+00:05:02,560 --> 00:05:08,080
+a heart value recorded into our cue and this 
+is not what we need we want to remove the value  
+
+53
+00:05:08,960 --> 00:05:14,480
+completely so right now they are turned off 
+and that means the dimmer is active and we  
+
+54
+00:05:14,480 --> 00:05:20,240
+can now remove the active parameter and since the 
+demo is active right now we can simply say store  
+
+55
+00:05:21,120 --> 00:05:28,000
+into the cue we just made and we can say remove 
+and when we clear this you can see they're gone  
+
+56
+00:05:28,000 --> 00:05:33,040
+and they're completely gone from this one all 
+out all the values are completely gone in the  
+
+57
+00:05:33,760 --> 00:05:39,120
+in the sequence sheet or sorry the fixture sheet 
+up here so this is basically how you remove values  
+
+58
+00:05:40,000 --> 00:05:45,040
+and as i said tracking is really important and 
+in one of the next episodes we're going to look  
+
+59
+00:05:45,040 --> 00:05:51,440
+at tracking because this is something you really 
+have to know how to remove values and add values  
+
+60
+00:05:51,440 --> 00:05:57,440
+and make sure that it tracks uh in the 
+right order but that's for a another video  
+
+61
+00:05:58,080 --> 00:06:02,080
+i hope this video gives you a better 
+understanding of what you need to do  
+
+62
+00:06:02,080 --> 00:06:06,880
+when you are working with creating your 
+GrandMA3 show you have to know to  
+
+63
+00:06:06,880 --> 00:06:12,400
+get values into your sequences but it's equally 
+important to be able to remove values as well  
+
+64
+00:06:13,200 --> 00:06:17,760
+if you want to know more about working with 
+the the GrandMA3 console check out this  
+
+65
+00:06:17,760 --> 00:06:23,360
+next video linked on the screen right now where 
+i will show you even more tips and tricks you  
+
+66
+00:06:23,360 --> 00:06:32,320
+need as a GrandMA3 programmer but until i see 
+you the next time happy GrandMA3 programming
+

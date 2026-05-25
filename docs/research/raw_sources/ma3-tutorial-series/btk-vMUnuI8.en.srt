@@ -1,0 +1,610 @@
+1
+00:00:00,240 --> 00:00:05,200
+if you are working with larger shows it can be 
+very difficult and time consuming to recreate  
+
+2
+00:00:05,200 --> 00:00:11,840
+your rig in the GrandMA 3  3d window but you're in 
+luck in this  GrandMA 3 tutorial i'll show you how  
+
+3
+00:00:11,840 --> 00:00:16,080
+importing shows from cad programs 
+like vectorworks and wysiwyg works  
+
+4
+00:00:16,800 --> 00:00:22,480
+i'll show you the workflow of preparing and 
+exporting this wysiwyg file to an mvr file  
+
+5
+00:00:22,480 --> 00:00:28,560
+which stands for my virtual rick and importing 
+the mvr file into the GrandMA 3 on pc  
+
+6
+00:00:29,280 --> 00:00:34,960
+mvr is a standard used by many different softwares 
+and it gives you the option of exporting show  
+
+7
+00:00:34,960 --> 00:00:42,880
+setups from one software to the other in this case 
+from wysiwyg to  GrandMA 3 WYSIWYG from cast-soft  
+
+8
+00:00:42,880 --> 00:00:48,560
+is the standard where i live but in many countries 
+you'll work in different softwares like capture  
+
+9
+00:00:48,560 --> 00:00:55,120
+or vectorworks the workflow is more or less the 
+same so this works across many different platforms  
+
+10
+00:00:55,120 --> 00:01:01,600
+so let's get into it so here we are in wysiwyg we 
+need to export this setup here i just made it a  
+
+11
+00:01:02,400 --> 00:01:07,840
+few hours ago this is a lot of vipers this 
+is a lot of auras this is a lot of atomics  
+
+12
+00:01:07,840 --> 00:01:12,320
+we have some spiders and a lot of two 
+lights and all kinds of different stuff  
+
+13
+00:01:12,320 --> 00:01:17,360
+so basically we want to we want to look at this 
+and say okay how much do we want to export in  
+
+14
+00:01:17,360 --> 00:01:22,240
+this case we want to export everything but what 
+you can actually hide everything you hide in  
+
+15
+00:01:22,240 --> 00:01:27,840
+this view here is not going to be exported 
+but let's go into the cat menu up here and  
+
+16
+00:01:28,480 --> 00:01:33,840
+see everything as we can see right here if you 
+want to hide something you can just hide for  
+
+17
+00:01:33,840 --> 00:01:39,840
+instance lx1 you move that away our front truss 
+and it's not going to be exported as our MVR file  
+
+18
+00:01:40,800 --> 00:01:47,200
+before we export everything as you can see here 
+there's a lot of spot numbers on all the other  
+
+19
+00:01:47,200 --> 00:01:53,280
+moving lights and on all the fixtures actually 
+and usually i would use a unit number when i  
+
+20
+00:01:53,280 --> 00:01:58,480
+patch my show so if you go in here and you see 
+unit number one but it doesn't work unless you  
+
+21
+00:01:58,480 --> 00:02:04,000
+use spot numbers the mvr file doesn't look at 
+the unit number it looks at the spot number  
+
+22
+00:02:04,000 --> 00:02:08,640
+so if you're used to using unit numbers as 
+i am you have to change it into spot numbers  
+
+23
+00:02:09,680 --> 00:02:14,480
+but this is the case and this is how it looks 
+and i think we're going to export everything as  
+
+24
+00:02:14,480 --> 00:02:19,680
+you can see here we have some a little drama here 
+and a guitarist as well so we are going to export  
+
+25
+00:02:19,680 --> 00:02:26,640
+everything into our MVR file so to export 
+everything we simply go into our wireframe view  
+
+26
+00:02:26,640 --> 00:02:32,240
+right here you can see everything up here and you 
+go into file you go into export and you can see  
+
+27
+00:02:32,240 --> 00:02:38,000
+an mvr export option up here you have to save 
+the show first so let's just save and proceed  
+
+28
+00:02:38,800 --> 00:02:46,800
+and it starts the export process and you can see 
+it's going to export 20 layers 212 fixtures a lot  
+
+29
+00:02:46,800 --> 00:02:54,240
+of pipes trusses objects and groups and everything 
+so let's just do that and it is suggesting  
+
+30
+00:02:54,240 --> 00:03:02,800
+our desktop right here and test show v1 version 
+1 in an mvr format so we just save that and it  
+
+31
+00:03:02,800 --> 00:03:09,040
+starts exporting everything so the export itself 
+goes pretty fast and then we have it up here  
+
+32
+00:03:09,040 --> 00:03:13,520
+this is our test show right here and this 
+is our backup file from our WYSIWYG  
+
+33
+00:03:13,520 --> 00:03:19,760
+so what we want to do now is to move this into our 
+thumb drive it's very important that you have a  
+
+34
+00:03:19,760 --> 00:03:26,320
+thumb drive attached to your computer because  
+ GrandMA 3 looks in your thumb drive folders  
+
+35
+00:03:26,320 --> 00:03:33,840
+so basically you want to open this up your thumb 
+drive and then you want to start saving a  GrandMA 3  
+
+36
+00:03:33,840 --> 00:03:40,800
+show on the thumb drive and you can simply 
+just open up a  GrandMA 3 on pc and go into the  
+
+37
+00:03:40,800 --> 00:03:47,440
+backup menu and simply just save your show 
+and do that on your gma2 or wherever your  
+
+38
+00:03:48,640 --> 00:03:52,640
+whatever your thumbnail thumb drive 
+name is and that is going to create  
+
+39
+00:03:52,640 --> 00:03:57,200
+a folder i'll just show you right here it's 
+going to create a folder called  GrandMA 3  
+
+40
+00:03:57,200 --> 00:04:03,040
+and in that you have a  GrandMA 3 library and a 
+shared you want to go into the library like this  
+
+41
+00:04:03,040 --> 00:04:08,480
+and you want to locate the MVR folder you open 
+that up and it's empty because i don't have any  
+
+42
+00:04:08,480 --> 00:04:14,480
+<mvr file in it yet and you simply drag your >MVR 
+file and you drop it in your thumb drive folder  
+
+43
+00:04:15,120 --> 00:04:20,320
+when you have done that you simply close this 
+one down and you open up your  GrandMA 3 software  
+
+44
+00:04:21,040 --> 00:04:26,480
+okay we exported the MVR file from wysiwyg 
+and is ready for direct import into GrandMA 3.  
+
+45
+00:04:27,040 --> 00:04:32,400
+keep watching if you want to see how importing 
+MVR files work into GrandMA 3 there's a few  
+
+46
+00:04:32,400 --> 00:04:36,960
+things we need to take care of after the import 
+to make sure that all information is correct  
+
+47
+00:04:38,000 --> 00:04:41,840
+and if you enjoyed this video and find it 
+useful so far be sure to give it a like  
+
+48
+00:04:42,400 --> 00:04:47,760
+liking video supports my channel and it 
+helps it spread out to more people on youtube  
+
+49
+00:04:47,760 --> 00:04:51,760
+and if you don't want to miss any future 
+episodes click on the subscribe button below  
+
+50
+00:04:51,760 --> 00:04:56,240
+and click the notification bell icon 
+that's gonna give you a notification  
+
+51
+00:04:56,240 --> 00:05:00,640
+every time we upload a new video and please 
+leave a comment if you have anything on your mind  
+
+52
+00:05:00,640 --> 00:05:06,400
+it's always nice to hear from you reading comments 
+makes it a lot more fun to make these videos  
+
+53
+00:05:06,400 --> 00:05:10,480
+if you're interested in  GrandMA 3 hardware 
+i have some links in the description for all  
+
+54
+00:05:10,480 --> 00:05:16,240
+kinds of different pieces of  GrandMA 3 hardware 
+so go check that out if you are interested in  
+
+55
+00:05:16,800 --> 00:05:23,040
+information on models pricing and features on the 
+different models but let's continue so we exported  
+
+56
+00:05:23,040 --> 00:05:28,880
+our file from WYSIWYG and we are now ready to 
+import it directly into  GrandMA 3 and it works  
+
+57
+00:05:28,880 --> 00:05:35,200
+kind of simple you open up a blank show or 
+whatever you want to do you go into your settings  
+
+58
+00:05:35,200 --> 00:05:40,080
+up here and you go straight into the patch it 
+opens up this window here we just close this one  
+
+59
+00:05:40,080 --> 00:05:47,280
+down because we want to import an MVR file so we 
+select this one and we go from our internal disk  
+
+60
+00:05:47,280 --> 00:05:53,040
+to our  GrandMA 2 disk it's called that's what 
+my thumb drive is called and in that we have  
+
+61
+00:05:53,040 --> 00:05:58,960
+our test show because we moved it into the right 
+folder in the file structure just a minute ago  
+
+62
+00:05:59,600 --> 00:06:05,200
+so here we have our test show and we simply click 
+import it's going to go through all the objects  
+
+63
+00:06:05,200 --> 00:06:10,400
+and it's going to identify a lot of things and 
+it's going to open up this merge option here  
+
+64
+00:06:10,400 --> 00:06:15,280
+and here you can simply choose what you want to 
+import and what you don't want to import but since  
+
+65
+00:06:15,280 --> 00:06:21,040
+we are starting up a new show right now we want 
+to import everything so basically we just click  
+
+66
+00:06:21,040 --> 00:06:26,560
+import MVR and it starts working and depending on 
+how fast your computer is this can take a while  
+
+67
+00:06:27,360 --> 00:06:33,040
+so if you scroll down here you can see it's all 
+mixed up we have a unit number here a fixture  
+
+68
+00:06:33,040 --> 00:06:38,480
+id number here and then you have a pipe and 
+everything is is into the is imported into  
+
+69
+00:06:38,480 --> 00:06:44,160
+the patch which can be a little bit annoying 
+so what you want to do is you want to sort from  
+
+70
+00:06:44,160 --> 00:06:49,600
+the fixture id here so simply right click on the 
+fixture id and it's going to sort everything into  
+
+71
+00:06:50,640 --> 00:06:55,600
+descending or ascending depending on how many 
+times you click it so what we want to do now is  
+
+72
+00:06:55,600 --> 00:07:01,120
+we want to make some groups because all these 
+items here is kind of annoying and we need to  
+
+73
+00:07:01,120 --> 00:07:07,680
+get rid of them so we insert a new fixture 
+we go into  GrandMA 3 and we search for group  
+
+74
+00:07:09,120 --> 00:07:14,960
+and we select a group and let's just 
+import maybe let's just import 10 groups  
+
+75
+00:07:14,960 --> 00:07:20,160
+we can always delete them afterwards so we 
+say apply and we should have some groups  
+
+76
+00:07:20,160 --> 00:07:27,840
+down here in the bottom somewhere right here so 
+let's go up again and identify all the different  
+
+77
+00:07:29,200 --> 00:07:34,800
+scenic elements all our trussing and our 
+pipes and everything so let's see if we  
+
+78
+00:07:34,800 --> 00:07:40,640
+can find where the first one is right here we 
+simply mark it all the way to the top and we  
+
+79
+00:07:40,640 --> 00:07:49,840
+say cut and then we locate our group number one 
+for instance and we can simply rename it to scenic
+
+80
+00:07:52,160 --> 00:07:57,920
+and we click the small icon here new fixture and 
+we paste everything in here and we can close this  
+
+81
+00:07:57,920 --> 00:08:03,360
+one down so it's not in our way anymore now we 
+need to clean up this file because it hasn't  
+
+82
+00:08:04,080 --> 00:08:10,960
+it hasn't selected all the correct fixtures it's 
+just selected some fixture names basically because  
+
+83
+00:08:10,960 --> 00:08:16,240
+it doesn't understand what comes from WYSIWYG 
+it it doesn't know that this is a thomas two light  
+
+84
+00:08:16,240 --> 00:08:21,760
+it doesn't know that that it's a mega point 
+even though it's saying here it's an atomic  
+
+85
+00:08:21,760 --> 00:08:26,080
+it doesn't know it's and martin atomic and 
+what mode it's in so we need to replace  
+
+86
+00:08:26,080 --> 00:08:35,200
+these ones with our real fixtures so basically 
+we scroll up and we find where we want to start  
+
+87
+00:08:35,200 --> 00:08:39,840
+let's say we want to start with our atomics 
+we simply mark the fixture type like this  
+
+88
+00:08:41,360 --> 00:08:50,240
+and find all of them we right click and we go 
+into the shares maybe and search for atomic and  
+
+89
+00:08:50,240 --> 00:08:56,160
+it has an atomic 3000 here we want it in a four 
+channel mode that's the top one we select it
+
+90
+00:08:58,560 --> 00:09:05,360
+like this and now it's an atomic 3000 now it 
+knows what it is we do the same thing for our  
+
+91
+00:09:05,360 --> 00:09:16,640
+spiders down here we select them we right click we 
+search for spider and we have it right here and i  
+
+92
+00:09:16,640 --> 00:09:21,840
+have patched it in mode 2 which is our basic mode 
+we select that one and it's going to replace the  
+
+93
+00:09:22,800 --> 00:09:28,480
+fixtures with the correct spiders as you can see 
+up here it selected actually the atomic image and  
+
+94
+00:09:28,480 --> 00:09:33,760
+the spider image and then you do that for all your 
+fixtures for your mega points for everything i'm  
+
+95
+00:09:33,760 --> 00:09:37,840
+just going to speed up the video while i do this 
+because you don't want to wait for it but it's  
+
+96
+00:09:37,840 --> 00:09:43,840
+actually quite easy just go through all of them 
+once we've done all this it's time for our patch  
+
+97
+00:09:44,400 --> 00:09:50,160
+and since we haven't patched the WYSIWYG file 
+from the beginning it's actually very easy to  
+
+98
+00:09:50,160 --> 00:09:55,920
+patches because we only need this for reference 
+we only need this as a visualizer so it doesn't  
+
+99
+00:09:55,920 --> 00:10:00,720
+matter how we patch it basically so what we 
+can do is simply mark everything from the top  
+
+100
+00:10:00,720 --> 00:10:08,000
+and all the way down to the last viper here and 
+we right click and we simply say dmx universe 1  
+
+101
+00:10:08,000 --> 00:10:14,640
+number 1 and it patched all the way through up 
+to universe 6 address 235 so now everything is  
+
+102
+00:10:14,640 --> 00:10:21,760
+patched everything is set up so basically we want 
+to go into our 3d window now and see how it looks  
+
+103
+00:10:21,760 --> 00:10:27,440
+so we close this one down we save and exit and 
+that brings us out to the opening right here  
+
+104
+00:10:27,440 --> 00:10:33,680
+and then we open up our 3d window we click it up 
+here and we open the 3d window and as you can see  
+
+105
+00:10:33,680 --> 00:10:39,680
+our entire rig is here just as we imported it i 
+can see there's a few mistakes here the pipes have  
+
+106
+00:10:39,680 --> 00:10:45,280
+moved position for some reason but it looks like 
+the fixtures are actually in the right position  
+
+107
+00:10:45,280 --> 00:10:51,440
+it imported the scenic element here the drummer 
+and the singer and everything so this is basically  
+
+108
+00:10:51,440 --> 00:11:00,960
+how you do an mvr import let's see if we can turn 
+something on let's say 501 through enter that's  
+
+109
+00:11:00,960 --> 00:11:06,160
+everything and let's put it at full and you can 
+see everything starts lighting up as it's supposed  
+
+110
+00:11:06,160 --> 00:11:11,920
+to so basically we can actually start programming 
+from now on so this is the MVR import it's quite  
+
+111
+00:11:11,920 --> 00:11:18,880
+easy i'm gonna leave a link in the description 
+below this video with a onedrive a shared folder  
+
+112
+00:11:18,880 --> 00:11:24,400
+i'm gonna put this mvr file into it so you can 
+download it and try this out for yourself at  
+
+113
+00:11:24,400 --> 00:11:30,080
+home so if you have any questions in that process 
+please leave a comment on the video and i will  
+
+114
+00:11:30,080 --> 00:11:36,000
+answer it as best i can  GrandMA 3 programming is 
+easy to learn since the software is free and you  
+
+115
+00:11:36,000 --> 00:11:41,600
+can work with it in your home at any time so 
+there's no excuse of not learning it any show  
+
+116
+00:11:41,600 --> 00:11:47,040
+you create on your on pc software can be loaded 
+directly into any piece of GrandMA 3 hardware so  
+
+117
+00:11:47,040 --> 00:11:51,520
+be sure to give this video a like so it can spread 
+out to more people and subscribe to the channel if  
+
+118
+00:11:51,520 --> 00:11:56,880
+you don't want to miss any future episodes and if 
+you want to learn the easy way to build a  GrandMA 3  
+
+119
+00:11:56,880 --> 00:12:04,240
+layout from this MVR file we just imported 
+i suggest you watch next week's video when it's  
+
+120
+00:12:04,240 --> 00:12:09,200
+ready i'm going to link it on the screen as you 
+can see it right now i try to release one new  
+
+121
+00:12:09,200 --> 00:12:14,400
+video every week so please come back if you want 
+to continue learning  GrandMA 3 programming  
+
+122
+00:12:14,400 --> 00:12:20,240
+i hope to see you on the channel again in 
+the future and until then - HAPPY PROGRAMMING :-)
+

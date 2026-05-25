@@ -1,0 +1,804 @@
+1
+00:00:00,160 --> 00:00:06,400
+hi and welcome to this GrandMA 3 tutorial this 
+is episode 2 and it's about patching your first  
+
+2
+00:00:06,400 --> 00:00:12,720
+fixtures in the last episode we took a tour around 
+the software we looked at all the different fixed  
+
+3
+00:00:12,720 --> 00:00:16,640
+system views and we looked at where these 
+views are located on the real console  
+
+4
+00:00:17,760 --> 00:00:22,880
+we also looked at navigating the on pc software 
+with all the different system views and we took  
+
+5
+00:00:22,880 --> 00:00:27,680
+a tour at the rear of the console with all 
+the different connectors in the back if you  
+
+6
+00:00:27,680 --> 00:00:32,240
+missed that episode click here in the corner 
+and that will take you right to that episode  
+
+7
+00:00:33,360 --> 00:00:37,040
+in this episode we are patching fixtures 
+into the desk for the first time  
+
+8
+00:00:37,680 --> 00:00:43,920
+to be able to make views later as you can see 
+here in the presets pool we can't make any presets  
+
+9
+00:00:43,920 --> 00:00:48,720
+right now and that's because we have to patch 
+some fixtures into the GrandMA 3 console first  
+
+10
+00:00:50,080 --> 00:00:54,400
+the reason for this is that some of 
+the views we need position, color, beam  
+
+11
+00:00:54,400 --> 00:00:57,840
+etc first becomes available when 
+you have some fixtures in the patch  
+
+12
+00:00:58,720 --> 00:01:04,800
+and the option will be different depending on what 
+type of fixture you patch this is different from  
+
+13
+00:01:04,800 --> 00:01:09,920
+the GrandMA 2 where you were able to make all your 
+views on a blank console with a new show loaded  
+
+14
+00:01:09,920 --> 00:01:15,440
+before we dive in if you get any value out of 
+these videos please consider liking the video  
+
+15
+00:01:15,440 --> 00:01:21,680
+and subscribing to the channel so you don't miss 
+any new episodes in the future and if you have any  
+
+16
+00:01:21,680 --> 00:01:26,880
+questions along the way please leave a comment 
+below and i'll answer them as well as i can so  
+
+17
+00:01:27,760 --> 00:01:34,720
+let's dive in in order to start patching fixtures 
+we start by navigating to the small cog icon on  
+
+18
+00:01:34,720 --> 00:01:40,240
+the console here you'll find a lot of different 
+options and we will definitely visit this place  
+
+19
+00:01:40,240 --> 00:01:45,520
+in later tutorials because this is where a lot of 
+different settings are controlled and manipulated  
+
+20
+00:01:46,720 --> 00:01:54,400
+navigate to the patch and press it this opens 
+up the patch on the GrandMA 3 console if you're  
+
+21
+00:01:54,400 --> 00:01:59,920
+used to GrandMA 2 consoles we have to approach 
+patching in a different way that we're used to  
+
+22
+00:02:00,800 --> 00:02:05,760
+on the GrandMA 2 console you would start by 
+creating a line inside that line you would choose  
+
+23
+00:02:05,760 --> 00:02:12,160
+a fixture type and then patch it the lines gave 
+us a good overview of all our different fixture  
+
+24
+00:02:12,160 --> 00:02:16,960
+types and it made it easy to find fixtures you 
+needed if you wanted to change something later  
+
+25
+00:02:18,400 --> 00:02:23,920
+in the GrandMA 3 software things have changed 
+a little these lines are gone and now you can  
+
+26
+00:02:23,920 --> 00:02:29,840
+make a patch directly in one large pool you now 
+have the option of grouping your fixtures but you  
+
+27
+00:02:29,840 --> 00:02:36,880
+have to do it manually let's first patch some 
+fixtures and then look at grouping let's go to new  
+
+28
+00:02:36,880 --> 00:02:43,760
+fixture and click here on insert new fixture you 
+can right click on new fixture or you can click on  
+
+29
+00:02:43,760 --> 00:02:49,840
+insert new fixture both will open up this window 
+in this window you will have multiple options  
+
+30
+00:02:50,800 --> 00:02:57,600
+option 1 in current show this will show you what 
+fixtures you're using in your show but in this  
+
+31
+00:02:57,600 --> 00:03:04,480
+case we haven't patched any fixtures yet so it's 
+going to be empty option 2 is GrandMA 3. this  
+
+32
+00:03:04,480 --> 00:03:10,720
+is for fixtures that has been developed directly 
+for GrandMA 3 console there's a surprisingly  
+
+33
+00:03:10,720 --> 00:03:15,680
+small number of fixtures in this pool and i would 
+expect this to grow a lot over the next few years  
+
+34
+00:03:16,880 --> 00:03:22,320
+option three is GrandMA 2 this as the name 
+applies is the fixture library from the GrandMA  
+
+35
+00:03:22,320 --> 00:03:28,320
+2 console it's a massive library that contains 
+a lot of fixture types and the cool thing is that  
+
+36
+00:03:28,320 --> 00:03:33,760
+they can be patched directly on the GrandMA 3 
+console so if you can't find the fixture you need  
+
+37
+00:03:33,760 --> 00:03:41,600
+in any of the other pools my guess is that you can 
+find it right here option 4 is the GDTF library  
+
+38
+00:03:41,600 --> 00:03:49,360
+GDTF stands for general device type format GDTF 
+is some of the larger manufacturers ma lighting  
+
+39
+00:03:49,360 --> 00:03:55,600
+vectorworks and robe they created this project 
+the general idea is that instead of all the  
+
+40
+00:03:55,600 --> 00:04:01,600
+different manufacturers in the industry are having 
+to develop their own fixture profiles all the time  
+
+41
+00:04:01,600 --> 00:04:06,720
+GDTF is supposed to be a standard where everybody 
+can make a fixture profile and you can use it  
+
+42
+00:04:07,680 --> 00:04:13,600
+you can use the same profile across many of the 
+different platforms this means instead of having  
+
+43
+00:04:13,600 --> 00:04:18,960
+vector works or MA lighting or cast soft to 
+develop a new fixture type profile for the  
+
+44
+00:04:19,920 --> 00:04:26,720
+disk or software the manufacturer, ROBE, MARTIN, 
+Clay Packy or anyone else can make a fixture profile  
+
+45
+00:04:26,720 --> 00:04:31,840
+for their brand new fixture and then it can be 
+implemented across different pieces of hardware  
+
+46
+00:04:31,840 --> 00:04:37,760
+and software so hopefully when this really kicks 
+off there will be no more waiting for new fixtures  
+
+47
+00:04:37,760 --> 00:04:44,320
+no matter if you need it for your 3d visualization 
+software or your lighting console i think  
+
+48
+00:04:44,320 --> 00:04:49,280
+GDTF is a great idea and i really hope that 
+all manufacturers will start using it soon  
+
+49
+00:04:49,920 --> 00:04:56,560
+this would make all our lives a lot easier in 
+the future i left a link to the GDTF website in  
+
+50
+00:04:56,560 --> 00:05:01,520
+the description below here you can read much 
+more about gdtf and the thoughts behind it  
+
+51
+00:05:02,240 --> 00:05:08,960
+next on the list is option 5 the user tab user 
+as the name indicates is where your own fixture  
+
+52
+00:05:08,960 --> 00:05:14,800
+profiles are stored in the console if you make 
+your own fixture profile sometimes it can be  
+
+53
+00:05:14,800 --> 00:05:19,440
+a little hard to find it again later on the 
+GrandMA 2 console but on the GrandMA 3 it's  
+
+54
+00:05:19,440 --> 00:05:27,040
+stored right here directly in the user directory 
+last but not least is option 6 the shares tab  
+
+55
+00:05:28,240 --> 00:05:34,640
+shares works if your console or on pc software 
+is connected to the internet shares will make  
+
+56
+00:05:34,640 --> 00:05:40,240
+you search directly in a large online database and 
+here you can import the fixture you need directly  
+
+57
+00:05:40,240 --> 00:05:45,520
+into your show this is a cool feature and this 
+will make your life as a programmer a lot easier  
+
+58
+00:05:46,240 --> 00:05:51,520
+instead of having to go to a computer to find the 
+fixture you need and then saving it to a usb drive  
+
+59
+00:05:51,520 --> 00:05:57,280
+for import you can do it directly on the console 
+itself so depending on what kind of fixture you  
+
+60
+00:05:57,280 --> 00:06:02,640
+need in your show you can use the different 
+options here in the insert new fixture window  
+
+61
+00:06:03,600 --> 00:06:06,880
+in the show we are starting up right 
+now we need four different fixture types  
+
+62
+00:06:07,600 --> 00:06:14,160
+we need 12 pieces of martin mac viber profile 
+in the 16 bit version we need 12 pieces of  
+
+63
+00:06:14,160 --> 00:06:23,040
+martin mac aura xp in standard mode we need six 
+pieces of martin atomic led in the extended mode  
+
+64
+00:06:24,160 --> 00:06:27,760
+and last but not least we need 12 dimmer 
+channel for some 2 light blinders  
+
+65
+00:06:28,800 --> 00:06:33,840
+you can always add more fixtures later in 
+the patch but this will just get us started  
+
+66
+00:06:34,880 --> 00:06:40,400
+we will start in the GrandMA 2 library this 
+time for finding the fixture types for this show  
+
+67
+00:06:40,960 --> 00:06:46,960
+so navigate to the GrandMA 2 tab and search 
+for Martin Mac viber profile click on the small  
+
+68
+00:06:46,960 --> 00:06:53,200
+arrow icon and highlight martin Mac Viper profile 
+16-bit and press the select button in the bottom  
+
+69
+00:06:53,200 --> 00:06:58,080
+of the window a new window appears with 
+four different lines you need to look at  
+
+70
+00:06:58,960 --> 00:07:04,000
+the first line is what the console calls your 
+fixture after you have patched them you can leave  
+
+71
+00:07:04,000 --> 00:07:08,880
+this line with whatever the console suggests but 
+i like to name it something that i can remember  
+
+72
+00:07:09,760 --> 00:07:16,080
+so just type viper1 in the field if you 
+interline with a number the GrandMA 3  
+
+73
+00:07:16,080 --> 00:07:21,680
+console will automatically increase it by + 
+1 on each fixture that will help you when you  
+
+74
+00:07:21,680 --> 00:07:27,760
+look for the fixtures later in the fixture 
+window or in the 3d visualizer. the next line  
+
+75
+00:07:27,760 --> 00:07:32,640
+quantity will tell the console how many Martin 
+Mac Viper profile you want to patch in your show  
+
+76
+00:07:33,920 --> 00:07:41,840
+in this case we type 12 units the next line is the 
+fixture id for the Martin Mac Viper profile units  
+
+77
+00:07:42,880 --> 00:07:47,200
+if you have never worked with a lighting console 
+before this might seem a little confusing but what  
+
+78
+00:07:47,200 --> 00:07:51,280
+we do here is telling the console where you can 
+call these fixtures when you have patched them  
+
+79
+00:07:52,320 --> 00:07:57,200
+it's best practice to have unique 
+numbers for every fixture in your patch  
+
+80
+00:07:57,200 --> 00:08:05,520
+because it's very easy to call unit 712 or 
+unit 602 directly when you need it for some  
+
+81
+00:08:05,520 --> 00:08:12,240
+reason i like my profile fixtures to be named 
+something with 700 i will type 701 in this field  
+
+82
+00:08:13,920 --> 00:08:19,200
+this will now number all the mac viber 
+701 and forward in this case we have we  
+
+83
+00:08:19,200 --> 00:08:28,000
+are patching 12 fixtures so my fixtures will be 
+701 through 7 12. the last line of this window  
+
+84
+00:08:28,000 --> 00:08:33,280
+is the patch itself and it will tell the 
+console on what dmx universe and channel  
+
+85
+00:08:33,280 --> 00:08:40,000
+you want to start the first of the 12 fixtures 
+in this case we start at universe 1 dmx channel  
+
+86
+00:08:40,000 --> 00:08:45,600
+1. the GrandMA 3 console now starts with 
+the first address you told it to and then  
+
+87
+00:08:45,600 --> 00:08:50,720
+automatically calculate the last addresses 
+based on how many channels each fixture uses  
+
+88
+00:08:52,560 --> 00:08:56,800
+if you remember the last video where we looked 
+at the connections on the back of the console you  
+
+89
+00:08:56,800 --> 00:09:06,720
+might remember we had output a b c d e and f if 
+you patch something on dmx universe 1 this is the  
+
+90
+00:09:06,720 --> 00:09:14,160
+same dmx universe as number a or letter a on the 
+back this can easily be changed but that's for a  
+
+91
+00:09:14,160 --> 00:09:22,160
+later tutorial in this case we keep the universe 
+and channel at 1.1 which means dmx universe 1  
+
+92
+00:09:22,160 --> 00:09:28,320
+dmx channel 1. press apply and you now 
+have prepared your first 12 fixtures  
+
+93
+00:09:29,440 --> 00:09:34,880
+i say prepared because we haven't patched anything 
+yet the patch is not active until you leave the  
+
+94
+00:09:34,880 --> 00:09:40,240
+patch window and save your changes we will look at 
+that when we have patched all the fixtures we need  
+
+95
+00:09:40,240 --> 00:09:45,040
+for the show to patch the rest of the fixtures 
+we need for this show repeat the process for  
+
+96
+00:09:45,040 --> 00:09:54,320
+your Martin Mac Aura XB 16-bit fixtures search for 
+Aura XB expand the auras on the little arrow here  
+
+97
+00:09:55,760 --> 00:10:03,760
+navigate to the standard rgb and press 
+select this time we name the units aura XB 1  
+
+98
+00:10:03,760 --> 00:10:10,000
+in the first line we set the quantity to 
+12 units and we give it a fixture id of 601  
+
+99
+00:10:11,040 --> 00:10:17,280
+this time we want the fixtures to be patched 
+to dmx universe 2 with a start address of 1 we  
+
+100
+00:10:17,280 --> 00:10:28,960
+type 2.1 and press apply next up is the six Martin 
+ATOMIC fixtures navigate to new fixture search in  
+
+101
+00:10:28,960 --> 00:10:36,720
+the GrandMA 2 library for atomic led locate the 
+atomic 3000 led extended version and press select  
+
+102
+00:10:38,160 --> 00:10:47,760
+name it atomic 1 set a quantity of 6 set the 
+fixture id to 301 this time we will tries to  
+
+103
+00:10:47,760 --> 00:10:53,280
+select the address in a different way most of the 
+time you'll be looking at a piece of paper with a  
+
+104
+00:10:53,280 --> 00:10:57,760
+patch on it when you are patching your fixtures 
+but sometimes you don't have a patch sheet  
+
+105
+00:10:58,480 --> 00:11:03,120
+this could be because it's a small show and 
+you just need to have new fixtures working fast  
+
+106
+00:11:04,000 --> 00:11:08,720
+GrandMA 3 gives you a great overview on what 
+addresses that are available in the patch and  
+
+107
+00:11:08,720 --> 00:11:14,320
+which dmx addresses you've already used on 
+other fixtures so instead of just typing the  
+
+108
+00:11:14,320 --> 00:11:20,000
+universe an address this time we look at the 
+graphic overview if you click on the address  
+
+109
+00:11:20,000 --> 00:11:27,680
+cell where it says 1.303 when you do that you are 
+presented with two options the calculator and the  
+
+110
+00:11:27,680 --> 00:11:34,160
+sheet view if you click on the sheet tab you can 
+see a graphical overview of your dmx universes and  
+
+111
+00:11:34,160 --> 00:11:39,600
+the addresses that are already occupied but some 
+of the fixtures we patched earlier in our show  
+
+112
+00:11:40,960 --> 00:11:47,520
+right now it's showing us universe 1 but if you 
+want to select another dmx universe you can click  
+
+113
+00:11:47,520 --> 00:11:51,040
+on the universe button up here in 
+the right corner of the sheet view  
+
+114
+00:11:51,760 --> 00:11:56,640
+you can simply type the universe you want to 
+look at in this case we type 2 and the console  
+
+115
+00:11:56,640 --> 00:12:02,960
+will show us universe 2. now you can scroll down 
+in the sheet until you find an empty address you  
+
+116
+00:12:02,960 --> 00:12:07,520
+like it doesn't matter which address you choose 
+it all depends on what you want to do in your show  
+
+117
+00:12:08,720 --> 00:12:16,400
+in this case it's 169 that are the first free dmx 
+address click on it and the view will jump back to  
+
+118
+00:12:16,400 --> 00:12:24,640
+the first window with your choice of dmx universe 
+2 dmx address 169 press apply to lock down your  
+
+119
+00:12:24,640 --> 00:12:31,520
+selection lastly we'll patch 12 dimmer channels 
+we need for our 12 pieces of two light blinders  
+
+120
+00:12:32,560 --> 00:12:36,480
+right click on new fixture 
+choose the GrandMA 2 library  
+
+121
+00:12:37,280 --> 00:12:44,560
+search for generic dimmer expand the dimmer 
+line click on dimmer and click select  
+
+122
+00:12:45,680 --> 00:12:54,240
+name it dim 1 set the quantity of 12 type 
+the fixture id 101 and set the patch to 3.1  
+
+123
+00:12:55,360 --> 00:13:00,960
+congratulations you have now patched all the 
+fixtures we need for this small demo show you  
+
+124
+00:13:00,960 --> 00:13:07,360
+can now see the entire list of fixtures in your 
+patch if you scroll up and down in this list but  
+
+125
+00:13:07,360 --> 00:13:12,240
+we have no grouping in order for this patch and 
+that can make it a little overwhelming if we have  
+
+126
+00:13:12,240 --> 00:13:17,280
+to change something later this is where GrandMA 3 is a little different than GrandMA 2.  
+
+127
+00:13:18,000 --> 00:13:24,480
+we have to manually add the group we want in our 
+show luckily it's quite easy once again navigate  
+
+128
+00:13:24,480 --> 00:13:32,400
+to insert new fixture click on the GrandMA 3 tab 
+search for group and select the only option that  
+
+129
+00:13:32,400 --> 00:13:40,720
+shows up here forget about the group name we'll 
+change that in a minute set the quantity to 4 and  
+
+130
+00:13:40,720 --> 00:13:48,320
+forget the fixture id will also change that in a 
+minute click on the apply button you now have four  
+
+131
+00:13:48,320 --> 00:13:54,160
+new empty lines in your patch window with wrong 
+numbers and wrong names let's change that quickly  
+
+132
+00:13:54,880 --> 00:14:00,720
+if you look at the way we named and numbered 
+our fixtures we have mac viper 701 through 712  
+
+133
+00:14:01,280 --> 00:14:11,520
+mac aura xp 601 through 612 martin atomics 301 
+through 312 and generic dimmer 101 through 112.  
+
+134
+00:14:12,400 --> 00:14:18,800
+we named the four new groups like this the first 
+group is group 600 and we name it aura group  
+
+135
+00:14:19,360 --> 00:14:26,560
+the second group is 700 and we name it viper 
+group the third group is group 300 and we name it  
+
+136
+00:14:26,560 --> 00:14:34,320
+atomic group the last one is group 100 and we name 
+it dimmer group the group number will give you  
+
+137
+00:14:34,320 --> 00:14:38,400
+quick access to the corresponding group 
+by just inputting the number for the group  
+
+138
+00:14:38,960 --> 00:14:43,840
+the group numbers make it faster to select 
+a group in the future when we need it  
+
+139
+00:14:43,840 --> 00:14:48,480
+although i'm not sure how much we're going 
+to use it actually because we'll make all our  
+
+140
+00:14:48,480 --> 00:14:55,200
+groups another way in the next tutorial but let's 
+do this new way just to make sure we did it right  
+
+141
+00:14:56,320 --> 00:15:00,560
+we now have named the four groups as we like 
+it but we still haven't moved any of the  
+
+142
+00:15:00,560 --> 00:15:07,040
+corresponding fixtures into the right groups and 
+we'll do that right now mark all the martin mac  
+
+143
+00:15:07,040 --> 00:15:13,840
+aura XB fixtures with your mouse or your finger 
+on the screen like this find the cut button below  
+
+144
+00:15:13,840 --> 00:15:20,320
+in the patch window and click on it navigate to 
+your new aura group and click the little arrow  
+
+145
+00:15:20,320 --> 00:15:27,840
+icon click on new fixture and click paste 
+side note you can click on the small paste  
+
+146
+00:15:27,840 --> 00:15:33,200
+button but you can also use your keyboard 
+control plus v both works the same way  
+
+147
+00:15:34,320 --> 00:15:39,760
+do the same for the other fixtures now all your 
+patching is done and we have separated it into  
+
+148
+00:15:39,760 --> 00:15:44,960
+groups for a better overview of your patch sheet 
+the only thing that i left to do now is to close  
+
+149
+00:15:44,960 --> 00:15:50,640
+the patch window you do that up here in the right 
+corner and you'll be prompted with three options  
+
+150
+00:15:51,200 --> 00:15:56,800
+option two let's just start there discard an exit 
+if you think you made a mistake and you don't want  
+
+151
+00:15:56,800 --> 00:16:04,320
+to save your changes option three stay in patch go 
+back to the patch to make more changes option one  
+
+152
+00:16:04,320 --> 00:16:10,320
+save and exit in this case we're confident that we 
+did a good job and we'll just click save and exit  
+
+153
+00:16:11,200 --> 00:16:15,040
+congratulations you have now patched 
+your first show on the GrandMA 3 console  
+
+154
+00:16:15,600 --> 00:16:20,400
+we are now ready to start building our first 
+views and navigating around the console for real  
+
+155
+00:16:21,200 --> 00:16:25,600
+if you get any value out of this video please 
+remember to like the video and subscribe to  
+
+156
+00:16:25,600 --> 00:16:29,600
+the channel that would help us a lot and i 
+would like to hear from you in the comment  
+
+157
+00:16:29,600 --> 00:16:35,120
+section if you have worked with GrandMA 
+consoles before or maybe you are a WholeHOG user  
+
+158
+00:16:35,120 --> 00:16:39,760
+or Chamsys user and you're just looking to 
+learn GrandMA consoles for the first time  
+
+159
+00:16:40,640 --> 00:16:45,280
+if you have any questions of any kind or maybe 
+you'd like to suggest other topics we should  
+
+160
+00:16:45,280 --> 00:16:50,480
+cover in this series you are more than welcome 
+to leave a comment below as well next time  
+
+161
+00:16:50,480 --> 00:16:58,800
+we'll start building the views we need to start 
+programming our show for real  - see you next time
+

@@ -1,0 +1,671 @@
+1
+00:00:00,880 --> 00:00:05,280
+if you followed along in all the tutorials on 
+this channel you are beginning to have a good  
+
+2
+00:00:05,280 --> 00:00:10,640
+understanding of how the GrandMA3 software 
+works and you are on your way of being a GrandMA3  
+
+3
+00:00:10,640 --> 00:00:16,480
+programmer now i think it's time to look at 
+some different GrandMA3 programming techniques  
+
+4
+00:00:17,360 --> 00:00:23,120
+in this episode i'll show you how you can program 
+GrandMA3 sequences and how you can manipulate  
+
+5
+00:00:23,120 --> 00:00:28,640
+the cues to do quite amazing things i'll show you 
+a lot of different techniques that can help you  
+
+6
+00:00:28,640 --> 00:00:33,520
+when you start making your own GrandMA3 shows 
+so be sure to watch the video all the way to the  
+
+7
+00:00:33,520 --> 00:00:39,520
+end so you don't miss any shortcuts or something 
+you didn't know you you needed or something you  
+
+8
+00:00:39,520 --> 00:00:46,000
+didn't know the grandma3 could do so let's get 
+into it let's start by making two simple cues  
+
+9
+00:00:46,000 --> 00:00:51,200
+let's first of all take all our vipers and 
+we turn them on we put them in a position  
+
+10
+00:00:51,200 --> 00:00:57,360
+like this we give them a color then we take all 
+ours we do the same thing turn them on give them  
+
+11
+00:00:57,360 --> 00:01:03,040
+a position and give them a color like this and 
+then we take all our dimmers just turn them on  
+
+12
+00:01:03,040 --> 00:01:09,440
+so this is basically cue number one so let's store 
+this into a sequence an empty sequence here let's  
+
+13
+00:01:09,440 --> 00:01:16,880
+label the sequence to our master master cue 
+list maybe a master sequence we could call it  
+
+14
+00:01:16,880 --> 00:01:22,240
+like this as you can see it over here it's 
+empty but as soon as i click it you can see  
+
+15
+00:01:22,240 --> 00:01:29,120
+what's going on let's relabel the first cue to 
+start cue like this and then we need to assign  
+
+16
+00:01:29,120 --> 00:01:36,880
+it to a fader up here so we say assign we take the 
+sequence and we assign it to fader number 201 as  
+
+17
+00:01:36,880 --> 00:01:41,040
+you remember maybe if you have seen followed 
+along the tutorial series you can manipulate  
+
+18
+00:01:41,040 --> 00:01:47,520
+the faders up here and what we need to do is go 
+into the section up here and just add this section  
+
+19
+00:01:47,520 --> 00:01:52,080
+because i need a go minus button as well right 
+now we have a go plus down here so we can go  
+
+20
+00:01:52,080 --> 00:01:56,960
+forward in our cue list we need to be able to 
+go backwards as well so let's close this down  
+
+21
+00:01:57,520 --> 00:02:03,520
+let's clear the programmer and let's go into cue 
+number one like this now we need to to be able to  
+
+22
+00:02:03,520 --> 00:02:09,840
+see the changes we need to make cue number two so 
+let's take all our vipers make them all white and  
+
+23
+00:02:09,840 --> 00:02:15,360
+make them go into the downstate center position 
+then we can take all our dimmers and we can turn  
+
+24
+00:02:15,360 --> 00:02:24,000
+them off and we can store this into cue number two 
+so create second cue let's call this ds-center  
+
+25
+00:02:25,680 --> 00:02:31,040
+there we go so if we clear the programmer 
+again and we go from we cue number one we  
+
+26
+00:02:31,040 --> 00:02:36,160
+go to cue number two everything happens but it 
+happens really really fast and we don't want that  
+
+27
+00:02:36,160 --> 00:02:42,480
+so we go into the fade option here and we set 
+it to let's say five seconds there we go and  
+
+28
+00:02:42,480 --> 00:02:48,000
+then we go back to cue number one again and when 
+we go into cue number two it's gonna nicely fade  
+
+29
+00:02:48,000 --> 00:02:56,000
+from one cue to the next in five seconds so 
+that's really cool and as you can see here all  
+
+30
+00:02:56,000 --> 00:03:02,480
+the dimmers turned off and everything moved and 
+the vipers change color to white over five seconds  
+
+31
+00:03:02,480 --> 00:03:07,040
+but maybe we want everything turning off to 
+do that faster and there's a really really  
+
+32
+00:03:07,040 --> 00:03:12,960
+easy way to do that you can simply right click 
+this one and you can say fade in is five seconds  
+
+33
+00:03:13,840 --> 00:03:20,160
+and you can use the dash here and say fade out 
+is one second and if you say please here and  
+
+34
+00:03:20,160 --> 00:03:26,720
+you go back again this is cue number one all our 
+dimmers up here should turn off now in one second  
+
+35
+00:03:26,720 --> 00:03:31,840
+and everything else should fade in five seconds 
+so we say go and as you can see they turned off  
+
+36
+00:03:32,400 --> 00:03:37,440
+a lot faster than the rest of the movement here 
+so that's a really really easy way to do fade  
+
+37
+00:03:37,440 --> 00:03:42,160
+in and fade out times you find yourself using 
+that a lot if you are doing theater maybe or  
+
+38
+00:03:42,960 --> 00:03:48,480
+even rock concert as well this is a really easy 
+way to do it you can do it individually as well  
+
+39
+00:03:49,120 --> 00:03:56,640
+and right now we are in cue number two you could 
+basically say edit enter that's always going to  
+
+40
+00:03:56,640 --> 00:04:01,680
+open up the cue you are in on the selected cue 
+list if you have a lot of cue lists some a lot  
+
+41
+00:04:01,680 --> 00:04:07,760
+of sequences it's going to select whatever is 
+selected up here so that's another way of doing  
+
+42
+00:04:07,760 --> 00:04:13,600
+it you can do it individually you can say all 
+dimmers you can go into the fade option here and  
+
+43
+00:04:13,600 --> 00:04:18,160
+you can set a different time in here and update 
+your queue it's going to do exactly the same  
+
+44
+00:04:18,160 --> 00:04:24,320
+thing and it's going to help you if you need to to 
+have many different out times in one single queue  
+
+45
+00:04:25,760 --> 00:04:33,200
+but let's clear this and maybe exit out of 
+the editor and say okay this is cue number two  
+
+46
+00:04:33,200 --> 00:04:38,880
+let's turn off all our vipers because we need to 
+set them up with a gobo so let's turn them off and  
+
+47
+00:04:38,880 --> 00:04:48,480
+store that in cue number three here and we can 
+say viper off and let's turn them back on again  
+
+48
+00:04:48,480 --> 00:04:56,960
+and maybe put in a gobo and then let's store that 
+in cue number four there we go and we can say gobo  
+
+49
+00:04:57,920 --> 00:05:04,640
+on let's work with wait times right now all 
+the vipers are turning off if we clear the  
+
+50
+00:05:04,640 --> 00:05:09,200
+programmer and we go into this one it's going to 
+happen instantly we don't want that so let's set  
+
+51
+00:05:09,200 --> 00:05:15,680
+a fade time of two seconds and we go back and 
+now they're going to fade out in two seconds  
+
+52
+00:05:15,680 --> 00:05:23,040
+very nice but now when i go into the next cue 
+they're going to turn on again in zero seconds and  
+
+53
+00:05:23,040 --> 00:05:28,960
+all the gobos are probably gonna go through the  the fixture you can see that if we go back you  
+
+54
+00:05:28,960 --> 00:05:34,000
+can see that again you see all the gobos moving 
+we don't want to see the gobos moving so we need  
+
+55
+00:05:34,000 --> 00:05:40,720
+to give it some sort of wait time so we need so so 
+if the dimmer waits maybe half a second to come up  
+
+56
+00:05:41,600 --> 00:05:49,280
+the fixture needs the time to to set up the 
+gobos behind the scenes so if we say gobo on  
+
+57
+00:05:49,280 --> 00:05:58,960
+here and we say edit enter or edit please we 
+go into our vipers we go into our dimmer here  
+
+58
+00:05:58,960 --> 00:06:03,920
+and we go into the delay option and we can 
+simply set a delay of maybe half a second  
+
+59
+00:06:04,640 --> 00:06:10,640
+like this and we need to update our cue 
+list there we go clear the programmer  
+
+60
+00:06:11,600 --> 00:06:19,440
+we go back one queue so in our previous cue we 
+had all the vipers on into the downstage center  
+
+61
+00:06:19,440 --> 00:06:25,680
+position the next cue turned all the vipers off 
+and now we need to turn them all on again but  
+
+62
+00:06:25,680 --> 00:06:31,120
+without seeing the gobo action and we did that 
+by delaying the dimmer only about half a second  
+
+63
+00:06:31,120 --> 00:06:37,120
+so when i press go it's going to come up nice 
+and easy instead of coming up really really fast  
+
+64
+00:06:37,120 --> 00:06:43,920
+and maybe we need to set a fade in time as well 
+let's say we said a two second fade time as well  
+
+65
+00:06:44,480 --> 00:06:50,480
+now we are in cue number three and we need 
+to go to cue number three and you can see  
+
+66
+00:06:50,480 --> 00:06:54,800
+it's sorry cue number four and you can see it 
+turns on really nicely let's just do it again  
+
+67
+00:06:55,520 --> 00:07:00,880
+right now they are off we go and they 
+cue up the gobo and then it turns on  
+
+68
+00:07:00,880 --> 00:07:05,440
+so we just simply delay it a little bit and that 
+is also very very helpful you'll find yourself  
+
+69
+00:07:05,440 --> 00:07:10,320
+doing that when you are dealing with gobos and you 
+are actually doing it as well when you're dealing  
+
+70
+00:07:10,320 --> 00:07:16,080
+with media servers because sometimes a media 
+server needs a few milliseconds to cue up the  
+
+71
+00:07:16,080 --> 00:07:21,360
+the clip you have on the on the server so this is 
+going to help you a lot to do some split timings  
+
+72
+00:07:22,400 --> 00:07:27,760
+as you can see working with GrandMA3 cues is 
+simple but there's a lot more in this episode so  
+
+73
+00:07:27,760 --> 00:07:32,880
+make sure you stick around for the last part and 
+if you enjoy this video and find it useful be sure  
+
+74
+00:07:32,880 --> 00:07:38,000
+to give it a like. liking videos is a great 
+and free way to support any youtube channel  
+
+75
+00:07:38,000 --> 00:07:43,040
+and it sends a signal to youtube to show the video 
+to more people and please leave a comment below  
+
+76
+00:07:43,040 --> 00:07:47,760
+if you have anything on your mind i mean it's 
+always nice to hear from you getting some kind  
+
+77
+00:07:47,760 --> 00:07:52,560
+of response makes it a lot more fun to make these 
+videos and if you're interested in GrandMA3 
+
+78
+00:07:52,560 --> 00:07:57,280
+hardware i have some links in the description 
+for all kinds of different pieces of GrandMA3  
+
+79
+00:07:57,280 --> 00:08:02,960
+hardware a small disclaimer though is the links in 
+the description are all affiliate links that means  
+
+80
+00:08:02,960 --> 00:08:07,520
+if you decide to purchase some of the products 
+i will receive a small commission on the sale  
+
+81
+00:08:07,520 --> 00:08:13,280
+but let's continue so let's see what else we can 
+do let's build a sequence right next to the other  
+
+82
+00:08:13,280 --> 00:08:18,960
+one where we take all the color out of the vipers 
+we take all the vipers we take the color out or  
+
+83
+00:08:18,960 --> 00:08:24,320
+we just choose the open white color we store 
+this into a separate sequence let's label it  
+
+84
+00:08:25,680 --> 00:08:32,080
+white there we go and we select it and we can 
+see this sequence over here so if we clear the  
+
+85
+00:08:32,080 --> 00:08:39,440
+programmer and we maybe assign this sequence on 
+a fader up here we go into the options here and  
+
+86
+00:08:39,440 --> 00:08:47,760
+we add the next row of buttons here and we make 
+the top button and off button then i can go this  
+
+87
+00:08:47,760 --> 00:08:53,360
+sequence and i can turn it off again that's 
+fine everything turns on in white that's cool  
+
+88
+00:08:53,360 --> 00:09:01,040
+but let's maybe go into the cue here maybe we 
+should just label it white as well there we go  
+
+89
+00:09:02,160 --> 00:09:09,360
+so we clear this one let's say we need to 
+split the time of this cue so let's go into  
+
+90
+00:09:10,400 --> 00:09:16,960
+our cue here let's say edit please that loads 
+everything into the programmer let's take all our  
+
+91
+00:09:16,960 --> 00:09:22,960
+vipers and go into the color and sorry we need to 
+go into the color when we need a delay time here  
+
+92
+00:09:23,600 --> 00:09:30,000
+we set it to zero through one second 
+please and now we need to update this cue  
+
+93
+00:09:30,800 --> 00:09:35,360
+and it's been updated and let's clear 
+out so right now if we turn it off  
+
+94
+00:09:35,360 --> 00:09:42,000
+on the off button up here and i go the cue you 
+can see it comes in as a split time between zero  
+
+95
+00:09:42,000 --> 00:09:46,320
+and one second and that is really 
+cool so let's make a new cue here  
+
+96
+00:09:47,040 --> 00:09:53,040
+where we take all our vipers again and put it 
+back to the magenta color and we store this  
+
+97
+00:09:54,080 --> 00:10:01,280
+in a second cue and we do exactly the same 
+thing we can go back to magenta right here  
+
+98
+00:10:02,320 --> 00:10:08,560
+and we do the same thing we go into 
+the cue like this we say edit please  
+
+99
+00:10:09,440 --> 00:10:16,160
+and we do the same thing on the delay we set 
+it from zero through one second and we update  
+
+100
+00:10:16,160 --> 00:10:22,080
+the cue like this and we clear the programmer 
+once again so in when i go into cue number one  
+
+101
+00:10:23,760 --> 00:10:29,600
+it's gonna do all the white in and when i go into 
+cue number two it's gonna take it out again and  
+
+102
+00:10:29,600 --> 00:10:35,360
+here comes the fun part we can actually we can 
+actually make it go directly to the next cue  
+
+103
+00:10:35,360 --> 00:10:41,440
+so instead of this down here being a go button we 
+can right click and set a time for it or we can  
+
+104
+00:10:41,440 --> 00:10:46,800
+make it a follow cue let's just make it a follow 
+cue so you can see what happens i go into cue  
+
+105
+00:10:46,800 --> 00:10:52,240
+number one they turn on and it follows right 
+next into cue number two so let's see it again  
+
+106
+00:10:53,280 --> 00:11:00,400
+and it takes it all the way out so the follow 
+cue follows as soon as the previous cue  
+
+107
+00:11:00,400 --> 00:11:08,240
+is complete so if i change this into a timed 
+cue for instance i can set a trigger time  
+
+108
+00:11:08,240 --> 00:11:15,120
+of maybe 0.6 seconds then it's going to follow 
+actually before this one is done and it actually  
+
+109
+00:11:15,120 --> 00:11:22,080
+makes some kind of cool effect so if i off it 
+again and i go into the cue when you see what's  
+
+110
+00:11:22,080 --> 00:11:28,160
+happening it's going to take it out again so you 
+now made some kind of actually really cool effect  
+
+111
+00:11:28,160 --> 00:11:34,320
+without using the phaser engine at all let's 
+just see it again it goes into white and it  
+
+112
+00:11:34,320 --> 00:11:39,440
+it takes it back to magenta so that's a really 
+really cool effect doing doing this with split  
+
+113
+00:11:39,440 --> 00:11:47,840
+times is actually very very very cool so if you 
+are in your master cue list and you needed to  
+
+114
+00:11:47,840 --> 00:11:53,040
+trigger the cue list next to it you can actually 
+use the command line or use a command line  
+
+115
+00:11:54,400 --> 00:12:00,640
+command in in the cue list so let's just uh 
+clear everything out here and let's just store an  
+
+116
+00:12:00,640 --> 00:12:06,880
+empty cue into this one this is cue number five 
+and there's nothing in it and let's go down to the  
+
+117
+00:12:06,880 --> 00:12:14,240
+command section down here we have cue number 
+five and we select it and we say go sequence
+
+118
+00:12:16,720 --> 00:12:17,760
+sequence two
+
+119
+00:12:20,000 --> 00:12:27,440
+if i go into my master cue list now and i press go 
+i'm in cue number two we go into cue number three  
+
+120
+00:12:28,000 --> 00:12:32,800
+let's just go into cue number four 
+and as you can see here i have a cue  
+
+121
+00:12:32,800 --> 00:12:36,000
+with nothing in it but it's 
+gonna go sequence number two  
+
+122
+00:12:36,000 --> 00:12:39,520
+which is this one and see what 
+happens when i press go on this one
+
+123
+00:12:41,600 --> 00:12:45,360
+you saw that that's really really 
+cool so you can use this bump effect  
+
+124
+00:12:45,360 --> 00:12:52,960
+you can simply push it or you can assign it to 
+another another cue or sequence or whatever  
+
+125
+00:12:52,960 --> 00:12:58,080
+and you can remote trigger it from there GrandMA3 programming is cool and remember that we are  
+
+126
+00:12:58,080 --> 00:13:03,120
+still in the very early stages of the software as 
+i explained in the last tutorial as well i'm sure  
+
+127
+00:13:03,120 --> 00:13:08,000
+that GrandMA3 software will evolve a lot over 
+the next few years just like the early days of the  
+
+128
+00:13:08,000 --> 00:13:13,120
+GrandMA32 software be sure to give this video a 
+like so you can spread it out to more people and  
+
+129
+00:13:13,120 --> 00:13:18,720
+subscribe to the channel if you don't want to miss 
+any future episodes or you can start the GrandMA3  
+
+130
+00:13:18,720 --> 00:13:24,640
+tutorial playlist and you can start from episode 
+1 and i promise that you will know what it's all  
+
+131
+00:13:24,640 --> 00:13:31,120
+about when you have seen all the episodes so far 
+i try to release one video per week so please come  
+
+132
+00:13:31,120 --> 00:13:35,920
+back if you want to continue learning GrandMA3  programming and if you are on the journey of  
+
+133
+00:13:35,920 --> 00:13:41,680
+learning GrandMA3 programming as a beginner 
+i highly suggest that you watch this next video  
+
+134
+00:13:41,680 --> 00:13:46,000
+in this video i will show you some other 
+cool features of the GrandMA3 software  
+
+135
+00:13:46,000 --> 00:13:50,800
+i hope to see you on the channel again in 
+the future and until then happy programming
+

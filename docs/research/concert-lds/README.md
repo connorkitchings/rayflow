@@ -10,6 +10,7 @@ These LDs share a philosophy: the lighting director must listen like a musician,
 |----|---------------|-----|-------|
 | Candace Brightman | Grateful Dead | 1970s–1995 | The pioneer. Pure busking with conventional fixtures. |
 | Chris Kuroda | Phish | 1989–present | The standard-bearer. Massive rigs, pure busking, speed master mastery. |
+| Andrew Giffin | Phish (programmer for Kuroda) | 2010s–present | Kuroda's programmer. Builds and maintains the Phish show file infrastructure. |
 | Paul Hoffman | Widespread Panic | 1990s–present | Southern rock jam tradition. Organic, warm, band-integrated. |
 | Jefferson Waful | Umphrey's McGee | 2000s–2023 | Hybrid structured/improvisational. Pixel mapping pioneer. |
 | Saxton Waller | STS9, Billy Strings | 2010s–present | Cross-genre versatility. Rental rig specialist. Console agnostic. |
@@ -29,6 +30,7 @@ These LDs share a philosophy: the lighting director must listen like a musician,
 
 - `01-candace-brightman.md` — Grateful Dead
 - `02-chris-kuroda.md` — Phish
+- `09-andrew-giffin.md` — Phish (programmer for Chris Kuroda)
 - `03-paul-hoffman.md` — Widespread Panic
 - `04-jefferson-waful.md` — Umphrey's McGee
 - `05-saxton-waller.md` — STS9, Billy Strings
