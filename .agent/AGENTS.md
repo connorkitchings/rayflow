@@ -56,8 +56,9 @@
 - **Context budget**: ≤2k tokens initial, then targeted fetches
 
 **Key Files**:
-- `src/rayflow/fixtures/` - GDTF parsing and fixture management
+- `src/rayflow/engine/fixtures/` - GDTF parsing and fixture management
 - `data/fixtures/` - GDTF fixture files
+
 - `.agent/skills/gdtf-fixture/SKILL.md` - GDTF workflow
 
 ---
@@ -75,7 +76,8 @@
 - **Context budget**: ≤2k tokens initial
 
 **Key Files**:
-- `src/rayflow/bridge/` - Protocol bridge implementation
+- `src/rayflow/engine/bridge/` - Protocol bridge implementation
+
 - `docs/architecture/control-backend-direction.md` - Backend-neutral adapter strategy
 - `.agent/skills/art-net-bridge/SKILL.md` - Art-Net/sACN workflow
 - `.agent/skills/ma3-workflow/SKILL.md` - grandMA3 OSC workflow
@@ -94,9 +96,10 @@
 - **Context budget:** ≤2k tokens initial
 
 **Key Files**:
-- `src/rayflow/fixtures/` - GDTF parsing and channel mapping
-- `src/rayflow/bridge/` - Art-Net/sACN send and receive
-- `src/rayflow/shows/` - Show and cue models
+- `src/rayflow/engine/fixtures/` - GDTF parsing and channel mapping
+- `src/rayflow/engine/bridge/` - Art-Net/sACN send and receive
+- `src/rayflow/design/` - Show and cue models
+
 - `docs/architecture/control-backend-direction.md` - Adapter contract direction
 
 ### VisualizerDev

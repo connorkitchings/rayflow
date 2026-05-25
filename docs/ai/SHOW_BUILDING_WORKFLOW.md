@@ -112,7 +112,7 @@ uv run rayflow fixture list
 uv run rayflow fixture info "LED PAR"
 
 # OR from Python:
-from rayflow.fixtures.parser import GdtfParser
+from rayflow.engine.fixtures.parser import GdtfParser
 parser = GdtfParser("data/fixtures/fixture.gdtf.zip")
 fixture = parser.parse()
 print(f"{fixture.name}: {fixture.channel_count} channels in {len(fixture.modes)} modes")
@@ -186,7 +186,7 @@ Fixture 1 "Hazer" At Address 67         ← Patches hazer at addr 67
 
 **Method C: OSC from RayFlow**
 ```python
-from rayflow.console.osc import Ma3OscClient
+from rayflow.engine.console.osc import Ma3OscClient
 client = Ma3OscClient("127.0.0.1", 8000)
 client.send('Fixture 4 "LED PAR" At Address 1')
 client.send('Fixture 2 "Moving Head" At Address 29')

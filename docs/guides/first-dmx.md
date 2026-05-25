@@ -105,7 +105,8 @@ uv run rayflow bridge send --universe 0 --channel 3 --value 0
 You can also send DMX directly from Python:
 
 ```python
-from rayflow.bridge.artnet import ArtNetSender
+from rayflow.engine.bridge.artnet import ArtNetSender
+
 
 sender = ArtNetSender(target_ip="127.0.0.1")
 sender.set_channel(1, 255)

@@ -11,8 +11,8 @@ import pytest
 def mock_artnet_lib():
     """Mock the stupidArtnet library for testing ArtNetSender."""
     with (
-        patch("rayflow.bridge.artnet.StupidArtnet") as mock_sender,
-        patch("rayflow.bridge.artnet.StupidArtnetServer") as mock_server,
+        patch("rayflow.engine.bridge.artnet.StupidArtnet") as mock_sender,
+        patch("rayflow.engine.bridge.artnet.StupidArtnetServer") as mock_server,
     ):
         mock_sender_instance = MagicMock()
         mock_sender.return_value = mock_sender_instance
@@ -29,7 +29,7 @@ def mock_artnet_lib():
 @pytest.fixture
 def mock_sacn_lib():
     """Mock the sacn library for testing SacnSender."""
-    with patch("rayflow.bridge.sacn_bridge.sacn") as mock_sacn:
+    with patch("rayflow.engine.bridge.sacn_bridge.sacn") as mock_sacn:
         mock_sender = MagicMock()
         mock_sacn.sACNsender.return_value = mock_sender
         mock_receiver = MagicMock()

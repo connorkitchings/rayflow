@@ -36,17 +36,17 @@ def test_import_config():
 
 
 def test_import_bridge():
-    from rayflow.bridge.artnet import ArtNetSender
-    from rayflow.bridge.sacn_bridge import SacnSender
+    from rayflow.engine.bridge.artnet import ArtNetSender
+    from rayflow.engine.bridge.sacn_bridge import SacnSender
 
     assert ArtNetSender is not None
     assert SacnSender is not None
 
 
 def test_import_fixtures():
-    from rayflow.fixtures.library import FixtureLibrary
-    from rayflow.fixtures.parser import GdtfParser
-    from rayflow.fixtures.patch import DmxUniverse
+    from rayflow.engine.fixtures.library import FixtureLibrary
+    from rayflow.engine.fixtures.parser import GdtfParser
+    from rayflow.engine.fixtures.patch import DmxUniverse
 
     assert GdtfParser is not None
     assert FixtureLibrary is not None
@@ -54,10 +54,23 @@ def test_import_fixtures():
 
 
 def test_import_console():
-    from rayflow.console.cue import CueStack, CueStep, Ma3Command
-    from rayflow.console.osc import Ma3OscClient
+    from rayflow.engine.console.cue import CueStack, CueStep, Ma3Command
+    from rayflow.engine.console.osc import Ma3OscClient
 
     assert Ma3OscClient is not None
     assert Ma3Command is not None
     assert CueStep is not None
     assert CueStack is not None
+
+
+def test_import_design():
+    from rayflow.design.authoring import plan_cues
+    from rayflow.design.models import Cue, Rig, Show, Song, Venue, Vibe
+
+    assert Cue is not None
+    assert Rig is not None
+    assert Show is not None
+    assert Song is not None
+    assert Venue is not None
+    assert Vibe is not None
+    assert plan_cues is not None

@@ -913,7 +913,7 @@ Timecode Viewer before using it for a finished show.
 
 **RayFlow OSC usage:**
 ```python
-from rayflow.console.osc import Ma3OscClient
+from rayflow.engine.console.osc import Ma3OscClient
 client = Ma3OscClient("127.0.0.1", 8000)
 client.send("Store Cue 1")
 client.about()  # Connection test

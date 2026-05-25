@@ -93,8 +93,8 @@ uv run rayflow fixture search "Chauvet"
 ### Python API
 
 ```python
-from rayflow.fixtures.parser import GdtfParser
-from rayflow.fixtures.library import FixtureLibrary
+from rayflow.engine.fixtures.parser import GdtfParser
+from rayflow.engine.fixtures.library import FixtureLibrary
 
 # Parse a single fixture
 parser = GdtfParser("data/fixtures/chauvet_slimpar_pro_h.gdtf.zip")
@@ -117,7 +117,7 @@ matching = library.search("moving")  # Search by query
 fixture_entry = library.get("LED PAR")  # Get by name match
 
 # DMX addressing
-from rayflow.fixtures.patch import DmxUniverse
+from rayflow.engine.fixtures.patch import DmxUniverse
 universe = DmxUniverse(1)
 universe.patch("LED PAR 1", start_address=1, channel_count=7)
 universe.patch("LED PAR 2", start_address=8, channel_count=7)
@@ -236,7 +236,7 @@ If universe 1 fills up (address > 512):
 
 ### Using RayFlow for Address Math
 ```python
-from rayflow.fixtures.patch import DmxUniverse
+from rayflow.engine.fixtures.patch import DmxUniverse
 
 u1 = DmxUniverse(1)
 u1.patch("PAR 1", 1, 7)    # Addresses 1-7
@@ -288,7 +288,7 @@ uv run rayflow fixture info "Moving Head" | grep "channels"
 
 # Calculate DMX addresses
 python -c "
-from rayflow.fixtures.patch import DmxUniverse
+from rayflow.engine.fixtures.patch import DmxUniverse
 u = DmxUniverse(1)
 u.patch('PAR 1', 1, 7)
 u.patch('PAR 2', 8, 7)

@@ -25,11 +25,12 @@ Before an AI tool can work on a show, it must load this context:
    - What attributes each fixture supports (dimmer, color, pan, tilt, gobo, etc.)
    - Available color wheels, gobo wheels, etc.
 4. **Available commands** — Existing RayFlow modules
-   - `console/cue.py` — Cue command builders
-   - `console/osc.py` — Gated OSC client for MA3 compatibility
-   - `fixtures/mvr_export.py` — MVR export
-   - `bridge/artnet.py` — Direct DMX send
-   - `bridge/sacn.py` — sACN output
+   - `engine/console/cue.py` — Cue command builders
+   - `engine/console/osc.py` — Gated OSC client for MA3 compatibility
+   - `engine/fixtures/mvr_export.py` — MVR export
+   - `engine/bridge/artnet.py` — Direct DMX send
+   - `engine/bridge/sacn.py` — sACN output
+
 
 ### Context Loading Command
 

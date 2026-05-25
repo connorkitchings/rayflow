@@ -36,7 +36,7 @@ MA3_ARTNET_PORT = 6454
 
 
 def send_osc(command: str, *, dry_run: bool = False) -> None:
-    from rayflow.console.osc import Ma3OscClient
+    from rayflow.engine.console.osc import Ma3OscClient
 
     if dry_run:
         print(f"  [DRY] OSC /cmd: {command}")
@@ -86,7 +86,7 @@ def set_fixture_type(
 
 def receive_artnet(universe: int, duration: float = 3.0) -> list[int] | None:
     try:
-        from rayflow.bridge.artnet import ArtNetReceiver
+        from rayflow.engine.bridge.artnet import ArtNetReceiver
 
         receiver = ArtNetReceiver(universe=universe)
         buffer = receiver.get_buffer()
@@ -172,7 +172,7 @@ def main() -> None:
 
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-    from rayflow.fixtures.library import FixtureLibrary
+    from rayflow.engine.fixtures.library import FixtureLibrary
 
     library = FixtureLibrary(str(FIXTURE_DIR))
     library.load()
@@ -195,7 +195,7 @@ def main() -> None:
         for mode_idx in range(parser_obj.mode_count):
             mode_name = parser_obj.mode_names()[mode_idx]
 
-            from rayflow.fixtures.patch import DmxUniverse
+            from rayflow.engine.fixtures.patch import DmxUniverse
 
             dmx_universe_obj = DmxUniverse(universe_number=0)
             patch = dmx_universe_obj.patch_fixture(

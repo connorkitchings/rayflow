@@ -111,7 +111,7 @@ Art-Net bridge and must capture one of:
 - explicit test harness observation.
 
 RayFlow uses the existing Art-Net universe convention from
-`rayflow.bridge.artnet`, where current validation accepts universes `0..15`.
+`rayflow.engine.bridge.artnet`, where current validation accepts universes `0..15`.
 Any future expansion must update this contract and tests together.
 
 ### sACN

@@ -13,15 +13,15 @@ rayflow/
 │   ├── skills/          # Executable workflows and procedures
 │   └── workflows/       # Health checks and CI automation
 ├── src/rayflow/         # Application source code
-│   ├── bridge/          # Art-Net / sACN protocol bridge
-│   ├── fixtures/        # GDTF fixture handling
-│   ├── shows/           # Show/rig models, exports, snapshots, authoring
-│   ├── console/         # grandMA3 OSC compatibility and cue builders
-│   └── cli.py           # CLI entry point
+│   ├── cli/             # Typer CLI application subcommands
+│   ├── design/          # Creative lighting design models, presets, plans
+│   ├── engine/          # Drivers, bridges, parsers, renderers, console adapters
+│   ├── config.py        # Global settings
+│   └── cli.py           # CLI entry point (routes cli.main)
 ├── data/
 │   ├── fixtures/        # GDTF fixture library
 │   └── shows/           # Show configurations
-├── tests/               # Pytest suite
+├── tests/               # Pytest suite (organized into cli/, design/, engine/)
 ├── docs/                # Architecture, guides, and manuals
 ├── scripts/             # Internal utilities and CLI tools
 └── session_logs/        # Historical logs of AI sessions

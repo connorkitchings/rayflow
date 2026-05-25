@@ -29,7 +29,7 @@ uv run rayflow fixture info "LED PAR" --dir data/fixtures/samples
 ## Step 2: Load Fixtures into RayFlow
 
 ```python
-from rayflow.fixtures.parser import GdtfParser
+from rayflow.engine.fixtures.parser import GdtfParser
 
 parser = GdtfParser("data/fixtures/chauvet_dj_slimpar_pro_h_usb.gdtf.zip")
 fixture = parser.parse()
@@ -59,8 +59,8 @@ Total: 49 channels used in Universe 1.
 ## Step 4: Create the Rig
 
 ```python
-from rayflow.fixtures.library import FixtureLibrary
-from rayflow.fixtures.patch import DmxUniverse
+from rayflow.engine.fixtures.library import FixtureLibrary
+from rayflow.engine.fixtures.patch import DmxUniverse
 
 library = FixtureLibrary("data/fixtures/samples")
 library.load()
@@ -82,7 +82,7 @@ print(f"Universe 0: {universe.used_channels}/512 channels used")
 Define positions for each fixture on your virtual stage:
 
 ```python
-from rayflow.fixtures.mvr_export import FixturePosition
+from rayflow.engine.fixtures.mvr_export import FixturePosition
 
 positions = [
     FixturePosition("LED PAR 1", x=-3, y=3, z=0, pan=0, tilt=90),
@@ -104,7 +104,7 @@ Coordinates:
 ## Step 6: Export as MVR
 
 ```python
-from rayflow.fixtures.mvr_export import export_mvr
+from rayflow.engine.fixtures.mvr_export import export_mvr
 
 export_mvr(universe, positions, output_path="data/shows/my_first_rig.mvr")
 ```
