@@ -38,70 +38,45 @@ rayflow/
 
 ## 📋 Current Status
 
-**Phase:** Post-Phase 11 — Planning next product direction
+**Phase:** Post-Phase 11 — Product direction clarified
+
+**Terminal Goal:** Pick a song → collaborate with AI to design lighting → see the result → iterate until satisfied → record the show. No live use. The AI handles all console programming; the user provides taste and musical judgment.
 
 **Completed:**
-- Phase 1 foundation cleanup and RayFlow package structure
-- Phase 2 Art-Net / sACN bridge implementation
-- Bridge CLI commands for send, receive, and status
-- Bridge validation, error handling, and tests
-- grandMA3 onPC Art-Net verification against installed version 2.3.2.0
-- Phase 3 GDTF parser and fixture library
-- Checked-in real GDTF sample pack with manifest validation
-- GDTF channel mapping with attribute family classification
-- Phase 3 in-memory GDTF fixture patching with CLI inspection command
-- Phase 4 fixture comparison reports with real MA3 observation capture (14 modes)
-- Phase 4 dry-run-safe OSC command sender and feedback listener
-- Phase 4 cue stack command helpers with JSON batch input and nested CLI
-- Phase 4 MVR export with embedded GDTF files and mode info
-- Phase 4 integration tests (14 tests, requires running MA3)
-- Phase 5 architecture document and AI interaction contract
-- Phase 5 data models (11 dataclasses with validation, presets, rig templates, show overrides)
-- Phase 5 YAML serialization with round-trip support
-- Phase 5 CLI commands (rig create/list/info/copy/add-fixture/add-preset/export-mvr, show create/list/info/add-section/add-cue/add-preset-override/context/export-mvr)
-- Phase 5 AI context bundle command (`show context --json`)
-- Phase 5 prompt template for AI sessions
-- Phase 5 full test suite (296 tests, 84% coverage)
-- Phase 6 audio section import (`show import-sections`, `section_import.py`, JSON schema)
-- Phase 6 vibe generation (`show set-vibe`, `Vibe.from_dict()`, enhanced prompt template)
-- Phase 6 cue generation helpers (`cue_generator.py`, `show generate-cues/update-cue/delete-cue/renumber`)
-- Phase 6 interactive direction (`show set-song-meta/update-section/delete-section/batch-update-cues`)
-- Phase 6 MA3 push integration (`show push-to-ma3/push-section`, `push.py`)
-- Phase 6 80 new tests (section import, cue generator, push, CLI)
-- Phase 7 Slice 2: Sequence build hardening (`store_sequence`, `label_sequence`, `delete_sequence`, `clear_all`; `--sequence` on push commands)
-- Phase 7 MA3 show export bundle (`show export` with MVR, OSC command list, README, metadata)
-- Phase 7 show library (`show save/versions/restore/diff` with versioned YAML snapshots)
-- Phase 7 MA3 Timecode XML generation from captured `CmdEvent` / `RealtimeCmd` export shape
-- Phase 7 clean MA3 Timecode XML import/re-export validation against grandMA3 onPC 2.3.2.0
-- Phase 7 internal Timecode playback clock validation via `Top Timecode 1` / `Go Timecode 1` and re-exported `Cursor`
-- 2026-05-23 direction reset: MA3 remains a compatibility/export target, while the mainline moves to backend-neutral show intent, fixture-aware DMX rendering, Art-Net/sACN execution, and QLC+ WebSocket research
-- CLI organization: `cli_show.py` split into focused show, cue, edit, export, and library modules
-- Phase 8 backend-neutral MVP: adapter contract, fixture-aware DMX renderer, Art-Net/sACN evidence backends, experimental QLC+ WebSocket spike, backend CLI commands, docs, and tests
-- Phase 9 productized practice workflow: checked-in practice rig/show, deterministic cue planning, workflow reports, and local Art-Net loopback receiver proof
-- Phase 10 general show authoring ergonomics: reusable proposal/apply cue planning, `show plan-cues`, vibe-palette style, and Phase 9 practice compatibility
-- Phase 11 fixture-aware renderer expansion: numeric pan/tilt, zoom, focus, shutter, and gobo rendering through GDTF channel maps
+- Phase 1: Package structure and foundation
+- Phase 2: Art-Net/sACN bridge (DMX send/receive)
+- Phase 3: GDTF fixture parser and library
+- Phase 4: grandMA3 compatibility research (OSC, MVR, probes)
+- Phase 5: Show & Rig data models, CLI, YAML serialization (296 tests)
+- Phase 6: AI show builder — section import, vibe generation, cue generation, MA3 push
+- Phase 7: Export compatibility — MA3 bundles, Timecode XML, show library
+- Phase 8: Backend-neutral MVP — adapter contract, fixture-aware renderer, DMX evidence
+- Phase 9: Productized practice workflow — practice rig/show, workflow reports, loopback proof
+- Phase 10: General authoring ergonomics — plan-cues, vibe-palette style
+- Phase 11: Renderer expansion — pan/tilt, zoom, focus, shutter, gobo through GDTF maps
+- 2026-05-25: Research expansion — 55+ docs covering lighting design concepts, programming workflows, concert LD profiles, protocol infrastructure
+- 2026-05-25: Project charter rewritten to reflect true goal: AI-assisted design for amateurs, not a toolkit for professionals
+- Phase 15 Option A (2026-05-25): QLC+ workspace exporter — `rayflow rig export-qxw` generates a `.qxw` file directly from a RayFlow rig; 583 tests at 81.98% coverage
 
 **Current Focus:**
-- All phases 1-11 complete; planning post-Phase 11 product direction
-- Candidate tracks: live QLC+ proof, higher-level movement/beam authoring, MCP server, multi-show management
-- Keep QLC+ experimental until live local command/query proof is captured
-- MA3 export/playback remains a compatibility track; fixture import, fixture-aware presets, executor state, and runtime readback still need proof before mutating MCP tools
-- LLM-agnostic design: AI coding tools (opencode, Claude Code, etc.) are the LLM
+- All Phases 1–11 and the full post-Phase 11 candidate track are complete.
+- Phase 15 Option A (QLC+ workspace exporter) shipped: `rayflow rig export-qxw` writes a loadable `.qxw` file.
+- Remaining Phase 15 options: Option B (GDTF→QXF fixture definition exporter) and Option C (QLC+ Function/Scene Triggers).
+- Longer-term priorities: rig building tooling (auto-generate rigs from descriptions), palette generation (auto-generate preset libraries from vibes), integrated visualization (tighten the author → see → critique loop).
 
 **Active Branch:** `codex/continue-development-session`
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)
-- Use version 2.3 manual pages for compatibility-track UI/protocol guidance unless the installed app changes
-- Before giving manual grandMA3 UI instructions, verify they apply to 2.3.2.0 and prefer RayFlow automation or network verification where possible
-- Do not treat MA3 as the core agent execution loop until mutation and readback are repeatably proven
+- MA3 onPC + pre-viz (Capture, MA3 3D) is the user's visualization path — RayFlow feeds this pipeline, it doesn't replace it
+- Console show file export (.show.gz) is a future priority to directly feed the MA3 offline editor
 
 **Project Direction:**
-- RayFlow's unique value: AI-assisted show design, not a console or visualizer
-- RayFlow show/rig/cue data is the source of truth
-- Mainline workflow: build rig → pick song → AI suggests vibe → user directs AI → cues generated → fixture-aware renderer → Art-Net/sACN or QLC+ backend evidence
-- Compatibility workflow: export MA3 bundles, Timecode XML, and gated OSC only for verified MA3 operations
-- Next milestone: select and begin post-Phase 11 track (QLC+ live proof, authoring expansion, MCP, or multi-show)
+- RayFlow's unique value: AI handles all console programming so anyone can design concert lighting
+- The user works through an AI coding tool (opencode) and never touches console syntax
+- The research knowledge base (55+ docs) gives the AI deep lighting design knowledge to translate amateur descriptions into correct technical output
+- Main design loop: user describes intent → AI generates rig/palettes/cues → user sees result via pre-viz or DMX evidence → user gives taste feedback → AI refines → repeat
+- The product ends when the user is satisfied with the design. Live playback, busking, and performance use are out of scope.
 
 ## 🔄 Post-Session Protocol
 

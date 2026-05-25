@@ -186,6 +186,9 @@ these candidate tracks:
 | MCP server | Expose RayFlow show/rig/render operations via Model Context Protocol for IDE-integrated agents | ✅ Done |
 | Multi-show management | Show suites, shared rigs, cross-show presets, and batch rendering | ✅ Done |
 | Audio-reactive lighting | Real-time audio analysis driving dynamic cue adjustments | ✅ Done |
+| QLC+ workspace exporter | Generate `.qxw` workspace from RayFlow rig; `rayflow rig export-qxw` CLI command | ✅ Done |
+| QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ☐ Not Started |
+| QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ☐ Not Started |
 
 ---
 
@@ -202,4 +205,4 @@ these candidate tracks:
 
 ---
 
-*Last updated: 2026-05-25 (Post-Phase 11 documentation audit).*
+*Last updated: 2026-05-25 (Phase 15 Option A — QLC+ workspace exporter complete).*

@@ -6,176 +6,144 @@ This document is the single source of truth for RayFlow's goals, scope, and tech
 
 **Project Name:** RayFlow
 
-**Project Vision:** An AI-assisted lighting design toolkit for creating song-based concert lighting shows from structured, backend-neutral show intent. RayFlow provides the design intelligence layer, manages rigs and fixture capabilities, renders cues into deterministic output artifacts, and supports multiple execution backends.
+**Project Vision:** A tool that lets anyone design concert lighting for songs they love. The user provides taste and musical judgment; an AI assistant handles all technical execution — fixture selection, DMX addressing, console programming, and palette design. The user describes what they want in plain language and sees the result as they build, without ever needing to touch a lighting console.
 
-**Technical Goal:** Build a framework where a lighting designer can pick a song, work with an AI to develop a rig and show, direct the AI through iterative refinement, and execute or export the result through direct DMX, structured controller APIs, or professional console compatibility adapters.
+**Terminal Goal:** Pick a song → collaborate with AI to develop a rig and lighting design → iteratively see and refine the result → record the finished show. Everything after design completion (live playback, console operation, performance use) is out of scope for the product.
+
+## The Core Insight
+
+Andrew Goedde (Goose's LD) spends 20–35 hours pre-building palettes, effects, and sequences in MA3 onPC + pre-viz software before tour. Then he loads that show file onto a physical console and calibrates focus to the real rig. RayFlow is this exact workflow — but with an AI doing the 20–35 hours of tedious infrastructure building, guided by a user who may have no console programming knowledge.
 
 ## Users & User Stories
 
 ### Primary Persona
 
-**Target User:** Lighting designers and students learning concert lighting programming.
+**Target User:** Anyone who loves music and wants to create lighting for songs — no console programming experience required.
 
-- **Name:** Connor (designer/learner)
-- **Role:** Lighting designer creating shows for recorded music
-- **Pain Points:** Building a show from scratch is slow; expensive visualizers; no easy way to iterate on creative ideas; repetitive console programming
-- **Goals:** Create professional-quality timecoded light shows using AI assistance, practice lighting design on a computer, automate repetitive console tasks
+- **What they bring:** Taste. Knowledge of the music they love. An opinion about what looks good.
+- **What the AI handles:** Fixture selection, DMX addressing, channel mapping, palette creation, cue programming, effect design, console syntax. Every technical detail.
+- **What they do together:** The user says "I want warm amber front light that builds to a blue backlight peak on the chorus." The AI builds it. The user sees the result and says "the blue is too cold — try lavender." The AI adjusts. They iterate until the user likes it.
 
-### Core User Stories
+### Core User Story
 
-**Story 1:** As a lighting designer, I want to define a rig with fixtures and presets so that I have a reusable foundation for show design.
+**As a music lover, I want to describe how I want a song lit in plain language, see what the AI builds, and refine it until it looks right — without ever learning console programming.**
 
-- Priority: Must-have
+### How the User Works
 
-**Story 2:** As a learner, I want to load GDTF fixture profiles so that I can work with real-world fixture data.
-
-- Priority: Must-have
-
-**Story 3:** As a programmer, I want RayFlow to render AI-generated cues into deterministic DMX values so that I can test and execute show intent without depending on console UI mutation.
-
-- Priority: Must-have
-
-**Story 4:** As a designer, I want to direct an AI in natural language to build and refine a lighting show so that I can focus on creative decisions.
-
-- Priority: Must-have
-
-**Story 5:** As a designer, I want to export my completed show to professional console formats when a venue or workflow requires them.
-
-- Priority: Should-have
-
-**Story 6:** As a designer, I want to drive an API-first controller such as QLC+ so that I can run structured cue shows with queryable state and manual override.
-
-- Priority: Should-have
+1. Pick a song they like
+2. Describe the vibe: "psychedelic, warm, big peaks on the choruses"
+3. AI suggests a rig (fixture types, truss positions, count)
+4. User approves or adjusts: "add more beam fixtures for aerial effects"
+5. AI generates palettes, effects, and cue sequences
+6. User sees the result (via pre-viz or DMX evidence)
+7. User gives feedback: "the movement is too fast," "add strobes on the kick drum"
+8. AI refines
+9. Loop steps 6–8 until the user is satisfied
+10. Record the show
 
 ## Features & Scope
 
-### Must-Have (MVP)
+### What We're Building (The Design Loop)
 
-**Feature A:** Art-Net/sACN bridge — send and receive DMX universes from Python
+The product is the conversation between user and AI that produces a completed lighting show:
 
-- User Story: Story 3
-- Implementation: Phase 2
+- **Rig generation:** User describes the show → AI selects fixtures, positions them, assigns addresses
+- **Palette generation:** AI creates 100+ presets (position, color, beam, dimmer) from a vibe description
+- **Cue generation:** AI builds song-specific cue stacks from the song's structure and the user's direction
+- **Effect generation:** AI creates BPM-linked chases, movements, and color sweeps
+- **Visualization:** User sees the result via pre-viz integration or DMX evidence
+- **Iteration:** User provides taste feedback, AI refines, repeat until satisfied
+- **Recording:** Capture the finished show
 
-**Feature B:** GDTF fixture parser — load and manage fixture definitions
+### Role of Existing Research
 
-- User Story: Story 2
-- Implementation: Phase 3
+The 55+ documents in `docs/research/` serve as the AI's knowledge base. When the user says "I want a slow amber-to-lavender sweep on the backlight," the AI knows:
+- What a backlight is and which fixtures serve that role
+- What amber and lavender gel references translate to in RGB/CMY
+- What "slow sweep" means in BPM-aware timing
+- How to build a color chase effect with the right waveform and phase distribution
+- How to render that intent to per-fixture DMX values
 
-**Feature C:** Backend-neutral DMX rendering — translate RayFlow cues into universe/channel values
+### Enabling Infrastructure (Already Built)
 
-- User Story: Story 3
-- Implementation: Phase 8
+These are implementation details that make the design loop possible — they are not user-facing features:
 
-**Feature D:** Show & Rig Framework — data model for rigs, shows, presets, and vibes
+- GDTF fixture parser and library (Phase 3) — so the AI knows what each fixture can do
+- Show/Rig/Vibe/Cue data models (Phase 5) — the design's source of truth
+- Fixture-aware DMX renderer (Phase 8, expanded Phase 11) — translates intent to concrete values
+- Art-Net/sACN bridge (Phase 2) — one path to visualization and recording
+- MVR export (Phase 4) — feeds pre-viz software for visual feedback
+- Authoring system (Phases 6, 9, 10) — the AI's cue generation engine
+- CLI (all phases) — the AI's interface to the codebase
 
-- User Story: Story 1
-- Implementation: Phase 5
+### What's Next (Priority Order)
 
-**Feature E:** AI Show Builder — natural-language-driven cue generation and refinement
-
-- User Story: Story 4
-- Implementation: Phase 6
-
-### Should-Have (Post-MVP)
-
-**Feature F:** API-first controller adapter — QLC+ WebSocket execution and state query
-
-- User Story: Story 6
-- Implementation: Phase 8
-
-**Feature G:** Export & Playback — MA3-compatible export with timecode
-
-- User Story: Story 5
-- Implementation: Phase 7 compatibility track
-
-**Feature H:** grandMA3 gated OSC integration — remote control only for verified operations
-
-- User Story: Story 5
-- Implementation: Compatibility track
+1. **Rig building tooling** — Auto-generate rigs from descriptions (venue type, show scale, vibe)
+2. **Palette generation** — Auto-generate position, color, and beam preset libraries from a vibe and fixture list
+3. **Integrated visualization** — Tighten the feedback loop between authoring and seeing
+4. **Console show file export** — Produce files that import into MA3 onPC or other offline editors
+5. **Record/export** — Capture the finished show in a standard format
 
 ### Out of Scope
 
+- Live performance / busking during shows
 - Hardware DMX output (USB-DMX interfaces)
 - Full grandMA3 console replacement
-- Production show playback
 - Multi-user collaborative programming
-- Full custom 3D visualizer as a prerequisite for the control backend
+- Custom 3D visualizer
+- Audio-reactive lighting (can be achieved through programming)
 
 ## Architecture
 
 ### High-Level Summary
 
-RayFlow has five main components: AI-readable show/rig data, a GDTF fixture library, a fixture-aware renderer, protocol/controller adapters, and professional console compatibility exporters. The show/rig data is the source of truth; adapters translate that state into DMX frames, QLC+ WebSocket commands, MA3 export artifacts, or gated MA3 OSC commands.
+RayFlow has three layers:
+
+1. **Knowledge base** (55+ research docs) — What the AI knows about lighting design
+2. **Design engine** (source code) — Data models, fixture library, renderer, authoring system
+3. **AI interface** (CLI + context bundles) — How the AI coding tool interacts with the design engine
+
+The user talks to the AI. The AI reads the knowledge base and uses the design engine. The design engine produces output artifacts (DMV frames, MVR files, show YAML) that feed pre-viz for visualization.
 
 ### System Diagram
 
-```mermaid
-graph TD
-    User[Lighting Designer] --> AI[AI Coding Tool]
-    AI --> Show[Show & Rig Data]
-    Show --> CLI[RayFlow CLI]
-    CLI --> Renderer[Fixture-Aware Renderer]
-    Renderer --> Bridge[Art-Net / sACN Output]
-    Renderer --> QLC[QLC+ WebSocket Adapter]
-    CLI --> MA3Export[MA3 Export Artifacts]
-    CLI --> MA3OSC[Gated MA3 OSC Adapter]
-    MA3Export --> MA3[grandMA3 onPC]
-    MA3OSC --> MA3
-    CLI --> GDTF[GDTF Fixture Library]
-    GDTF --> Renderer
-    CLI --> MVR[MVR Export]
-    MVR --> MA3
 ```
+ User (plain language)
+        │
+        ▼
+ AI Coding Tool (opencode, Claude Code, etc.)
+        │
+        ├── reads ──→ Research Knowledge Base (55+ docs)
+        │
+        └── uses ──→ RayFlow Code
+                        │
+                        ├── Rig/Song/Vibe/Cue data models
+                        ├── GDTF fixture library
+                        ├── Fixture-aware DMX renderer
+                        ├── Authoring system (plan-cues, etc.)
+                        └── Context bundle builder
+                                │
+                                ▼
+                        Output Artifacts
+                        ├── Show YAML (source of truth)
+                        ├── DMX frames (Art-Net/sACN → pre-viz)
+                        ├── MVR files → pre-viz import
+                        └── Console show files (future)
 
-## Technology Stack
-
-| Category | Technology | Version | Notes |
-|----------|------------|---------|-------|
-| Package Management | uv | latest | Python package manager |
-| Core Language | Python | 3.10+ | Primary programming language |
-| Console Compatibility | grandMA3 onPC | 2.3.2.0 baseline | Export/playback target, not core execution loop |
-| Controller Adapter | QLC+ WebSockets | planned | API-first structured controller path |
-| Art-Net | artnet / custom | — | DMX over UDP |
-| sACN | sacn | 1.0+ | E1.31 streaming |
-| OSC | python-osc | 1.8+ | Gated remote console or middleware control |
-| Fixtures | GDTF | — | Open fixture format |
-| Data Format | YAML + JSON | — | Show/rig serialization |
-| AI Interface | LLM API | Any | Claude, GPT, etc. via coding tools |
-| Linting | Ruff | 0.5+ | Format and lint |
-| Testing | Pytest | 8.x | Test framework |
-| Documentation | MkDocs + Material | — | Project docs |
-
-## Risks & Assumptions
-
-### Key Assumptions
-
-- Direct Art-Net/sACN output can cover the first deterministic execution milestone
-- QLC+ WebSocket control remains available and stable enough for a research spike
-- grandMA3 onPC remains useful for compatibility testing and MA deliverables
-- Art-Net and sACN protocols are stable and well-documented
-- GDTF fixture library is available from gdtf-share.com
-- AI coding tools can effectively work with structured YAML data and existing Python modules
-
-### Technical Risks
-
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| grandMA3 onPC macOS compatibility breaks | Low | Medium | Keep MA3 as compatibility adapter, not core loop |
-| Art-Net library unmaintained | Medium | Medium | Build minimal custom implementation as fallback |
-| GDTF parsing complexity | Medium | Medium | Start with common fixture types, expand iteratively |
-| AI prompt quality | High | High | Iterate on prompt templates, provide rich context bundles |
-| Fixture-aware DMX rendering misses real fixture behavior | Medium | High | Validate against GDTF channel maps and captured DMX frames |
-| QLC+ WebSocket behavior differs from docs | Medium | Medium | Build a small spike with command/query evidence |
-| MA3 OSC/API readback incomplete | High | Medium | Treat as gated compatibility work; do not block backend-neutral MVP |
+ Visualization Loop:
+   AI authors → Output artifact → Pre-viz rendering → User sees → User gives feedback → AI refines
+```
 
 ## Decision Log
 
-| Date       | Decision                                    | Context / Drivers                                           | Impact / Follow-up                                    |
-|------------|---------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------|
-| 2026-05-15 | grandMA3 onPC as console emulator           | Free, macOS native, industry standard                       | Primary console for all development                   |
-| 2026-05-15 | Python for protocol bridge                  | Rich ecosystem (sacn, python-osc), AI-friendly              | Core of all lighting communication                    |
-| 2026-05-15 | GDTF as fixture standard                    | Open, supported by grandMA3, manufacturer-backed            | All fixtures use GDTF format                          |
-| 2026-05-17 | AI-as-primary interface                     | Designer directs AI in natural language; AI handles translation to MA3 | RayFlow's primary user is a human working through an AI coding tool |
-| 2026-05-17 | Drop built-in web visualizer                | grandMA3 onPC has built-in 3D visualizer; redundant         | Focus on show/rig data model and AI interaction layer |
-| 2026-05-17 | MA3-native export as target format          | Industry standard; leverages existing MA3 investment        | MVR for rig + OSC cues + timecode for playback        |
-| 2026-05-23 | Backend-neutral control loop                | MA3 live probes exposed fragile command acceptance, fixture import, and readback; manual research favors API-first targets | RayFlow show data becomes source of truth; next work prioritizes DMX renderer, Art-Net/sACN execution, QLC+ adapter, and MA3 compatibility gating |
+| Date | Decision | Context |
+|------|----------|---------|
+| 2026-05-15 | grandMA3 onPC as console standard | Free, macOS native, industry standard |
+| 2026-05-15 | GDTF as fixture standard | Open, supported by grandMA3, manufacturer-backed |
+| 2026-05-17 | AI-as-primary interface | User works through AI coding tool; plain language → technical output |
+| 2026-05-17 | Drop built-in web visualizer | Existing pre-viz tools (Capture, MA3 3D) serve visualization |
+| 2026-05-23 | Backend-neutral control loop | MA3 OSC probes exposed fragility; show data is source of truth |
+| 2026-05-26 | Terminal goal: design, not performance | Product ends when user is satisfied with the design. No live use. |
+| 2026-05-26 | User is amateur, AI handles all console programming | User provides taste. AI does technical execution. The goal is to remove the need for console knowledge. |
+| 2026-05-26 | Research serves AI knowledge base | 55+ research docs exist so the AI can translate amateur descriptions into correct technical output |
+| 2026-05-26 | Priority: rig building → palette generation → visualization → console export → recording | Backend work (Art-Net, sACN, QLC+) is enabling infrastructure, not product features |
