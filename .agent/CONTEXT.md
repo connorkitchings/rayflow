@@ -65,7 +65,7 @@ rayflow/
 - Phase 15 Option A (QLC+ workspace exporter) shipped: `rayflow rig export-qxw` writes a loadable `.qxw` file.
 - Rig Builder V1 and Palette Generator V1 shipped: AI can now propose/apply a deterministic generated rig from plain language and propose/apply a minimal generated palette library as show overrides.
 - Preview/Critique V1 shipped: AI can now package show state, fixture capabilities, effective presets, rendered DMX frames, and critique prompts into one dry-run review artifact.
-- Remaining Phase 15 options: Option B (GDTF→QXF fixture definition exporter) and Option C (QLC+ Function/Scene Triggers).
+- Phase 15 Options B/C: QLC+ fixture definitions and function/scene triggers shipped; QLC+ depth now covers QXW workspace export, QXF fixture definitions, channel evidence, and function status/trigger commands.
 - Next product priority: console show file export or recording/export workflow, with preview packet feedback available for iteration.
 
 **Active Branch:** `codex/continue-development-session`

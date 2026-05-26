@@ -1,8 +1,7 @@
-# QLC+ Setup Guide (Experimental)
+# QLC+ Setup Guide
 
-> **Status:** Experimental. The QLC+ WebSocket adapter is a research spike, not a
-> production backend. This guide documents what exists and what would be needed for
-> a live proof.
+> **Status:** Supported for file export and queryable WebSocket control paths.
+> Runtime mutation remains gated behind explicit `--execute`.
 
 ## What Is QLC+?
 
@@ -12,18 +11,28 @@ structured command/query workflows.
 
 ## Current RayFlow Support
 
-The experimental adapter lives in `src/rayflow/bridge/qlcplus_ws.py` and provides:
+The QLC+ support lives in `src/rayflow/engine/fixtures/qlcplus_export.py`,
+`src/rayflow/engine/fixtures/qlcplus_qxf.py`, and
+`src/rayflow/engine/backends/qlcplus.py`. It provides:
 
-- Dry-run command generation
-- WebSocket query for universe state
-- Gated mutation (disabled by default)
-- Evidence packet return
+- `.qxw` workspace export from a RayFlow rig
+- `.qxf` fixture definition export from checked-in GDTF profiles
+- WebSocket channel set/query evidence
+- WebSocket function/scene list, status query, and gated start/stop
 
 CLI access:
 
 ```bash
-rayflow show qlc-spike --show <name> --rig <name>
+rayflow rig export-qxf "Practice Small Club" --output-dir exports/qlc/fixtures
+rayflow rig export-qxw "Practice Small Club" --output exports/qlc/workspace.qxw --qxf-dir exports/qlc/fixtures
+rayflow show qlc-function --action list --json
+rayflow show qlc-function 10 --action start --execute
 ```
+
+For QLC+ 5.2.1 workspace imports, keep generated `.qxf` fixture definitions next
+to the `.qxw` workspace. QLC+ resolves sidecar fixture files using its
+`Manufacturer-Model.qxf` fallback name, such as
+`BlenderDMX-LED-PAR-64-RGBW.qxf`.
 
 ## Installing QLC+
 
@@ -38,14 +47,12 @@ rayflow show qlc-spike --show <name> --rig <name>
 3. Note the port (default: 9999)
 4. Restart QLC+
 
-## What Needs Proof Before Promoting
+## Remaining Proof
 
-Before QLC+ moves from experimental to a supported backend:
+Before calling QLC+ complete, validate these against a local QLC+ install:
 
-1. **Live local command proof:** Send a fixture command and verify QLC+ state changed
-2. **Live local query proof:** Query universe state and match against sent values
-3. **Fixture definition mapping:** QLC+ uses its own fixture format, not GDTF
-4. **Repeatable test harness:** Automated start/stop/query cycle
+1. Validate high-channel-count pixel/multi-break `.qxf` imports if those fixtures are needed.
+2. Decide whether RayFlow should generate QLC+ Scene/Function XML as a first-class export feature.
 
 ## See Also
 

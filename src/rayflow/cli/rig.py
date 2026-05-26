@@ -462,6 +462,76 @@ def rig_export_mvr(
     console.print(f"  Scene: {rig.name}")
 
 
+def _load_rig_and_fixture_library(rig_name: str, rig_dir: str, fixture_dir: str):
+    from rayflow.design.serializers import load_rig
+    from rayflow.engine.fixtures.library import FixtureLibrary
+
+    path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(path)
+    try:
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError) as e:
+        typer.echo(f"Error loading fixtures: {e}", err=True)
+        raise typer.Exit(code=1)
+    return rig, library
+
+
+@rig_app.command("export-qxf")
+def rig_export_qxf(
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", "-o", help="Output directory for QXF files"
+    ),
+    rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures", "--fixture-dir", help="Fixture directory"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Export QLC+ fixture definition files (.qxf) for fixtures used by a rig."""
+    rig_name = resolve_rig_name(rig_name)
+    from rayflow.engine.fixtures.qlcplus_qxf import (
+        export_qlcplus_fixture_definitions,
+    )
+
+    rig, library = _load_rig_and_fixture_library(rig_name, rig_dir, fixture_dir)
+    parsers = []
+    for slot in rig.fixtures:
+        parser = library.get(slot.fixture_name)
+        if parser is None:
+            typer.echo(
+                f"Warning: Fixture not found: {slot.fixture_name}, skipping",
+                err=True,
+            )
+            continue
+        parsers.append(parser)
+
+    if not parsers:
+        typer.echo("Error: No valid fixtures to export", err=True)
+        raise typer.Exit(code=1)
+
+    results = export_qlcplus_fixture_definitions(parsers, output_dir)
+    payload = {
+        "rig": rig.name,
+        "output_dir": str(output_dir),
+        "fixtures": [result.as_dict() for result in results],
+    }
+    if json_output:
+        console.print(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[green]QXF exported[/green] to {output_dir}")
+    console.print(f"  Rig: {rig.name}")
+    console.print(f"  Fixture definitions: {len(results)}")
+    for result in results:
+        console.print(f"  - {result.path}")
+
+
 @rig_app.command("export-qxw")
 def rig_export_qxw(
     rig_name: str | None = typer.Argument(None, help="Rig name"),
@@ -471,6 +541,11 @@ def rig_export_qxw(
         "data/fixtures", "--fixture-dir", help="Fixture directory"
     ),
     author: str = typer.Option("RayFlow", "--author", help="Author name for workspace"),
+    qxf_dir: Path | None = typer.Option(
+        None,
+        "--qxf-dir",
+        help="Also export QLC+ fixture definitions and reference them in the QXW",
+    ),
 ) -> None:
     """Export a rig as a QLC+ workspace file (.qxw) for direct import into QLC+.
 
@@ -479,28 +554,18 @@ def rig_export_qxw(
     File > Open Workspace to apply the full patch in one step.
     """
     rig_name = resolve_rig_name(rig_name)
-    from rayflow.design.serializers import load_rig
-    from rayflow.engine.fixtures.library import FixtureLibrary
     from rayflow.engine.fixtures.qlcplus_export import (
         build_qlc_patch,
         export_qlcplus_workspace,
     )
+    from rayflow.engine.fixtures.qlcplus_qxf import (
+        export_qlcplus_fixture_definitions,
+    )
 
-    path = _rig_path(rig_name, _rig_dir_path(rig_dir))
-    if not path.exists():
-        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
-        raise typer.Exit(code=1)
-
-    rig = load_rig(path)
-
-    try:
-        library = FixtureLibrary(fixture_dir)
-        library.load()
-    except (FileNotFoundError, ValueError) as e:
-        typer.echo(f"Error loading fixtures: {e}", err=True)
-        raise typer.Exit(code=1)
+    rig, library = _load_rig_and_fixture_library(rig_name, rig_dir, fixture_dir)
 
     patches = []
+    parsers = []
     for fixture_id, slot in enumerate(rig.fixtures):
         parser = library.get(slot.fixture_name)
         if parser is None:
@@ -509,6 +574,7 @@ def rig_export_qxw(
                 err=True,
             )
             continue
+        parsers.append(parser)
 
         mode_idx = 0
         mode_names = parser.mode_names()
@@ -533,9 +599,15 @@ def rig_export_qxw(
         typer.echo("Error: No valid fixtures to export", err=True)
         raise typer.Exit(code=1)
 
+    qxf_results = []
+    if qxf_dir is not None:
+        qxf_results = export_qlcplus_fixture_definitions(parsers, qxf_dir)
+
     saved = export_qlcplus_workspace(patches, output, author=author)
     console.print(f"[green]QXW exported[/green] to {saved}")
     console.print(f"  Fixtures: {len(patches)}")
     console.print(f"  Rig: {rig.name}")
     universes = sorted({p.universe for p in patches})
     console.print(f"  Universes: {', '.join(str(u + 1) for u in universes)}")
+    if qxf_dir is not None:
+        console.print(f"  QXF definitions: {len(qxf_results)} in {qxf_dir}")

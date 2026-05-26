@@ -40,6 +40,8 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **Proposal-First Authoring**: Cue authoring helpers should return structured plans by default and require explicit apply gates before writing show YAML. Keep live backend output in separate `--execute` commands.
 - **Renderer Families Before Authoring Families**: Add GDTF-backed renderer support for an attribute family before generating that family from high-level authoring helpers. Manual cue attributes can lead; deterministic authoring should follow proven render behavior.
 - **Trigonometric Movement Mapping**: Map time-based movement paths (sine, circle, figure-8) to standard position attribute strings (like `pan` and `tilt`) before rendering, allowing them to route through GDTF mapping and 16-bit encoding.
+- **Inspectable Export Artifacts Before Runtime Control**: For controller integrations, generate reviewable files first (for example QXW/QXF/MVR/XML) and only then add gated WebSocket/OSC mutation paths with structured query evidence.
+- **Validate Controller Numbering Live**: File formats and Web APIs can use different indexing conventions. QLC+ QXW fixture patch universes are 0-based, but QLC+ Web API `setChannelsValues`/`getChannelsValues` universes are 1-based.
 
 ## [REVIEW AGENTS]
 

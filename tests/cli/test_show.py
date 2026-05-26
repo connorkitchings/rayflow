@@ -1,6 +1,8 @@
 """CLI tests for show management commands."""
 
 import json
+import sys
+import types
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest.mock import patch
@@ -38,6 +40,7 @@ SHOW_COMMANDS = [
     "preview",
     "push-section",
     "push-to-ma3",
+    "qlc-function",
     "render-cue",
     "renumber",
     "restore",
@@ -220,6 +223,55 @@ presets: {}
         assert result.exit_code == 0
         assert "Palette apply" in result.output
         assert "rf_blackout" in show_path.read_text()
+
+
+class TestShowQlcFunction:
+    def test_qlc_function_start_is_dry_run_by_default(self) -> None:
+        result = runner.invoke(
+            app,
+            ["show", "qlc-function", "10", "--action", "start", "--json"],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "dry-run"
+        assert payload["commands"] == ["QLC+API|setFunctionStatus|10|1"]
+        assert payload["observed"]["status"] == "not-applied"
+
+    def test_qlc_function_list_queries_websocket(self, monkeypatch) -> None:
+        class FakeWebSocket:
+            def __init__(self):
+                self.sent = []
+
+            def send(self, command: str) -> None:
+                self.sent.append(command)
+
+            def recv(self) -> str:
+                return "QLC+API|getFunctionsList|10|Look|Scene"
+
+            def close(self) -> None:
+                pass
+
+        fake_ws = FakeWebSocket()
+        fake_module = types.SimpleNamespace(create_connection=lambda *a, **k: fake_ws)
+        monkeypatch.setitem(sys.modules, "websocket", fake_module)
+
+        result = runner.invoke(
+            app,
+            ["show", "qlc-function", "--action", "list", "--json"],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["observed"]["function_count"] == 1
+        assert payload["observed"]["functions"][0]["name"] == "Look"
+        assert fake_ws.sent == ["QLC+API|getFunctionsList"]
+
+    def test_qlc_function_status_requires_id(self) -> None:
+        result = runner.invoke(app, ["show", "qlc-function", "--action", "status"])
+
+        assert result.exit_code == 2
+        assert "function_id is required" in result.output
 
 
 class TestShowPreview:

@@ -91,6 +91,15 @@ def export_show_bundle(
             "timecode": timecode_path.name,
             "readme": readme_path.name,
         },
+        "format_notes": {
+            "native_show_file": "not_generated",
+            "native_show_file_reason": (
+                "grandMA3 .show.gz generation remains out of scope until the "
+                "binary format is proven writable."
+            ),
+            "timecode_xml_source": "captured grandMA3 onPC 2.3.2.0 event exports",
+            "import_validation_required": True,
+        },
     }
     metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
@@ -169,6 +178,13 @@ Generated for grandMA3 onPC 2.3.2.0.
 - `{timecode_filename}` — MA3 Timecode XML based on captured MA3 2.3.2.0
   event exports; validate import/playback before use.
 - `metadata.json` — bundle metadata for automation and review.
+
+## Verified Boundaries
+
+RayFlow does not generate a native `.show.gz` file in this bundle. The MA3
+native show format is treated as opaque until a writable format is verified.
+This bundle uses inspectable artifacts instead: MVR, OSC command text, and
+captured-export-shaped Timecode XML.
 
 ## Import Workflow
 

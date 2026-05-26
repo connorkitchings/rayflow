@@ -190,8 +190,8 @@ these candidate tracks:
 | Rig Builder V1 | `rayflow rig plan-build` proposes/applies generated rigs from freeform descriptions plus optional JSON overrides | ✅ Done |
 | Palette Generator V1 | `rayflow show plan-palettes` proposes/applies generated `rf_` show-specific preset overrides from rig capabilities | ✅ Done |
 | Integrated visualization / critique loop | `rayflow show preview` and MCP `preview_show` build critique packets from context, effective presets, rendered DMX evidence, warnings, and review prompts | ✅ Done |
-| QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ☐ Not Started |
-| QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ☐ Not Started |
+| QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ✅ Done |
+| QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ✅ Done |
 
 ---
 

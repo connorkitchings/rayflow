@@ -1,0 +1,109 @@
+{
+  "date": "2026-05-26",
+  "qlcplus": {
+    "app": "/Applications/QLC+.app",
+    "binary": "/Applications/QLC+.app/Contents/MacOS/qlcplus-qml",
+    "version": "5.2.1",
+    "launch_command": "/Applications/QLC+.app/Contents/MacOS/qlcplus-qml --web --web-port 9999 --open tmp/qlcplus-validation/practice-small-club.qxw",
+    "endpoint": "ws://127.0.0.1:9999/qlcplusWS"
+  },
+  "artifacts": {
+    "directory": "tmp/qlcplus-validation",
+    "workspace": "tmp/qlcplus-validation/practice-small-club.qxw",
+    "fixture_definition": "tmp/qlcplus-validation/BlenderDMX-LED-PAR-64-RGBW.qxf",
+    "source_rig": "Practice Small Club",
+    "moving_head_directory": "tmp/qlcplus-moving-validation",
+    "moving_head_workspace": "tmp/qlcplus-moving-validation/moving-head.qxw",
+    "moving_head_fixture_definition": "tmp/qlcplus-moving-validation/Robe-Lighting-Robin-MMX-Blade.qxf"
+  },
+  "findings": [
+    {
+      "area": "qxf_location_and_name",
+      "status": "fixed",
+      "evidence": "QLC+ looked for a sidecar fixture file named BlenderDMX-LED-PAR-64-RGBW.qxf beside the .qxw workspace. Snake-case files in a fixtures subdirectory were not resolved."
+    },
+    {
+      "area": "qxf_schema",
+      "status": "fixed",
+      "evidence": "Initial generated QXF nested Channel elements inside Mode; QLC+ reported 'Will not add a NULL channel to mode Default'. The fixed QXF uses top-level Channel definitions and Mode Channel Number references, matching bundled QLC+ fixtures."
+    },
+    {
+      "area": "qxw_schema",
+      "status": "fixed",
+      "evidence": "Initial QXW included a custom FixtureDefinition child. QLC+ reported it as an unknown fixture tag. Fixed QXW relies on Manufacturer/Model/Mode and sidecar QXF lookup."
+    },
+    {
+      "area": "function_query",
+      "status": "passed",
+      "evidence": {
+        "command": "QLC+API|getFunctionsList",
+        "response": "QLC+API|getFunctionsList",
+        "function_count": 0,
+        "notes": "Empty function list is a valid QLC+ response and is now parsed as queried with zero functions."
+      }
+    },
+    {
+      "area": "channel_query_format",
+      "status": "fixed",
+      "evidence": "QLC+ 5.2.1 returns getChannelsValues records as channel/value/type/override groups, not a flat value list."
+    },
+    {
+      "area": "channel_universe_numbering",
+      "status": "fixed",
+      "evidence": "QLC+ Web API set/query commands use 1-based universe numbers; RayFlow stores universes as 0-based."
+    },
+    {
+      "area": "channel_send_query",
+      "status": "passed",
+      "evidence": {
+        "command": "QLC+API|setChannelsValues|1|1|77|2|88|3|99",
+        "queried_channels": {
+          "1": 77,
+          "2": 88,
+          "3": 99
+        },
+        "observed_matches": true
+      }
+    },
+    {
+      "area": "moving_head_qxf_import",
+      "status": "passed",
+      "evidence": {
+        "fixture": "Robe Lighting Robin MMX Blade",
+        "workspace": "tmp/qlcplus-moving-validation/moving-head.qxw",
+        "fixture_definition": "tmp/qlcplus-moving-validation/Robe-Lighting-Robin-MMX-Blade.qxf",
+        "notes": "QLC+ loaded the moving-head sidecar QXF without duplicate-channel or null-channel warnings after fine/duplicate channel names were made unique."
+      }
+    },
+    {
+      "area": "function_list_with_scene",
+      "status": "passed",
+      "evidence": {
+        "command": "QLC+API|getFunctionsList",
+        "response": "QLC+API|getFunctionsList|0|RayFlow Validation Scene",
+        "functions": [
+          {
+            "id": 0,
+            "name": "RayFlow Validation Scene"
+          }
+        ]
+      }
+    },
+    {
+      "area": "function_start_stop",
+      "status": "passed",
+      "evidence": {
+        "start_command": "QLC+API|setFunctionStatus|0|1",
+        "start_response": "FUNCTION|0|Running",
+        "start_observed_matches": true,
+        "stop_command": "QLC+API|setFunctionStatus|0|0",
+        "stop_response": "FUNCTION|0|Stopped",
+        "stop_observed_matches": true
+      }
+    }
+  ],
+  "remaining_risk": [
+    "Moving-head validation used Robe Robin MMX Blade only; iSpiiderX and other high-channel-count pixel fixtures may still expose fixture-specific QXF edge cases.",
+    "The disposable Scene was hand-added to the validation workspace. RayFlow does not yet generate QLC+ Scene/Function XML as a product feature."
+  ]
+}

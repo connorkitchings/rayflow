@@ -14,6 +14,13 @@ from rayflow.engine.fixtures.qlcplus_export import (
     build_qlcplus_workspace,
     export_qlcplus_workspace,
 )
+from rayflow.engine.fixtures.qlcplus_qxf import (
+    QxfExportResult,
+    build_qlcplus_fixture_definition,
+    export_qlcplus_fixture_definition,
+    export_qlcplus_fixture_definitions,
+    qxf_filename_for_fixture,
+)
 
 __all__ = [
     "ChannelMap",
@@ -22,10 +29,15 @@ __all__ = [
     "FixtureSummary",
     "GdtfParser",
     "QlcFixturePatch",
+    "QxfExportResult",
     "build_channel_map",
     "build_qlc_patch",
+    "build_qlcplus_fixture_definition",
     "build_qlcplus_workspace",
     "classify_attribute",
+    "export_qlcplus_fixture_definition",
+    "export_qlcplus_fixture_definitions",
     "export_qlcplus_workspace",
     "normalize_attribute",
+    "qxf_filename_for_fixture",
 ]

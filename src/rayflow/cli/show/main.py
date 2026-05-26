@@ -455,6 +455,65 @@ def show_output_section(
     console.print(f"Cues: {len(evidence)}")
 
 
+@show_app.command("qlc-function")
+def show_qlc_function(
+    function_id: int | None = typer.Argument(
+        None, help="QLC+ function ID for status or trigger actions"
+    ),
+    action: str = typer.Option(
+        "list", "--action", help="Action: list, status, start, or stop"
+    ),
+    endpoint: str = typer.Option(
+        "ws://127.0.0.1:9999/qlcplusWS", "--endpoint", help="QLC+ WebSocket endpoint"
+    ),
+    execute: bool = typer.Option(
+        False, "--execute", help="Apply start/stop actions to QLC+"
+    ),
+    timeout: float = typer.Option(1.0, "--timeout", help="WebSocket timeout seconds"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """List, query, or trigger QLC+ functions/scenes over WebSocket."""
+    from rayflow.engine.backends import QlcPlusBackend
+
+    adapter = QlcPlusBackend(endpoint=endpoint)
+    action_name = action.lower()
+    if action_name == "list":
+        evidence = adapter.query_functions(timeout=timeout)
+    elif action_name == "status":
+        if function_id is None:
+            typer.echo("Error: function_id is required for status", err=True)
+            raise typer.Exit(code=2)
+        evidence = adapter.query_function_status(function_id, timeout=timeout)
+    elif action_name in {"start", "stop"}:
+        if function_id is None:
+            typer.echo(f"Error: function_id is required for {action_name}", err=True)
+            raise typer.Exit(code=2)
+        evidence = adapter.set_function_status(
+            function_id,
+            active=action_name == "start",
+            execute=execute,
+            timeout=timeout,
+        )
+    else:
+        typer.echo(
+            f"Error: Unknown QLC+ function action '{action}'. "
+            "Use list, status, start, or stop.",
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    payload = evidence.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]qlcplus {evidence.operation}[/bold] {evidence.mode}")
+    console.print(f"Target: {evidence.target}")
+    console.print(f"Status: {evidence.observed.get('status')}")
+    if evidence.warnings:
+        console.print(f"[yellow]Warnings: {len(evidence.warnings)}[/yellow]")
+
+
 @show_app.command("plan-practice-cues")
 def show_plan_practice_cues(
     show_name: str | None = typer.Argument(None, help="Show name"),

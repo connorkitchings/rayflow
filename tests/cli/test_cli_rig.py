@@ -142,6 +142,90 @@ class TestRigPlanBuild:
         assert (tmp_path / "Generated Rig.yaml").exists()
 
 
+class TestRigQlcExports:
+    def test_rig_export_qxf_writes_fixture_definitions(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_path = tmp_path / "Qlc Rig.yaml"
+        rig_path.write_text(
+            """name: "Qlc Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+presets: {}
+"""
+        )
+        output_dir = tmp_path / "qxf"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "export-qxf",
+                "Qlc Rig",
+                "--output-dir",
+                str(output_dir),
+                "--dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "QXF exported" in result.output
+        assert list(output_dir.glob("*.qxf"))
+
+    def test_rig_export_qxw_with_qxf_dir_references_definitions(
+        self, tmp_path: Path
+    ) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_path = tmp_path / "Qlc Rig.yaml"
+        rig_path.write_text(
+            """name: "Qlc Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+presets: {}
+"""
+        )
+        qxf_dir = tmp_path / "qxf"
+        output = tmp_path / "rig.qxw"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "export-qxw",
+                "Qlc Rig",
+                "--output",
+                str(output),
+                "--qxf-dir",
+                str(qxf_dir),
+                "--dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert output.exists()
+        assert list(qxf_dir.glob("*.qxf"))
+        assert "FixtureDefinition" not in output.read_text(encoding="UTF-8")
+
+
 class TestRigList:
     def test_rig_list_empty(self, tmp_path: Path) -> None:
         result = runner.invoke(app, ["rig", "list", "--dir", str(tmp_path)])

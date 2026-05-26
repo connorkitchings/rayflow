@@ -45,7 +45,7 @@ class QlcPlusBackend:
             "shutter",
             "gobo",
         ),
-        operations=("dry-run", "apply"),
+        operations=("dry-run", "apply", "query-functions", "trigger-function"),
         evidence_types=("websocket-response", "unavailable"),
     )
 
@@ -154,23 +154,158 @@ class QlcPlusBackend:
                 "websocket-client is not installed. Run: uv sync --extra lighting"
             ) from exc
 
-        command = f"QLC+API|getChannelsValues|{universe}|{start_address}|{count}"
+        qlc_universe = universe + 1
+        command = f"QLC+API|getChannelsValues|{qlc_universe}|{start_address}|{count}"
         ws = create_connection(self.endpoint, timeout=timeout)
         try:
             ws.send(command)
             response = ws.recv()
             if not response or not response.startswith("QLC+API|getChannelsValues|"):
                 raise ValueError(f"Unexpected response from QLC+: {response}")
-            parts = response.split("|")[2:]
-            return [int(val) for val in parts if val.strip().isdigit()]
+            return _parse_channel_values(response)
         finally:
             ws.close()
+
+    def query_functions(self, timeout: float = 1.0) -> BackendEvidence:
+        """Query QLC+ functions/scenes over WebSocket."""
+        command = "QLC+API|getFunctionsList"
+        try:
+            result = self._execute_commands([command], timeout=timeout)[0]
+            functions = _parse_functions_list(result.response)
+        except Exception as exc:
+            return BackendEvidence(
+                backend="qlcplus",
+                operation="query-functions",
+                mode="query",
+                target=self.endpoint,
+                frames=[],
+                commands=[command],
+                observed={"status": "unavailable", "error": str(exc)},
+                warnings=["QLC+ WebSocket endpoint was unavailable."],
+            )
+
+        return BackendEvidence(
+            backend="qlcplus",
+            operation="query-functions",
+            mode="query",
+            target=self.endpoint,
+            frames=[],
+            commands=[command],
+            observed={
+                "status": "queried",
+                "responses": [result.as_dict()],
+                "functions": functions,
+                "function_count": len(functions),
+            },
+        )
+
+    def query_function_status(
+        self, function_id: int, timeout: float = 1.0
+    ) -> BackendEvidence:
+        """Query one QLC+ function status."""
+        command = f"QLC+API|getFunctionStatus|{function_id}"
+        try:
+            result = self._execute_commands([command], timeout=timeout)[0]
+            status = _parse_function_status(result.response)
+        except Exception as exc:
+            return BackendEvidence(
+                backend="qlcplus",
+                operation="query-function-status",
+                mode="query",
+                target=self.endpoint,
+                frames=[],
+                commands=[command],
+                observed={"status": "unavailable", "error": str(exc)},
+                warnings=["QLC+ WebSocket endpoint was unavailable."],
+            )
+
+        return BackendEvidence(
+            backend="qlcplus",
+            operation="query-function-status",
+            mode="query",
+            target=self.endpoint,
+            frames=[],
+            commands=[command],
+            observed={
+                "status": "queried",
+                "responses": [result.as_dict()],
+                "function_id": function_id,
+                "active": status,
+            },
+        )
+
+    def set_function_status(
+        self,
+        function_id: int,
+        active: bool,
+        *,
+        execute: bool = False,
+        timeout: float = 1.0,
+    ) -> BackendEvidence:
+        """Dry-run or set one QLC+ function/scene status."""
+        value = 1 if active else 0
+        command = f"QLC+API|setFunctionStatus|{function_id}|{value}"
+        if not execute:
+            return BackendEvidence(
+                backend="qlcplus",
+                operation="trigger-function",
+                mode="dry-run",
+                target=self.endpoint,
+                frames=[],
+                commands=[command],
+                observed={
+                    "status": "not-applied",
+                    "function_id": function_id,
+                    "requested_active": active,
+                },
+            )
+
+        warnings: list[str] = []
+        try:
+            result = self._execute_commands([command], timeout=timeout)[0]
+            status_evidence = self.query_function_status(function_id, timeout=timeout)
+        except Exception as exc:
+            return BackendEvidence(
+                backend="qlcplus",
+                operation="trigger-function",
+                mode="apply",
+                target=self.endpoint,
+                frames=[],
+                commands=[command],
+                observed={"status": "unavailable", "error": str(exc)},
+                warnings=["QLC+ WebSocket endpoint was unavailable."],
+            )
+
+        observed_active = status_evidence.observed.get("active")
+        if observed_active is not None and observed_active != active:
+            warnings.append("QLC+ function status query did not match requested state.")
+
+        return BackendEvidence(
+            backend="qlcplus",
+            operation="trigger-function",
+            mode="apply",
+            target=self.endpoint,
+            frames=[],
+            commands=[command],
+            observed={
+                "status": "queried",
+                "responses": [result.as_dict()],
+                "function_id": function_id,
+                "requested_active": active,
+                "observed_active": observed_active,
+                "observed_matches": observed_active == active
+                if observed_active is not None
+                else None,
+            },
+            warnings=warnings,
+        )
 
     def _generate_commands(self, rendered: RenderedCue) -> list[str]:
         commands = []
         for frame in rendered.frames:
             # API: QLC+API|setChannelsValues|<universe>|<ch1>|<val1>...
-            parts = [f"QLC+API|setChannelsValues|{frame.universe}"]
+            # QLC+ Web API universes are 1-based; RayFlow universes are 0-based.
+            parts = [f"QLC+API|setChannelsValues|{frame.universe + 1}"]
             for channel, value in sorted(frame.channels.items()):
                 # QLC+ API is 1-based matching our channels
                 parts.append(str(channel))
@@ -205,3 +340,63 @@ class QlcPlusBackend:
             return results
         finally:
             ws.close()
+
+
+def _parse_functions_list(response: str | None) -> list[dict[str, Any]]:
+    if not response:
+        return []
+    if response == "QLC+API|getFunctionsList":
+        return []
+    if not response.startswith("QLC+API|getFunctionsList|"):
+        raise ValueError(f"Unexpected response from QLC+: {response}")
+    parts = response.split("|")[2:]
+    stride = 3 if len(parts) % 3 == 0 else 2
+    functions: list[dict[str, Any]] = []
+    for index in range(0, len(parts), stride):
+        chunk = parts[index : index + stride]
+        if len(chunk) < 2:
+            continue
+        function_id, name = chunk[:2]
+        function_type = chunk[2] if len(chunk) > 2 else None
+        try:
+            parsed_id = int(function_id)
+        except ValueError:
+            continue
+        item = {"id": parsed_id, "name": name}
+        if function_type:
+            item["type"] = function_type
+        functions.append(item)
+    return functions
+
+
+def _parse_channel_values(response: str) -> list[int]:
+    parts = response.split("|")[2:]
+    if not parts:
+        return []
+    stride = 4 if len(parts) % 4 == 0 else 3
+    values: list[int] = []
+    for index in range(0, len(parts), stride):
+        chunk = parts[index : index + stride]
+        if len(chunk) < 2:
+            continue
+        try:
+            values.append(int(chunk[1]))
+        except ValueError:
+            values.append(0)
+    return values
+
+
+def _parse_function_status(response: str | None) -> bool | None:
+    if not response:
+        return None
+    if not response.startswith("QLC+API|getFunctionStatus|"):
+        raise ValueError(f"Unexpected response from QLC+: {response}")
+    parts = response.split("|")
+    if len(parts) < 3:
+        return None
+    status = parts[-1].strip().lower()
+    if status in {"1", "true", "on", "running"}:
+        return True
+    if status in {"0", "false", "off", "stopped"}:
+        return False
+    return None

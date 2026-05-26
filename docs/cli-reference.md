@@ -57,6 +57,8 @@ rayflow bridge send [OPTIONS]
 | `rig add-preset` | Add a preset to a rig |
 | `rig plan-build` | Plan or apply a generated rig from a freeform description |
 | `rig export-mvr` | Export a rig as an MVR file |
+| `rig export-qxw` | Export a rig as a QLC+ workspace |
+| `rig export-qxf` | Export QLC+ fixture definition files for a rig |
 
 ## show — Show Definition Management
 
@@ -113,6 +115,7 @@ rayflow bridge send [OPTIONS]
 | `show render-cue` | Dry-run render one cue to fixture-aware DMX frames |
 | `show output-cue` | Dry-run or apply one rendered cue through a backend |
 | `show output-section` | Dry-run or apply all rendered cues in a section |
+| `show qlc-function` | List, query, or trigger QLC+ functions/scenes |
 | `show plan-cues` | Plan or apply renderer-safe cues (proposal by default) |
 | `show plan-palettes` | Plan or apply generated show-specific palette overrides |
 | `show plan-practice-cues` | Plan or apply deterministic practice cues |
@@ -133,7 +136,7 @@ rayflow bridge send [OPTIONS]
 
 | Command | Description |
 |---------|-------------|
-| `show qlc-spike` | Experimental QLC+ WebSocket command/query spike |
+| `show qlc-function` | QLC+ WebSocket function/scene query and gated trigger |
 
 ## console — grandMA3 onPC Control
 
