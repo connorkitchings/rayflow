@@ -6,6 +6,7 @@ import types
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest.mock import patch
+from zipfile import ZipFile
 
 from typer.testing import CliRunner
 
@@ -28,6 +29,7 @@ SHOW_COMMANDS = [
     "diff",
     "export",
     "export-mvr",
+    "export-qxw",
     "generate-cues",
     "import-sections",
     "info",
@@ -1931,8 +1933,8 @@ fixtures:
   - fixture_name: "Robin iSpiiderX"
     mode: "Mode 1 - Zones"
     label: "Spiider 1"
-    universe: 0
-    start_address: 1
+    universe: 1
+    start_address: 25
     position: {x: -2, y: 4, z: 1, pan: 0, tilt: 0}
     channels: "1"
 presets: {}
@@ -2014,8 +2016,8 @@ fixtures:
   - fixture_name: "Robin iSpiiderX"
     mode: "Mode 1 - Zones"
     label: "Spiider 1"
-    universe: 0
-    start_address: 1
+    universe: 1
+    start_address: 25
     position: {x: -2, y: 4, z: 1, pan: 0, tilt: 0}
     channels: "1"
 presets: {}
@@ -2063,6 +2065,12 @@ cues:
         assert "MA3 show export created" in result.output
         assert "Sequence: 7" in result.output
         assert (output_dir / "rig.mvr").exists()
+        with ZipFile(output_dir / "rig.mvr") as archive:
+            mvr_xml = archive.read("GeneralSceneDescription.xml").decode()
+        mvr_root = ET.fromstring(mvr_xml)
+        address = mvr_root.find(".//Fixture/Addresses/Address")
+        assert address is not None
+        assert address.text == str((1 * 512) + 25)
         timecode_path = output_dir / "timecode.xml"
         assert timecode_path.read_bytes().startswith(b"\xef\xbb\xbf")
         timecode = ET.fromstring(timecode_path.read_text(encoding="utf-8-sig"))
@@ -2256,7 +2264,79 @@ cues: []
             ],
         )
         assert result.exit_code == 1
-        assert "sequence must be > 0" in result.output
+
+    def test_show_export_qxw_includes_scene_functions(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Qlc Show Rig.yaml").write_text(
+            """name: "Qlc Show Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 13
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Qlc Show.yaml").write_text(
+            """name: "Qlc Show"
+rig_name: "Qlc Show Rig"
+song:
+  title: "Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "Blue Hit"
+    section: "Intro"
+    timestamp: 0
+    fade_time: 2.0
+    attributes: {dimmer: "Full", color: "#3366FF"}
+"""
+        )
+        output = tmp_path / "show.qxw"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-qxw",
+                "Qlc Show",
+                "--output",
+                str(output),
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "QXW show exported" in result.output
+        assert "Scene functions: 1" in result.output
+        content = output.read_text(encoding="utf-8")
+        lines = content.splitlines()
+        xml_start = next(i for i, line in enumerate(lines) if "<Workspace" in line)
+        root = ET.fromstring("\n".join(lines[xml_start:]))
+        ns = "http://www.qlcplus.org/Workspace"
+        scene = root.find(f".//{{{ns}}}Function")
+        assert scene is not None
+        assert scene.get("Type") == "Scene"
+        assert scene.get("Name") == "1 Blue Hit"
+        assert scene.findtext(f"{{{ns}}}FixtureVal") == "255,51,102,255,51"
+        button = root.find(f".//{{{ns}}}VirtualConsole/{{{ns}}}Frame/{{{ns}}}Button")
+        assert button is not None
+        assert button.get("Caption") == "1 Blue Hit"
+        assert button.findtext(f"{{{ns}}}Function") == scene.get("ID")
 
 
 class TestShowSetVibe:

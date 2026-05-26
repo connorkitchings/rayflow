@@ -128,6 +128,7 @@ rayflow bridge send [OPTIONS]
 |---------|-------------|
 | `show export` | Export a dry-run-safe MA3 bundle |
 | `show export-mvr` | Export a show's rig as MVR |
+| `show export-qxw` | Export QLC+ workspace with cue Scene functions |
 | `show export-timecode` | Export MA3 Timecode XML |
 | `show push-to-ma3` | Push all show cues to MA3 via OSC |
 | `show push-section` | Push cues for one section to MA3 via OSC |

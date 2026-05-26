@@ -192,6 +192,7 @@ these candidate tracks:
 | Integrated visualization / critique loop | `rayflow show preview` and MCP `preview_show` build critique packets from context, effective presets, rendered DMX evidence, warnings, and review prompts | ✅ Done |
 | QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ✅ Done |
 | QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ✅ Done |
+| QLC+ show scene export | `rayflow show export-qxw` writes fixture patch, rendered cue Scene functions, and a basic Virtual Console button grid | ✅ Done |
 
 ---
 

@@ -252,6 +252,113 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         console.print(f"  Fixtures: {len(patches)}")
         console.print(f"  Scene: {rig.name}")
 
+    @show_app.command("export-qxw")
+    def show_export_qxw(
+        show_name: str | None = typer.Argument(None, help="Show name"),
+        output: Path = typer.Option(..., "--output", "-o", help="Output QXW file path"),
+        show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+        rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+        fixture_dir: str = typer.Option(
+            "data/fixtures", "--fixture-dir", help="Fixture directory"
+        ),
+        author: str = typer.Option(
+            "RayFlow", "--author", help="Author name for workspace"
+        ),
+        qxf_dir: Path | None = typer.Option(
+            None,
+            "--qxf-dir",
+            help="Also export QLC+ fixture definitions for the workspace",
+        ),
+    ) -> None:
+        """Export a QLC+ workspace with fixtures and cue Scene functions."""
+        show_name = resolve_show_name(show_name)
+        from rayflow.design.serializers import load_rig, load_show
+        from rayflow.engine.fixtures.library import FixtureLibrary
+        from rayflow.engine.fixtures.qlcplus_export import (
+            build_qlc_patch,
+            build_qlc_scene_from_rendered_cue,
+            export_qlcplus_workspace,
+        )
+        from rayflow.engine.fixtures.qlcplus_qxf import (
+            export_qlcplus_fixture_definitions,
+        )
+        from rayflow.engine.rendering import render_show_to_dmx
+
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
+            typer.echo(f"Error: Show not found: {show_name}", err=True)
+            raise typer.Exit(code=1)
+
+        show = load_show(path)
+        rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
+        if not rig_path.exists():
+            typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
+            raise typer.Exit(code=1)
+
+        rig = load_rig(rig_path)
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+
+        patches = []
+        parsers = []
+        for fixture_id, slot in enumerate(rig.fixtures):
+            parser = library.get(slot.fixture_name)
+            if parser is None:
+                typer.echo(
+                    f"Warning: Fixture not found: {slot.fixture_name}, skipping",
+                    err=True,
+                )
+                continue
+            parsers.append(parser)
+            mode_idx = 0
+            mode_names = parser.mode_names()
+            if slot.mode in mode_names:
+                mode_idx = mode_names.index(slot.mode)
+            patches.append(
+                build_qlc_patch(
+                    fixture_id=fixture_id,
+                    name=slot.label,
+                    manufacturer=parser.manufacturer,
+                    model=parser.name,
+                    mode=slot.mode,
+                    universe=slot.universe,
+                    address=slot.start_address,
+                    channel_count=parser.get_channel_count(mode_idx),
+                )
+            )
+
+        if not patches:
+            typer.echo("Error: No valid fixtures to export", err=True)
+            raise typer.Exit(code=1)
+
+        rendered_show = render_show_to_dmx(show, rig, fixture_dir)
+        functions = [
+            build_qlc_scene_from_rendered_cue(
+                rendered,
+                patches,
+                function_id=index,
+            )
+            for index, rendered in enumerate(rendered_show.rendered_cues)
+        ]
+
+        qxf_results = []
+        if qxf_dir is not None:
+            qxf_results = export_qlcplus_fixture_definitions(parsers, qxf_dir)
+
+        saved = export_qlcplus_workspace(
+            patches,
+            output,
+            functions=functions,
+            author=author,
+        )
+        console.print(f"[green]QXW show exported[/green] to {saved}")
+        console.print(f"  Show: {show.name}")
+        console.print(f"  Rig: {rig.name}")
+        console.print(f"  Fixtures: {len(patches)}")
+        console.print(f"  Scene functions: {len(functions)}")
+        if qxf_dir is not None:
+            console.print(f"  QXF definitions: {len(qxf_results)} in {qxf_dir}")
+
     @show_app.command("export-timecode")
     def show_export_timecode(
         show_name: str | None = typer.Argument(None, help="Show name"),

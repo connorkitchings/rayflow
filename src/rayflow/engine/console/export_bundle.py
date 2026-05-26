@@ -97,6 +97,7 @@ def export_show_bundle(
                 "grandMA3 .show.gz generation remains out of scope until the "
                 "binary format is proven writable."
             ),
+            "mvr_addressing": "rig slot universe and start_address",
             "timecode_xml_source": "captured grandMA3 onPC 2.3.2.0 event exports",
             "import_validation_required": True,
         },
@@ -121,18 +122,11 @@ def build_mvr_patches(rig: Rig, fixture_dir: str | Path):
     library.load()
 
     patches = []
-    address = 1
     for slot in rig.fixtures:
         parser = library.get(slot.fixture_name)
         if parser is None:
             continue
 
-        mode_idx = 0
-        mode_names = parser.mode_names()
-        if slot.mode in mode_names:
-            mode_idx = mode_names.index(slot.mode)
-
-        channel_count = parser.get_channel_count(mode_idx)
         pos = FixturePosition(
             name=slot.label,
             x=slot.position.x,
@@ -149,12 +143,11 @@ def build_mvr_patches(rig: Rig, fixture_dir: str | Path):
                 fixture_type=f"{parser.manufacturer}@{parser.name}",
                 dmx_mode=slot.mode,
                 universe=slot.universe,
-                address=address,
+                address=slot.start_address,
                 position=pos,
                 gdtf_file=gdtf_file,
             )
         )
-        address += channel_count
 
     return patches
 

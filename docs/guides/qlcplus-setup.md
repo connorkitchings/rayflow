@@ -25,9 +25,14 @@ CLI access:
 ```bash
 rayflow rig export-qxf "Practice Small Club" --output-dir exports/qlc/fixtures
 rayflow rig export-qxw "Practice Small Club" --output exports/qlc/workspace.qxw --qxf-dir exports/qlc/fixtures
+rayflow show export-qxw "Practice Show" --output exports/qlc/show-scenes.qxw --qxf-dir exports/qlc/fixtures
 rayflow show qlc-function --action list --json
 rayflow show qlc-function 10 --action start --execute
 ```
+
+Show-level QXW exports include QLC+ Scene functions generated from rendered
+RayFlow cues plus a simple Virtual Console button grid for playback. The QLC+
+function IDs are generated only inside the workspace export.
 
 For QLC+ 5.2.1 workspace imports, keep generated `.qxf` fixture definitions next
 to the `.qxw` workspace. QLC+ resolves sidecar fixture files using its

@@ -6,6 +6,7 @@ from xml.etree import ElementTree as ET
 from rayflow.engine.fixtures.qlcplus_export import (
     QlcFixturePatch,
     build_qlc_patch,
+    build_qlc_scene_function,
     build_qlcplus_workspace,
     export_qlcplus_workspace,
 )
@@ -256,6 +257,88 @@ def test_workspace_multi_universe_fixtures():
     assert len(fixtures) == 6
 
 
+def test_workspace_includes_scene_functions():
+    """Scene functions are exported in the Engine block."""
+    patches = _make_patches()
+    function = build_qlc_scene_function(
+        function_id=0,
+        name="1 Intro Look",
+        cue_number=1,
+        cue_label="Intro Look",
+        fixture_values={
+            0: [255, 128, 0, 0],
+            1: [0, 0, 255, 128],
+        },
+        fade_ms=250,
+    )
+
+    root = build_qlcplus_workspace(patches, functions=[function])
+    engine = root.find("Engine")
+    assert engine is not None
+    scene = engine.find("Function")
+    assert scene is not None
+    assert scene.get("ID") == "0"
+    assert scene.get("Type") == "Scene"
+    assert scene.get("Name") == "1 Intro Look"
+    speed = scene.find("Speed")
+    assert speed is not None
+    assert speed.get("FadeIn") == "250"
+    fixture_values = scene.findall("FixtureVal")
+    assert [(fv.get("ID"), fv.text) for fv in fixture_values] == [
+        ("0", "255,128,0,0"),
+        ("1", "0,0,255,128"),
+    ]
+
+
+def test_workspace_adds_virtual_console_buttons_for_scene_functions():
+    """Scene functions get export-only Virtual Console trigger buttons."""
+    patches = _make_patches()
+    functions = [
+        build_qlc_scene_function(
+            function_id=10,
+            name="Intro",
+            fixture_values={0: [255, 0, 0, 0]},
+        ),
+        build_qlc_scene_function(
+            function_id=11,
+            name="Verse",
+            fixture_values={0: [128, 0, 0, 0]},
+        ),
+    ]
+
+    root = build_qlcplus_workspace(patches, functions=functions)
+    virtual_console = root.find("VirtualConsole")
+    assert virtual_console is not None
+    frame = virtual_console.find("Frame")
+    assert frame is not None
+    buttons = frame.findall("Button")
+    assert [
+        (button.get("Caption"), button.findtext("Function")) for button in buttons
+    ] == [
+        ("Intro", "10"),
+        ("Verse", "11"),
+    ]
+
+
+def test_workspace_can_omit_virtual_console_buttons():
+    """Virtual Console output can be disabled for file-shape validation."""
+    patches = _make_patches()
+    function = build_qlc_scene_function(
+        function_id=10,
+        name="Intro",
+        fixture_values={0: [255, 0, 0, 0]},
+    )
+
+    root = build_qlcplus_workspace(
+        patches,
+        functions=[function],
+        virtual_console=False,
+    )
+
+    assert root.find("Engine/Function") is not None
+    assert root.find("VirtualConsole") is None
+
+
 # ---------------------------------------------------------------------------
 # export_qlcplus_workspace file I/O tests
 # ---------------------------------------------------------------------------
@@ -340,3 +423,31 @@ def test_export_accepts_string_path(tmp_path: Path):
     output_str = str(tmp_path / "workspace.qxw")
     result = export_qlcplus_workspace(patches, output_str)
     assert Path(result).exists()
+
+
+def test_export_scene_functions_roundtrip(tmp_path: Path):
+    """Exported Scene functions are parseable from a QXW file."""
+    patches = _make_patches()
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(
+        patches,
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=3,
+                name="Cue 3",
+                fixture_values={0: [10, 20, 30, 40]},
+            )
+        ],
+    )
+
+    content = output.read_text(encoding="utf-8")
+    ns = "http://www.qlcplus.org/Workspace"
+    lines = content.splitlines()
+    xml_start = next(i for i, line in enumerate(lines) if "<Workspace" in line)
+    root = ET.fromstring("\n".join(lines[xml_start:]))
+    scene = root.find(f".//{{{ns}}}Function")
+
+    assert scene is not None
+    assert scene.get("Type") == "Scene"
+    assert scene.findtext(f"{{{ns}}}FixtureVal") == "10,20,30,40"
