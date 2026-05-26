@@ -29,9 +29,17 @@ Supported styles are:
 - `front-back` — splits numeric fixture channel groups into front and back looks.
 - `vibe-palette` — uses the show vibe palette, with a documented fallback when no
   vibe exists.
+- `look-ambient` — lower-intensity, stable complete looks.
+- `look-groove` — medium-energy looks with slow movement and modest texture.
+- `look-peak` — high-energy beam, shutter, movement, and gobo looks when the rig
+  supports them.
+- `look-psychedelic` — saturated movement and gobo texture looks for jam peaks.
 
 Generated cues intentionally stay inside the current renderer-safe authoring
-surface: dimmer, color, channels, preset, and fade time.
+surface. The complete-look styles add only attributes the renderer already
+supports, such as dimmer, color, pan/tilt, zoom, focus, shutter, gobo,
+`movement.*`, `gobo.speed`, and `gobo.rotation`. Unsupported fixture families
+are skipped instead of forcing warnings.
 
 ## Apply A Plan
 
@@ -68,6 +76,38 @@ uv run rayflow show workflow-report phase9_practice_show \
 
 Live output remains gated through `workflow-report --execute`,
 `output-cue --execute`, or `output-section --execute`.
+
+For the QLC+ path, export and validate the show workspace:
+
+```bash
+uv run rayflow show export-qxw phase9_practice_show \
+  --dir data/shows/samples \
+  --fixture-dir data/fixtures/samples \
+  --output exports/qlc/phase9_practice_show.qxw \
+  --qxf-dir exports/qlc/fixtures
+
+uv run rayflow show validate-qxw exports/qlc/phase9_practice_show.qxw \
+  --qxf-dir exports/qlc \
+  --json
+```
+
+After opening the workspace in QLC+ with WebSocket access enabled, add `--live`
+to compare the exported Scene names against QLC+'s imported function list.
+
+## Planned Refinement Loop
+
+The next authoring step is feedback-driven refinement. The intended flow is:
+
+1. Generate or apply cues with `plan-cues`.
+2. Export and validate QLC+ with `export-qxw` and `validate-qxw`.
+3. User reviews the result and gives critique such as "too busy," "less
+   movement," "more psychedelic," or "make the chorus bigger."
+4. RayFlow proposes targeted cue edits for the affected sections, preserving
+   unrelated cues.
+5. The AI applies only after review, then reruns preview/export validation.
+
+The implementation should remain proposal-first and reuse existing cue fields
+and `look-*` styles rather than introducing a new persistent show schema.
 
 ## Compatibility
 

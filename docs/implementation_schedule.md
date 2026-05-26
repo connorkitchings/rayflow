@@ -193,6 +193,27 @@ these candidate tracks:
 | QLC+ fixture definition exporter | GDTF → `.qxf` translator for QLC+ fixture library integration | ✅ Done |
 | QLC+ function/scene triggers | Extend `QlcPlusBackend` to query/trigger Scenes, Chases, Sequences via WebSocket | ✅ Done |
 | QLC+ show scene export | `rayflow show export-qxw` writes fixture patch, rendered cue Scene functions, and a basic Virtual Console button grid | ✅ Done |
+| Preset-driven complete looks | `rayflow show plan-cues` supports capability-aware `look-*` styles combining movement, beam, gobo, shutter, dimmer, and color | ✅ Done |
+| QLC+ export validation report | `rayflow show validate-qxw` inspects generated QXW Scene/Button linkage, optional QXF fixture definitions, and live QLC+ function evidence with `--live` | ✅ Done |
+
+---
+
+## Next Product Steps
+
+These are the next implementation tracks after QLC+ show export, complete-look
+authoring, and live import validation.
+
+| Track | Goal | Plan | Status |
+|-------|------|------|--------|
+| QLC+ Virtual Console button proof | Prove generated buttons trigger the exported Scene functions, not just that functions import | Add a validation path that starts a generated function or button-equivalent action through QLC+ WebSocket, captures function status and/or queried channel values, and records `observed_matches` evidence in the validation report | ☐ Not Started |
+| Feedback-driven cue refinement | Let the user critique an existing generated show in plain language and have RayFlow revise cues instead of regenerating from scratch | Add a proposal/apply refinement command that accepts a critique intent such as `less-movement`, `more-psychedelic`, `bigger-chorus`, or `too-busy`; maps it to existing `look-*` styles and safe attribute transforms; preserves unaffected sections; then runs preview/QXW validation | ☐ Not Started |
+| Recording/export workflow | Make the final “record the show” path repeatable after QLC+ validation succeeds | Document and/or automate the handoff from a validated QLC+ workspace to recording: open QXW, verify live function list, trigger scenes in order, capture output via QLC+/visualizer/screen recording, and store a report linking the recording to the show/export artifacts | ☐ Not Started |
+
+Recommended order:
+
+1. Finish QLC+ Virtual Console button proof.
+2. Build feedback-driven cue refinement on top of proven `look-*` generation.
+3. Turn the validated playback path into a recording/export workflow.
 
 ---
 

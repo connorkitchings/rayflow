@@ -51,6 +51,7 @@ SHOW_COMMANDS = [
     "set-vibe",
     "update-cue",
     "update-section",
+    "validate-qxw",
     "versions",
     "workflow-report",
 ]
@@ -1697,6 +1698,36 @@ class TestShowPlanCues:
         assert result.exit_code == 1
         assert "cues_per_section must be >= 1" in result.output
 
+    def test_plan_cues_complete_look_style_outputs_json(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "plan-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--section",
+                "Chorus",
+                "--style",
+                "look-ambient",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["style"] == "look-ambient"
+        assert payload["proposed_cues"][0]["label"] == "Chorus Ambient Hold"
+
 
 class TestShowBatchUpdateCues:
     def test_batch_update(self, tmp_path: Path) -> None:
@@ -2337,6 +2368,173 @@ cues:
         assert button is not None
         assert button.get("Caption") == "1 Blue Hit"
         assert button.findtext(f"{{{ns}}}Function") == scene.get("ID")
+
+    def test_show_export_qxw_copies_qxf_beside_workspace(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Qlc Show Rig.yaml").write_text(
+            """name: "Qlc Show Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 13
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Qlc Show.yaml").write_text(
+            """name: "Qlc Show"
+rig_name: "Qlc Show Rig"
+song:
+  title: "Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "Blue Hit"
+    section: "Intro"
+    timestamp: 0
+    attributes: {dimmer: "Full", color: "#3366FF"}
+"""
+        )
+        qxf_dir = tmp_path / "fixtures"
+        workspace_dir = tmp_path / "workspace"
+        output = workspace_dir / "show.qxw"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-qxw",
+                "Qlc Show",
+                "--output",
+                str(output),
+                "--qxf-dir",
+                str(qxf_dir),
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert list(qxf_dir.glob("*.qxf"))
+        assert list(workspace_dir.glob("*.qxf"))
+        assert "QXF workspace copies: 1" in result.output
+
+    def test_show_validate_qxw_outputs_report(self, tmp_path: Path) -> None:
+        from rayflow.engine.fixtures.qlcplus_export import (
+            build_qlc_patch,
+            build_qlc_scene_function,
+            export_qlcplus_workspace,
+        )
+
+        output = tmp_path / "show.qxw"
+        export_qlcplus_workspace(
+            [
+                build_qlc_patch(
+                    fixture_id=0,
+                    name="PAR 1",
+                    manufacturer="TestCo",
+                    model="LED PAR",
+                    mode="Default",
+                    universe=0,
+                    address=1,
+                    channel_count=4,
+                )
+            ],
+            output,
+            functions=[
+                build_qlc_scene_function(
+                    function_id=1,
+                    name="Cue 1",
+                    fixture_values={0: [255, 0, 0, 0]},
+                )
+            ],
+        )
+
+        result = runner.invoke(
+            app,
+            ["show", "validate-qxw", str(output), "--json"],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["fixture_count"] == 1
+        assert payload["scene_function_count"] == 1
+        assert payload["virtual_console_button_count"] == 1
+        assert payload["readiness"]["status"] == "ready"
+
+    def test_show_validate_qxw_live_report(self, tmp_path: Path, monkeypatch) -> None:
+        from rayflow.engine.fixtures.qlcplus_export import (
+            build_qlc_patch,
+            build_qlc_scene_function,
+            export_qlcplus_workspace,
+        )
+
+        output = tmp_path / "show.qxw"
+        export_qlcplus_workspace(
+            [
+                build_qlc_patch(
+                    fixture_id=0,
+                    name="PAR 1",
+                    manufacturer="TestCo",
+                    model="LED PAR",
+                    mode="Default",
+                    universe=0,
+                    address=1,
+                    channel_count=4,
+                )
+            ],
+            output,
+            functions=[
+                build_qlc_scene_function(
+                    function_id=1,
+                    name="Cue 1",
+                    fixture_values={0: [255, 0, 0, 0]},
+                )
+            ],
+        )
+
+        class FakeBackend:
+            def __init__(self, endpoint: str) -> None:
+                self.endpoint = endpoint
+
+            def query_functions(self, timeout: float = 1.0):
+                from rayflow.engine.backends.dmx import BackendEvidence
+
+                return BackendEvidence(
+                    backend="qlcplus",
+                    operation="query-functions",
+                    mode="query",
+                    target=self.endpoint,
+                    frames=[],
+                    observed={"functions": [{"id": 1, "name": "Cue 1"}]},
+                )
+
+        monkeypatch.setattr("rayflow.engine.backends.QlcPlusBackend", FakeBackend)
+
+        result = runner.invoke(
+            app,
+            ["show", "validate-qxw", str(output), "--live", "--json"],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["live"]["function_count"] == 1
+        assert payload["live"]["function_names"] == ["Cue 1"]
+        assert payload["live"]["missing_scene_names"] == []
+        assert payload["readiness"]["status"] == "ready"
 
 
 class TestShowSetVibe:

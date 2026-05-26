@@ -600,6 +600,9 @@ def show_plan_cues(
     ),
     show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
     rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Plan or apply deterministic renderer-safe cues for any show."""
@@ -626,6 +629,7 @@ def show_plan_cues(
             section_name=section,
             style=style,
             cues_per_section=cues_per_section,
+            fixture_dir=fixture_dir,
             apply=apply,
         )
     except ValueError as e:
@@ -763,6 +767,73 @@ def show_preview(
     console.print(f"Cues: {len(packet.selected_cues)}")
     if output is not None:
         console.print(f"Written: {output}")
+
+
+@show_app.command("validate-qxw")
+def show_validate_qxw(
+    workspace: Path = typer.Argument(..., help="Generated QLC+ .qxw workspace"),
+    qxf_dir: Path | None = typer.Option(
+        None,
+        "--qxf-dir",
+        help="Optional QLC+ fixture definition directory to check",
+    ),
+    live: bool = typer.Option(
+        False,
+        "--live",
+        help="Also query a running QLC+ WebSocket endpoint for imported functions",
+    ),
+    endpoint: str = typer.Option(
+        "ws://127.0.0.1:9999/qlcplusWS", "--endpoint", help="QLC+ WebSocket endpoint"
+    ),
+    timeout: float = typer.Option(1.0, "--timeout", help="WebSocket timeout seconds"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Validate a generated QLC+ show workspace."""
+    from rayflow.engine.fixtures.qlcplus_export import validate_qlcplus_workspace
+
+    live_functions = None
+    if live:
+        from rayflow.engine.backends import QlcPlusBackend
+
+        evidence = QlcPlusBackend(endpoint=endpoint).query_functions(timeout=timeout)
+        live_functions = evidence.observed.get("functions")
+        if not isinstance(live_functions, list):
+            live_functions = []
+
+    report = validate_qlcplus_workspace(
+        workspace,
+        qxf_dir=qxf_dir,
+        live_functions=live_functions,
+    )
+    payload = report.as_dict()
+    if live:
+        payload["live"]["endpoint"] = endpoint
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    status = payload["readiness"]["status"]
+    color = "green" if status == "ready" else "yellow"
+    console.print(f"[bold {color}]QXW validation {status}[/bold {color}] {workspace}")
+    console.print(f"Fixtures: {report.fixture_count}")
+    console.print(f"Scene functions: {report.scene_function_count}")
+    console.print(f"Virtual Console buttons: {report.virtual_console_button_count}")
+    console.print(f"Linked buttons: {report.linked_button_count}")
+    if live:
+        console.print(f"Live functions: {report.live_function_count}")
+    if report.missing_function_links:
+        console.print(
+            f"[yellow]Missing links: {len(report.missing_function_links)}[/yellow]"
+        )
+    if report.missing_fixture_definitions:
+        console.print(
+            f"[yellow]Missing QXF definitions: "
+            f"{len(report.missing_fixture_definitions)}[/yellow]"
+        )
+    if report.warnings:
+        console.print(f"[yellow]Warnings: {len(report.warnings)}[/yellow]")
+    if report.live_warnings:
+        console.print(f"[yellow]Live warnings: {len(report.live_warnings)}[/yellow]")
 
 
 @show_app.command("workflow-report")

@@ -223,6 +223,8 @@ presets: {}
         assert result.exit_code == 0
         assert output.exists()
         assert list(qxf_dir.glob("*.qxf"))
+        assert list(output.parent.glob("*.qxf"))
+        assert "QXF workspace copies: 1" in result.output
         assert "FixtureDefinition" not in output.read_text(encoding="UTF-8")
 
 

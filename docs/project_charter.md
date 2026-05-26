@@ -81,9 +81,14 @@ These are implementation details that make the design loop possible — they are
 
 ### What's Next (Priority Order)
 
-1. **Console show file export** — Produce files that import into MA3 onPC or other offline editors
-2. **Record/export** — Capture the finished show in a standard format
-3. **Rig/palette/preview hardening** — Expand fixture choices, palette quality, critique quality, and prompt/context grounding after V1 feedback
+1. **QLC+ playback proof** — Prove generated Virtual Console buttons trigger
+   imported Scene functions with observed function status or channel evidence.
+2. **Feedback-driven refinement** — Turn user critique like "too busy," "more
+   psychedelic," or "less movement" into proposal-first cue edits.
+3. **Record/export workflow** — Capture the finished show after the QLC+
+   workspace has passed static and live validation.
+4. **Console compatibility hardening** — Continue MA3/MVR/timecode export work
+   as a compatibility track, not the main blocker for the product loop.
 
 ### Out of Scope
 

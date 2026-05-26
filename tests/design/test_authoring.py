@@ -12,6 +12,9 @@ from rayflow.design.models import (
     Venue,
     Vibe,
 )
+from rayflow.engine.rendering import render_cue_to_dmx
+
+SAMPLE_FIXTURE_DIR = "data/fixtures/samples"
 
 
 def _rig() -> Rig:
@@ -23,6 +26,17 @@ def _rig() -> Rig:
             FixtureSlot("LED PAR 64 RGBW", "Default", "PAR 2", 0, 6, channels="2"),
             FixtureSlot("LED PAR 64 RGBW", "Default", "PAR 3", 0, 11, channels="3"),
             FixtureSlot("LED PAR 64 RGBW", "Default", "PAR 4", 0, 16, channels="4"),
+        ],
+    )
+
+
+def _moving_rig() -> Rig:
+    return Rig(
+        name="Moving Rig",
+        venue=Venue(name="Room", dimensions=(10, 6, 4)),
+        fixtures=[
+            FixtureSlot("Robin MMX Blade", "Mode 1", "Spot 1", 0, 1, channels="1"),
+            FixtureSlot("Robin MMX Blade", "Mode 1", "Spot 2", 0, 41, channels="2"),
         ],
     )
 
@@ -188,3 +202,77 @@ def test_plan_cues_with_movement_and_gobo_attributes() -> None:
     show.cues.append(cue)
     plan = plan_cues(show, rig, section_name="Intro", style="energy-arc", apply=True)
     assert not plan.warnings
+
+
+def test_plan_cues_complete_look_styles_are_capability_aware() -> None:
+    show = _show()
+    rig = _moving_rig()
+
+    for style in ("look-ambient", "look-groove", "look-peak", "look-psychedelic"):
+        plan = plan_cues(
+            show,
+            rig,
+            section_name="Chorus",
+            style=style,
+            fixture_dir=SAMPLE_FIXTURE_DIR,
+        )
+        assert not plan.warnings
+        assert len(plan.proposed_cues) == 2
+        attributes = set().union(*(cue.attributes for cue in plan.proposed_cues))
+        assert {"dimmer", "color"} <= attributes
+        assert attributes <= {
+            "dimmer",
+            "color",
+            "pan",
+            "tilt",
+            "zoom",
+            "focus",
+            "shutter",
+            "gobo",
+            "movement.type",
+            "movement.center",
+            "movement.size",
+            "movement.speed",
+            "gobo.speed",
+            "gobo.rotation",
+        }
+
+
+def test_plan_cues_complete_looks_skip_unsupported_par_attributes() -> None:
+    plan = plan_cues(
+        _show(),
+        _rig(),
+        section_name="Chorus",
+        style="look-peak",
+        fixture_dir=SAMPLE_FIXTURE_DIR,
+    )
+
+    assert not plan.warnings
+    for cue in plan.proposed_cues:
+        assert set(cue.attributes) == {"dimmer", "color"}
+
+
+def test_plan_cues_complete_look_renders_without_unsupported_warnings() -> None:
+    show = _show()
+    rig = _moving_rig()
+    plan = plan_cues(
+        show,
+        rig,
+        section_name="Chorus",
+        style="look-peak",
+        fixture_dir=SAMPLE_FIXTURE_DIR,
+    )
+
+    rendered = [
+        render_cue_to_dmx(show, rig, cue, fixture_dir=SAMPLE_FIXTURE_DIR)
+        for cue in plan.proposed_cues
+    ]
+
+    warning_messages = [
+        warning.message for cue_render in rendered for warning in cue_render.warnings
+    ]
+    assert not [
+        message
+        for message in warning_messages
+        if "Unsupported attribute family" in message
+    ]

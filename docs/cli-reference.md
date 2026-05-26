@@ -120,6 +120,7 @@ rayflow bridge send [OPTIONS]
 | `show plan-palettes` | Plan or apply generated show-specific palette overrides |
 | `show plan-practice-cues` | Plan or apply deterministic practice cues |
 | `show preview` | Build a dry-run preview packet for critique |
+| `show validate-qxw` | Validate generated QLC+ Scene/Button workspace structure, optionally with live WebSocket function evidence |
 | `show workflow-report` | Build a dry-run practice workflow report |
 
 ### Export and Compatibility
@@ -138,6 +139,7 @@ rayflow bridge send [OPTIONS]
 | Command | Description |
 |---------|-------------|
 | `show qlc-function` | QLC+ WebSocket function/scene query and gated trigger |
+| `show validate-qxw` | Static or live QLC+ QXW import-readiness report |
 
 ## console — grandMA3 onPC Control
 

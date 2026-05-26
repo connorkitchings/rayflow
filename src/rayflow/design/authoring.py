@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Literal
 
 from rayflow.design.cue_generator import auto_number_cues
@@ -17,6 +18,10 @@ AuthoringStyle = Literal[
     "movement-circle",
     "movement-figure8",
     "beam-chase",
+    "look-ambient",
+    "look-groove",
+    "look-peak",
+    "look-psychedelic",
 ]
 
 SUPPORTED_AUTHORING_STYLES: tuple[AuthoringStyle, ...] = (
@@ -28,6 +33,10 @@ SUPPORTED_AUTHORING_STYLES: tuple[AuthoringStyle, ...] = (
     "movement-circle",
     "movement-figure8",
     "beam-chase",
+    "look-ambient",
+    "look-groove",
+    "look-peak",
+    "look-psychedelic",
 )
 SUPPORTED_ATTRIBUTES = frozenset(
     {
@@ -89,6 +98,7 @@ def plan_cues(
     section_name: str = "all",
     style: str = "energy-arc",
     cues_per_section: int = 2,
+    fixture_dir: str | Path = "data/fixtures/samples",
     apply: bool = False,
 ) -> CueAuthoringPlan:
     """Plan or apply deterministic renderer-safe cues for any RayFlow show."""
@@ -112,6 +122,7 @@ def plan_cues(
         cue_style,
         cues_per_section,
         warnings,
+        fixture_dir,
     )
     warnings.extend(_plan_warnings(proposed))
     next_command = (
@@ -165,6 +176,7 @@ def _generate_cues(
     style: AuthoringStyle,
     cues_per_section: int,
     warnings: list[str],
+    fixture_dir: str | Path,
 ) -> list[Cue]:
     cues: list[Cue] = []
     next_number = 1
@@ -173,9 +185,17 @@ def _generate_cues(
         warnings.append(
             "Rig has no fixture channel groups; using broad channel fallback."
         )
+    capabilities = _rig_capabilities(rig, fixture_dir, warnings)
 
     for section in sections:
-        looks = _section_looks(show, section, style, cues_per_section, warnings)
+        looks = _section_looks(
+            show,
+            section,
+            style,
+            cues_per_section,
+            warnings,
+            capabilities,
+        )
         for index, look in enumerate(looks):
             timestamp = _cue_timestamp(show, section, index, len(looks))
             cues.append(
@@ -209,6 +229,7 @@ def _section_looks(
     style: AuthoringStyle,
     cues_per_section: int,
     warnings: list[str],
+    capabilities: dict[str, bool],
 ) -> list[dict[str, str | int | float]]:
     energy = section.energy if section.energy is not None else 0.5
     dimmer = _energy_to_dimmer(energy)
@@ -260,6 +281,112 @@ def _section_looks(
             _look("Beam Wide", dimmer, _energy_color(energy), 0.5, zoom=100),
             _look("Beam Narrow", secondary, _energy_lift_color(energy), 0.5, zoom=0),
         ]
+    elif style == "look-ambient":
+        seeds = [
+            _complete_look(
+                "Ambient Hold",
+                max(20, dimmer - 18),
+                _soft_color(show, energy),
+                3.0,
+                capabilities,
+                preset=_generated_preset(show, "rf_low_wash"),
+                pan=50,
+                tilt=45,
+                zoom=100,
+                focus=65,
+            ),
+            _complete_look(
+                "Ambient Lift",
+                max(25, dimmer - 10),
+                "#3366FF",
+                2.5,
+                capabilities,
+                preset=_generated_preset(show, "rf_cool_back"),
+                pan=50,
+                tilt=55,
+                zoom=85,
+            ),
+        ]
+    elif style == "look-groove":
+        seeds = [
+            _complete_look(
+                "Groove Sweep",
+                max(45, dimmer),
+                _energy_color(energy),
+                1.0,
+                capabilities,
+                preset=_generated_preset(show, "rf_full_wash"),
+                **_movement_attrs("sine", speed=0.5, size="18,8"),
+                zoom=45,
+                gobo=35,
+            ),
+            _complete_look(
+                "Groove Texture",
+                secondary,
+                _energy_lift_color(energy),
+                1.0,
+                capabilities,
+                **_movement_attrs("circle", speed=0.35, size="14"),
+                zoom=35,
+                gobo=45,
+            ),
+        ]
+    elif style == "look-peak":
+        seeds = [
+            _complete_look(
+                "Peak Blast",
+                100,
+                "White",
+                0.35,
+                capabilities,
+                preset=_generated_preset(show, "rf_beam_narrow"),
+                **_movement_attrs("circle", speed=1.0, size="25"),
+                zoom=0,
+                shutter=100,
+                gobo=65,
+                **_gobo_motion_attrs(capabilities, speed=70, rotation=35),
+            ),
+            _complete_look(
+                "Peak Color Hit",
+                95,
+                "#00CCFF",
+                0.5,
+                capabilities,
+                **_movement_attrs("figure8", speed=0.9, size="25,18"),
+                zoom=12,
+                shutter=80,
+                gobo=80,
+                **_gobo_motion_attrs(capabilities, speed=85, rotation=65),
+            ),
+        ]
+    elif style == "look-psychedelic":
+        colors = _vibe_colors(show, warnings)
+        seeds = [
+            _complete_look(
+                "Psychedelic Orbit",
+                secondary,
+                colors[0],
+                0.75,
+                capabilities,
+                preset=_generated_preset(show, "rf_gobo_slow"),
+                **_movement_attrs("circle", speed=0.65, size="30"),
+                zoom=20,
+                gobo=55,
+                **_gobo_motion_attrs(capabilities, speed=55, rotation=25),
+            ),
+            _complete_look(
+                "Psychedelic Figure 8",
+                min(100, secondary + 8),
+                colors[1 % len(colors)],
+                0.75,
+                capabilities,
+                **_movement_attrs("figure8", speed=0.75, size="28,20"),
+                zoom=10,
+                shutter=45,
+                gobo=75,
+                **_gobo_motion_attrs(capabilities, speed=75, rotation=80),
+            ),
+        ]
     else:
         seeds = [
             _look("Energy Base", dimmer, _energy_color(energy), 2.0),
@@ -294,6 +421,58 @@ def _look(
         result["preset"] = preset
     result.update(kwargs)
     return result
+
+
+def _complete_look(
+    label: str,
+    dimmer: int,
+    color: str,
+    fade_time: float,
+    capabilities: dict[str, bool],
+    preset: str | None = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    filtered: dict[str, Any] = {}
+    for key, value in kwargs.items():
+        if key in {"pan", "tilt"} and not capabilities["position"]:
+            continue
+        if key in {"zoom", "focus", "shutter"} and not capabilities["beam"]:
+            continue
+        if key.startswith("movement.") and not capabilities["position"]:
+            continue
+        if key.startswith("gobo") and not capabilities["gobo"]:
+            continue
+        filtered[key] = value
+    return _look(label, dimmer, color, fade_time, preset, **filtered)
+
+
+def _movement_attrs(
+    movement_type: str,
+    *,
+    speed: float,
+    size: str,
+    center: str = "50,50",
+) -> dict[str, str]:
+    return {
+        "movement.type": movement_type,
+        "movement.center": center,
+        "movement.size": size,
+        "movement.speed": str(speed),
+    }
+
+
+def _gobo_motion_attrs(
+    capabilities: dict[str, bool],
+    *,
+    speed: int,
+    rotation: int,
+) -> dict[str, str]:
+    if not capabilities["gobo"]:
+        return {}
+    return {
+        "gobo.speed": f"{speed}%",
+        "gobo.rotation": f"{rotation}%",
+    }
 
 
 def _fit_look_count(
@@ -369,6 +548,50 @@ def _vibe_colors(show: Show, warnings: list[str]) -> list[str]:
         return list(show.vibe.palette.colors)
     warnings.append("Show has no vibe palette; using fallback authoring colors.")
     return list(FALLBACK_PALETTE)
+
+
+def _soft_color(show: Show, energy: float) -> str:
+    if show.vibe is not None and show.vibe.palette.colors:
+        return show.vibe.palette.colors[0]
+    return "Warm Amber" if energy < 0.6 else "#3366FF"
+
+
+def _generated_preset(show: Show, name: str) -> str | None:
+    return name if name in show.preset_overrides else None
+
+
+def _rig_capabilities(
+    rig: Rig,
+    fixture_dir: str | Path,
+    warnings: list[str],
+) -> dict[str, bool]:
+    capabilities = {"position": False, "beam": False, "gobo": False}
+    try:
+        from rayflow.design.presets import fixture_supports_attribute
+        from rayflow.engine.fixtures.library import FixtureLibrary
+
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError) as exc:
+        warnings.append(f"Fixture library could not be loaded: {exc}")
+        return capabilities
+
+    for slot in rig.fixtures:
+        parser = library.get(slot.fixture_name)
+        if parser is None:
+            warnings.append(
+                f"Fixture not found for authoring capability check: {slot.fixture_name}"
+            )
+            continue
+        mode_idx = 0
+        mode_names = parser.mode_names()
+        if slot.mode in mode_names:
+            mode_idx = mode_names.index(slot.mode)
+        for family in capabilities:
+            capabilities[family] = capabilities[family] or fixture_supports_attribute(
+                parser, mode_idx, family
+            )
+    return capabilities
 
 
 def _fixture_channel_groups(rig: Rig) -> list[str]:

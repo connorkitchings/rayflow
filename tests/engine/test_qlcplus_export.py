@@ -8,7 +8,9 @@ from rayflow.engine.fixtures.qlcplus_export import (
     build_qlc_patch,
     build_qlc_scene_function,
     build_qlcplus_workspace,
+    copy_qxf_files_for_workspace,
     export_qlcplus_workspace,
+    validate_qlcplus_workspace,
 )
 
 # ---------------------------------------------------------------------------
@@ -451,3 +453,145 @@ def test_export_scene_functions_roundtrip(tmp_path: Path):
     assert scene is not None
     assert scene.get("Type") == "Scene"
     assert scene.findtext(f"{{{ns}}}FixtureVal") == "10,20,30,40"
+
+
+def test_validate_workspace_reports_scene_button_readiness(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=3,
+                name="Cue 3",
+                fixture_values={0: [10, 20, 30, 40]},
+            )
+        ],
+    )
+
+    report = validate_qlcplus_workspace(output)
+
+    assert report.fixture_count == 2
+    assert report.scene_function_count == 1
+    assert report.virtual_console_button_count == 1
+    assert report.linked_button_count == 1
+    assert report.as_dict()["readiness"]["status"] == "ready"
+
+
+def test_validate_workspace_reports_missing_button_link(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=3,
+                name="Cue 3",
+                fixture_values={0: [10, 20, 30, 40]},
+            )
+        ],
+    )
+    content = output.read_text(encoding="utf-8").replace(
+        "<Function>3</Function>", "<Function>99</Function>"
+    )
+    output.write_text(content, encoding="utf-8")
+
+    report = validate_qlcplus_workspace(output)
+
+    assert report.linked_button_count == 0
+    assert report.missing_function_links == ["Cue 3 -> 99"]
+    assert report.as_dict()["readiness"]["status"] == "warnings"
+
+
+def test_validate_workspace_reports_missing_scene_functions(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(_make_patches(), output)
+
+    report = validate_qlcplus_workspace(output)
+
+    assert report.scene_function_count == 0
+    assert "no Scene functions" in report.warnings[0]
+
+
+def test_validate_workspace_reports_malformed_xml(tmp_path: Path) -> None:
+    output = tmp_path / "broken.qxw"
+    output.write_text("<Workspace><Engine>", encoding="utf-8")
+
+    report = validate_qlcplus_workspace(output)
+
+    assert report.fixture_count == 0
+    assert "Malformed QXW XML" in report.warnings[0]
+
+
+def test_validate_workspace_checks_optional_qxf_dir(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    qxf_dir = tmp_path / "fixtures"
+    qxf_dir.mkdir()
+    export_qlcplus_workspace(_make_patches(), output)
+
+    report = validate_qlcplus_workspace(output, qxf_dir=qxf_dir)
+
+    assert report.missing_fixture_definitions == ["TestCo-LED-PAR.qxf"]
+
+
+def test_validate_workspace_compares_live_functions(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=3,
+                name="Cue 3",
+                fixture_values={0: [10, 20, 30, 40]},
+            )
+        ],
+    )
+
+    report = validate_qlcplus_workspace(
+        output,
+        live_functions=[{"id": 3, "name": "Cue 3"}],
+    )
+
+    assert report.live_function_count == 1
+    assert report.live_function_names == ["Cue 3"]
+    assert report.live_missing_scene_names == []
+    assert report.as_dict()["readiness"]["status"] == "ready"
+
+
+def test_validate_workspace_reports_missing_live_scene(tmp_path: Path) -> None:
+    output = tmp_path / "workspace.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=3,
+                name="Cue 3",
+                fixture_values={0: [10, 20, 30, 40]},
+            )
+        ],
+    )
+
+    report = validate_qlcplus_workspace(output, live_functions=[])
+
+    assert report.live_missing_scene_names == ["Cue 3"]
+    assert report.live_warnings
+    assert report.as_dict()["readiness"]["status"] == "warnings"
+
+
+def test_copy_qxf_files_for_workspace(tmp_path: Path) -> None:
+    source_dir = tmp_path / "qxf"
+    source_dir.mkdir()
+    source = source_dir / "Fixture.qxf"
+    source.write_text("<FixtureDefinition />", encoding="utf-8")
+    workspace = tmp_path / "workspace" / "show.qxw"
+
+    class Result:
+        path = source
+
+    copies = copy_qxf_files_for_workspace([Result()], workspace)
+
+    assert copies[0].copied is True
+    assert copies[0].destination == workspace.parent / source.name
+    assert copies[0].destination.exists()

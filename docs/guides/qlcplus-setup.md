@@ -23,21 +23,31 @@ The QLC+ support lives in `src/rayflow/engine/fixtures/qlcplus_export.py`,
 CLI access:
 
 ```bash
-rayflow rig export-qxf "Practice Small Club" --output-dir exports/qlc/fixtures
-rayflow rig export-qxw "Practice Small Club" --output exports/qlc/workspace.qxw --qxf-dir exports/qlc/fixtures
-rayflow show export-qxw "Practice Show" --output exports/qlc/show-scenes.qxw --qxf-dir exports/qlc/fixtures
+rayflow rig export-qxf "Practice Small Club" --output-dir exports/qlc
+rayflow rig export-qxw "Practice Small Club" --output exports/qlc/workspace.qxw --qxf-dir exports/qlc
+rayflow show export-qxw "Practice Show" --output exports/qlc/show-scenes.qxw --qxf-dir exports/qlc
+rayflow show validate-qxw exports/qlc/show-scenes.qxw --qxf-dir exports/qlc --json
+rayflow show validate-qxw exports/qlc/show-scenes.qxw --live --json
 rayflow show qlc-function --action list --json
 rayflow show qlc-function 10 --action start --execute
 ```
 
 Show-level QXW exports include QLC+ Scene functions generated from rendered
 RayFlow cues plus a simple Virtual Console button grid for playback. The QLC+
-function IDs are generated only inside the workspace export.
+function IDs are generated only inside the workspace export. Validate the
+workspace before import to catch missing Scene functions, broken button links,
+or missing generated QXF fixture definitions. When `--qxf-dir` points somewhere
+other than the workspace directory, RayFlow also copies the generated `.qxf`
+files beside the `.qxw` so direct QLC+ file opening can resolve fixtures.
 
 For QLC+ 5.2.1 workspace imports, keep generated `.qxf` fixture definitions next
 to the `.qxw` workspace. QLC+ resolves sidecar fixture files using its
 `Manufacturer-Model.qxf` fallback name, such as
 `BlenderDMX-LED-PAR-64-RGBW.qxf`.
+
+After opening the workspace in QLC+ with WebSocket access enabled, run
+`show validate-qxw --live --json` to merge the static QXW checks with QLC+'s
+observed function list.
 
 ## Installing QLC+
 

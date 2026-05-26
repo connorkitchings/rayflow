@@ -4,9 +4,11 @@ This guide walks through the complete workflow: load a song, program lighting cu
 
 ## Prerequisites
 
-- grandMA3 onPC with a rig loaded (see [Building a Rig](./building-a-rig.md))
-- A song you want to light (audio file)
 - RayFlow installed
+- A song you want to light
+- A generated RayFlow show and rig
+- For the current validated path: QLC+ 5.2.1 with WebSocket access enabled
+- Optional compatibility path: grandMA3 onPC with a rig loaded
 
 ## Step 1: Listen and Analyze the Song
 
@@ -86,14 +88,44 @@ Use `--style vibe-palette` to draw colors from the show's vibe instead of specif
 
 For more detail, see the [AI Interaction Contract](../ai_interaction_contract.md).
 
-## Step 8: Rehearse the Show
+## Step 8: Export And Validate QLC+
+
+Export the generated show into a QLC+ workspace:
+
+```bash
+uv run rayflow show export-qxw my_show \
+  --rig-dir data/rigs \
+  --fixture-dir data/fixtures/samples \
+  --output exports/qlc/my_show.qxw \
+  --qxf-dir exports/qlc/fixtures
+```
+
+RayFlow copies generated `.qxf` fixture definitions beside the `.qxw` workspace
+for direct QLC+ opening. Validate the file before opening it:
+
+```bash
+uv run rayflow show validate-qxw exports/qlc/my_show.qxw \
+  --qxf-dir exports/qlc \
+  --json
+```
+
+Open the workspace in QLC+ with WebSocket enabled, then run live validation:
+
+```bash
+uv run rayflow show validate-qxw exports/qlc/my_show.qxw --live --json
+```
+
+The workspace is ready for review when the report shows all Scene functions,
+Virtual Console buttons, and live function names with readiness `ready`.
+
+## Step 9: Rehearse the Show
 
 1. Press **Go** to play the sequence from the beginning
 2. Watch the visualizer while listening to the audio
 3. Note timing issues — cues may need to trigger earlier or later
 4. Adjust cue timing as needed
 
-## Step 9: Record the Visualizer
+## Step 10: Record the Visualizer
 
 grandMA3 onPC can record the 3D visualizer output:
 
@@ -105,7 +137,7 @@ grandMA3 onPC can record the 3D visualizer output:
 6. Play the sequence from the beginning
 7. Stop recording when the song ends
 
-## Step 10: Review and Iterate
+## Step 11: Review and Iterate
 
 1. Watch the recorded video
 2. Note what works and what doesn't
@@ -131,7 +163,8 @@ Once you're happy with the recording:
 
 ## Next Steps
 
-- Try lighting different genres — rock, electronic, acoustic, jazz
-- Experiment with effects: chases, phasers, color macros
-- Build more complex rigs with trusses, beams, and layers
-- Explore AI-assisted cue generation for creative inspiration
+- Prove QLC+ Virtual Console button triggering with observed function status or
+  channel evidence.
+- Add feedback-driven cue refinement for critique such as "too busy," "less
+  movement," or "more psychedelic."
+- Turn the QLC+ rehearsal path into a repeatable recording/export report.

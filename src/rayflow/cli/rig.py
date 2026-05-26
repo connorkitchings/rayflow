@@ -556,6 +556,7 @@ def rig_export_qxw(
     rig_name = resolve_rig_name(rig_name)
     from rayflow.engine.fixtures.qlcplus_export import (
         build_qlc_patch,
+        copy_qxf_files_for_workspace,
         export_qlcplus_workspace,
     )
     from rayflow.engine.fixtures.qlcplus_qxf import (
@@ -600,8 +601,10 @@ def rig_export_qxw(
         raise typer.Exit(code=1)
 
     qxf_results = []
+    qxf_copies = []
     if qxf_dir is not None:
         qxf_results = export_qlcplus_fixture_definitions(parsers, qxf_dir)
+        qxf_copies = copy_qxf_files_for_workspace(qxf_results, output)
 
     saved = export_qlcplus_workspace(patches, output, author=author)
     console.print(f"[green]QXW exported[/green] to {saved}")
@@ -611,3 +614,6 @@ def rig_export_qxw(
     console.print(f"  Universes: {', '.join(str(u + 1) for u in universes)}")
     if qxf_dir is not None:
         console.print(f"  QXF definitions: {len(qxf_results)} in {qxf_dir}")
+        copied_count = sum(1 for result in qxf_copies if result.copied)
+        if copied_count:
+            console.print(f"  QXF workspace copies: {copied_count} in {output.parent}")

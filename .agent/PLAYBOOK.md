@@ -42,6 +42,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **Trigonometric Movement Mapping**: Map time-based movement paths (sine, circle, figure-8) to standard position attribute strings (like `pan` and `tilt`) before rendering, allowing them to route through GDTF mapping and 16-bit encoding.
 - **Inspectable Export Artifacts Before Runtime Control**: For controller integrations, generate reviewable files first (for example QXW/QXF/MVR/XML) and only then add gated WebSocket/OSC mutation paths with structured query evidence.
 - **Validate Controller Numbering Live**: File formats and Web APIs can use different indexing conventions. QLC+ QXW fixture patch universes are 0-based, but QLC+ Web API `setChannelsValues`/`getChannelsValues` universes are 1-based.
+- **Keep QLC+ QXF Beside QXW for Direct Open**: When opening a generated QXW directly in QLC+, fixture definitions are resolved from QLC+'s fixture library or the workspace directory. If QXF files are written to a sibling subdirectory, static validation can pass while live import logs missing fixture definitions.
 
 ## [REVIEW AGENTS]
 
