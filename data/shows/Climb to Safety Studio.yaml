@@ -1,0 +1,382 @@
+name: Climb to Safety Studio
+rig_name: Climb to Safety Studio Rig
+song:
+  title: Climb to Safety
+  artist: Widespread Panic
+  duration: 281.0
+  bpm: 105
+  sections:
+  - name: Intro
+    start: 0.0
+    end: 16.0
+    energy: 0.35
+    mood: warm train-roll setup
+  - name: Verse 1
+    start: 16.0
+    end: 58.0
+    energy: 0.45
+    mood: organic amber groove
+  - name: Chorus 1
+    start: 58.0
+    end: 88.0
+    energy: 0.7
+    mood: open lift, cool backlight
+  - name: Verse 2
+    start: 88.0
+    end: 132.0
+    energy: 0.52
+    mood: steady roots-rock drive
+  - name: Chorus 2
+    start: 132.0
+    end: 166.0
+    energy: 0.78
+    mood: brighter singalong lift
+  - name: Bridge Build
+    start: 166.0
+    end: 222.0
+    energy: 0.82
+    mood: slow full-rig sweep and tension
+  - name: Final Chorus
+    start: 222.0
+    end: 267.0
+    energy: 0.92
+    mood: warm red-blue peak
+  - name: Outro
+    start: 267.0
+    end: 281.0
+    energy: 0.35
+    mood: resolve and fade
+vibe:
+  palette:
+    name: Southern Rock Amber Lavender
+    colors:
+    - Warm Amber
+    - '#FFB347'
+    - '#8A5CFF'
+    - '#2146D0'
+    - '#B22222'
+    - White
+    description: 'Warm amber and gold as the base, with lavender/blue backlight contrast
+      and deep red for the final lift.
+
+      '
+  intensity_curve: medium groove to open chorus to bridge build to final peak
+  movement_style: restrained slow sweeps locked to the groove
+  beam_style: minimal aerials, narrow texture only at peaks
+  mood_keywords:
+  - southern-rock
+  - warm
+  - organic
+  - groove
+  - slow-sweep
+  description: 'First real RayFlow pilot for Widespread Panic''s studio/album version
+    of "Climb to Safety". The design should prioritize band visibility, warm natural
+    front light, lavender/blue backlight contrast, and slow Hoffman-style color evolution
+    over flashy beam effects.
+
+    '
+cues:
+- number: 1
+  label: Intro Warm Front
+  section: Intro
+  timestamp: 0.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '45'
+    color: Warm Amber
+  fade_time: 3.0
+- number: 2
+  label: Intro Lavender Back
+  section: Intro
+  timestamp: 8.0
+  channels: 7 Thru 10
+  attributes:
+    dimmer: '35'
+    color: '#8A5CFF'
+    zoom: '90'
+  fade_time: 4.0
+- number: 3
+  label: Verse 1 Amber Groove
+  section: Verse 1
+  timestamp: 16.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '58'
+    color: '#FFB347'
+  fade_time: 2.0
+- number: 4
+  label: Verse 1 Subtle Texture
+  section: Verse 1
+  timestamp: 37.14
+  channels: 11 Thru 14
+  attributes:
+    dimmer: '40'
+    gobo: '35'
+    zoom: '45'
+    focus: '60'
+  fade_time: 3.0
+- number: 5
+  label: Chorus 1 Open Front
+  section: Chorus 1
+  timestamp: 58.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '72'
+    color: Warm Amber
+  fade_time: 1.0
+- number: 6
+  label: Chorus 1 Cool Lift
+  section: Chorus 1
+  timestamp: 72.86
+  channels: 7 Thru 10
+  attributes:
+    dimmer: '76'
+    color: '#2146D0'
+    zoom: '55'
+    movement.type: sine
+    movement.center: 50,55
+    movement.size: 12,6
+    movement.speed: '0.35'
+  fade_time: 1.0
+- number: 7
+  label: Verse 2 Warm Drive
+  section: Verse 2
+  timestamp: 88.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '62'
+    color: '#FFB347'
+  fade_time: 2.0
+- number: 8
+  label: Verse 2 Guitar Texture
+  section: Verse 2
+  timestamp: 109.71
+  channels: 11 Thru 14
+  attributes:
+    dimmer: '48'
+    gobo: '45'
+    zoom: '40'
+    focus: '58'
+    movement.type: sine
+    movement.center: 50,48
+    movement.size: 10,4
+    movement.speed: '0.25'
+  fade_time: 2.5
+- number: 9
+  label: Chorus 2 Bigger Front
+  section: Chorus 2
+  timestamp: 132.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '80'
+    color: Warm Amber
+  fade_time: 0.75
+- number: 10
+  label: Chorus 2 Blue Back Sweep
+  section: Chorus 2
+  timestamp: 149.14
+  channels: 7 Thru 10
+  attributes:
+    dimmer: '86'
+    color: '#2146D0'
+    zoom: '45'
+    movement.type: sine
+    movement.center: 50,60
+    movement.size: 16,8
+    movement.speed: '0.45'
+  fade_time: 0.75
+- number: 11
+  label: Bridge Amber To Red
+  section: Bridge Build
+  timestamp: 166.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '76'
+    color: '#B22222'
+  fade_time: 12.0
+- number: 12
+  label: Bridge Slow Blue Sweep
+  section: Bridge Build
+  timestamp: 194.0
+  channels: 7 Thru 10
+  attributes:
+    dimmer: '82'
+    color: '#2146D0'
+    zoom: '35'
+    movement.type: circle
+    movement.center: 50,55
+    movement.size: '16'
+    movement.speed: '0.25'
+  fade_time: 10.0
+- number: 13
+  label: Final Chorus Full Front
+  section: Final Chorus
+  timestamp: 222.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '92'
+    color: Warm Amber
+  fade_time: 0.5
+- number: 14
+  label: Final Chorus Texture Peak
+  section: Final Chorus
+  timestamp: 244.29
+  channels: 11 Thru 14
+  attributes:
+    dimmer: '88'
+    gobo: '70'
+    zoom: '18'
+    focus: '55'
+    shutter: '65'
+    movement.type: circle
+    movement.center: 50,50
+    movement.size: '20'
+    movement.speed: '0.65'
+  fade_time: 0.5
+- number: 15
+  label: Outro Warm Resolve
+  section: Outro
+  timestamp: 267.0
+  channels: 1 Thru 6
+  attributes:
+    dimmer: '38'
+    color: '#FFB347'
+  fade_time: 5.0
+- number: 16
+  label: Outro Back Fade
+  section: Outro
+  timestamp: 273.86
+  channels: 7 Thru 10
+  attributes:
+    dimmer: '20'
+    color: '#8A5CFF'
+    zoom: '90'
+  fade_time: 6.0
+preset_overrides:
+  rf_blackout:
+    name: rf_blackout
+    description: Generated blackout across the rig
+    attributes:
+      dimmer: '0'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - dimmer
+  rf_low_wash:
+    name: rf_low_wash
+    description: Generated low-intensity wash
+    attributes:
+      dimmer: '35'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - dimmer
+  rf_full_wash:
+    name: rf_full_wash
+    description: Generated full-stage wash
+    attributes:
+      dimmer: Full
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - dimmer
+  rf_warm_front:
+    name: rf_warm_front
+    description: Generated warm front color look
+    attributes:
+      dimmer: '70'
+      color: Warm Amber
+    channels: 1 2 3 4 5 6 7
+    tags:
+    - rayflow
+    - generated
+    - color
+    - front
+  rf_cool_back:
+    name: rf_cool_back
+    description: Generated cool back color look
+    attributes:
+      dimmer: '70'
+      color: '#3366FF'
+    channels: 8 9 10 11 12 13 14
+    tags:
+    - rayflow
+    - generated
+    - color
+    - back
+  rf_white_open:
+    name: rf_white_open
+    description: Generated open white look
+    attributes:
+      dimmer: '80'
+      color: White
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - color
+  rf_accent_magenta:
+    name: rf_accent_magenta
+    description: Generated accent color look
+    attributes:
+      dimmer: '75'
+      color: '#FF33CC'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - color
+    - accent
+  rf_accent_cyan:
+    name: rf_accent_cyan
+    description: Generated cyan accent look
+    attributes:
+      dimmer: '75'
+      color: '#00CCFF'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - color
+    - accent
+  rf_position_center:
+    name: rf_position_center
+    description: Generated centered moving-light position
+    attributes:
+      position: center
+      dimmer: '70'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - position
+  rf_beam_narrow:
+    name: rf_beam_narrow
+    description: Generated narrow beam look
+    attributes:
+      beam: narrow
+      dimmer: '75'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - beam
+  rf_gobo_slow:
+    name: rf_gobo_slow
+    description: Generated slow gobo look
+    attributes:
+      gobo: '50'
+      dimmer: '70'
+    channels: 1 Thru 14
+    tags:
+    - rayflow
+    - generated
+    - gobo
+notes: 'Initial section timing is a working studio/album map, not a frame-accurate
+  transcription. Duration and BPM are seeded from public metadata; refine by listening
+  before final recording.
+
+  '

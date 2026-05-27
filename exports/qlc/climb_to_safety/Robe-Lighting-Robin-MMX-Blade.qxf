@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+  <Creator>
+    <Name>RayFlow</Name>
+    <Version>4.12.4</Version>
+    <Author>RayFlow</Author>
+  </Creator>
+  <Manufacturer>Robe Lighting</Manufacturer>
+  <Model>Robin MMX Blade</Model>
+  <Type>Moving Head</Type>
+  <Channel Name="Pan" Preset="PositionPan">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Pan Fine" Preset="PositionPan">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Tilt" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Tilt Fine" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="PositionMSpeed" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Control1" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Color1" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Color1 Fine" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorSub_C" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorSub_M" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorSub_Y" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="CTO" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorMacro1" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="GoboWheel1MSpeed" Preset="Gobo">
+    <Group Byte="0">Gobo</Group>
+    <Capability Min="0" Max="255">Gobo selection</Capability>
+  </Channel>
+  <Channel Name="AnimationWheel1" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="AnimationWheel1Pos" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="AnimationWheel1Macro" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Gobo1" Preset="Gobo">
+    <Group Byte="0">Gobo</Group>
+    <Capability Min="0" Max="255">Gobo selection</Capability>
+  </Channel>
+  <Channel Name="Gobo1Pos" Preset="Gobo">
+    <Group Byte="0">Gobo</Group>
+    <Capability Min="0" Max="255">Gobo selection</Capability>
+  </Channel>
+  <Channel Name="Gobo1Pos Fine" Preset="Gobo">
+    <Group Byte="0">Gobo</Group>
+    <Capability Min="0" Max="255">Gobo selection</Capability>
+  </Channel>
+  <Channel Name="Prism1" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Prism1Pos" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Frost1" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Iris" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Iris Fine" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Zoom" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Zoom range</Capability>
+  </Channel>
+  <Channel Name="Zoom Fine" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Zoom range</Capability>
+  </Channel>
+  <Channel Name="Focus1" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Focus range</Capability>
+  </Channel>
+  <Channel Name="Focus1 Fine" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Focus range</Capability>
+  </Channel>
+  <Channel Name="Focus1Adjust" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Focus range</Capability>
+  </Channel>
+  <Channel Name="ShaperRot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade1A" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade1Rot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade4A" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade4Rot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade3A" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade3Rot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade2A" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Blade2Rot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="ShaperMacros" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="ShaperMacrosSpeed" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="HotSpot" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="Shutter1" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Fine" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="AnimationWheel2Macro" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Mode Name="Mode 1 - Standard">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">Color1 Fine</Channel>
+    <Channel Number="8">ColorSub_C</Channel>
+    <Channel Number="9">ColorSub_M</Channel>
+    <Channel Number="10">ColorSub_Y</Channel>
+    <Channel Number="11">CTO</Channel>
+    <Channel Number="12">ColorMacro1</Channel>
+    <Channel Number="13">GoboWheel1MSpeed</Channel>
+    <Channel Number="14">AnimationWheel1</Channel>
+    <Channel Number="15">AnimationWheel1Pos</Channel>
+    <Channel Number="16">AnimationWheel1Macro</Channel>
+    <Channel Number="17">Gobo1</Channel>
+    <Channel Number="18">Gobo1Pos</Channel>
+    <Channel Number="19">Gobo1Pos Fine</Channel>
+    <Channel Number="20">Prism1</Channel>
+    <Channel Number="21">Prism1Pos</Channel>
+    <Channel Number="22">Frost1</Channel>
+    <Channel Number="23">Iris</Channel>
+    <Channel Number="24">Iris Fine</Channel>
+    <Channel Number="25">Zoom</Channel>
+    <Channel Number="26">Zoom Fine</Channel>
+    <Channel Number="27">Focus1</Channel>
+    <Channel Number="28">Focus1 Fine</Channel>
+    <Channel Number="29">Focus1Adjust</Channel>
+    <Channel Number="30">ShaperRot</Channel>
+    <Channel Number="31">Blade1A</Channel>
+    <Channel Number="32">Blade1Rot</Channel>
+    <Channel Number="33">Blade4A</Channel>
+    <Channel Number="34">Blade4Rot</Channel>
+    <Channel Number="35">Blade3A</Channel>
+    <Channel Number="36">Blade3Rot</Channel>
+    <Channel Number="37">Blade2A</Channel>
+    <Channel Number="38">Blade2Rot</Channel>
+    <Channel Number="39">ShaperMacros</Channel>
+    <Channel Number="40">ShaperMacrosSpeed</Channel>
+    <Channel Number="41">HotSpot</Channel>
+    <Channel Number="42">Shutter1</Channel>
+    <Channel Number="43">Dimmer</Channel>
+    <Channel Number="44">Dimmer Fine</Channel>
+  </Mode>
+  <Mode Name="Mode 2 - Reduced">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorSub_C</Channel>
+    <Channel Number="8">ColorSub_M</Channel>
+    <Channel Number="9">ColorSub_Y</Channel>
+    <Channel Number="10">CTO</Channel>
+    <Channel Number="11">ColorMacro1</Channel>
+    <Channel Number="12">GoboWheel1MSpeed</Channel>
+    <Channel Number="13">AnimationWheel1</Channel>
+    <Channel Number="14">AnimationWheel1Pos</Channel>
+    <Channel Number="15">AnimationWheel2Macro</Channel>
+    <Channel Number="16">Gobo1</Channel>
+    <Channel Number="17">Gobo1Pos</Channel>
+    <Channel Number="18">Prism1</Channel>
+    <Channel Number="19">Prism1Pos</Channel>
+    <Channel Number="20">Frost1</Channel>
+    <Channel Number="21">Iris</Channel>
+    <Channel Number="22">Zoom</Channel>
+    <Channel Number="23">Focus1</Channel>
+    <Channel Number="24">Focus1Adjust</Channel>
+    <Channel Number="25">ShaperRot</Channel>
+    <Channel Number="26">Blade1A</Channel>
+    <Channel Number="27">Blade1Rot</Channel>
+    <Channel Number="28">Blade4A</Channel>
+    <Channel Number="29">Blade4Rot</Channel>
+    <Channel Number="30">Blade3A</Channel>
+    <Channel Number="31">Blade3Rot</Channel>
+    <Channel Number="32">Blade2A</Channel>
+    <Channel Number="33">Blade2Rot</Channel>
+    <Channel Number="34">ShaperMacros</Channel>
+    <Channel Number="35">ShaperMacrosSpeed</Channel>
+    <Channel Number="36">HotSpot</Channel>
+    <Channel Number="37">Shutter1</Channel>
+    <Channel Number="38">Dimmer</Channel>
+  </Mode>
+  <Mode Name="Mode 3 - 8 bit">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Tilt</Channel>
+    <Channel Number="2">PositionMSpeed</Channel>
+    <Channel Number="3">Control1</Channel>
+    <Channel Number="4">Color1</Channel>
+    <Channel Number="5">ColorSub_C</Channel>
+    <Channel Number="6">ColorSub_M</Channel>
+    <Channel Number="7">ColorSub_Y</Channel>
+    <Channel Number="8">CTO</Channel>
+    <Channel Number="9">ColorMacro1</Channel>
+    <Channel Number="10">GoboWheel1MSpeed</Channel>
+    <Channel Number="11">AnimationWheel1</Channel>
+    <Channel Number="12">AnimationWheel1Pos</Channel>
+    <Channel Number="13">AnimationWheel2Macro</Channel>
+    <Channel Number="14">Gobo1</Channel>
+    <Channel Number="15">Gobo1Pos</Channel>
+    <Channel Number="16">Prism1</Channel>
+    <Channel Number="17">Prism1Pos</Channel>
+    <Channel Number="18">Frost1</Channel>
+    <Channel Number="19">Iris</Channel>
+    <Channel Number="20">Zoom</Channel>
+    <Channel Number="21">Focus1</Channel>
+    <Channel Number="22">Focus1Adjust</Channel>
+    <Channel Number="23">ShaperRot</Channel>
+    <Channel Number="24">Blade1A</Channel>
+    <Channel Number="25">Blade1Rot</Channel>
+    <Channel Number="26">Blade4A</Channel>
+    <Channel Number="27">Blade4Rot</Channel>
+    <Channel Number="28">Blade3A</Channel>
+    <Channel Number="29">Blade3Rot</Channel>
+    <Channel Number="30">Blade2A</Channel>
+    <Channel Number="31">Blade2Rot</Channel>
+    <Channel Number="32">ShaperMacros</Channel>
+    <Channel Number="33">ShaperMacrosSpeed</Channel>
+    <Channel Number="34">HotSpot</Channel>
+    <Channel Number="35">Shutter1</Channel>
+    <Channel Number="36">Dimmer</Channel>
+  </Mode>
+</FixtureDefinition>

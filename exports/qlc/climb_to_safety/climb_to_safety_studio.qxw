@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Workspace>
+<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="FixtureManager">
+  <Creator>
+    <Name>Q Light Controller Plus</Name>
+    <Version>4.12.4</Version>
+    <Author>RayFlow</Author>
+  </Creator>
+  <Engine>
+    <InputOutputMap>
+      <Universe ID="0" Name="Universe 1" />
+    </InputOutputMap>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Warm Front PAR 1</Name>
+      <Universe>0</Universe>
+      <Address>0</Address>
+      <ID>0</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Warm Front PAR 2</Name>
+      <Universe>0</Universe>
+      <Address>5</Address>
+      <ID>1</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Warm Front PAR 3</Name>
+      <Universe>0</Universe>
+      <Address>10</Address>
+      <ID>2</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Warm Front PAR 4</Name>
+      <Universe>0</Universe>
+      <Address>15</Address>
+      <ID>3</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Side Amber PAR SL</Name>
+      <Universe>0</Universe>
+      <Address>20</Address>
+      <ID>4</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>BlenderDMX</Manufacturer>
+      <Model>LED PAR 64 RGBW</Model>
+      <Mode>Default</Mode>
+      <Name>Side Amber PAR SR</Name>
+      <Universe>0</Universe>
+      <Address>25</Address>
+      <ID>5</ID>
+      <Channels>5</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin iSpiiderX</Model>
+      <Mode>Mode 2 - Basic</Mode>
+      <Name>Back Wash Spiider 1</Name>
+      <Universe>0</Universe>
+      <Address>32</Address>
+      <ID>6</ID>
+      <Channels>27</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin iSpiiderX</Model>
+      <Mode>Mode 2 - Basic</Mode>
+      <Name>Back Wash Spiider 2</Name>
+      <Universe>0</Universe>
+      <Address>59</Address>
+      <ID>7</ID>
+      <Channels>27</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin iSpiiderX</Model>
+      <Mode>Mode 2 - Basic</Mode>
+      <Name>Back Wash Spiider 3</Name>
+      <Universe>0</Universe>
+      <Address>86</Address>
+      <ID>8</ID>
+      <Channels>27</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin iSpiiderX</Model>
+      <Mode>Mode 2 - Basic</Mode>
+      <Name>Back Wash Spiider 4</Name>
+      <Universe>0</Universe>
+      <Address>113</Address>
+      <ID>9</ID>
+      <Channels>27</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin MMX Blade</Model>
+      <Mode>Mode 1 - Standard</Mode>
+      <Name>Texture Blade 1</Name>
+      <Universe>0</Universe>
+      <Address>144</Address>
+      <ID>10</ID>
+      <Channels>45</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin MMX Blade</Model>
+      <Mode>Mode 1 - Standard</Mode>
+      <Name>Texture Blade 2</Name>
+      <Universe>0</Universe>
+      <Address>189</Address>
+      <ID>11</ID>
+      <Channels>45</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin MMX Blade</Model>
+      <Mode>Mode 1 - Standard</Mode>
+      <Name>Texture Blade 3</Name>
+      <Universe>0</Universe>
+      <Address>234</Address>
+      <ID>12</ID>
+      <Channels>45</Channels>
+    </Fixture>
+    <Fixture>
+      <Manufacturer>Robe Lighting</Manufacturer>
+      <Model>Robin MMX Blade</Model>
+      <Mode>Mode 1 - Standard</Mode>
+      <Name>Texture Blade 4</Name>
+      <Universe>0</Universe>
+      <Address>279</Address>
+      <ID>13</ID>
+      <Channels>45</Channels>
+    </Fixture>
+    <Function ID="0" Type="Scene" Name="1 Intro Warm Front">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="1">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="2">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="3">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="4">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="5">115,255,153,51,51</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="1" Type="Scene" Name="2 Intro Lavender Back">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,89,230,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,89,230,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,89,230,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,89,230,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="2" Type="Scene" Name="3 Verse 1 Amber Groove">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="1">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="2">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="3">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="4">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="5">148,255,179,71,71</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="3" Type="Scene" Name="4 Verse 1 Subtle Texture">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,0,0,115,115,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,102</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,0,0,115,115,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,102</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,0,0,115,115,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,102</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,0,0,115,115,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,102</FixtureVal>
+    </Function>
+    <Function ID="4" Type="Scene" Name="5 Chorus 1 Open Front">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="1">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="2">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="3">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="4">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="5">184,255,153,51,51</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="5" Type="Scene" Name="6 Chorus 1 Cool Lift">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">106,106,140,140,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,194,140,0,0</FixtureVal>
+      <FixtureVal ID="7">106,106,140,140,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,194,140,0,0</FixtureVal>
+      <FixtureVal ID="8">106,106,140,140,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,194,140,0,0</FixtureVal>
+      <FixtureVal ID="9">106,106,140,140,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,194,140,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="6" Type="Scene" Name="7 Verse 2 Warm Drive">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="1">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="2">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="3">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="4">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="5">158,255,179,71,71</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="7" Type="Scene" Name="8 Verse 2 Guitar Texture">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">127,127,122,122,0,0,0,0,0,0,0,0,0,115,0,0,0,0,0,0,0,0,0,0,0,102,102,148,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,122</FixtureVal>
+      <FixtureVal ID="11">127,127,122,122,0,0,0,0,0,0,0,0,0,115,0,0,0,0,0,0,0,0,0,0,0,102,102,148,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,122</FixtureVal>
+      <FixtureVal ID="12">127,127,122,122,0,0,0,0,0,0,0,0,0,115,0,0,0,0,0,0,0,0,0,0,0,102,102,148,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,122</FixtureVal>
+      <FixtureVal ID="13">127,127,122,122,0,0,0,0,0,0,0,0,0,115,0,0,0,0,0,0,0,0,0,0,0,102,102,148,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,122</FixtureVal>
+    </Function>
+    <Function ID="8" Type="Scene" Name="9 Chorus 2 Bigger Front">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="1">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="2">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="3">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="4">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="5">204,255,153,51,51</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="9" Type="Scene" Name="10 Chorus 2 Blue Back Sweep">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">141,141,153,153,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,219,115,0,0</FixtureVal>
+      <FixtureVal ID="7">141,141,153,153,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,219,115,0,0</FixtureVal>
+      <FixtureVal ID="8">141,141,153,153,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,219,115,0,0</FixtureVal>
+      <FixtureVal ID="9">141,141,153,153,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,219,115,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="10" Type="Scene" Name="11 Bridge Amber To Red">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="1">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="2">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="3">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="4">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="5">194,178,34,34,34</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="11" Type="Scene" Name="12 Bridge Slow Blue Sweep">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">156,156,111,111,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,209,89,0,0</FixtureVal>
+      <FixtureVal ID="7">156,156,111,111,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,209,89,0,0</FixtureVal>
+      <FixtureVal ID="8">156,156,111,111,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,209,89,0,0</FixtureVal>
+      <FixtureVal ID="9">156,156,111,111,0,0,0,33,70,208,33,0,0,0,0,0,0,0,0,0,0,0,0,209,89,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="12" Type="Scene" Name="13 Final Chorus Full Front">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="1">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="2">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="3">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="4">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="5">235,255,153,51,51</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="13" Type="Scene" Name="14 Final Chorus Texture Peak">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">165,165,93,93,0,0,0,0,0,0,0,0,0,178,0,0,0,0,0,0,0,0,0,0,0,46,46,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,166,224,224</FixtureVal>
+      <FixtureVal ID="11">165,165,93,93,0,0,0,0,0,0,0,0,0,178,0,0,0,0,0,0,0,0,0,0,0,46,46,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,166,224,224</FixtureVal>
+      <FixtureVal ID="12">165,165,93,93,0,0,0,0,0,0,0,0,0,178,0,0,0,0,0,0,0,0,0,0,0,46,46,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,166,224,224</FixtureVal>
+      <FixtureVal ID="13">165,165,93,93,0,0,0,0,0,0,0,0,0,178,0,0,0,0,0,0,0,0,0,0,0,46,46,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,166,224,224</FixtureVal>
+    </Function>
+    <Function ID="14" Type="Scene" Name="15 Outro Warm Resolve">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="1">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="2">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="3">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="4">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="5">97,255,179,71,71</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+    <Function ID="15" Type="Scene" Name="16 Outro Back Fade">
+      <Speed FadeIn="0" FadeOut="0" Duration="0" />
+      <FixtureVal ID="0">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="1">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="2">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="3">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="4">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="5">0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="6">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,51,230,0,0</FixtureVal>
+      <FixtureVal ID="7">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,51,230,0,0</FixtureVal>
+      <FixtureVal ID="8">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,51,230,0,0</FixtureVal>
+      <FixtureVal ID="9">0,0,0,0,0,0,0,138,92,255,92,0,0,0,0,0,0,0,0,0,0,0,0,51,230,0,0</FixtureVal>
+      <FixtureVal ID="10">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="11">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="12">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+      <FixtureVal ID="13">0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</FixtureVal>
+    </Function>
+  </Engine>
+  <VirtualConsole Width="800" Height="480" Properties="0">
+    <Frame Caption="RayFlow Scenes" ID="0" X="0" Y="0" Width="800" Height="480">
+      <Button Caption="1 Intro Warm Front" ID="1" X="10" Y="10" Width="150" Height="48" Action="Toggle">
+        <Function>0</Function>
+      </Button>
+      <Button Caption="2 Intro Lavender Back" ID="2" X="170" Y="10" Width="150" Height="48" Action="Toggle">
+        <Function>1</Function>
+      </Button>
+      <Button Caption="3 Verse 1 Amber Groove" ID="3" X="330" Y="10" Width="150" Height="48" Action="Toggle">
+        <Function>2</Function>
+      </Button>
+      <Button Caption="4 Verse 1 Subtle Texture" ID="4" X="490" Y="10" Width="150" Height="48" Action="Toggle">
+        <Function>3</Function>
+      </Button>
+      <Button Caption="5 Chorus 1 Open Front" ID="5" X="10" Y="68" Width="150" Height="48" Action="Toggle">
+        <Function>4</Function>
+      </Button>
+      <Button Caption="6 Chorus 1 Cool Lift" ID="6" X="170" Y="68" Width="150" Height="48" Action="Toggle">
+        <Function>5</Function>
+      </Button>
+      <Button Caption="7 Verse 2 Warm Drive" ID="7" X="330" Y="68" Width="150" Height="48" Action="Toggle">
+        <Function>6</Function>
+      </Button>
+      <Button Caption="8 Verse 2 Guitar Texture" ID="8" X="490" Y="68" Width="150" Height="48" Action="Toggle">
+        <Function>7</Function>
+      </Button>
+      <Button Caption="9 Chorus 2 Bigger Front" ID="9" X="10" Y="126" Width="150" Height="48" Action="Toggle">
+        <Function>8</Function>
+      </Button>
+      <Button Caption="10 Chorus 2 Blue Back Sweep" ID="10" X="170" Y="126" Width="150" Height="48" Action="Toggle">
+        <Function>9</Function>
+      </Button>
+      <Button Caption="11 Bridge Amber To Red" ID="11" X="330" Y="126" Width="150" Height="48" Action="Toggle">
+        <Function>10</Function>
+      </Button>
+      <Button Caption="12 Bridge Slow Blue Sweep" ID="12" X="490" Y="126" Width="150" Height="48" Action="Toggle">
+        <Function>11</Function>
+      </Button>
+      <Button Caption="13 Final Chorus Full Front" ID="13" X="10" Y="184" Width="150" Height="48" Action="Toggle">
+        <Function>12</Function>
+      </Button>
+      <Button Caption="14 Final Chorus Texture Peak" ID="14" X="170" Y="184" Width="150" Height="48" Action="Toggle">
+        <Function>13</Function>
+      </Button>
+      <Button Caption="15 Outro Warm Resolve" ID="15" X="330" Y="184" Width="150" Height="48" Action="Toggle">
+        <Function>14</Function>
+      </Button>
+      <Button Caption="16 Outro Back Fade" ID="16" X="490" Y="184" Width="150" Height="48" Action="Toggle">
+        <Function>15</Function>
+      </Button>
+    </Frame>
+  </VirtualConsole>
+</Workspace>

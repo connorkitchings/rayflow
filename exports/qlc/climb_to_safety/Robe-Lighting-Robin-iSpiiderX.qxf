@@ -1,0 +1,1861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+  <Creator>
+    <Name>RayFlow</Name>
+    <Version>4.12.4</Version>
+    <Author>RayFlow</Author>
+  </Creator>
+  <Manufacturer>Robe Lighting</Manufacturer>
+  <Model>Robin iSpiiderX</Model>
+  <Type>Moving Head</Type>
+  <Channel Name="Pan" Preset="PositionPan">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Pan Fine" Preset="PositionPan">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Tilt" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Tilt Fine" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="PositionMSpeed" Preset="PositionTilt">
+    <Group Byte="0">Pan/Tilt</Group>
+    <Capability Min="0" Max="255">Pan/tilt range</Capability>
+  </Channel>
+  <Channel Name="Control1" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Color1" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Fine" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Fine" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Fine" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Fine" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="CTO" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Fine" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="LEDZoneMode" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="ColorMixMode" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="FlowerEffect" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 23" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 24" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 25" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 26" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorMacro1" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 28" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 29" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Zoom" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Zoom range</Capability>
+  </Channel>
+  <Channel Name="Zoom Fine" Preset="Beam">
+    <Group Byte="0">Beam</Group>
+    <Capability Min="0" Max="255">Zoom range</Capability>
+  </Channel>
+  <Channel Name="PatternSelection" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="PatternSize" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="PatternRotation" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="PatternFade" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="PatternTransition" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="PatternCrossfade" Preset="Generic">
+    <Group Byte="0">Generic</Group>
+    <Capability Min="0" Max="255">DMX range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 38" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 39" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 40" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 41" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorMacro1 Ch 42" Preset="Intensity">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 43" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 44" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 45" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 46" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Fine Ch 47" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 48" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 49" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 50" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 51" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 52" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 53" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 54" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 55" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 56" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 57" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 58" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 59" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 60" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 61" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 62" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 63" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 64" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 65" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 66" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 67" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 68" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 69" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 70" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 71" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 72" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 73" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 74" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 75" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 76" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 77" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 78" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 79" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 80" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 81" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 82" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 83" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 84" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 85" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 86" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 87" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 88" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 89" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 90" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 91" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 92" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 93" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 94" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 95" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 96" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 97" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 98" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 99" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 100" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 101" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 102" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 103" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 104" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 105" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 106" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 107" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 108" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 109" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 110" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 111" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 112" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 113" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 114" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 115" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 116" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 117" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 118" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 119" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 120" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 121" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 122" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 123" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 4" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 5" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 6" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 7" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 8" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 8" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 9" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 10" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 10" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 11" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 12" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 12.2" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 13" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 14" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 15" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 16" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 17" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 18" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 19" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 20" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 21" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 22" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 23" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 24" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 25" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 26" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 27" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 28" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 29" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 30" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 31" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 32" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 33" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 34" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 35" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 36" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 37" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 38" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 39" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 40" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 41" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 42" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 43" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 44" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 45" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 46" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 47" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 48" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 49" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 50" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 51" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 55" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 56" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 57" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 32" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 33" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Fine Ch 34" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 35" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 36" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 37" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 38" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 39" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 40" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 41" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 42" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 46" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 47" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 48" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 49" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 50" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 51" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 52" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 53" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 54" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 58" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 59" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 60" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 61" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 62" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 63" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 64" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 65" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 66" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 67" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 68" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 69" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 70" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 71" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 72" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 73" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 74" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 75" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 76" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 77" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 78" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 79" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 80" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 81" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 82" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 83" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 84" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 85" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 86" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 87" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 88" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 89" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 90" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 91" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 92" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 93" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 94" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 95" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 96" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 97" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 98" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 99" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 100" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 101" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 102" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 103" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 104" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 105" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 106" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 107" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 108" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 109" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 110" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 18" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 19" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 20" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 21" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 23" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 24" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 26" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 27" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Fine Ch 17" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 18" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Fine Ch 19" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Fine Ch 21" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 22" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Fine Ch 23" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 24" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Fine Ch 25" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Fine Ch 27" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 28" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Fine Ch 29" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 30" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Fine Ch 31" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Effects1" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Effects1Rate" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Effects1Fade" Preset="Maintenance">
+    <Group Byte="0">Control</Group>
+    <Capability Min="0" Max="255">Control range</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 47" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 48" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W Ch 25" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="Shutter1 Ch 31" Preset="Shutter">
+    <Group Byte="0">Shutter</Group>
+    <Capability Min="0" Max="255">Shutter/strobe range</Capability>
+  </Channel>
+  <Channel Name="Dimmer Ch 32" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R Ch 22.2" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G Ch 23.2" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B Ch 24.2" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Mode Name="Mode 10 - Pattern full RGBW">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_R Fine</Channel>
+    <Channel Number="9">ColorAdd_G</Channel>
+    <Channel Number="10">ColorAdd_G Fine</Channel>
+    <Channel Number="11">ColorAdd_B</Channel>
+    <Channel Number="12">ColorAdd_B Fine</Channel>
+    <Channel Number="13">ColorAdd_W</Channel>
+    <Channel Number="14">ColorAdd_W Fine</Channel>
+    <Channel Number="15">CTO</Channel>
+    <Channel Number="16">Shutter1</Channel>
+    <Channel Number="17">Dimmer</Channel>
+    <Channel Number="18">Dimmer Fine</Channel>
+    <Channel Number="19">LEDZoneMode</Channel>
+    <Channel Number="20">ColorMixMode</Channel>
+    <Channel Number="21">FlowerEffect</Channel>
+    <Channel Number="22">ColorAdd_R Ch 23</Channel>
+    <Channel Number="23">ColorAdd_G Ch 24</Channel>
+    <Channel Number="24">ColorAdd_B Ch 25</Channel>
+    <Channel Number="25">ColorAdd_W Ch 26</Channel>
+    <Channel Number="26">ColorMacro1</Channel>
+    <Channel Number="27">Shutter1 Ch 28</Channel>
+    <Channel Number="28">Dimmer Ch 29</Channel>
+    <Channel Number="29">Zoom</Channel>
+    <Channel Number="30">Zoom Fine</Channel>
+    <Channel Number="31">PatternSelection</Channel>
+    <Channel Number="32">PatternSize</Channel>
+    <Channel Number="33">PatternRotation</Channel>
+    <Channel Number="34">PatternFade</Channel>
+    <Channel Number="35">PatternTransition</Channel>
+    <Channel Number="36">PatternCrossfade</Channel>
+    <Channel Number="37">ColorAdd_R Ch 38</Channel>
+    <Channel Number="38">ColorAdd_G Ch 39</Channel>
+    <Channel Number="39">ColorAdd_B Ch 40</Channel>
+    <Channel Number="40">ColorAdd_W Ch 41</Channel>
+    <Channel Number="41">ColorMacro1 Ch 42</Channel>
+    <Channel Number="42">Shutter1 Ch 43</Channel>
+    <Channel Number="43">Dimmer Ch 44</Channel>
+    <Channel Number="44">Shutter1 Ch 45</Channel>
+    <Channel Number="45">Dimmer Ch 46</Channel>
+    <Channel Number="46">Dimmer Fine Ch 47</Channel>
+    <Channel Number="47">ColorAdd_R Ch 48</Channel>
+    <Channel Number="48">ColorAdd_G Ch 49</Channel>
+    <Channel Number="49">ColorAdd_B Ch 50</Channel>
+    <Channel Number="50">ColorAdd_W Ch 51</Channel>
+    <Channel Number="51">ColorAdd_R Ch 52</Channel>
+    <Channel Number="52">ColorAdd_G Ch 53</Channel>
+    <Channel Number="53">ColorAdd_B Ch 54</Channel>
+    <Channel Number="54">ColorAdd_W Ch 55</Channel>
+    <Channel Number="55">ColorAdd_R Ch 56</Channel>
+    <Channel Number="56">ColorAdd_G Ch 57</Channel>
+    <Channel Number="57">ColorAdd_B Ch 58</Channel>
+    <Channel Number="58">ColorAdd_W Ch 59</Channel>
+    <Channel Number="59">ColorAdd_R Ch 60</Channel>
+    <Channel Number="60">ColorAdd_G Ch 61</Channel>
+    <Channel Number="61">ColorAdd_B Ch 62</Channel>
+    <Channel Number="62">ColorAdd_W Ch 63</Channel>
+    <Channel Number="63">ColorAdd_R Ch 64</Channel>
+    <Channel Number="64">ColorAdd_G Ch 65</Channel>
+    <Channel Number="65">ColorAdd_B Ch 66</Channel>
+    <Channel Number="66">ColorAdd_W Ch 67</Channel>
+    <Channel Number="67">ColorAdd_R Ch 68</Channel>
+    <Channel Number="68">ColorAdd_G Ch 69</Channel>
+    <Channel Number="69">ColorAdd_B Ch 70</Channel>
+    <Channel Number="70">ColorAdd_W Ch 71</Channel>
+    <Channel Number="71">ColorAdd_R Ch 72</Channel>
+    <Channel Number="72">ColorAdd_G Ch 73</Channel>
+    <Channel Number="73">ColorAdd_B Ch 74</Channel>
+    <Channel Number="74">ColorAdd_W Ch 75</Channel>
+    <Channel Number="75">ColorAdd_R Ch 76</Channel>
+    <Channel Number="76">ColorAdd_G Ch 77</Channel>
+    <Channel Number="77">ColorAdd_B Ch 78</Channel>
+    <Channel Number="78">ColorAdd_W Ch 79</Channel>
+    <Channel Number="79">ColorAdd_R Ch 80</Channel>
+    <Channel Number="80">ColorAdd_G Ch 81</Channel>
+    <Channel Number="81">ColorAdd_B Ch 82</Channel>
+    <Channel Number="82">ColorAdd_W Ch 83</Channel>
+    <Channel Number="83">ColorAdd_R Ch 84</Channel>
+    <Channel Number="84">ColorAdd_G Ch 85</Channel>
+    <Channel Number="85">ColorAdd_B Ch 86</Channel>
+    <Channel Number="86">ColorAdd_W Ch 87</Channel>
+    <Channel Number="87">ColorAdd_R Ch 88</Channel>
+    <Channel Number="88">ColorAdd_G Ch 89</Channel>
+    <Channel Number="89">ColorAdd_B Ch 90</Channel>
+    <Channel Number="90">ColorAdd_W Ch 91</Channel>
+    <Channel Number="91">ColorAdd_R Ch 92</Channel>
+    <Channel Number="92">ColorAdd_G Ch 93</Channel>
+    <Channel Number="93">ColorAdd_B Ch 94</Channel>
+    <Channel Number="94">ColorAdd_W Ch 95</Channel>
+    <Channel Number="95">ColorAdd_R Ch 96</Channel>
+    <Channel Number="96">ColorAdd_G Ch 97</Channel>
+    <Channel Number="97">ColorAdd_B Ch 98</Channel>
+    <Channel Number="98">ColorAdd_W Ch 99</Channel>
+    <Channel Number="99">ColorAdd_R Ch 100</Channel>
+    <Channel Number="100">ColorAdd_G Ch 101</Channel>
+    <Channel Number="101">ColorAdd_B Ch 102</Channel>
+    <Channel Number="102">ColorAdd_W Ch 103</Channel>
+    <Channel Number="103">ColorAdd_R Ch 104</Channel>
+    <Channel Number="104">ColorAdd_G Ch 105</Channel>
+    <Channel Number="105">ColorAdd_B Ch 106</Channel>
+    <Channel Number="106">ColorAdd_W Ch 107</Channel>
+    <Channel Number="107">ColorAdd_R Ch 108</Channel>
+    <Channel Number="108">ColorAdd_G Ch 109</Channel>
+    <Channel Number="109">ColorAdd_B Ch 110</Channel>
+    <Channel Number="110">ColorAdd_W Ch 111</Channel>
+    <Channel Number="111">ColorAdd_R Ch 112</Channel>
+    <Channel Number="112">ColorAdd_G Ch 113</Channel>
+    <Channel Number="113">ColorAdd_B Ch 114</Channel>
+    <Channel Number="114">ColorAdd_W Ch 115</Channel>
+    <Channel Number="115">ColorAdd_R Ch 116</Channel>
+    <Channel Number="116">ColorAdd_G Ch 117</Channel>
+    <Channel Number="117">ColorAdd_B Ch 118</Channel>
+    <Channel Number="118">ColorAdd_W Ch 119</Channel>
+    <Channel Number="119">ColorAdd_R Ch 120</Channel>
+    <Channel Number="120">ColorAdd_G Ch 121</Channel>
+    <Channel Number="121">ColorAdd_B Ch 122</Channel>
+    <Channel Number="122">ColorAdd_W Ch 123</Channel>
+  </Mode>
+  <Mode Name="Mode 9 - Pattern full RGB">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">ColorAdd_R</Channel>
+    <Channel Number="2">Pan Fine</Channel>
+    <Channel Number="3">ColorAdd_G</Channel>
+    <Channel Number="4">Tilt</Channel>
+    <Channel Number="5">ColorAdd_B</Channel>
+    <Channel Number="6">Tilt Fine</Channel>
+    <Channel Number="7">ColorAdd_R Ch 4</Channel>
+    <Channel Number="8">PositionMSpeed</Channel>
+    <Channel Number="9">ColorAdd_G Ch 5</Channel>
+    <Channel Number="10">Control1</Channel>
+    <Channel Number="11">ColorAdd_B Ch 6</Channel>
+    <Channel Number="12">Color1</Channel>
+    <Channel Number="13">ColorAdd_R Ch 7</Channel>
+    <Channel Number="14">ColorAdd_R Ch 8</Channel>
+    <Channel Number="15">ColorAdd_G Ch 8</Channel>
+    <Channel Number="16">ColorAdd_R Fine</Channel>
+    <Channel Number="17">ColorAdd_B Ch 9</Channel>
+    <Channel Number="18">ColorAdd_G Ch 10</Channel>
+    <Channel Number="19">ColorAdd_R Ch 10</Channel>
+    <Channel Number="20">ColorAdd_G Fine</Channel>
+    <Channel Number="21">ColorAdd_G Ch 11</Channel>
+    <Channel Number="22">ColorAdd_B Ch 12</Channel>
+    <Channel Number="23">ColorAdd_B Ch 12.2</Channel>
+    <Channel Number="24">ColorAdd_B Fine</Channel>
+    <Channel Number="25">ColorAdd_R Ch 13</Channel>
+    <Channel Number="26">ColorAdd_W</Channel>
+    <Channel Number="27">ColorAdd_G Ch 14</Channel>
+    <Channel Number="28">ColorAdd_W Fine</Channel>
+    <Channel Number="29">ColorAdd_B Ch 15</Channel>
+    <Channel Number="30">CTO</Channel>
+    <Channel Number="31">ColorAdd_R Ch 16</Channel>
+    <Channel Number="32">Shutter1</Channel>
+    <Channel Number="33">ColorAdd_G Ch 17</Channel>
+    <Channel Number="34">Dimmer</Channel>
+    <Channel Number="35">ColorAdd_B Ch 18</Channel>
+    <Channel Number="36">Dimmer Fine</Channel>
+    <Channel Number="37">ColorAdd_R Ch 19</Channel>
+    <Channel Number="38">LEDZoneMode</Channel>
+    <Channel Number="39">ColorAdd_G Ch 20</Channel>
+    <Channel Number="40">ColorMixMode</Channel>
+    <Channel Number="41">ColorAdd_B Ch 21</Channel>
+    <Channel Number="42">FlowerEffect</Channel>
+    <Channel Number="43">ColorAdd_R Ch 22</Channel>
+    <Channel Number="44">ColorAdd_R Ch 23</Channel>
+    <Channel Number="45">ColorAdd_G Ch 23</Channel>
+    <Channel Number="46">ColorAdd_G Ch 24</Channel>
+    <Channel Number="47">ColorAdd_B Ch 24</Channel>
+    <Channel Number="48">ColorAdd_B Ch 25</Channel>
+    <Channel Number="49">ColorAdd_R Ch 25</Channel>
+    <Channel Number="50">ColorAdd_W Ch 26</Channel>
+    <Channel Number="51">ColorAdd_G Ch 26</Channel>
+    <Channel Number="52">ColorMacro1</Channel>
+    <Channel Number="53">ColorAdd_B Ch 27</Channel>
+    <Channel Number="54">Shutter1 Ch 28</Channel>
+    <Channel Number="55">ColorAdd_R Ch 28</Channel>
+    <Channel Number="56">Dimmer Ch 29</Channel>
+    <Channel Number="57">ColorAdd_G Ch 29</Channel>
+    <Channel Number="58">Zoom</Channel>
+    <Channel Number="59">ColorAdd_B Ch 30</Channel>
+    <Channel Number="60">Zoom Fine</Channel>
+    <Channel Number="61">ColorAdd_R Ch 31</Channel>
+    <Channel Number="62">PatternSelection</Channel>
+    <Channel Number="63">ColorAdd_G Ch 32</Channel>
+    <Channel Number="64">PatternSize</Channel>
+    <Channel Number="65">ColorAdd_B Ch 33</Channel>
+    <Channel Number="66">PatternRotation</Channel>
+    <Channel Number="67">ColorAdd_R Ch 34</Channel>
+    <Channel Number="68">PatternFade</Channel>
+    <Channel Number="69">ColorAdd_G Ch 35</Channel>
+    <Channel Number="70">PatternTransition</Channel>
+    <Channel Number="71">ColorAdd_B Ch 36</Channel>
+    <Channel Number="72">PatternCrossfade</Channel>
+    <Channel Number="73">ColorAdd_R Ch 37</Channel>
+    <Channel Number="74">ColorAdd_R Ch 38</Channel>
+    <Channel Number="75">ColorAdd_G Ch 38</Channel>
+    <Channel Number="76">ColorAdd_G Ch 39</Channel>
+    <Channel Number="77">ColorAdd_B Ch 39</Channel>
+    <Channel Number="78">ColorAdd_B Ch 40</Channel>
+    <Channel Number="79">ColorAdd_R Ch 40</Channel>
+    <Channel Number="80">ColorAdd_W Ch 41</Channel>
+    <Channel Number="81">ColorAdd_G Ch 41</Channel>
+    <Channel Number="82">ColorMacro1 Ch 42</Channel>
+    <Channel Number="83">ColorAdd_B Ch 42</Channel>
+    <Channel Number="84">Shutter1 Ch 43</Channel>
+    <Channel Number="85">ColorAdd_R Ch 43</Channel>
+    <Channel Number="86">Dimmer Ch 44</Channel>
+    <Channel Number="87">ColorAdd_G Ch 44</Channel>
+    <Channel Number="88">Shutter1 Ch 45</Channel>
+    <Channel Number="89">ColorAdd_B Ch 45</Channel>
+    <Channel Number="90">Dimmer Ch 46</Channel>
+    <Channel Number="91">ColorAdd_R Ch 46</Channel>
+    <Channel Number="92">Dimmer Fine Ch 47</Channel>
+    <Channel Number="93">ColorAdd_G Ch 47</Channel>
+    <Channel Number="94">ColorAdd_B Ch 48</Channel>
+    <Channel Number="95">ColorAdd_R Ch 49</Channel>
+    <Channel Number="96">ColorAdd_G Ch 50</Channel>
+    <Channel Number="97">ColorAdd_B Ch 51</Channel>
+    <Channel Number="98">ColorAdd_R Ch 52</Channel>
+    <Channel Number="99">ColorAdd_G Ch 53</Channel>
+    <Channel Number="100">ColorAdd_B Ch 54</Channel>
+    <Channel Number="101">ColorAdd_R Ch 55</Channel>
+    <Channel Number="102">ColorAdd_G Ch 56</Channel>
+    <Channel Number="103">ColorAdd_B Ch 57</Channel>
+  </Mode>
+  <Mode Name="Mode 8 - Pixel RGBW ">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_R Fine</Channel>
+    <Channel Number="9">ColorAdd_G</Channel>
+    <Channel Number="10">ColorAdd_G Fine</Channel>
+    <Channel Number="11">ColorAdd_B</Channel>
+    <Channel Number="12">ColorAdd_B Fine</Channel>
+    <Channel Number="13">ColorAdd_W</Channel>
+    <Channel Number="14">ColorAdd_W Fine</Channel>
+    <Channel Number="15">CTO</Channel>
+    <Channel Number="16">Shutter1</Channel>
+    <Channel Number="17">Dimmer</Channel>
+    <Channel Number="18">Dimmer Fine</Channel>
+    <Channel Number="19">LEDZoneMode</Channel>
+    <Channel Number="20">ColorMixMode</Channel>
+    <Channel Number="21">FlowerEffect</Channel>
+    <Channel Number="22">ColorAdd_R Ch 23</Channel>
+    <Channel Number="23">ColorAdd_G Ch 24</Channel>
+    <Channel Number="24">ColorAdd_B Ch 25</Channel>
+    <Channel Number="25">ColorAdd_W Ch 26</Channel>
+    <Channel Number="26">ColorMacro1</Channel>
+    <Channel Number="27">Shutter1 Ch 28</Channel>
+    <Channel Number="28">Dimmer Ch 29</Channel>
+    <Channel Number="29">Zoom</Channel>
+    <Channel Number="30">Zoom Fine</Channel>
+    <Channel Number="31">Shutter1 Ch 32</Channel>
+    <Channel Number="32">Dimmer Ch 33</Channel>
+    <Channel Number="33">Dimmer Fine Ch 34</Channel>
+    <Channel Number="34">ColorAdd_R Ch 35</Channel>
+    <Channel Number="35">ColorAdd_G Ch 36</Channel>
+    <Channel Number="36">ColorAdd_B Ch 37</Channel>
+    <Channel Number="37">ColorAdd_W Ch 38</Channel>
+    <Channel Number="38">ColorAdd_R Ch 39</Channel>
+    <Channel Number="39">ColorAdd_G Ch 40</Channel>
+    <Channel Number="40">ColorAdd_B Ch 41</Channel>
+    <Channel Number="41">ColorAdd_W Ch 42</Channel>
+    <Channel Number="42">ColorAdd_R Ch 43</Channel>
+    <Channel Number="43">ColorAdd_G Ch 44</Channel>
+    <Channel Number="44">ColorAdd_B Ch 45</Channel>
+    <Channel Number="45">ColorAdd_W Ch 46</Channel>
+    <Channel Number="46">ColorAdd_R Ch 47</Channel>
+    <Channel Number="47">ColorAdd_G Ch 48</Channel>
+    <Channel Number="48">ColorAdd_B Ch 49</Channel>
+    <Channel Number="49">ColorAdd_W Ch 50</Channel>
+    <Channel Number="50">ColorAdd_R Ch 51</Channel>
+    <Channel Number="51">ColorAdd_G Ch 52</Channel>
+    <Channel Number="52">ColorAdd_B Ch 53</Channel>
+    <Channel Number="53">ColorAdd_W Ch 54</Channel>
+    <Channel Number="54">ColorAdd_R Ch 55</Channel>
+    <Channel Number="55">ColorAdd_G Ch 56</Channel>
+    <Channel Number="56">ColorAdd_B Ch 57</Channel>
+    <Channel Number="57">ColorAdd_W Ch 58</Channel>
+    <Channel Number="58">ColorAdd_R Ch 59</Channel>
+    <Channel Number="59">ColorAdd_G Ch 60</Channel>
+    <Channel Number="60">ColorAdd_B Ch 61</Channel>
+    <Channel Number="61">ColorAdd_W Ch 62</Channel>
+    <Channel Number="62">ColorAdd_R Ch 63</Channel>
+    <Channel Number="63">ColorAdd_G Ch 64</Channel>
+    <Channel Number="64">ColorAdd_B Ch 65</Channel>
+    <Channel Number="65">ColorAdd_W Ch 66</Channel>
+    <Channel Number="66">ColorAdd_R Ch 67</Channel>
+    <Channel Number="67">ColorAdd_G Ch 68</Channel>
+    <Channel Number="68">ColorAdd_B Ch 69</Channel>
+    <Channel Number="69">ColorAdd_W Ch 70</Channel>
+    <Channel Number="70">ColorAdd_R Ch 71</Channel>
+    <Channel Number="71">ColorAdd_G Ch 72</Channel>
+    <Channel Number="72">ColorAdd_B Ch 73</Channel>
+    <Channel Number="73">ColorAdd_W Ch 74</Channel>
+    <Channel Number="74">ColorAdd_R Ch 75</Channel>
+    <Channel Number="75">ColorAdd_G Ch 76</Channel>
+    <Channel Number="76">ColorAdd_B Ch 77</Channel>
+    <Channel Number="77">ColorAdd_W Ch 78</Channel>
+    <Channel Number="78">ColorAdd_R Ch 79</Channel>
+    <Channel Number="79">ColorAdd_G Ch 80</Channel>
+    <Channel Number="80">ColorAdd_B Ch 81</Channel>
+    <Channel Number="81">ColorAdd_W Ch 82</Channel>
+    <Channel Number="82">ColorAdd_R Ch 83</Channel>
+    <Channel Number="83">ColorAdd_G Ch 84</Channel>
+    <Channel Number="84">ColorAdd_B Ch 85</Channel>
+    <Channel Number="85">ColorAdd_W Ch 86</Channel>
+    <Channel Number="86">ColorAdd_R Ch 87</Channel>
+    <Channel Number="87">ColorAdd_G Ch 88</Channel>
+    <Channel Number="88">ColorAdd_B Ch 89</Channel>
+    <Channel Number="89">ColorAdd_W Ch 90</Channel>
+    <Channel Number="90">ColorAdd_R Ch 91</Channel>
+    <Channel Number="91">ColorAdd_G Ch 92</Channel>
+    <Channel Number="92">ColorAdd_B Ch 93</Channel>
+    <Channel Number="93">ColorAdd_W Ch 94</Channel>
+    <Channel Number="94">ColorAdd_R Ch 95</Channel>
+    <Channel Number="95">ColorAdd_G Ch 96</Channel>
+    <Channel Number="96">ColorAdd_B Ch 97</Channel>
+    <Channel Number="97">ColorAdd_W Ch 98</Channel>
+    <Channel Number="98">ColorAdd_R Ch 99</Channel>
+    <Channel Number="99">ColorAdd_G Ch 100</Channel>
+    <Channel Number="100">ColorAdd_B Ch 101</Channel>
+    <Channel Number="101">ColorAdd_W Ch 102</Channel>
+    <Channel Number="102">ColorAdd_R Ch 103</Channel>
+    <Channel Number="103">ColorAdd_G Ch 104</Channel>
+    <Channel Number="104">ColorAdd_B Ch 105</Channel>
+    <Channel Number="105">ColorAdd_W Ch 106</Channel>
+    <Channel Number="106">ColorAdd_R Ch 107</Channel>
+    <Channel Number="107">ColorAdd_G Ch 108</Channel>
+    <Channel Number="108">ColorAdd_B Ch 109</Channel>
+    <Channel Number="109">ColorAdd_W Ch 110</Channel>
+  </Mode>
+  <Mode Name="Mode 7 - Pixel RGB">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">ColorAdd_R</Channel>
+    <Channel Number="2">Pan Fine</Channel>
+    <Channel Number="3">ColorAdd_G</Channel>
+    <Channel Number="4">Tilt</Channel>
+    <Channel Number="5">ColorAdd_B</Channel>
+    <Channel Number="6">Tilt Fine</Channel>
+    <Channel Number="7">ColorAdd_R Ch 4</Channel>
+    <Channel Number="8">PositionMSpeed</Channel>
+    <Channel Number="9">ColorAdd_G Ch 5</Channel>
+    <Channel Number="10">Control1</Channel>
+    <Channel Number="11">ColorAdd_B Ch 6</Channel>
+    <Channel Number="12">Color1</Channel>
+    <Channel Number="13">ColorAdd_R Ch 7</Channel>
+    <Channel Number="14">ColorAdd_R Ch 8</Channel>
+    <Channel Number="15">ColorAdd_G Ch 8</Channel>
+    <Channel Number="16">ColorAdd_R Fine</Channel>
+    <Channel Number="17">ColorAdd_B Ch 9</Channel>
+    <Channel Number="18">ColorAdd_G Ch 10</Channel>
+    <Channel Number="19">ColorAdd_R Ch 10</Channel>
+    <Channel Number="20">ColorAdd_G Fine</Channel>
+    <Channel Number="21">ColorAdd_G Ch 11</Channel>
+    <Channel Number="22">ColorAdd_B Ch 12</Channel>
+    <Channel Number="23">ColorAdd_B Ch 12.2</Channel>
+    <Channel Number="24">ColorAdd_B Fine</Channel>
+    <Channel Number="25">ColorAdd_R Ch 13</Channel>
+    <Channel Number="26">ColorAdd_W</Channel>
+    <Channel Number="27">ColorAdd_G Ch 14</Channel>
+    <Channel Number="28">ColorAdd_W Fine</Channel>
+    <Channel Number="29">ColorAdd_B Ch 15</Channel>
+    <Channel Number="30">CTO</Channel>
+    <Channel Number="31">ColorAdd_R Ch 16</Channel>
+    <Channel Number="32">Shutter1</Channel>
+    <Channel Number="33">ColorAdd_G Ch 17</Channel>
+    <Channel Number="34">Dimmer</Channel>
+    <Channel Number="35">ColorAdd_B Ch 18</Channel>
+    <Channel Number="36">Dimmer Fine</Channel>
+    <Channel Number="37">ColorAdd_R Ch 19</Channel>
+    <Channel Number="38">LEDZoneMode</Channel>
+    <Channel Number="39">ColorAdd_G Ch 20</Channel>
+    <Channel Number="40">ColorMixMode</Channel>
+    <Channel Number="41">ColorAdd_B Ch 21</Channel>
+    <Channel Number="42">FlowerEffect</Channel>
+    <Channel Number="43">ColorAdd_R Ch 22</Channel>
+    <Channel Number="44">ColorAdd_R Ch 23</Channel>
+    <Channel Number="45">ColorAdd_G Ch 23</Channel>
+    <Channel Number="46">ColorAdd_G Ch 24</Channel>
+    <Channel Number="47">ColorAdd_B Ch 24</Channel>
+    <Channel Number="48">ColorAdd_B Ch 25</Channel>
+    <Channel Number="49">ColorAdd_R Ch 25</Channel>
+    <Channel Number="50">ColorAdd_W Ch 26</Channel>
+    <Channel Number="51">ColorAdd_G Ch 26</Channel>
+    <Channel Number="52">ColorMacro1</Channel>
+    <Channel Number="53">ColorAdd_B Ch 27</Channel>
+    <Channel Number="54">Shutter1 Ch 28</Channel>
+    <Channel Number="55">ColorAdd_R Ch 28</Channel>
+    <Channel Number="56">Dimmer Ch 29</Channel>
+    <Channel Number="57">ColorAdd_G Ch 29</Channel>
+    <Channel Number="58">Zoom</Channel>
+    <Channel Number="59">ColorAdd_B Ch 30</Channel>
+    <Channel Number="60">Zoom Fine</Channel>
+    <Channel Number="61">ColorAdd_R Ch 31</Channel>
+    <Channel Number="62">Shutter1 Ch 32</Channel>
+    <Channel Number="63">ColorAdd_G Ch 32</Channel>
+    <Channel Number="64">Dimmer Ch 33</Channel>
+    <Channel Number="65">ColorAdd_B Ch 33</Channel>
+    <Channel Number="66">Dimmer Fine Ch 34</Channel>
+    <Channel Number="67">ColorAdd_R Ch 34</Channel>
+    <Channel Number="68">ColorAdd_G Ch 35</Channel>
+    <Channel Number="69">ColorAdd_B Ch 36</Channel>
+    <Channel Number="70">ColorAdd_R Ch 37</Channel>
+    <Channel Number="71">ColorAdd_G Ch 38</Channel>
+    <Channel Number="72">ColorAdd_B Ch 39</Channel>
+    <Channel Number="73">ColorAdd_R Ch 40</Channel>
+    <Channel Number="74">ColorAdd_G Ch 41</Channel>
+    <Channel Number="75">ColorAdd_B Ch 42</Channel>
+    <Channel Number="76">ColorAdd_R Ch 43</Channel>
+    <Channel Number="77">ColorAdd_G Ch 44</Channel>
+    <Channel Number="78">ColorAdd_B Ch 45</Channel>
+    <Channel Number="79">ColorAdd_R Ch 46</Channel>
+    <Channel Number="80">ColorAdd_G Ch 47</Channel>
+    <Channel Number="81">ColorAdd_B Ch 48</Channel>
+    <Channel Number="82">ColorAdd_R Ch 49</Channel>
+    <Channel Number="83">ColorAdd_G Ch 50</Channel>
+    <Channel Number="84">ColorAdd_B Ch 51</Channel>
+    <Channel Number="85">ColorAdd_R Ch 52</Channel>
+    <Channel Number="86">ColorAdd_G Ch 53</Channel>
+    <Channel Number="87">ColorAdd_B Ch 54</Channel>
+    <Channel Number="88">ColorAdd_R Ch 55</Channel>
+    <Channel Number="89">ColorAdd_G Ch 56</Channel>
+    <Channel Number="90">ColorAdd_B Ch 57</Channel>
+  </Mode>
+  <Mode Name="Mode 6 - Pattern">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_R Fine</Channel>
+    <Channel Number="9">ColorAdd_G</Channel>
+    <Channel Number="10">ColorAdd_G Fine</Channel>
+    <Channel Number="11">ColorAdd_B</Channel>
+    <Channel Number="12">ColorAdd_B Fine</Channel>
+    <Channel Number="13">ColorAdd_W</Channel>
+    <Channel Number="14">ColorAdd_W Fine</Channel>
+    <Channel Number="15">CTO</Channel>
+    <Channel Number="16">Shutter1</Channel>
+    <Channel Number="17">Dimmer</Channel>
+    <Channel Number="18">Dimmer Fine</Channel>
+    <Channel Number="19">LEDZoneMode</Channel>
+    <Channel Number="20">ColorMixMode</Channel>
+    <Channel Number="21">FlowerEffect</Channel>
+    <Channel Number="22">ColorAdd_R Ch 23</Channel>
+    <Channel Number="23">ColorAdd_G Ch 24</Channel>
+    <Channel Number="24">ColorAdd_B Ch 25</Channel>
+    <Channel Number="25">ColorAdd_W Ch 26</Channel>
+    <Channel Number="26">ColorMacro1</Channel>
+    <Channel Number="27">Shutter1 Ch 28</Channel>
+    <Channel Number="28">Dimmer Ch 29</Channel>
+    <Channel Number="29">Zoom</Channel>
+    <Channel Number="30">Zoom Fine</Channel>
+    <Channel Number="31">PatternSelection</Channel>
+    <Channel Number="32">PatternSize</Channel>
+    <Channel Number="33">PatternRotation</Channel>
+    <Channel Number="34">PatternFade</Channel>
+    <Channel Number="35">PatternTransition</Channel>
+    <Channel Number="36">PatternCrossfade</Channel>
+    <Channel Number="37">ColorAdd_R Ch 38</Channel>
+    <Channel Number="38">ColorAdd_G Ch 39</Channel>
+    <Channel Number="39">ColorAdd_B Ch 40</Channel>
+    <Channel Number="40">ColorAdd_W Ch 41</Channel>
+    <Channel Number="41">ColorMacro1 Ch 42</Channel>
+    <Channel Number="42">Shutter1 Ch 43</Channel>
+    <Channel Number="43">Dimmer Ch 44</Channel>
+    <Channel Number="44">Shutter1 Ch 45</Channel>
+    <Channel Number="45">Dimmer Ch 46</Channel>
+    <Channel Number="46">Dimmer Fine Ch 47</Channel>
+  </Mode>
+  <Mode Name="Mode 5 - Wash">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_G</Channel>
+    <Channel Number="9">ColorAdd_B</Channel>
+    <Channel Number="10">ColorAdd_W</Channel>
+    <Channel Number="11">CTO</Channel>
+    <Channel Number="12">Shutter1</Channel>
+    <Channel Number="13">Dimmer</Channel>
+    <Channel Number="14">LEDZoneMode</Channel>
+    <Channel Number="15">ColorMixMode</Channel>
+    <Channel Number="16">FlowerEffect</Channel>
+    <Channel Number="17">ColorAdd_R Ch 18</Channel>
+    <Channel Number="18">ColorAdd_G Ch 19</Channel>
+    <Channel Number="19">ColorAdd_B Ch 20</Channel>
+    <Channel Number="20">ColorAdd_W Ch 21</Channel>
+    <Channel Number="21">ColorMacro1</Channel>
+    <Channel Number="22">Shutter1 Ch 23</Channel>
+    <Channel Number="23">Dimmer Ch 24</Channel>
+    <Channel Number="24">Zoom</Channel>
+    <Channel Number="25">Shutter1 Ch 26</Channel>
+    <Channel Number="26">Dimmer Ch 27</Channel>
+  </Mode>
+  <Mode Name="Mode 1 - Zones">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_R Fine</Channel>
+    <Channel Number="9">ColorAdd_G</Channel>
+    <Channel Number="10">ColorAdd_G Fine</Channel>
+    <Channel Number="11">ColorAdd_B</Channel>
+    <Channel Number="12">ColorAdd_B Fine</Channel>
+    <Channel Number="13">ColorAdd_W</Channel>
+    <Channel Number="14">ColorAdd_W Fine</Channel>
+    <Channel Number="15">ColorAdd_R Ch 16</Channel>
+    <Channel Number="16">ColorAdd_R Fine Ch 17</Channel>
+    <Channel Number="17">ColorAdd_G Ch 18</Channel>
+    <Channel Number="18">ColorAdd_G Fine Ch 19</Channel>
+    <Channel Number="19">ColorAdd_B Ch 20</Channel>
+    <Channel Number="20">ColorAdd_B Fine Ch 21</Channel>
+    <Channel Number="21">ColorAdd_W Ch 22</Channel>
+    <Channel Number="22">ColorAdd_W Fine Ch 23</Channel>
+    <Channel Number="23">ColorAdd_R Ch 24</Channel>
+    <Channel Number="24">ColorAdd_R Fine Ch 25</Channel>
+    <Channel Number="25">ColorAdd_G Ch 26</Channel>
+    <Channel Number="26">ColorAdd_G Fine Ch 27</Channel>
+    <Channel Number="27">ColorAdd_B Ch 28</Channel>
+    <Channel Number="28">ColorAdd_B Fine Ch 29</Channel>
+    <Channel Number="29">ColorAdd_W Ch 30</Channel>
+    <Channel Number="30">ColorAdd_W Fine Ch 31</Channel>
+    <Channel Number="31">CTO</Channel>
+    <Channel Number="32">ColorMixMode</Channel>
+    <Channel Number="33">Effects1</Channel>
+    <Channel Number="34">Effects1Rate</Channel>
+    <Channel Number="35">Effects1Fade</Channel>
+    <Channel Number="36">FlowerEffect</Channel>
+    <Channel Number="37">ColorAdd_R Ch 38</Channel>
+    <Channel Number="38">ColorAdd_G Ch 39</Channel>
+    <Channel Number="39">ColorAdd_B Ch 40</Channel>
+    <Channel Number="40">ColorAdd_W Ch 41</Channel>
+    <Channel Number="41">ColorMacro1</Channel>
+    <Channel Number="42">Shutter1</Channel>
+    <Channel Number="43">Dimmer</Channel>
+    <Channel Number="44">Zoom</Channel>
+    <Channel Number="45">Zoom Fine</Channel>
+    <Channel Number="46">Shutter1 Ch 47</Channel>
+    <Channel Number="47">Dimmer Ch 48</Channel>
+    <Channel Number="48">Dimmer Fine</Channel>
+  </Mode>
+  <Mode Name="Mode 2 - Basic">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_G</Channel>
+    <Channel Number="9">ColorAdd_B</Channel>
+    <Channel Number="10">ColorAdd_W</Channel>
+    <Channel Number="11">CTO</Channel>
+    <Channel Number="12">ColorMixMode</Channel>
+    <Channel Number="13">Effects1</Channel>
+    <Channel Number="14">Effects1Rate</Channel>
+    <Channel Number="15">Effects1Fade</Channel>
+    <Channel Number="16">FlowerEffect</Channel>
+    <Channel Number="17">ColorAdd_R Ch 18</Channel>
+    <Channel Number="18">ColorAdd_G Ch 19</Channel>
+    <Channel Number="19">ColorAdd_B Ch 20</Channel>
+    <Channel Number="20">ColorAdd_W Ch 21</Channel>
+    <Channel Number="21">ColorMacro1</Channel>
+    <Channel Number="22">Shutter1</Channel>
+    <Channel Number="23">Dimmer</Channel>
+    <Channel Number="24">Zoom</Channel>
+    <Channel Number="25">Shutter1 Ch 26</Channel>
+    <Channel Number="26">Dimmer Ch 27</Channel>
+  </Mode>
+  <Mode Name="Mode 3 - Advanced">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">Pan Fine</Channel>
+    <Channel Number="2">Tilt</Channel>
+    <Channel Number="3">Tilt Fine</Channel>
+    <Channel Number="4">PositionMSpeed</Channel>
+    <Channel Number="5">Control1</Channel>
+    <Channel Number="6">Color1</Channel>
+    <Channel Number="7">ColorAdd_R</Channel>
+    <Channel Number="8">ColorAdd_R Fine</Channel>
+    <Channel Number="9">ColorAdd_G</Channel>
+    <Channel Number="10">ColorAdd_G Fine</Channel>
+    <Channel Number="11">ColorAdd_B</Channel>
+    <Channel Number="12">ColorAdd_B Fine</Channel>
+    <Channel Number="13">ColorAdd_W</Channel>
+    <Channel Number="14">ColorAdd_W Fine</Channel>
+    <Channel Number="15">CTO</Channel>
+    <Channel Number="16">ColorMixMode</Channel>
+    <Channel Number="17">Effects1</Channel>
+    <Channel Number="18">Effects1Rate</Channel>
+    <Channel Number="19">Effects1Fade</Channel>
+    <Channel Number="20">FlowerEffect</Channel>
+    <Channel Number="21">ColorAdd_R Ch 22</Channel>
+    <Channel Number="22">ColorAdd_G Ch 23</Channel>
+    <Channel Number="23">ColorAdd_B Ch 24</Channel>
+    <Channel Number="24">ColorAdd_W Ch 25</Channel>
+    <Channel Number="25">ColorMacro1</Channel>
+    <Channel Number="26">Shutter1</Channel>
+    <Channel Number="27">Dimmer</Channel>
+    <Channel Number="28">Zoom</Channel>
+    <Channel Number="29">Zoom Fine</Channel>
+    <Channel Number="30">Shutter1 Ch 31</Channel>
+    <Channel Number="31">Dimmer Ch 32</Channel>
+    <Channel Number="32">Dimmer Fine</Channel>
+  </Mode>
+  <Mode Name="Mode 4 - Full RGBW">
+    <Channel Number="0">Pan</Channel>
+    <Channel Number="1">ColorAdd_R</Channel>
+    <Channel Number="2">Pan Fine</Channel>
+    <Channel Number="3">ColorAdd_G</Channel>
+    <Channel Number="4">Tilt</Channel>
+    <Channel Number="5">ColorAdd_B</Channel>
+    <Channel Number="6">Tilt Fine</Channel>
+    <Channel Number="7">ColorAdd_R Ch 4</Channel>
+    <Channel Number="8">PositionMSpeed</Channel>
+    <Channel Number="9">ColorAdd_G Ch 5</Channel>
+    <Channel Number="10">Control1</Channel>
+    <Channel Number="11">ColorAdd_B Ch 6</Channel>
+    <Channel Number="12">Color1</Channel>
+    <Channel Number="13">ColorAdd_R Ch 7</Channel>
+    <Channel Number="14">ColorAdd_R Ch 8</Channel>
+    <Channel Number="15">ColorAdd_G Ch 8</Channel>
+    <Channel Number="16">ColorAdd_R Fine</Channel>
+    <Channel Number="17">ColorAdd_B Ch 9</Channel>
+    <Channel Number="18">ColorAdd_G Ch 10</Channel>
+    <Channel Number="19">ColorAdd_R Ch 10</Channel>
+    <Channel Number="20">ColorAdd_G Fine</Channel>
+    <Channel Number="21">ColorAdd_G Ch 11</Channel>
+    <Channel Number="22">ColorAdd_B Ch 12</Channel>
+    <Channel Number="23">ColorAdd_B Ch 12.2</Channel>
+    <Channel Number="24">ColorAdd_B Fine</Channel>
+    <Channel Number="25">ColorAdd_R Ch 13</Channel>
+    <Channel Number="26">ColorAdd_W</Channel>
+    <Channel Number="27">ColorAdd_G Ch 14</Channel>
+    <Channel Number="28">ColorAdd_W Fine</Channel>
+    <Channel Number="29">ColorAdd_B Ch 15</Channel>
+    <Channel Number="30">CTO</Channel>
+    <Channel Number="31">ColorAdd_R Ch 16</Channel>
+    <Channel Number="32">ColorMixMode</Channel>
+    <Channel Number="33">ColorAdd_G Ch 17</Channel>
+    <Channel Number="34">Effects1</Channel>
+    <Channel Number="35">ColorAdd_B Ch 18</Channel>
+    <Channel Number="36">Effects1Rate</Channel>
+    <Channel Number="37">ColorAdd_R Ch 19</Channel>
+    <Channel Number="38">Effects1Fade</Channel>
+    <Channel Number="39">ColorAdd_G Ch 20</Channel>
+    <Channel Number="40">FlowerEffect</Channel>
+    <Channel Number="41">ColorAdd_B Ch 21</Channel>
+    <Channel Number="42">ColorAdd_R Ch 22</Channel>
+    <Channel Number="43">ColorAdd_R Ch 22.2</Channel>
+    <Channel Number="44">ColorAdd_G Ch 23</Channel>
+    <Channel Number="45">ColorAdd_G Ch 23.2</Channel>
+    <Channel Number="46">ColorAdd_B Ch 24</Channel>
+    <Channel Number="47">ColorAdd_B Ch 24.2</Channel>
+    <Channel Number="48">ColorAdd_W Ch 25</Channel>
+    <Channel Number="49">ColorAdd_R Ch 25</Channel>
+    <Channel Number="50">ColorMacro1</Channel>
+    <Channel Number="51">ColorAdd_G Ch 26</Channel>
+    <Channel Number="52">Shutter1</Channel>
+    <Channel Number="53">ColorAdd_B Ch 27</Channel>
+    <Channel Number="54">Dimmer</Channel>
+    <Channel Number="55">ColorAdd_R Ch 28</Channel>
+    <Channel Number="56">Zoom</Channel>
+    <Channel Number="57">ColorAdd_G Ch 29</Channel>
+    <Channel Number="58">Zoom Fine</Channel>
+    <Channel Number="59">ColorAdd_B Ch 30</Channel>
+    <Channel Number="60">Shutter1 Ch 31</Channel>
+    <Channel Number="61">ColorAdd_R Ch 31</Channel>
+    <Channel Number="62">Dimmer Ch 32</Channel>
+    <Channel Number="63">ColorAdd_G Ch 32</Channel>
+    <Channel Number="64">Dimmer Fine</Channel>
+    <Channel Number="65">ColorAdd_B Ch 33</Channel>
+    <Channel Number="66">ColorAdd_R Ch 34</Channel>
+    <Channel Number="67">ColorAdd_G Ch 35</Channel>
+    <Channel Number="68">ColorAdd_B Ch 36</Channel>
+    <Channel Number="69">ColorAdd_R Ch 37</Channel>
+    <Channel Number="70">ColorAdd_G Ch 38</Channel>
+    <Channel Number="71">ColorAdd_B Ch 39</Channel>
+    <Channel Number="72">ColorAdd_R Ch 40</Channel>
+    <Channel Number="73">ColorAdd_G Ch 41</Channel>
+    <Channel Number="74">ColorAdd_B Ch 42</Channel>
+    <Channel Number="75">ColorAdd_R Ch 43</Channel>
+    <Channel Number="76">ColorAdd_G Ch 44</Channel>
+    <Channel Number="77">ColorAdd_B Ch 45</Channel>
+    <Channel Number="78">ColorAdd_R Ch 46</Channel>
+    <Channel Number="79">ColorAdd_G Ch 47</Channel>
+    <Channel Number="80">ColorAdd_B Ch 48</Channel>
+    <Channel Number="81">ColorAdd_R Ch 49</Channel>
+    <Channel Number="82">ColorAdd_G Ch 50</Channel>
+    <Channel Number="83">ColorAdd_B Ch 51</Channel>
+    <Channel Number="84">ColorAdd_R Ch 52</Channel>
+    <Channel Number="85">ColorAdd_G Ch 53</Channel>
+    <Channel Number="86">ColorAdd_B Ch 54</Channel>
+    <Channel Number="87">ColorAdd_R Ch 55</Channel>
+    <Channel Number="88">ColorAdd_G Ch 56</Channel>
+    <Channel Number="89">ColorAdd_B Ch 57</Channel>
+  </Mode>
+</FixtureDefinition>

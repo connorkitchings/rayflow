@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+  <Creator>
+    <Name>RayFlow</Name>
+    <Version>4.12.4</Version>
+    <Author>RayFlow</Author>
+  </Creator>
+  <Manufacturer>BlenderDMX</Manufacturer>
+  <Model>LED PAR 64 RGBW</Model>
+  <Type>Other</Type>
+  <Channel Name="Dimmer" Preset="IntensityDimmer">
+    <Group Byte="0">Intensity</Group>
+    <Capability Min="0" Max="255">Intensity range</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_R" Preset="IntensityRed">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_G" Preset="IntensityGreen">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_B" Preset="IntensityBlue">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Channel Name="ColorAdd_W" Preset="IntensityWhite">
+    <Group Byte="0">Colour</Group>
+    <Capability Min="0" Max="255">Color component</Capability>
+  </Channel>
+  <Mode Name="Default">
+    <Channel Number="0">Dimmer</Channel>
+    <Channel Number="1">ColorAdd_R</Channel>
+    <Channel Number="2">ColorAdd_G</Channel>
+    <Channel Number="3">ColorAdd_B</Channel>
+    <Channel Number="4">ColorAdd_W</Channel>
+  </Mode>
+</FixtureDefinition>
