@@ -1,0 +1,334 @@
+name: "Rig 1"
+venue:
+  name: "Virtual Southern Rock Theater"
+  dimensions: [16, 9, 6.5]
+  notes: >
+    Reusable RayFlow pilot stage for small-to-medium jam/rock songs. Coordinates
+    use meters: x left/right, y downstage/upstage, z trim height.
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Warm Front PAR 1"
+    universe: 0
+    start_address: 1
+    position: {x: -6.0, y: 1.0, z: 4.0, pan: 0, tilt: 35}
+    channels: "1"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Warm Front PAR 2"
+    universe: 0
+    start_address: 6
+    position: {x: -2.0, y: 1.0, z: 4.0, pan: 0, tilt: 35}
+    channels: "2"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Warm Front PAR 3"
+    universe: 0
+    start_address: 11
+    position: {x: 2.0, y: 1.0, z: 4.0, pan: 0, tilt: 35}
+    channels: "3"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Warm Front PAR 4"
+    universe: 0
+    start_address: 16
+    position: {x: 6.0, y: 1.0, z: 4.0, pan: 0, tilt: 35}
+    channels: "4"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Side Amber PAR SL"
+    universe: 0
+    start_address: 21
+    position: {x: -7.0, y: 4.5, z: 3.2, pan: 25, tilt: 20}
+    channels: "5"
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Side Amber PAR SR"
+    universe: 0
+    start_address: 26
+    position: {x: 7.0, y: 4.5, z: 3.2, pan: -25, tilt: 20}
+    channels: "6"
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 2 - Basic"
+    label: "Back Wash Spiider 1"
+    universe: 0
+    start_address: 33
+    position: {x: -6.0, y: 7.5, z: 5.8, pan: 0, tilt: 45}
+    channels: "7"
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 2 - Basic"
+    label: "Back Wash Spiider 2"
+    universe: 0
+    start_address: 60
+    position: {x: -2.0, y: 7.5, z: 5.8, pan: 0, tilt: 45}
+    channels: "8"
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 2 - Basic"
+    label: "Back Wash Spiider 3"
+    universe: 0
+    start_address: 87
+    position: {x: 2.0, y: 7.5, z: 5.8, pan: 0, tilt: 45}
+    channels: "9"
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 2 - Basic"
+    label: "Back Wash Spiider 4"
+    universe: 0
+    start_address: 114
+    position: {x: 6.0, y: 7.5, z: 5.8, pan: 0, tilt: 45}
+    channels: "10"
+  - fixture_name: "Robin MMX Blade"
+    mode: "Mode 1 - Standard"
+    label: "Texture Blade 1"
+    universe: 0
+    start_address: 145
+    position: {x: -5.5, y: 6.8, z: 5.6, pan: 0, tilt: 40}
+    channels: "11"
+  - fixture_name: "Robin MMX Blade"
+    mode: "Mode 1 - Standard"
+    label: "Texture Blade 2"
+    universe: 0
+    start_address: 190
+    position: {x: -1.8, y: 6.8, z: 5.6, pan: 0, tilt: 40}
+    channels: "12"
+  - fixture_name: "Robin MMX Blade"
+    mode: "Mode 1 - Standard"
+    label: "Texture Blade 3"
+    universe: 0
+    start_address: 235
+    position: {x: 1.8, y: 6.8, z: 5.6, pan: 0, tilt: 40}
+    channels: "13"
+  - fixture_name: "Robin MMX Blade"
+    mode: "Mode 1 - Standard"
+    label: "Texture Blade 4"
+    universe: 0
+    start_address: 280
+    position: {x: 5.5, y: 6.8, z: 5.6, pan: 0, tilt: 40}
+    channels: "14"
+presets:
+  front_warm:
+    name: "Front Warm"
+    description: "Natural warm front light for the band."
+    attributes: {dimmer: "60", color: "Warm Amber"}
+    channels: "1 Thru 6"
+    tags: ["front", "warm", "panic"]
+  front_soft_white:
+    name: "Front Soft White"
+    description: "Open white front visibility for clear performer reads."
+    attributes: {dimmer: "55", color: "White"}
+    channels: "1 Thru 6"
+    tags: ["front", "white", "visibility"]
+  front_low_amber:
+    name: "Front Low Amber"
+    description: "Low amber key light that keeps faces visible without flattening beams."
+    attributes: {dimmer: "32", color: "#FFB347"}
+    channels: "1 Thru 6"
+    tags: ["front", "amber", "low", "visibility"]
+  side_glow_magenta:
+    name: "Side Glow Magenta"
+    description: "Magenta side glow for psychedelic edge light."
+    attributes: {dimmer: "48", color: "#FF00C8"}
+    channels: "5 Thru 6"
+    tags: ["side", "magenta", "glow"]
+  side_glow_lime:
+    name: "Side Glow Lime"
+    description: "Lime side glow for magenta/lime contrast looks."
+    attributes: {dimmer: "45", color: "#B6FF00"}
+    channels: "5 Thru 6"
+    tags: ["side", "lime", "contrast"]
+  side_glow_cyan:
+    name: "Side Glow Cyan"
+    description: "Cyan side light to frame cool aerial beam looks."
+    attributes: {dimmer: "45", color: "#00E5FF"}
+    channels: "5 Thru 6"
+    tags: ["side", "cyan", "cool"]
+  back_lavender:
+    name: "Back Lavender"
+    description: "Cool lavender/blue backlight contrast."
+    attributes: {dimmer: "65", color: "#6B5CFF"}
+    channels: "7 Thru 10"
+    tags: ["back", "cool", "contrast"]
+  electric_blue_cyan:
+    name: "Electric Blue Cyan"
+    description: "Deep blue/cyan upstage aerial bed inspired by the reference photos."
+    attributes: {dimmer: "72", color: "#00D8FF", beam: "wide_aerial"}
+    channels: "7 Thru 10"
+    tags: ["back", "blue", "cyan", "aerial"]
+  magenta_lime_back:
+    name: "Magenta Lime Back"
+    description: "Alternating magenta/lime backlight contrast for psychedelic sections."
+    attributes: {dimmer: "75", color: "#D800FF", beam: "fan"}
+    channels: "7 Thru 10"
+    tags: ["back", "magenta", "lime", "psychedelic"]
+  amber_cyan_back:
+    name: "Amber Cyan Back"
+    description: "Warm amber and cyan upstage contrast for Southern rock jams."
+    attributes: {dimmer: "74", color: "#00E5FF", beam: "fan"}
+    channels: "7 Thru 10"
+    tags: ["back", "amber", "cyan", "contrast"]
+  white_blue_peak:
+    name: "White Blue Peak"
+    description: "White aerial punch over a blue/cyan atmosphere for chorus peaks."
+    attributes: {dimmer: "92", color: "White", beam: "tight_aerial"}
+    channels: "7 Thru 14"
+    tags: ["peak", "white", "blue", "aerial"]
+  hot_red_white:
+    name: "Hot Red White"
+    description: "Hot red base with white beam punctuation for intense sections."
+    attributes: {dimmer: "88", color: "#FF2A1F", beam: "tight_aerial"}
+    channels: "7 Thru 14"
+    tags: ["peak", "red", "white", "intense"]
+  purple_blue_cyan:
+    name: "Purple Blue Cyan"
+    description: "Cool saturated atmosphere for spacey verses and bridge builds."
+    attributes: {dimmer: "66", color: "#3B5BFF", beam: "wide_aerial"}
+    channels: "7 Thru 14"
+    tags: ["cool", "purple", "blue", "cyan"]
+  fan_upstage_wide:
+    name: "Fan Upstage Wide"
+    description: "Wide symmetric upstage fan aimed forward and upward over the band."
+    attributes: {position: "fan_upstage_wide", beam: "wide_zoom", dimmer: "70"}
+    channels: "7 Thru 14"
+    tags: ["position", "fan", "upstage", "wide"]
+  fan_upstage_tight:
+    name: "Fan Upstage Tight"
+    description: "Tighter upstage fan centered over drums and lead positions."
+    attributes: {position: "fan_upstage_tight", beam: "tight_zoom", dimmer: "76"}
+    channels: "7 Thru 14"
+    tags: ["position", "fan", "upstage", "tight"]
+  cross_center_x:
+    name: "Cross Center X"
+    description: "Left/right fixtures cross through center stage for an X look."
+    attributes: {position: "cross_center_x", beam: "tight_aerial", dimmer: "78"}
+    channels: "7 Thru 14"
+    tags: ["position", "cross", "x", "center"]
+  cross_high_x:
+    name: "Cross High X"
+    description: "High aerial X crossing above the band for peak looks."
+    attributes: {position: "cross_high_x", beam: "tight_aerial", dimmer: "82"}
+    channels: "7 Thru 14"
+    tags: ["position", "cross", "x", "high"]
+  outer_wings:
+    name: "Outer Wings"
+    description: "Outer fixtures rake diagonally inward from far left and right."
+    attributes: {position: "outer_wings", beam: "medium_zoom", dimmer: "72"}
+    channels: "7 Thru 14"
+    tags: ["position", "wings", "diagonal"]
+  ceiling_bloom:
+    name: "Ceiling Bloom"
+    description: "High tilt and wide zoom to make an overhead canopy of light."
+    attributes: {position: "ceiling_bloom", beam: "wide_zoom", dimmer: "68"}
+    channels: "7 Thru 10"
+    tags: ["position", "ceiling", "bloom", "wash"]
+  silhouette_band:
+    name: "Silhouette Band"
+    description: "Back/side emphasis with restrained front light for silhouettes."
+    attributes: {position: "silhouette_band", dimmer: "72", color: "#2146D0"}
+    channels: "7 Thru 14"
+    tags: ["silhouette", "back", "dramatic"]
+  blade_texture:
+    name: "Blade Texture"
+    description: "Restrained gobo texture from the profile fixtures."
+    attributes: {dimmer: "55", gobo: "45", beam: "narrow", focus: "55"}
+    channels: "11 Thru 14"
+    tags: ["texture", "gobo", "profile"]
+  tight_aerial:
+    name: "Tight Aerial"
+    description: "Narrow zoom profile beams for visible shafts in haze."
+    attributes: {dimmer: "82", beam: "tight_aerial", focus: "70"}
+    channels: "11 Thru 14"
+    tags: ["beam", "tight", "aerial", "profile"]
+  soft_wide_wash:
+    name: "Soft Wide Wash"
+    description: "Wide softened profile wash for atmosphere without hard edges."
+    attributes: {dimmer: "55", beam: "soft_wide", focus: "35"}
+    channels: "7 Thru 14"
+    tags: ["beam", "wide", "soft", "wash"]
+  breakup_gobo_slow:
+    name: "Breakup Gobo Slow"
+    description: "Slow rotating breakup texture for haze and stage depth."
+    attributes: {dimmer: "62", gobo: "breakup_slow", beam: "medium_zoom", focus: "64"}
+    channels: "11 Thru 14"
+    tags: ["texture", "gobo", "slow", "haze"]
+  animation_cloud:
+    name: "Animation Cloud"
+    description: "Cloud-like moving texture using the MMX animation wheel."
+    attributes: {dimmer: "60", gobo: "animation_cloud", beam: "medium_soft", focus: "58"}
+    channels: "11 Thru 14"
+    tags: ["texture", "animation", "cloud", "haze"]
+  prism_peak:
+    name: "Prism Peak"
+    description: "Prism-multiplied profile beams for climactic aerial accents."
+    attributes: {dimmer: "88", gobo: "open_prism", beam: "prism_peak", focus: "72"}
+    channels: "11 Thru 14"
+    tags: ["beam", "prism", "peak", "profile"]
+  framed_slash:
+    name: "Framed Slash"
+    description: "Blade-shaped diagonal shaft for architectural beam looks."
+    attributes: {dimmer: "70", beam: "framed_slash", focus: "68", gobo: "open"}
+    channels: "11 Thru 14"
+    tags: ["framing", "blade", "slash", "profile"]
+  flower_soft:
+    name: "Flower Soft"
+    description: "Subtle iSpiiderX flower layer for gentle psychedelic motion."
+    attributes: {dimmer: "48", color: "#00E5FF", beam: "flower_soft"}
+    channels: "7 Thru 10"
+    tags: ["effect", "flower", "soft", "spiider"]
+  flower_peak:
+    name: "Flower Peak"
+    description: "Bright iSpiiderX flower effect for jam peaks."
+    attributes: {dimmer: "86", color: "#D800FF", beam: "flower_peak"}
+    channels: "7 Thru 10"
+    tags: ["effect", "flower", "peak", "spiider"]
+  floor_glow_backline:
+    name: "Floor Glow Backline"
+    description: "Low saturated horizon behind performers."
+    attributes: {dimmer: "45", color: "#FF6A00", beam: "low_glow"}
+    channels: "5 Thru 10"
+    tags: ["floor", "backline", "glow", "warm"]
+  full_warm_blue:
+    name: "Full Warm Blue"
+    description: "Warm front and cool back full-stage song look."
+    attributes: {dimmer: "75", color: "#FFB347"}
+    channels: "1 Thru 14"
+    tags: ["full", "warm", "blue"]
+  full_amber_cyan:
+    name: "Full Amber Cyan"
+    description: "Full-rig amber/cyan contrast look for groove sections."
+    attributes: {dimmer: "78", color: "#00E5FF", beam: "fan"}
+    channels: "1 Thru 14"
+    tags: ["full", "amber", "cyan", "groove"]
+  full_magenta_lime:
+    name: "Full Magenta Lime"
+    description: "Full-rig psychedelic magenta/lime look from the inspiration photos."
+    attributes: {dimmer: "80", color: "#D800FF", beam: "cross_center_x"}
+    channels: "1 Thru 14"
+    tags: ["full", "magenta", "lime", "psychedelic"]
+  full_red_aqua:
+    name: "Full Red Aqua"
+    description: "Red haze bed with aqua/cyan beam accents for hot bridge looks."
+    attributes: {dimmer: "82", color: "#FF2A1F", beam: "tight_aerial"}
+    channels: "1 Thru 14"
+    tags: ["full", "red", "aqua", "bridge"]
+  full_blue_cyan:
+    name: "Full Blue Cyan"
+    description: "Full-rig electric blue/cyan atmosphere."
+    attributes: {dimmer: "76", color: "#00BFFF", beam: "wide_aerial"}
+    channels: "1 Thru 14"
+    tags: ["full", "blue", "cyan", "atmosphere"]
+  full_white_blue_peak:
+    name: "Full White Blue Peak"
+    description: "Maximum white/blue aerial punctuation for big song peaks."
+    attributes: {dimmer: "92", color: "White", beam: "tight_aerial"}
+    channels: "1 Thru 14"
+    tags: ["full", "white", "blue", "peak"]
+  blackout:
+    name: "Blackout"
+    description: "All fixtures out."
+    attributes: {dimmer: "0"}
+    channels: "1 Thru 14"
+    tags: ["blackout"]
+notes: >
+  Rig 1 uses only checked-in fixture profiles for reproducible offline workflow
+  validation. It intentionally favors warm front visibility, lavender/blue
+  backlight, restrained movement, and MMX texture. The initial design is
+  Paul Hoffman / Widespread Panic-inspired, but the rig is reusable across songs.

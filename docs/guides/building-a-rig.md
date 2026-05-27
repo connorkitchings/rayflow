@@ -8,6 +8,27 @@ This guide walks through creating a virtual stage with GDTF fixtures that you ca
 - RayFlow installed with lighting extras
 - Basic understanding of DMX addressing (see [Glossary](../glossary.md))
 
+## Rig-Build Musts
+
+Every RayFlow rig build must produce enough visual context for review before cue
+authoring starts:
+
+- A named venue shape with dimensions in meters.
+- Fixture roles by family: front/key wash, backlight/wash, texture/beam/effect,
+  and any specials.
+- A patch plan with universe and start address for every fixture.
+- A top plot showing `x` versus `y` placement.
+- A front plot showing `x` versus `z` trim/height placement.
+- A fixture index tying plot numbers to labels, fixture types, roles, and patch.
+- A short inspiration note that says whether the rig is based on a real LD/show,
+  a genre reference, or a purely original concept.
+
+For an existing rig, generate review artifacts with:
+
+```bash
+uv run rayflow rig plot "My Rig" --dir data/rigs --output-dir exports/plots/my_rig
+```
+
 ## Step 1: Choose Your Fixtures
 
 Browse [gdtf-share.com](https://www.gdtf-share.com/) for fixtures. Good starting fixtures:

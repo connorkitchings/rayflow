@@ -142,6 +142,151 @@ class TestRigPlanBuild:
         assert (tmp_path / "Generated Rig.yaml").exists()
 
 
+class TestRigPlot:
+    def test_rig_plot_writes_top_front_and_manifest(self, tmp_path: Path) -> None:
+        rig_path = tmp_path / "Plot Rig.yaml"
+        rig_path.write_text(
+            """name: "Plot Rig"
+venue:
+  name: "Plot Venue"
+  dimensions: [10, 5, 4]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Front PAR 1"
+    universe: 0
+    start_address: 1
+    position: {x: -3, y: 1, z: 3}
+  - fixture_name: "Robin iSpiiderX"
+    mode: "Mode 2 - Basic"
+    label: "Back Wash 1"
+    universe: 0
+    start_address: 33
+    position: {x: 3, y: 4, z: 3.5}
+presets: {}
+"""
+        )
+        output_dir = tmp_path / "plots"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "plot",
+                "Plot Rig",
+                "--dir",
+                str(tmp_path),
+                "--output-dir",
+                str(output_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Rig plots generated" in result.output
+        top = output_dir / "plot-rig_top.svg"
+        front = output_dir / "plot-rig_front.svg"
+        manifest = output_dir / "plot-rig_plots.md"
+        assert top.exists()
+        assert front.exists()
+        assert manifest.exists()
+        assert "Top Plot" in top.read_text()
+        assert "Front Plot" in front.read_text()
+        assert "Front PAR 1" in manifest.read_text()
+
+    def test_rig_plot_json_output(self, tmp_path: Path) -> None:
+        _create_test_rig(tmp_path)
+        output_dir = tmp_path / "plots"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "plot",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--output-dir",
+                str(output_dir),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["rig"] == "Test Rig"
+        assert payload["fixtures"] == 0
+        assert payload["top_svg"].endswith("test-rig_top.svg")
+
+    def test_rig_visualize_front_writes_lights_on_svg(self, tmp_path: Path) -> None:
+        rig_path = tmp_path / "Viz Rig.yaml"
+        rig_path.write_text(
+            """name: "Viz Rig"
+venue:
+  name: "Viz Venue"
+  dimensions: [10, 5, 4]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "Front PAR 1"
+    universe: 0
+    start_address: 1
+    position: {x: -3, y: 1, z: 3}
+  - fixture_name: "Robin MMX Blade"
+    mode: "Mode 1 - Standard"
+    label: "Texture Blade 1"
+    universe: 0
+    start_address: 33
+    position: {x: 3, y: 4, z: 3.5}
+presets: {}
+"""
+        )
+        output_dir = tmp_path / "viz"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "visualize-front",
+                "Viz Rig",
+                "--dir",
+                str(tmp_path),
+                "--output-dir",
+                str(output_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Front visualizer generated" in result.output
+        svg = output_dir / "viz-rig_front_lights_on.svg"
+        assert svg.exists()
+        text = svg.read_text()
+        assert "Front Lights On" in text
+        assert "White/highlight visualization" in text
+
+    def test_rig_visualize_front_json_output(self, tmp_path: Path) -> None:
+        _create_test_rig(tmp_path)
+        output_dir = tmp_path / "viz"
+
+        result = runner.invoke(
+            app,
+            [
+                "rig",
+                "visualize-front",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+                "--output-dir",
+                str(output_dir),
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["rig"] == "Test Rig"
+        assert payload["front_svg"].endswith("test-rig_front_lights_on.svg")
+
+
 class TestRigQlcExports:
     def test_rig_export_qxf_writes_fixture_definitions(self, tmp_path: Path) -> None:
         fixture_dir = _copy_samples(tmp_path)

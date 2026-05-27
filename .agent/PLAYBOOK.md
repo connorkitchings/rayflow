@@ -18,6 +18,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 13. **Disposable Show First**: Before sending live mutating MA3 commands, verify the active show is disposable by observing the UI or confirming a new `.show` file was created. Do not trust `SaveShow As` syntax alone.
 14. **Command Acceptance Before MA3 Mutation**: Before running live MA3 mutation probes, send a low-risk OSC `/cmd` command that must produce observable export evidence. UDP listener presence alone does not prove command acceptance.
 15. **Reset MA3 Command Destination**: MA3 `/cmd` commands inherit the visible command-line destination such as `Fixture`. Prepend `ChangeDestination Root` before generated MA3 probe/export/show commands.
+16. **Rig Plots Required**: Every new or materially revised rig must include generated top and front plot artifacts plus a fixture index before cue authoring begins.
 
 ## [STRATEGIES]
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
@@ -44,6 +45,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **Validate Controller Numbering Live**: File formats and Web APIs can use different indexing conventions. QLC+ QXW fixture patch universes are 0-based, but QLC+ Web API `setChannelsValues`/`getChannelsValues` universes are 1-based.
 - **Keep QLC+ QXF Beside QXW for Direct Open**: When opening a generated QXW directly in QLC+, fixture definitions are resolved from QLC+'s fixture library or the workspace directory. If QXF files are written to a sibling subdirectory, static validation can pass while live import logs missing fixture definitions.
 - **Function Proof Before GUI Proof**: For controller playback validation, first prove the imported function/scene can be triggered and queried through a stable API before attempting brittle GUI button automation.
+- **Plot Before Cues**: Treat the rig as the instrument. Generate top/front plots and review fixture roles, shape, patch, and inspiration before updating show cues against the rig.
 
 ## [REVIEW AGENTS]
 

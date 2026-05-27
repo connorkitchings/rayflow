@@ -387,6 +387,7 @@ def _generate_cues(
     for section in sections:
         looks = _section_looks(
             show,
+            rig,
             section,
             style,
             cues_per_section,
@@ -422,6 +423,7 @@ def _generate_cues(
 
 def _section_looks(
     show: Show,
+    rig: Rig,
     section: Section,
     style: AuthoringStyle,
     cues_per_section: int,
@@ -431,52 +433,117 @@ def _section_looks(
     energy = section.energy if section.energy is not None else 0.5
     dimmer = _energy_to_dimmer(energy)
     secondary = max(20, min(100, dimmer + 12))
+    presets = _PresetSelector(rig)
 
     if style == "warm-cool":
         seeds = [
-            _look("Warm Front", dimmer, "Warm Amber", 2.0),
-            _look("Cool Lift", secondary, "#3366FF", 1.5),
+            _look(
+                "Warm Front",
+                dimmer,
+                "Warm Amber",
+                2.0,
+                presets.first("front_warm", tags=("front", "warm")),
+            ),
+            _look(
+                "Cool Lift",
+                secondary,
+                "#3366FF",
+                1.5,
+                presets.first("electric_blue_cyan", "back_lavender", tags=("back",)),
+            ),
         ]
     elif style == "front-back":
         seeds = [
-            _look("Front Warm", dimmer, "Warm Amber", 2.0, "front_warm"),
-            _look("Back Blue", secondary, "#3366FF", 1.5, "back_blue"),
+            _look(
+                "Front Warm",
+                dimmer,
+                "Warm Amber",
+                2.0,
+                presets.first("front_warm", tags=("front", "warm")),
+            ),
+            _look(
+                "Back Blue",
+                secondary,
+                "#3366FF",
+                1.5,
+                presets.first("electric_blue_cyan", "full_blue_cyan", tags=("back",)),
+            ),
         ]
     elif style == "vibe-palette":
         colors = _vibe_colors(show, warnings)
         seeds = [
-            _look(f"Palette {index + 1}", _dimmer_for_index(energy, index), color, 1.5)
+            _look(
+                f"Palette {index + 1}",
+                _dimmer_for_index(energy, index),
+                color,
+                1.5,
+                presets.for_color(color),
+            )
             for index, color in enumerate(colors)
         ]
     elif style == "movement-sweep":
         seeds = [
-            _look("Sweep Left", dimmer, _energy_color(energy), 2.0, pan=25),
-            _look("Sweep Right", dimmer, _energy_lift_color(energy), 2.0, pan=75),
+            _look(
+                "Sweep Left",
+                dimmer,
+                _energy_color(energy),
+                2.0,
+                presets.first("outer_wings", "fan_upstage_wide", tags=("position",)),
+                pan=25,
+            ),
+            _look(
+                "Sweep Right",
+                dimmer,
+                _energy_lift_color(energy),
+                2.0,
+                presets.first(
+                    "cross_center_x",
+                    "fan_upstage_tight",
+                    tags=("position",),
+                ),
+                pan=75,
+            ),
         ]
     elif style == "movement-circle":
         color = _energy_color(energy)
+        preset = presets.first("cross_center_x", "fan_upstage_wide", tags=("position",))
         seeds = [
-            _look("Circle 1", dimmer, color, 1.0, pan=50, tilt=75),
-            _look("Circle 2", dimmer, color, 1.0, pan=75, tilt=50),
-            _look("Circle 3", dimmer, color, 1.0, pan=50, tilt=25),
-            _look("Circle 4", dimmer, color, 1.0, pan=25, tilt=50),
+            _look("Circle 1", dimmer, color, 1.0, preset, pan=50, tilt=75),
+            _look("Circle 2", dimmer, color, 1.0, preset, pan=75, tilt=50),
+            _look("Circle 3", dimmer, color, 1.0, preset, pan=50, tilt=25),
+            _look("Circle 4", dimmer, color, 1.0, preset, pan=25, tilt=50),
         ]
     elif style == "movement-figure8":
         color = _energy_color(energy)
+        preset = presets.first("cross_high_x", "cross_center_x", tags=("position",))
         seeds = [
-            _look("Fig8 1", dimmer, color, 0.5, pan=50, tilt=50),
-            _look("Fig8 2", dimmer, color, 0.5, pan=65, tilt=75),
-            _look("Fig8 3", dimmer, color, 0.5, pan=80, tilt=50),
-            _look("Fig8 4", dimmer, color, 0.5, pan=65, tilt=25),
-            _look("Fig8 5", dimmer, color, 0.5, pan=50, tilt=50),
-            _look("Fig8 6", dimmer, color, 0.5, pan=35, tilt=75),
-            _look("Fig8 7", dimmer, color, 0.5, pan=20, tilt=50),
-            _look("Fig8 8", dimmer, color, 0.5, pan=35, tilt=25),
+            _look("Fig8 1", dimmer, color, 0.5, preset, pan=50, tilt=50),
+            _look("Fig8 2", dimmer, color, 0.5, preset, pan=65, tilt=75),
+            _look("Fig8 3", dimmer, color, 0.5, preset, pan=80, tilt=50),
+            _look("Fig8 4", dimmer, color, 0.5, preset, pan=65, tilt=25),
+            _look("Fig8 5", dimmer, color, 0.5, preset, pan=50, tilt=50),
+            _look("Fig8 6", dimmer, color, 0.5, preset, pan=35, tilt=75),
+            _look("Fig8 7", dimmer, color, 0.5, preset, pan=20, tilt=50),
+            _look("Fig8 8", dimmer, color, 0.5, preset, pan=35, tilt=25),
         ]
     elif style == "beam-chase":
         seeds = [
-            _look("Beam Wide", dimmer, _energy_color(energy), 0.5, zoom=100),
-            _look("Beam Narrow", secondary, _energy_lift_color(energy), 0.5, zoom=0),
+            _look(
+                "Beam Wide",
+                dimmer,
+                _energy_color(energy),
+                0.5,
+                presets.first("soft_wide_wash", "fan_upstage_wide", tags=("beam",)),
+                zoom=100,
+            ),
+            _look(
+                "Beam Narrow",
+                secondary,
+                _energy_lift_color(energy),
+                0.5,
+                presets.first("tight_aerial", "full_white_blue_peak", tags=("beam",)),
+                zoom=0,
+            ),
         ]
     elif style == "look-ambient":
         seeds = [
@@ -486,7 +553,12 @@ def _section_looks(
                 _soft_color(show, energy),
                 3.0,
                 capabilities,
-                preset=_generated_preset(show, "rf_low_wash"),
+                preset=presets.first(
+                    _generated_preset(show, "rf_low_wash"),
+                    "front_low_amber",
+                    "soft_wide_wash",
+                    tags=("low",),
+                ),
                 pan=50,
                 tilt=45,
                 zoom=100,
@@ -498,7 +570,12 @@ def _section_looks(
                 "#3366FF",
                 2.5,
                 capabilities,
-                preset=_generated_preset(show, "rf_cool_back"),
+                preset=presets.first(
+                    _generated_preset(show, "rf_cool_back"),
+                    "back_lavender",
+                    "full_blue_cyan",
+                    tags=("back",),
+                ),
                 pan=50,
                 tilt=55,
                 zoom=85,
@@ -512,7 +589,12 @@ def _section_looks(
                 _energy_color(energy),
                 1.0,
                 capabilities,
-                preset=_generated_preset(show, "rf_full_wash"),
+                preset=presets.first(
+                    _generated_preset(show, "rf_full_wash"),
+                    "full_amber_cyan",
+                    "fan_upstage_wide",
+                    tags=("groove",),
+                ),
                 **_movement_attrs("sine", speed=0.5, size="18,8"),
                 zoom=45,
                 gobo=35,
@@ -523,6 +605,11 @@ def _section_looks(
                 _energy_lift_color(energy),
                 1.0,
                 capabilities,
+                preset=presets.first(
+                    "breakup_gobo_slow",
+                    "tight_aerial",
+                    tags=("texture", "gobo"),
+                ),
                 **_movement_attrs("circle", speed=0.35, size="14"),
                 zoom=35,
                 gobo=45,
@@ -536,7 +623,12 @@ def _section_looks(
                 "White",
                 0.35,
                 capabilities,
-                preset=_generated_preset(show, "rf_beam_narrow"),
+                preset=presets.first(
+                    _generated_preset(show, "rf_beam_narrow"),
+                    "full_white_blue_peak",
+                    "tight_aerial",
+                    tags=("peak",),
+                ),
                 **_movement_attrs("circle", speed=1.0, size="25"),
                 zoom=0,
                 shutter=100,
@@ -549,6 +641,11 @@ def _section_looks(
                 "#00CCFF",
                 0.5,
                 capabilities,
+                preset=presets.first(
+                    "full_white_blue_peak",
+                    "prism_peak",
+                    tags=("peak", "white"),
+                ),
                 **_movement_attrs("figure8", speed=0.9, size="25,18"),
                 zoom=12,
                 shutter=80,
@@ -565,7 +662,12 @@ def _section_looks(
                 colors[0],
                 0.75,
                 capabilities,
-                preset=_generated_preset(show, "rf_gobo_slow"),
+                preset=presets.first(
+                    _generated_preset(show, "rf_gobo_slow"),
+                    "full_magenta_lime",
+                    "flower_soft",
+                    tags=("psychedelic",),
+                ),
                 **_movement_attrs("circle", speed=0.65, size="30"),
                 zoom=20,
                 gobo=55,
@@ -577,6 +679,12 @@ def _section_looks(
                 colors[1 % len(colors)],
                 0.75,
                 capabilities,
+                preset=presets.first(
+                    "flower_peak",
+                    "breakup_gobo_slow",
+                    "full_magenta_lime",
+                    tags=("effect", "texture"),
+                ),
                 **_movement_attrs("figure8", speed=0.75, size="28,20"),
                 zoom=10,
                 shutter=45,
@@ -586,8 +694,20 @@ def _section_looks(
         ]
     else:
         seeds = [
-            _look("Energy Base", dimmer, _energy_color(energy), 2.0),
-            _look("Energy Lift", secondary, _energy_lift_color(energy), 1.0),
+            _look(
+                "Energy Base",
+                dimmer,
+                _energy_color(energy),
+                2.0,
+                presets.for_energy(energy, peak=False),
+            ),
+            _look(
+                "Energy Lift",
+                secondary,
+                _energy_lift_color(energy),
+                1.0,
+                presets.for_energy(energy, peak=True),
+            ),
         ]
 
     looks = _fit_look_count(seeds, cues_per_section, energy)
@@ -618,6 +738,74 @@ def _look(
         result["preset"] = preset
     result.update(kwargs)
     return result
+
+
+class _PresetSelector:
+    """Choose optional rig presets without making generic rigs noisy."""
+
+    def __init__(self, rig: Rig) -> None:
+        self._rig = rig
+
+    def first(
+        self,
+        *names: str | None,
+        tags: tuple[str, ...] = (),
+    ) -> str | None:
+        for name in names:
+            if name and name in self._rig.presets:
+                return name
+        for name, preset in self._rig.presets.items():
+            preset_tags = {tag.lower() for tag in preset.tags}
+            if tags and any(tag.lower() in preset_tags for tag in tags):
+                return name
+        return None
+
+    def for_energy(self, energy: float, *, peak: bool) -> str | None:
+        if peak and energy >= 0.7:
+            return self.first("full_white_blue_peak", "white_blue_peak", tags=("peak",))
+        if energy < 0.35:
+            return self.first("front_warm", "front_low_amber", tags=("warm",))
+        if energy < 0.7:
+            return self.first("full_blue_cyan", "full_amber_cyan", tags=("full",))
+        return self.first("full_amber_cyan", "full_magenta_lime", tags=("full",))
+
+    def for_color(self, color: str) -> str | None:
+        normalized = color.strip().lower()
+        color_keywords = _color_keywords(normalized)
+        preferred = {
+            "warm": ("front_warm", "full_warm_blue", "full_amber_cyan"),
+            "amber": ("full_amber_cyan", "front_warm", "floor_glow_backline"),
+            "blue": ("full_blue_cyan", "electric_blue_cyan", "back_lavender"),
+            "cyan": ("full_blue_cyan", "electric_blue_cyan", "full_amber_cyan"),
+            "magenta": ("full_magenta_lime", "magenta_lime_back", "side_glow_magenta"),
+            "red": ("full_red_aqua", "hot_red_white"),
+            "white": ("full_white_blue_peak", "white_blue_peak", "front_soft_white"),
+        }
+        for keyword in color_keywords:
+            match = self.first(*preferred.get(keyword, ()), tags=(keyword,))
+            if match:
+                return match
+        return self.first(tags=("full",))
+
+
+def _color_keywords(color: str) -> list[str]:
+    if color in {"warm amber", "amber"}:
+        return ["amber", "warm"]
+    if color == "white" or color == "#ffffff":
+        return ["white"]
+    hex_keywords = {
+        "#3366ff": ["blue"],
+        "#00ccff": ["cyan", "blue"],
+        "#00d8ff": ["cyan", "blue"],
+        "#00e5ff": ["cyan", "blue"],
+        "#00bfff": ["cyan", "blue"],
+        "#d800ff": ["magenta"],
+        "#ff00c8": ["magenta"],
+        "#ffb347": ["amber", "warm"],
+        "#ff6a00": ["amber", "warm"],
+        "#ff2a1f": ["red"],
+    }
+    return hex_keywords.get(color, [])
 
 
 def _complete_look(

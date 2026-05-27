@@ -220,6 +220,77 @@ def rig_info(
         console.print("[dim]No presets[/dim]")
 
 
+@rig_app.command("plot")
+def rig_plot(
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", "-o", help="Output directory for generated plot artifacts"
+    ),
+    rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Generate top/front SVG plots and a Markdown index for a rig."""
+    rig_name = resolve_rig_name(rig_name)
+    from rayflow.design.rig_plot import write_rig_plot_artifacts
+    from rayflow.design.serializers import load_rig
+
+    path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(path)
+    artifacts = write_rig_plot_artifacts(rig, output_dir)
+    payload = {"rig": rig.name, "fixtures": len(rig.fixtures), **artifacts.as_dict()}
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[green]Rig plots generated[/green] for {rig.name}")
+    console.print(f"  Top: {artifacts.top_svg}")
+    console.print(f"  Front: {artifacts.front_svg}")
+    console.print(f"  Index: {artifacts.manifest}")
+
+
+@rig_app.command("visualize-front")
+def rig_visualize_front(
+    rig_name: str | None = typer.Argument(None, help="Rig name"),
+    output_dir: Path = typer.Option(
+        ...,
+        "--output-dir",
+        "-o",
+        help="Output directory for generated front-view visualization",
+    ),
+    rig_dir: str = typer.Option("data/rigs", "--dir", help="Rig directory"),
+    look: str = typer.Option(
+        "highlight", "--look", help="Visualization look: highlight or white"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Generate a front-view lights-on SVG visualizer for a rig."""
+    rig_name = resolve_rig_name(rig_name)
+    from rayflow.design.rig_plot import write_front_visualization
+    from rayflow.design.serializers import load_rig
+
+    path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+    if look not in {"highlight", "white"}:
+        typer.echo("Error: --look must be highlight or white", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(path)
+    artifact = write_front_visualization(rig, output_dir, look=look)
+    payload = {"rig": rig.name, "fixtures": len(rig.fixtures), **artifact.as_dict()}
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[green]Front visualizer generated[/green] for {rig.name}")
+    console.print(f"  SVG: {artifact.front_svg}")
+
+
 @rig_app.command("copy")
 def rig_copy(
     source: str = typer.Argument(..., help="Source rig name"),

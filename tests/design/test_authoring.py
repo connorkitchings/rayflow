@@ -5,6 +5,7 @@ from rayflow.design.models import (
     ColorPalette,
     Cue,
     FixtureSlot,
+    Preset,
     Rig,
     Section,
     Show,
@@ -39,6 +40,49 @@ def _moving_rig() -> Rig:
             FixtureSlot("Robin MMX Blade", "Mode 1", "Spot 2", 0, 41, channels="2"),
         ],
     )
+
+
+def _preset_rig() -> Rig:
+    rig = _moving_rig()
+    rig.presets = {
+        "front_warm": Preset(
+            name="Front Warm",
+            description="Warm front light.",
+            attributes={"dimmer": "60", "color": "Warm Amber"},
+            tags=["front", "warm"],
+        ),
+        "electric_blue_cyan": Preset(
+            name="Electric Blue Cyan",
+            description="Blue/cyan back aerial bed.",
+            attributes={"dimmer": "72", "color": "#00D8FF", "beam": "wide_aerial"},
+            tags=["back", "blue", "cyan", "aerial"],
+        ),
+        "full_blue_cyan": Preset(
+            name="Full Blue Cyan",
+            description="Full-rig blue/cyan atmosphere.",
+            attributes={"dimmer": "76", "color": "#00BFFF", "beam": "wide_aerial"},
+            tags=["full", "blue", "cyan", "atmosphere"],
+        ),
+        "full_white_blue_peak": Preset(
+            name="Full White Blue Peak",
+            description="Full-rig white/blue peak.",
+            attributes={"dimmer": "92", "color": "White", "beam": "tight_aerial"},
+            tags=["full", "white", "blue", "peak"],
+        ),
+        "full_magenta_lime": Preset(
+            name="Full Magenta Lime",
+            description="Psychedelic full-rig look.",
+            attributes={"dimmer": "80", "color": "#D800FF", "beam": "cross_center_x"},
+            tags=["full", "magenta", "lime", "psychedelic"],
+        ),
+        "tight_aerial": Preset(
+            name="Tight Aerial",
+            description="Narrow profile beams.",
+            attributes={"dimmer": "82", "beam": "tight_aerial", "focus": "70"},
+            tags=["beam", "tight", "aerial"],
+        ),
+    }
+    return rig
 
 
 def _show(*, with_vibe: bool = True) -> Show:
@@ -136,6 +180,77 @@ def test_plan_cues_apply_preserves_untouched_sections() -> None:
     assert [cue.section for cue in show.cues] == ["Intro", "Intro", "Chorus"]
     assert show.cues[-1].label == "Old Chorus"
     assert {cue.channels for cue in plan.proposed_cues} == {"1 2", "3 4"}
+
+
+def test_plan_cues_prefers_rig_presets_for_front_back_and_warm_cool() -> None:
+    for style in ("front-back", "warm-cool"):
+        plan = plan_cues(
+            _show(),
+            _preset_rig(),
+            section_name="Intro",
+            style=style,
+            fixture_dir=SAMPLE_FIXTURE_DIR,
+        )
+
+        assert not plan.warnings
+        assert [cue.preset for cue in plan.proposed_cues] == [
+            "front_warm",
+            "electric_blue_cyan",
+        ]
+        assert all(
+            {"dimmer", "color"} <= set(cue.attributes)
+            for cue in plan.proposed_cues
+        )
+
+
+def test_plan_cues_prefers_peak_preset_when_available() -> None:
+    plan = plan_cues(
+        _show(),
+        _preset_rig(),
+        section_name="Chorus",
+        style="look-peak",
+        fixture_dir=SAMPLE_FIXTURE_DIR,
+    )
+
+    assert not plan.warnings
+    assert plan.proposed_cues[0].preset == "full_white_blue_peak"
+    assert plan.proposed_cues[1].preset == "full_white_blue_peak"
+    assert all("dimmer" in cue.attributes for cue in plan.proposed_cues)
+
+
+def test_plan_cues_generic_rig_preserves_raw_attribute_behavior() -> None:
+    plan = plan_cues(
+        _show(),
+        _moving_rig(),
+        section_name="Chorus",
+        style="look-peak",
+        fixture_dir=SAMPLE_FIXTURE_DIR,
+    )
+
+    assert not plan.warnings
+    assert [cue.preset for cue in plan.proposed_cues] == [None, None]
+    assert all("dimmer" in cue.attributes for cue in plan.proposed_cues)
+
+
+def test_plan_cues_apply_with_presets_preserves_untouched_sections() -> None:
+    show = _show()
+
+    plan = plan_cues(
+        show,
+        _preset_rig(),
+        section_name="Intro",
+        style="warm-cool",
+        fixture_dir=SAMPLE_FIXTURE_DIR,
+        apply=True,
+    )
+
+    assert plan.mode == "apply"
+    assert [cue.section for cue in show.cues] == ["Intro", "Intro", "Chorus"]
+    assert [cue.preset for cue in plan.proposed_cues] == [
+        "front_warm",
+        "electric_blue_cyan",
+    ]
+    assert show.cues[-1].label == "Old Chorus"
 
 
 def test_plan_cues_rejects_invalid_inputs() -> None:
