@@ -81,13 +81,12 @@ These are implementation details that make the design loop possible — they are
 
 ### What's Next (Priority Order)
 
-1. **QLC+ playback proof** — Prove generated Virtual Console buttons trigger
-   imported Scene functions with observed function status or channel evidence.
-2. **Feedback-driven refinement** — Turn user critique like "too busy," "more
-   psychedelic," or "less movement" into proposal-first cue edits.
-3. **Record/export workflow** — Capture the finished show after the QLC+
+1. **First real song pilot** — Use the studio/album version of Widespread
+   Panic's "Climb to Safety" to build a stage/rig/show, collaborate on presets,
+   and create the first cue/look pass.
+2. **Record/export workflow** — Capture the finished show after the QLC+
    workspace has passed static and live validation.
-4. **Console compatibility hardening** — Continue MA3/MVR/timecode export work
+3. **Console compatibility hardening** — Continue MA3/MVR/timecode export work
    as a compatibility track, not the main blocker for the product loop.
 
 ### Out of Scope

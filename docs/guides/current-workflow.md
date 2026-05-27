@@ -171,16 +171,22 @@ uv run rayflow show output-cue sample_show 6 \
 7. Use `show plan-cues --json` to propose deterministic dimmer/color cues or
    complete looks such as `look-ambient`, `look-groove`, `look-peak`, and
    `look-psychedelic` before applying them to the show YAML with `--apply`.
-8. Use `show plan-practice-cues --json` for the Phase 9 practice workflow
+8. Use `show refine-cues --json` with critiques such as `too-busy`,
+   `less-movement`, `more-psychedelic`, or `bigger-chorus` to propose targeted
+   edits after review. Add `--apply` only after accepting the proposal.
+9. Use `show plan-practice-cues --json` for the Phase 9 practice workflow
    compatibility path.
-9. Manually authored cues can now render additional numeric fixture families
+10. Manually authored cues can now render additional numeric fixture families
    when the selected GDTF mode supports them: `pan`, `tilt`, `position.pan`,
    `position.tilt`, `zoom`, `focus`, `shutter`, and `gobo`.
-10. Use `show validate-qxw --json` after `show export-qxw` to verify QLC+
+11. Use `show validate-qxw --json` after `show export-qxw` to verify QLC+
    Scene functions, Virtual Console buttons, and optional QXF fixture
    definitions before live import. After opening the workspace in QLC+, add
    `--live` to compare the exported Scene functions with the running QLC+
-   function list.
-11. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
-   evidence. Do not treat QLC+ as promoted until live query proof exists.
-12. Keep MA3 as an export/playback adapter with explicit evidence gates.
+   function list, and add `--trigger-functions` to prove function start/status
+   evidence.
+12. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
+   evidence when investigating API behavior.
+13. Keep MA3 as an export/playback adapter with explicit evidence gates. Use
+   `console probe live-osc-proof` only against the disposable
+   `rayflow_control_probe` show for live OSC acceptance proof.

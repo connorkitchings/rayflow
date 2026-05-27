@@ -120,7 +120,8 @@ rayflow bridge send [OPTIONS]
 | `show plan-palettes` | Plan or apply generated show-specific palette overrides |
 | `show plan-practice-cues` | Plan or apply deterministic practice cues |
 | `show preview` | Build a dry-run preview packet for critique |
-| `show validate-qxw` | Validate generated QLC+ Scene/Button workspace structure, optionally with live WebSocket function evidence |
+| `show refine-cues` | Propose or apply targeted cue edits from critique |
+| `show validate-qxw` | Validate generated QLC+ Scene/Button workspace structure, optionally with live WebSocket function and trigger evidence |
 | `show workflow-report` | Build a dry-run practice workflow report |
 
 ### Export and Compatibility
@@ -153,6 +154,6 @@ rayflow bridge send [OPTIONS]
 | `console sequence` | Sequence subcommands |
 | `console channel` | Channel subcommands |
 | `console cue-stack` | Cue stack subcommands |
-| `console probe` | Safe MA3 live probe commands |
+| `console probe` | Safe MA3 live probe commands, including disposable `live-osc-proof` |
 
 All console commands default to dry-run. Use `--execute` to send to MA3.

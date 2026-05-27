@@ -92,11 +92,38 @@ uv run rayflow show validate-qxw exports/qlc/phase9_practice_show.qxw \
 ```
 
 After opening the workspace in QLC+ with WebSocket access enabled, add `--live`
-to compare the exported Scene names against QLC+'s imported function list.
+to compare the exported Scene names against QLC+'s imported function list. Add
+`--trigger-functions` when you want proof that the imported Scene functions can
+be started and queried:
 
-## Planned Refinement Loop
+```bash
+uv run rayflow show validate-qxw exports/qlc/phase9_practice_show.qxw \
+  --qxf-dir exports/qlc \
+  --live \
+  --trigger-functions \
+  --json
+```
 
-The next authoring step is feedback-driven refinement. The intended flow is:
+## Feedback Refinement
+
+Use `refine-cues` to translate a critique into targeted cue edits without
+regenerating the whole show:
+
+```bash
+uv run rayflow show refine-cues phase9_practice_show \
+  --dir data/shows/samples \
+  --rig "Practice Small Club" \
+  --rig-dir data/rigs \
+  --section Chorus \
+  --critique bigger-chorus \
+  --json
+```
+
+Supported critiques are `too-busy`, `less-movement`, `more-psychedelic`, and
+`bigger-chorus`. Proposal mode is the default. Add `--apply` only when the
+proposed edits should replace the selected cues in the show YAML.
+
+The intended refinement loop is:
 
 1. Generate or apply cues with `plan-cues`.
 2. Export and validate QLC+ with `export-qxw` and `validate-qxw`.
@@ -106,8 +133,8 @@ The next authoring step is feedback-driven refinement. The intended flow is:
    unrelated cues.
 5. The AI applies only after review, then reruns preview/export validation.
 
-The implementation should remain proposal-first and reuse existing cue fields
-and `look-*` styles rather than introducing a new persistent show schema.
+Refinement reuses existing cue fields and `look-*` vocabulary rather than
+introducing a new persistent show schema.
 
 ## Compatibility
 

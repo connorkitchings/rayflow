@@ -258,6 +258,47 @@ def test_command_acceptance_cli_dry_run(tmp_path: Path) -> None:
     assert "Export Sequence 1" in result.output
 
 
+def test_live_osc_proof_cli_blocks_non_disposable_target(tmp_path: Path) -> None:
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "live-osc-proof",
+            "--target-show",
+            "real_show",
+            "--shows-dir",
+            str(tmp_path),
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "target_show must be 'rayflow_control_probe'" in result.output
+
+
+def test_live_osc_proof_cli_dry_run(tmp_path: Path) -> None:
+    export = tmp_path / "acceptance.xml"
+
+    result = runner.invoke(
+        app,
+        [
+            "console",
+            "probe",
+            "live-osc-proof",
+            "--target-show",
+            "rayflow_control_probe",
+            "--shows-dir",
+            str(tmp_path),
+            "--export-path",
+            str(export),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "dry-run" in result.output
+    assert "Export Sequence 1" in result.output
+
+
 @patch("rayflow.engine.console.osc.Ma3OscClient")
 def test_command_acceptance_cli_execute_writes_failed_result(
     mock_client_cls, tmp_path: Path

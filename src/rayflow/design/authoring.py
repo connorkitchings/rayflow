@@ -56,6 +56,12 @@ SUPPORTED_ATTRIBUTES = frozenset(
         "gobo.rotation",
     }
 )
+SUPPORTED_REFINEMENT_CRITIQUES = (
+    "too-busy",
+    "less-movement",
+    "more-psychedelic",
+    "bigger-chorus",
+)
 FALLBACK_PALETTE = ("Warm Amber", "#3366FF", "#00CCFF", "White")
 
 
@@ -82,6 +88,38 @@ class CueAuthoringPlan:
             "style": self.style,
             "proposed_cues": [cue.as_dict() for cue in self.proposed_cues],
             "replaced_cue_numbers": list(self.replaced_cue_numbers),
+            "warnings": list(self.warnings),
+            "readiness": {
+                "status": "ready" if not self.warnings else "warnings",
+                "summary": _readiness_summary(self.warnings),
+            },
+            "next_command": self.next_command,
+        }
+
+
+@dataclass(frozen=True)
+class CueRefinementPlan:
+    """Proposed targeted cue edits from user critique."""
+
+    show: str
+    rig: str
+    section: str
+    critique: str
+    mode: Literal["proposal", "apply"]
+    proposed_cues: list[Cue]
+    changed_cue_numbers: list[int]
+    warnings: list[str] = field(default_factory=list)
+    next_command: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "show": self.show,
+            "rig": self.rig,
+            "section": self.section,
+            "critique": self.critique,
+            "mode": self.mode,
+            "proposed_cues": [cue.as_dict() for cue in self.proposed_cues],
+            "changed_cue_numbers": list(self.changed_cue_numbers),
             "warnings": list(self.warnings),
             "readiness": {
                 "status": "ready" if not self.warnings else "warnings",
@@ -147,6 +185,165 @@ def plan_cues(
         warnings=warnings,
         next_command=next_command,
     )
+
+
+def refine_cues(
+    show: Show,
+    rig: Rig,
+    *,
+    section_name: str = "all",
+    critique: str,
+    fixture_dir: str | Path = "data/fixtures/samples",
+    apply: bool = False,
+) -> CueRefinementPlan:
+    """Plan or apply targeted cue edits from a small critique vocabulary."""
+    normalized = _parse_refinement_critique(critique)
+    selected_sections = _selected_sections(show, section_name)
+    selected_names = {section.name for section in selected_sections}
+    selected_cues = [
+        cue
+        for cue in show.cues
+        if section_name.lower() == "all" or cue.section in selected_names
+    ]
+    if not selected_cues:
+        raise ValueError(f"Selected scope has no cues: {section_name}")
+
+    warnings: list[str] = []
+    capabilities = _rig_capabilities(rig, fixture_dir, warnings)
+    proposed = [
+        _refined_cue(show, cue, normalized, capabilities)
+        for cue in selected_cues
+    ]
+    changed_numbers = [cue.number for cue in proposed]
+    next_command = (
+        f'rayflow show preview {show.name} --rig "{rig.name}" '
+        f"--section {section_name} --json"
+    )
+
+    if apply:
+        proposed_by_number = {cue.number: cue for cue in proposed}
+        show.cues = [proposed_by_number.get(cue.number, cue) for cue in show.cues]
+
+    return CueRefinementPlan(
+        show=show.name,
+        rig=rig.name,
+        section=section_name,
+        critique=normalized,
+        mode="apply" if apply else "proposal",
+        proposed_cues=proposed,
+        changed_cue_numbers=changed_numbers,
+        warnings=warnings,
+        next_command=next_command,
+    )
+
+
+def _parse_refinement_critique(critique: str) -> str:
+    normalized = critique.strip().lower().replace("_", "-")
+    if normalized not in SUPPORTED_REFINEMENT_CRITIQUES:
+        supported = ", ".join(SUPPORTED_REFINEMENT_CRITIQUES)
+        raise ValueError(
+            f"Unsupported cue refinement critique: {critique}. Use {supported}."
+        )
+    return normalized
+
+
+def _refined_cue(
+    show: Show,
+    cue: Cue,
+    critique: str,
+    capabilities: dict[str, bool],
+) -> Cue:
+    attrs = dict(cue.attributes)
+    label = cue.label
+    fade_time = cue.fade_time
+
+    if critique == "too-busy":
+        attrs = _remove_motion_texture(attrs)
+        attrs["dimmer"] = str(max(20, _attribute_percent(attrs.get("dimmer"), 65) - 15))
+        fade_time = max(fade_time, 1.5)
+        label = _with_refinement_label(label, "simplified")
+    elif critique == "less-movement":
+        attrs = _remove_movement(attrs)
+        fade_time = max(fade_time, 1.25)
+        label = _with_refinement_label(label, "less movement")
+    elif critique == "more-psychedelic":
+        colors = _vibe_colors(show, [])
+        attrs["color"] = colors[1 % len(colors)]
+        if capabilities["position"]:
+            attrs.update(
+                {
+                    "movement.type": "circle",
+                    "movement.speed": "0.75",
+                    "movement.size": "28",
+                }
+            )
+        if capabilities["gobo"]:
+            attrs["gobo"] = "75"
+            attrs.update(_gobo_motion_attrs(capabilities, speed=70, rotation=65))
+        if capabilities["beam"]:
+            attrs["zoom"] = "18"
+        fade_time = min(fade_time or 0.75, 0.75)
+        label = _with_refinement_label(label, "psychedelic")
+    elif critique == "bigger-chorus":
+        attrs["dimmer"] = str(
+            min(100, _attribute_percent(attrs.get("dimmer"), 75) + 20)
+        )
+        if capabilities["beam"]:
+            attrs["zoom"] = "10"
+            attrs["shutter"] = "70"
+        if capabilities["position"]:
+            attrs.setdefault("movement.type", "sine")
+            attrs.setdefault("movement.speed", "0.8")
+            attrs.setdefault("movement.size", "24,12")
+        fade_time = min(fade_time or 0.5, 0.5)
+        label = _with_refinement_label(label, "bigger")
+
+    return Cue(
+        number=cue.number,
+        label=label,
+        section=cue.section,
+        timestamp=cue.timestamp,
+        preset=cue.preset,
+        channels=cue.channels,
+        attributes=attrs,
+        fade_time=fade_time,
+        follow_time=cue.follow_time,
+        notes=cue.notes,
+    )
+
+
+def _remove_motion_texture(attrs: dict[str, str]) -> dict[str, str]:
+    simplified = _remove_movement(attrs)
+    for key in ("gobo.speed", "gobo.rotation", "shutter"):
+        simplified.pop(key, None)
+    return simplified
+
+
+def _remove_movement(attrs: dict[str, str]) -> dict[str, str]:
+    return {
+        key: value for key, value in attrs.items() if not key.startswith("movement.")
+    }
+
+
+def _attribute_percent(value: str | None, fallback: int) -> int:
+    if value is None:
+        return fallback
+    normalized = value.strip().lower().replace("%", "")
+    if normalized == "full":
+        return 100
+    if normalized in {"off", "blackout"}:
+        return 0
+    try:
+        return max(0, min(100, int(float(normalized))))
+    except ValueError:
+        return fallback
+
+
+def _with_refinement_label(label: str, suffix: str) -> str:
+    marker = f" ({suffix})"
+    if label.endswith(marker):
+        return label
+    return f"{label}{marker}"
 
 
 def _parse_style(style: str) -> AuthoringStyle:

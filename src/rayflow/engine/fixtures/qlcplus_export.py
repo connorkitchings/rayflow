@@ -108,6 +108,8 @@ class QlcWorkspaceValidationReport:
     live_function_count: int | None = None
     live_function_names: list[str] = field(default_factory=list)
     live_missing_scene_names: list[str] = field(default_factory=list)
+    live_trigger_results: list[dict[str, Any]] = field(default_factory=list)
+    live_observed_matches: bool | None = None
     live_warnings: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -117,6 +119,7 @@ class QlcWorkspaceValidationReport:
             self.missing_function_links
             or self.missing_fixture_definitions
             or self.live_missing_scene_names
+            or self.live_observed_matches is False
             or self.live_warnings
             or self.warnings
         )
@@ -134,6 +137,8 @@ class QlcWorkspaceValidationReport:
                 "function_count": self.live_function_count,
                 "function_names": list(self.live_function_names),
                 "missing_scene_names": list(self.live_missing_scene_names),
+                "trigger_results": list(self.live_trigger_results),
+                "observed_matches": self.live_observed_matches,
                 "warnings": list(self.live_warnings),
             },
             "warnings": list(self.warnings),
@@ -241,6 +246,7 @@ def validate_qlcplus_workspace(
     *,
     qxf_dir: str | Path | None = None,
     live_functions: list[dict[str, Any]] | None = None,
+    live_trigger_results: list[dict[str, Any]] | None = None,
 ) -> QlcWorkspaceValidationReport:
     """Inspect a generated QLC+ workspace for import-readiness."""
     workspace_path = Path(workspace_path)
@@ -294,6 +300,8 @@ def validate_qlcplus_workspace(
     live_function_count = None
     live_function_names: list[str] = []
     live_missing_scene_names: list[str] = []
+    trigger_results = list(live_trigger_results or [])
+    live_observed_matches = None
     live_warnings: list[str] = []
     if live_functions is not None:
         live_function_names = [
@@ -310,6 +318,20 @@ def validate_qlcplus_workspace(
             live_warnings.append(
                 "Live QLC+ function count is lower than exported Scene function count."
             )
+    if live_trigger_results is not None:
+        if trigger_results:
+            live_observed_matches = all(
+                item.get("observed_matches") is True for item in trigger_results
+            )
+        else:
+            live_observed_matches = False
+            live_warnings.append("Live QLC+ trigger proof produced no results.")
+        for item in trigger_results:
+            if item.get("observed_matches") is not True:
+                live_warnings.append(
+                    "Live QLC+ function trigger evidence did not match expectation."
+                )
+                break
 
     return QlcWorkspaceValidationReport(
         path=str(workspace_path),
@@ -322,9 +344,36 @@ def validate_qlcplus_workspace(
         live_function_count=live_function_count,
         live_function_names=live_function_names,
         live_missing_scene_names=live_missing_scene_names,
+        live_trigger_results=trigger_results,
+        live_observed_matches=live_observed_matches,
         live_warnings=live_warnings,
         warnings=warnings,
     )
+
+
+def qlc_scene_functions_from_workspace(
+    workspace_path: str | Path,
+) -> list[dict[str, str | int]]:
+    """Return exported QLC+ Scene IDs and names from a workspace."""
+    root = ET.parse(workspace_path).getroot()
+    scenes: list[dict[str, str | int]] = []
+    for function in _children(root, "Function"):
+        if function.get("Type") != "Scene":
+            continue
+        raw_id = function.get("ID")
+        if raw_id is None:
+            continue
+        try:
+            function_id: str | int = int(raw_id)
+        except ValueError:
+            function_id = raw_id
+        scenes.append(
+            {
+                "id": function_id,
+                "name": function.get("Name") or "",
+            }
+        )
+    return scenes
 
 
 def copy_qxf_files_for_workspace(

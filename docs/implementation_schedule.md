@@ -205,15 +205,17 @@ authoring, and live import validation.
 
 | Track | Goal | Plan | Status |
 |-------|------|------|--------|
-| QLC+ Virtual Console button proof | Prove generated buttons trigger the exported Scene functions, not just that functions import | Add a validation path that starts a generated function or button-equivalent action through QLC+ WebSocket, captures function status and/or queried channel values, and records `observed_matches` evidence in the validation report | ☐ Not Started |
-| Feedback-driven cue refinement | Let the user critique an existing generated show in plain language and have RayFlow revise cues instead of regenerating from scratch | Add a proposal/apply refinement command that accepts a critique intent such as `less-movement`, `more-psychedelic`, `bigger-chorus`, or `too-busy`; maps it to existing `look-*` styles and safe attribute transforms; preserves unaffected sections; then runs preview/QXW validation | ☐ Not Started |
+| QLC+ Virtual Console button proof | Prove generated Scene functions trigger after import, not just that functions import | `show validate-qxw --live --trigger-functions` starts exported Scene functions through QLC+ WebSocket, captures status evidence, and records `observed_matches` in the validation report | ✅ Done |
+| Feedback-driven cue refinement | Let the user critique an existing generated show in plain language and have RayFlow revise cues instead of regenerating from scratch | `show refine-cues` accepts `less-movement`, `more-psychedelic`, `bigger-chorus`, or `too-busy`; preserves unaffected sections; and stays proposal-first until `--apply` | ✅ Done |
+| MA3 disposable live OSC proof | Keep live MA3 mutation restricted to an explicit disposable harness | `console probe live-osc-proof` reuses the command-acceptance export probe and rejects any target show except `rayflow_control_probe` | ✅ Done |
 | Recording/export workflow | Make the final “record the show” path repeatable after QLC+ validation succeeds | Document and/or automate the handoff from a validated QLC+ workspace to recording: open QXW, verify live function list, trigger scenes in order, capture output via QLC+/visualizer/screen recording, and store a report linking the recording to the show/export artifacts | ☐ Not Started |
+| First real song pilot | Start the actual RayFlow usage loop on a known song | Use the studio/album version of Widespread Panic's "Climb to Safety" to build a stage/rig/show, generate AI-assisted presets, and run a first cue/look pass | ☐ Not Started |
 
 Recommended order:
 
-1. Finish QLC+ Virtual Console button proof.
-2. Build feedback-driven cue refinement on top of proven `look-*` generation.
-3. Turn the validated playback path into a recording/export workflow.
+1. Start the first real song pilot for "Climb to Safety".
+2. Turn the validated playback path into a recording/export workflow.
+3. Continue MA3 import/playback hardening as a compatibility track.
 
 ---
 

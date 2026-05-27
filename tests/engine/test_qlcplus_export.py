@@ -237,6 +237,60 @@ def test_workspace_fixture_fields():
     assert fixture.findtext("Channels") == "20"
 
 
+def test_validate_workspace_live_trigger_results_ready(tmp_path: Path) -> None:
+    output = tmp_path / "show.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=1,
+                name="Cue 1",
+                fixture_values={0: [255, 0, 0, 0]},
+            )
+        ],
+    )
+
+    report = validate_qlcplus_workspace(
+        output,
+        live_functions=[{"id": 1, "name": "Cue 1"}],
+        live_trigger_results=[
+            {"scene": "Cue 1", "function_id": 1, "observed_matches": True}
+        ],
+    )
+
+    assert report.ready is True
+    assert report.live_observed_matches is True
+    assert report.as_dict()["live"]["observed_matches"] is True
+
+
+def test_validate_workspace_live_trigger_mismatch_warns(tmp_path: Path) -> None:
+    output = tmp_path / "show.qxw"
+    export_qlcplus_workspace(
+        _make_patches(),
+        output,
+        functions=[
+            build_qlc_scene_function(
+                function_id=1,
+                name="Cue 1",
+                fixture_values={0: [255, 0, 0, 0]},
+            )
+        ],
+    )
+
+    report = validate_qlcplus_workspace(
+        output,
+        live_functions=[{"id": 1, "name": "Cue 1"}],
+        live_trigger_results=[
+            {"scene": "Cue 1", "function_id": 1, "observed_matches": False}
+        ],
+    )
+
+    assert report.ready is False
+    assert report.live_observed_matches is False
+    assert report.live_warnings
+
+
 def test_workspace_multi_universe_fixtures():
     """Fixtures on multiple universes are all represented."""
     patches = [

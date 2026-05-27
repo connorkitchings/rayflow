@@ -215,6 +215,63 @@ def probe_command_acceptance(
         raise typer.Exit(code=1)
 
 
+@probe_app.command("live-osc-proof")
+def probe_live_osc_proof(
+    target_show: str = typer.Option(
+        "rayflow_control_probe", "--target-show", help="Disposable MA3 show name"
+    ),
+    execute: bool = typer.Option(False, "--execute", help="Send OSC commands"),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    delay: float = typer.Option(0.25, "--delay", help="Delay between commands"),
+    shows_dir: Path = typer.Option(
+        Path.home() / "MALightingTechnology/gma3_2.3.2/shared/shows",
+        "--shows-dir",
+        help="MA3 show file directory",
+    ),
+    export_path: Path = typer.Option(
+        Path.home()
+        / "MALightingTechnology/gma3_library/datapools/sequences"
+        / "rayflow_command_acceptance_probe_sequence.xml",
+        "--export-path",
+        help="Expected MA3 export file written by the acceptance command",
+    ),
+    result_json: Optional[Path] = typer.Option(
+        None, "--result-json", help="Optional probe result JSON path"
+    ),
+) -> None:
+    """Prove live MA3 OSC /cmd acceptance against the disposable probe show only."""
+    from rayflow.engine.console.probe import (
+        command_acceptance_plan,
+        run_probe_plan,
+        validate_target_show,
+        write_result_json,
+    )
+
+    try:
+        validate_target_show(target_show)
+        result = run_probe_plan(
+            command_acceptance_plan(target_show, export_path),
+            ip=ip,
+            port=port,
+            execute=execute,
+            delay=delay,
+            shows_dir=shows_dir,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    result.metadata["proof_type"] = "disposable-command-acceptance"
+    result.metadata["live_mutation_scope"] = "rayflow_control_probe_only"
+    _print_probe_result(result)
+    if result_json is not None:
+        saved = write_result_json(result, result_json)
+        console.print(f"[green]Wrote probe result[/green] {saved}")
+    if execute and not result.passed:
+        raise typer.Exit(code=1)
+
+
 @probe_app.command("fixture-import")
 def probe_fixture_import(
     mvr: Path = typer.Option(

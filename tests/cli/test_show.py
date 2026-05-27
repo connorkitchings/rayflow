@@ -43,6 +43,7 @@ SHOW_COMMANDS = [
     "push-section",
     "push-to-ma3",
     "qlc-function",
+    "refine-cues",
     "render-cue",
     "renumber",
     "restore",
@@ -1729,6 +1730,119 @@ class TestShowPlanCues:
         assert payload["proposed_cues"][0]["label"] == "Chorus Ambient Hold"
 
 
+class TestShowRefineCues:
+    def _copy_practice_files(self, tmp_path: Path) -> tuple[Path, Path]:
+        show_dir = tmp_path / "shows"
+        rig_dir = tmp_path / "rigs"
+        show_dir.mkdir()
+        rig_dir.mkdir()
+        source_show = Path("data/shows/samples/phase9_practice_show.yaml")
+        source_rig = Path("data/rigs/Practice Small Club.yaml")
+        show_path = show_dir / "phase9_practice_show.yaml"
+        rig_path = rig_dir / "Practice Small Club.yaml"
+        show_path.write_text(source_show.read_text())
+        rig_path.write_text(source_rig.read_text())
+        return show_dir, rig_dir
+
+    def test_refine_cues_proposal_does_not_modify_show(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+        show_path = show_dir / "phase9_practice_show.yaml"
+        before = show_path.read_text()
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "refine-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Chorus",
+                "--critique",
+                "bigger-chorus",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert show_path.read_text() == before
+        payload = json.loads(result.output)
+        assert payload["mode"] == "proposal"
+        assert payload["critique"] == "bigger-chorus"
+        assert payload["section"] == "Chorus"
+        assert payload["changed_cue_numbers"] == [5, 6]
+        assert payload["proposed_cues"][0]["attributes"]["dimmer"] == "100"
+
+    def test_refine_cues_apply_preserves_unrelated_sections(
+        self, tmp_path: Path
+    ) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "refine-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--section",
+                "Verse",
+                "--critique",
+                "too-busy",
+                "--apply",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["mode"] == "apply"
+
+        from rayflow.design.serializers import load_show
+
+        show = load_show(show_dir / "phase9_practice_show.yaml")
+        verse_labels = [cue.label for cue in show.cues if cue.section == "Verse"]
+        chorus_labels = [cue.label for cue in show.cues if cue.section == "Chorus"]
+        assert verse_labels == [
+            "Verse Full Warm (simplified)",
+            "Verse Cool Back (simplified)",
+        ]
+        assert "Chorus Open Cyan" in chorus_labels
+
+    def test_refine_cues_rejects_unsupported_critique(self, tmp_path: Path) -> None:
+        show_dir, rig_dir = self._copy_practice_files(tmp_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "refine-cues",
+                "phase9_practice_show",
+                "--dir",
+                str(show_dir),
+                "--rig",
+                "Practice Small Club",
+                "--rig-dir",
+                str(rig_dir),
+                "--critique",
+                "make-it-weird",
+            ],
+        )
+
+        assert result.exit_code == 1
+        assert "Unsupported cue refinement critique" in result.output
+
+
 class TestShowBatchUpdateCues:
     def test_batch_update(self, tmp_path: Path) -> None:
         show_dir = tmp_path / "shows"
@@ -2535,6 +2649,110 @@ cues:
         assert payload["live"]["function_names"] == ["Cue 1"]
         assert payload["live"]["missing_scene_names"] == []
         assert payload["readiness"]["status"] == "ready"
+
+    def test_show_validate_qxw_live_trigger_report(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
+        from rayflow.engine.fixtures.qlcplus_export import (
+            build_qlc_patch,
+            build_qlc_scene_function,
+            export_qlcplus_workspace,
+        )
+
+        output = tmp_path / "show.qxw"
+        export_qlcplus_workspace(
+            [
+                build_qlc_patch(
+                    fixture_id=0,
+                    name="PAR 1",
+                    manufacturer="TestCo",
+                    model="LED PAR",
+                    mode="Default",
+                    universe=0,
+                    address=1,
+                    channel_count=4,
+                )
+            ],
+            output,
+            functions=[
+                build_qlc_scene_function(
+                    function_id=1,
+                    name="Cue 1",
+                    fixture_values={0: [255, 0, 0, 0]},
+                )
+            ],
+        )
+
+        class FakeBackend:
+            def __init__(self, endpoint: str) -> None:
+                self.endpoint = endpoint
+
+            def query_functions(self, timeout: float = 1.0):
+                from rayflow.engine.backends.dmx import BackendEvidence
+
+                return BackendEvidence(
+                    backend="qlcplus",
+                    operation="query-functions",
+                    mode="query",
+                    target=self.endpoint,
+                    frames=[],
+                    observed={"functions": [{"id": 1, "name": "Cue 1"}]},
+                )
+
+            def set_function_status(
+                self,
+                function_id: int,
+                active: bool,
+                *,
+                execute: bool = False,
+                timeout: float = 1.0,
+            ):
+                from rayflow.engine.backends.dmx import BackendEvidence
+
+                return BackendEvidence(
+                    backend="qlcplus",
+                    operation="trigger-function",
+                    mode="apply",
+                    target=self.endpoint,
+                    frames=[],
+                    observed={
+                        "function_id": function_id,
+                        "observed_matches": active is True,
+                    },
+                )
+
+        monkeypatch.setattr("rayflow.engine.backends.QlcPlusBackend", FakeBackend)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "validate-qxw",
+                str(output),
+                "--live",
+                "--trigger-functions",
+                "--json",
+            ],
+        )
+
+        assert result.exit_code == 0
+        payload = json.loads(result.output)
+        assert payload["live"]["triggered"] is True
+        assert payload["live"]["observed_matches"] is True
+        assert payload["live"]["trigger_results"][0]["function_id"] == 1
+        assert payload["readiness"]["status"] == "ready"
+
+    def test_show_validate_qxw_trigger_requires_live(self, tmp_path: Path) -> None:
+        output = tmp_path / "show.qxw"
+        output.write_text("<Workspace />")
+
+        result = runner.invoke(
+            app,
+            ["show", "validate-qxw", str(output), "--trigger-functions"],
+        )
+
+        assert result.exit_code == 1
+        assert "--trigger-functions requires --live" in result.output
 
 
 class TestShowSetVibe:

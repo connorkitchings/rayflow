@@ -651,6 +651,76 @@ def show_plan_cues(
     console.print(f"Next: {plan.next_command}")
 
 
+@show_app.command("refine-cues")
+def show_refine_cues(
+    show_name: str | None = typer.Argument(None, help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    critique: str = typer.Option(
+        ...,
+        "--critique",
+        help=(
+            "Refinement critique: too-busy, less-movement, "
+            "more-psychedelic, bigger-chorus"
+        ),
+    ),
+    section: str = typer.Option(
+        "all", "--section", help="Section name to refine, or all"
+    ),
+    apply: bool = typer.Option(
+        False, "--apply", help="Write proposed cue refinements to the show YAML"
+    ),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Plan or apply targeted cue edits from a user critique."""
+    show_name = resolve_show_name(show_name)
+    from rayflow.design.authoring import refine_cues
+    from rayflow.design.serializers import load_rig, load_show, save_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+    try:
+        plan = refine_cues(
+            show,
+            rig,
+            section_name=section,
+            critique=critique,
+            fixture_dir=fixture_dir,
+            apply=apply,
+        )
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(code=1)
+
+    if apply:
+        save_show(show, path)
+
+    payload = plan.as_dict()
+    if json_output:
+        typer.echo(json_module.dumps(payload, indent=2))
+        return
+
+    console.print(f"[bold]Cue refinement {payload['mode']}[/bold] {show.name}")
+    console.print(f"Critique: {plan.critique}")
+    console.print(f"Section: {plan.section}")
+    console.print(f"Cues: {len(plan.proposed_cues)}")
+    console.print(f"Next: {plan.next_command}")
+
+
 @show_app.command("plan-palettes")
 def show_plan_palettes(
     show_name: str | None = typer.Argument(None, help="Show name"),
@@ -782,6 +852,11 @@ def show_validate_qxw(
         "--live",
         help="Also query a running QLC+ WebSocket endpoint for imported functions",
     ),
+    trigger_functions: bool = typer.Option(
+        False,
+        "--trigger-functions",
+        help="With --live, trigger exported Scene functions and record proof evidence",
+    ),
     endpoint: str = typer.Option(
         "ws://127.0.0.1:9999/qlcplusWS", "--endpoint", help="QLC+ WebSocket endpoint"
     ),
@@ -789,25 +864,80 @@ def show_validate_qxw(
     json_output: bool = typer.Option(False, "--json", help="JSON output"),
 ) -> None:
     """Validate a generated QLC+ show workspace."""
-    from rayflow.engine.fixtures.qlcplus_export import validate_qlcplus_workspace
+    from rayflow.engine.fixtures.qlcplus_export import (
+        qlc_scene_functions_from_workspace,
+        validate_qlcplus_workspace,
+    )
+
+    if trigger_functions and not live:
+        typer.echo("Error: --trigger-functions requires --live", err=True)
+        raise typer.Exit(code=1)
 
     live_functions = None
+    live_trigger_results = None
     if live:
         from rayflow.engine.backends import QlcPlusBackend
 
-        evidence = QlcPlusBackend(endpoint=endpoint).query_functions(timeout=timeout)
+        backend = QlcPlusBackend(endpoint=endpoint)
+        evidence = backend.query_functions(timeout=timeout)
         live_functions = evidence.observed.get("functions")
         if not isinstance(live_functions, list):
             live_functions = []
+        if trigger_functions:
+            live_by_name = {
+                str(item.get("name")): item
+                for item in live_functions
+                if item.get("name") is not None
+            }
+            live_trigger_results = []
+            for scene in qlc_scene_functions_from_workspace(workspace):
+                live_function = live_by_name.get(str(scene["name"]))
+                function_id = live_function.get("id") if live_function else scene["id"]
+                try:
+                    function_id_int = int(function_id)
+                except (TypeError, ValueError):
+                    live_trigger_results.append(
+                        {
+                            "scene": scene["name"],
+                            "function_id": function_id,
+                            "observed_matches": False,
+                            "error": "Function ID is not numeric.",
+                        }
+                    )
+                    continue
+                trigger_evidence = backend.set_function_status(
+                    function_id_int,
+                    True,
+                    execute=True,
+                    timeout=timeout,
+                )
+                backend.set_function_status(
+                    function_id_int,
+                    False,
+                    execute=True,
+                    timeout=timeout,
+                )
+                live_trigger_results.append(
+                    {
+                        "scene": scene["name"],
+                        "function_id": function_id_int,
+                        "observed_matches": trigger_evidence.observed.get(
+                            "observed_matches"
+                        ),
+                        "evidence": trigger_evidence.as_dict(),
+                    }
+                )
 
     report = validate_qlcplus_workspace(
         workspace,
         qxf_dir=qxf_dir,
         live_functions=live_functions,
+        live_trigger_results=live_trigger_results,
     )
     payload = report.as_dict()
     if live:
         payload["live"]["endpoint"] = endpoint
+        payload["live"]["triggered"] = trigger_functions
     if json_output:
         typer.echo(json_module.dumps(payload, indent=2))
         return
@@ -821,6 +951,8 @@ def show_validate_qxw(
     console.print(f"Linked buttons: {report.linked_button_count}")
     if live:
         console.print(f"Live functions: {report.live_function_count}")
+        if trigger_functions:
+            console.print(f"Triggered functions: {len(report.live_trigger_results)}")
     if report.missing_function_links:
         console.print(
             f"[yellow]Missing links: {len(report.missing_function_links)}[/yellow]"

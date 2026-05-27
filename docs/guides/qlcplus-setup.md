@@ -28,6 +28,7 @@ rayflow rig export-qxw "Practice Small Club" --output exports/qlc/workspace.qxw 
 rayflow show export-qxw "Practice Show" --output exports/qlc/show-scenes.qxw --qxf-dir exports/qlc
 rayflow show validate-qxw exports/qlc/show-scenes.qxw --qxf-dir exports/qlc --json
 rayflow show validate-qxw exports/qlc/show-scenes.qxw --live --json
+rayflow show validate-qxw exports/qlc/show-scenes.qxw --live --trigger-functions --json
 rayflow show qlc-function --action list --json
 rayflow show qlc-function 10 --action start --execute
 ```
@@ -47,7 +48,10 @@ to the `.qxw` workspace. QLC+ resolves sidecar fixture files using its
 
 After opening the workspace in QLC+ with WebSocket access enabled, run
 `show validate-qxw --live --json` to merge the static QXW checks with QLC+'s
-observed function list.
+observed function list. Add `--trigger-functions` to start each exported Scene
+function through the QLC+ WebSocket API and record `observed_matches` evidence
+from function status queries. This is the current playback proof target; it does
+not automate clicking the Virtual Console widget itself.
 
 ## Installing QLC+
 
@@ -67,7 +71,7 @@ observed function list.
 Before calling QLC+ complete, validate these against a local QLC+ install:
 
 1. Validate high-channel-count pixel/multi-break `.qxf` imports if those fixtures are needed.
-2. Decide whether RayFlow should generate QLC+ Scene/Function XML as a first-class export feature.
+2. Add GUI-level Virtual Console click automation only if WebSocket function proof is insufficient for a future workflow.
 
 ## See Also
 
