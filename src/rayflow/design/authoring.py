@@ -211,8 +211,7 @@ def refine_cues(
     warnings: list[str] = []
     capabilities = _rig_capabilities(rig, fixture_dir, warnings)
     proposed = [
-        _refined_cue(show, cue, normalized, capabilities)
-        for cue in selected_cues
+        _refined_cue(show, cue, normalized, capabilities) for cue in selected_cues
     ]
     changed_numbers = [cue.number for cue in proposed]
     next_command = (

@@ -3004,3 +3004,191 @@ cues: []
             ],
         )
         assert result.exit_code == 1
+
+
+class TestShowRecord:
+    def test_show_record_dry_run(self, tmp_path: Path) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Test Show.yaml").write_text(
+            """name: "Test Show"
+rig_name: "Test Rig"
+song:
+  title: "Test Song"
+  artist: "Test Artist"
+  duration: 10.0
+cues:
+  - number: 1
+    timestamp: 0.0
+    label: "Intro"
+    section: "Intro"
+  - number: 2
+    timestamp: 5.0
+    label: "Verse"
+    section: "Verse"
+"""
+        )
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Test Rig.yaml").write_text(
+            """name: "Test Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures: []
+presets: {}
+"""
+        )
+
+        output_report = tmp_path / "recording_report.json"
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "record",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--output",
+                str(output_report),
+                "--video-path",
+                "exports/recordings/test.mp4",
+                "--audio-path",
+                "data/audio/test.mp3",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Playout complete!" in result.output
+        assert "Recording report saved to" in result.output
+
+        assert output_report.exists()
+        import json as json_module
+
+        report = json_module.loads(output_report.read_text())
+        assert report["show"] == "Test Show"
+        assert report["rig"] == "Test Rig"
+        assert report["mode"] == "dry-run"
+        assert report["video_path"] == "exports/recordings/test.mp4"
+        assert report["audio_path"] == "data/audio/test.mp3"
+        assert len(report["playout_log"]) == 2
+        assert report["playout_log"][0]["cue_label"] == "Intro"
+        assert report["playout_log"][1]["cue_label"] == "Verse"
+        assert report["status"] == "completed"
+
+    def test_show_record_live_mocked(self, tmp_path: Path, monkeypatch) -> None:
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Test Show.yaml").write_text(
+            """name: "Test Show"
+rig_name: "Test Rig"
+song:
+  title: "Test Song"
+  artist: "Test Artist"
+  duration: 10.0
+cues:
+  - number: 1
+    timestamp: 0.0
+    label: "Intro"
+    section: "Intro"
+"""
+        )
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Test Rig.yaml").write_text(
+            """name: "Test Rig"
+venue:
+  name: "Test Venue"
+  dimensions: [10, 5, 3]
+fixtures: []
+presets: {}
+"""
+        )
+
+        # Mock QlcPlusBackend
+        from rayflow.engine.backends.dmx import BackendEvidence
+
+        class MockBackend:
+            def __init__(self, endpoint: str):
+                self.endpoint = endpoint
+
+            def query_functions(self, timeout: float = 1.0) -> BackendEvidence:
+                return BackendEvidence(
+                    backend="qlcplus",
+                    operation="query-functions",
+                    mode="query",
+                    target=self.endpoint,
+                    frames=[],
+                    commands=[],
+                    observed={
+                        "status": "queried",
+                        "functions": [{"id": 1, "name": "1 Intro"}],
+                    },
+                )
+
+            def set_function_status(
+                self,
+                function_id: int,
+                active: bool,
+                execute: bool = False,
+                timeout: float = 1.0,
+            ) -> BackendEvidence:
+                return BackendEvidence(
+                    backend="qlcplus",
+                    operation="trigger-function",
+                    mode="apply",
+                    target=self.endpoint,
+                    frames=[],
+                    commands=[],
+                    observed={"status": "queried", "observed_matches": True},
+                )
+
+        monkeypatch.setattr("rayflow.engine.backends.QlcPlusBackend", MockBackend)
+
+        output_report = tmp_path / "recording_report.json"
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "record",
+                "Test Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--output",
+                str(output_report),
+                "--live",
+                "--yes",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Playout complete!" in result.output
+        import json as json_module
+
+        report = json_module.loads(output_report.read_text())
+        assert report["mode"] == "live"
+        assert report["playout_log"][0]["status"] == "success"
+
+    def test_show_record_missing_show(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "record",
+                "Missing Show",
+                "--rig",
+                "Test Rig",
+                "--dir",
+                str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Error: Show not found" in result.output

@@ -407,8 +407,7 @@ def _render_front_visualizer_svg(rig: Rig, *, look: str) -> str:
     performer_marks = _render_performers(sx, band_floor)
     rig_title = escape(rig.name)
     subtitle = (
-        f"{escape(rig.venue.name)} | front view | all fixtures in "
-        f"{escape(look)} look"
+        f"{escape(rig.venue.name)} | front view | all fixtures in {escape(look)} look"
     )
     lines = [
         _svg_tag(

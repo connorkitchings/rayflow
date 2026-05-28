@@ -28,6 +28,9 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
         rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+        fixture_dir: str = typer.Option(
+            "data/fixtures", "--fixture-dir", help="Fixture directory"
+        ),
     ) -> None:
         """Push all show cues to grandMA3 onPC via OSC.
 
@@ -53,7 +56,13 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
         rig = load_rig(rig_path)
         presets = resolve_presets(rig, show)
-        commands = commands_for_show(show, presets, sequence=sequence)
+        commands = commands_for_show(
+            show,
+            presets,
+            sequence=sequence,
+            rig=rig,
+            fixture_dir=fixture_dir,
+        )
 
         seq_label = show.song.title
         if not commands:
@@ -97,6 +106,9 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
         show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
         rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+        fixture_dir: str = typer.Option(
+            "data/fixtures", "--fixture-dir", help="Fixture directory"
+        ),
     ) -> None:
         """Push cues for a single section to grandMA3 onPC."""
         show_name = resolve_show_name(show_name)
@@ -117,7 +129,14 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
 
         rig = load_rig(rig_path)
         presets = resolve_presets(rig, show)
-        commands = commands_for_show(show, presets, section=section, sequence=sequence)
+        commands = commands_for_show(
+            show,
+            presets,
+            section=section,
+            sequence=sequence,
+            rig=rig,
+            fixture_dir=fixture_dir,
+        )
 
         seq_label = show.song.title
         if not commands:

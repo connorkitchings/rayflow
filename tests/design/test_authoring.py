@@ -198,8 +198,7 @@ def test_plan_cues_prefers_rig_presets_for_front_back_and_warm_cool() -> None:
             "electric_blue_cyan",
         ]
         assert all(
-            {"dimmer", "color"} <= set(cue.attributes)
-            for cue in plan.proposed_cues
+            {"dimmer", "color"} <= set(cue.attributes) for cue in plan.proposed_cues
         )
 
 

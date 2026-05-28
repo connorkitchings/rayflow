@@ -50,6 +50,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
   design vocabulary such as `beam` or `position`; fixture-aware DMX preview
   should merge only renderer-supported concrete attributes from presets and let
   explicit cue attributes provide the renderable values.
+- **Automated Playout for Capture**: Automate controller playout (e.g., `show record`) by triggering scene functions in real-time using timed sleeps between cue timestamps. This simplifies screen-recording captures and generates structured recording reports linking all show and output artifacts.
 
 ## [REVIEW AGENTS]
 

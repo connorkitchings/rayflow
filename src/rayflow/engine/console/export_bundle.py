@@ -52,7 +52,13 @@ def export_show_bundle(
     write_mvr(patches, mvr_path, scene_name=rig.name)
 
     presets = resolve_presets(rig, show)
-    commands = commands_for_show(show, presets, sequence=sequence)
+    commands = commands_for_show(
+        show,
+        presets,
+        sequence=sequence,
+        rig=rig,
+        fixture_dir=fixture_dir,
+    )
     commands_path = target_dir / "ma3_push_commands.txt"
     commands_path.write_text(
         "\n".join(command.command for command in commands) + "\n",

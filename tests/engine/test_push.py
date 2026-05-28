@@ -236,3 +236,53 @@ class TestCommandsForShow:
             'Label Sequence 1 "Test"',
             "ClearAll",
         ]
+
+
+class TestCommandsForShowCueWithRig:
+    def test_cue_with_rig_generates_attribute_commands(self) -> None:
+        from rayflow.design.models import FixtureSlot, Rig, Venue
+
+        venue = Venue(name="Club", dimensions=(10.0, 10.0, 10.0))
+        fixture = FixtureSlot(
+            fixture_name="LED PAR",
+            mode="Default",
+            label="PAR 1",
+            universe=0,
+            start_address=1,
+            channels="3",  # FID 3
+        )
+        rig = Rig(name="Rig 1", venue=venue, fixtures=[fixture])
+        show = _make_show()
+        cue = Cue(
+            number=1,
+            label="Blue Wash",
+            section="Intro",
+            timestamp=0,
+            attributes={"color": "blue", "dimmer": "100%"},
+        )
+        commands = commands_for_show_cue(
+            cue,
+            rig=rig,
+            show=show,
+            fixture_dir="data/fixtures/samples",
+        )
+        command_strings = [c.command for c in commands]
+        assert (
+            'Fixture 3 Attribute "Dimmer" At Absolute Decimal8 255' in command_strings
+        )
+        assert (
+            'Fixture 3 Attribute "ColorAdd_R" At Absolute Decimal8 51'
+            in command_strings
+        )
+        assert (
+            'Fixture 3 Attribute "ColorAdd_G" At Absolute Decimal8 102'
+            in command_strings
+        )
+        assert (
+            'Fixture 3 Attribute "ColorAdd_B" At Absolute Decimal8 255'
+            in command_strings
+        )
+        assert (
+            'Fixture 3 Attribute "ColorAdd_W" At Absolute Decimal8 51'
+            in command_strings
+        )

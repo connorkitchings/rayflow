@@ -125,24 +125,55 @@ Virtual Console buttons, and live function names with readiness `ready`.
 3. Note timing issues — cues may need to trigger earlier or later
 4. Adjust cue timing as needed
 
-## Step 10: Record the Visualizer
+## Step 10: Record the Visualizer and Automate Playout
 
-grandMA3 onPC can record the 3D visualizer output:
+RayFlow provides an automated playout helper to trigger QLC+ Scene functions in real-time according to their timestamps, letting you focus on capturing the output without manual button-clicking:
 
-1. Open the 3D visualizer
-2. Go to **Setup** → **Recording** → **Screen Capture**
-3. Set output format (MP4 recommended)
-4. Set resolution (1920x1080 for standard video)
-5. Start recording
-6. Play the sequence from the beginning
-7. Stop recording when the song ends
+```bash
+# Dry-run playout to verify timing and command structure
+uv run rayflow show record my_show --rig my_rig
 
-## Step 11: Review and Iterate
+# Live playout with QLC+ WebSocket triggering and recording report output
+uv run rayflow show record my_show \
+  --rig my_rig \
+  --live \
+  --video-path exports/recordings/my_show.mp4 \
+  --audio-path data/audio/my_song.mp3 \
+  --output exports/recordings/my_show_recording_report.json
+```
 
-1. Watch the recorded video
-2. Note what works and what doesn't
-3. Adjust cues, timing, or colors
-4. Re-record
+Follow these steps for the live automated recording:
+1. Start your screen/audio recorder (e.g. OBS, QuickTime).
+2. Set it to capture the QLC+ visualizer window.
+3. Run the live record command with `--live`.
+4. Press ENTER when prompted to start playout. RayFlow will execute the entire cue sequence in real-time.
+5. Stop the screen recording once the song completes.
+
+## Step 11: Recording Report
+
+The generated recording report links the show design, rig, and output artifacts:
+
+```json
+{
+  "show": "my_show",
+  "rig": "my_rig",
+  "mode": "live",
+  "video_path": "exports/recordings/my_show.mp4",
+  "audio_path": "data/audio/my_song.mp3",
+  "playout_log": [
+    {
+      "cue_number": 1,
+      "cue_label": "Intro",
+      "scheduled_time": 0.0,
+      "actual_trigger_time": 0.002,
+      "status": "success",
+      "error": null
+    }
+  ],
+  "timestamp": "2026-05-28T12:00:00Z",
+  "status": "completed"
+}
+```
 
 ## Tips for Better Shows
 
@@ -157,14 +188,7 @@ grandMA3 onPC can record the 3D visualizer output:
 
 Once you're happy with the recording:
 
-1. The video file is saved to your chosen output location
-2. You can add the original audio track in a video editor if needed
-3. Export as MP4 for sharing on social media or portfolio
+1. The video file is saved to your chosen output location.
+2. You can add the original audio track in a video editor if needed.
+3. Export as MP4 for sharing on social media or portfolio.
 
-## Next Steps
-
-- Prove QLC+ Virtual Console button triggering with observed function status or
-  channel evidence.
-- Add feedback-driven cue refinement for critique such as "too busy," "less
-  movement," or "more psychedelic."
-- Turn the QLC+ rehearsal path into a repeatable recording/export report.

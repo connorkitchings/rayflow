@@ -1145,3 +1145,208 @@ def _readiness_summary(
         f"{render_warning_count} render warnings and "
         f"{backend_warning_count} backend warnings."
     )
+
+
+@show_app.command("record")
+def show_record(
+    show_name: str | None = typer.Argument(None, help="Show name"),
+    rig_name: str = typer.Option(..., "--rig", help="Rig name"),
+    endpoint: str = typer.Option(
+        "ws://127.0.0.1:9999/qlcplusWS", "--endpoint", help="QLC+ WebSocket endpoint"
+    ),
+    output: Path | None = typer.Option(
+        None, "--output", "-o", help="Output recording report JSON path"
+    ),
+    video_path: Path | None = typer.Option(
+        None, "--video-path", help="Path to the captured video file"
+    ),
+    audio_path: Path | None = typer.Option(
+        None, "--audio-path", help="Path to the audio file used"
+    ),
+    live: bool = typer.Option(
+        False, "--live", help="Actually trigger playout/scenes in QLC+ over WebSocket"
+    ),
+    yes: bool = typer.Option(
+        False,
+        "--yes",
+        "-y",
+        help="Skip interactive prompts (useful for automation/tests)",
+    ),
+    timeout: float = typer.Option(1.0, "--timeout", help="WebSocket timeout seconds"),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Automate playout of cues to QLC+ for recording and write a recording report."""
+    import time
+
+    from rayflow.design.serializers import load_rig, load_show
+    from rayflow.engine.backends import QlcPlusBackend
+
+    show_name = resolve_show_name(show_name)
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig_path = _rig_path(rig_name, _rig_dir_path(rig_dir))
+    if not rig_path.exists():
+        typer.echo(f"Error: Rig not found: {rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig = load_rig(rig_path)
+
+    cues = sorted(show.cues, key=lambda c: c.timestamp)
+    if not cues:
+        typer.echo("Error: Show has no cues to play/record", err=True)
+        raise typer.Exit(code=1)
+
+    live_functions = []
+    if live:
+        backend = QlcPlusBackend(endpoint=endpoint)
+        try:
+            evidence = backend.query_functions(timeout=timeout)
+            if evidence.observed.get("status") == "unavailable":
+                raise RuntimeError("QLC+ WebSocket endpoint is unavailable.")
+            live_functions = evidence.observed.get("functions", [])
+        except Exception as exc:
+            typer.echo(f"Error connecting to QLC+ WebSocket: {exc}", err=True)
+            raise typer.Exit(code=1)
+
+    live_by_name = {
+        str(item.get("name")): item.get("id")
+        for item in live_functions
+        if item.get("name") is not None
+    }
+
+    playout_log = []
+
+    if not json_output:
+        console.print(f"[bold]Preparing Recording for Show:[/bold] {show.name}")
+        console.print(f"Rig: {rig.name}")
+        console.print(f"Playout Mode: {'LIVE (WebSocket)' if live else 'DRY RUN'}")
+        console.print(f"Total Cues: {len(cues)}")
+        if live:
+            console.print(f"Connected to QLC+ at {endpoint}")
+
+        if live and not yes:
+            console.print("\n[bold yellow]Instructions:[/bold yellow]")
+            console.print("1. Open your screen recorder (e.g. OBS, QuickTime).")
+            console.print("2. Set it to capture the QLC+ 3D / 2D visualizer.")
+            console.print("3. Start the recording now.")
+            console.print(
+                "4. Press ENTER when you are ready to start automated playout."
+            )
+            input("Press ENTER to start...")
+
+    start_time = time.time()
+    active_function_id = None
+
+    for cue in cues:
+        target_elapsed = cue.timestamp
+        if live:
+            actual_elapsed = time.time() - start_time
+            sleep_time = target_elapsed - actual_elapsed
+            if sleep_time > 0:
+                time.sleep(sleep_time)
+
+        trigger_time = time.time() - start_time
+        status = "success"
+        err_msg = None
+
+        if live:
+            scene_name = f"{cue.number:g} {cue.label}"
+            function_id = live_by_name.get(scene_name)
+            if function_id is None:
+                for name, fid in live_by_name.items():
+                    if name.startswith(f"{cue.number:g} "):
+                        function_id = fid
+                        break
+
+            if function_id is not None:
+                try:
+                    if (
+                        active_function_id is not None
+                        and active_function_id != function_id
+                    ):
+                        backend.set_function_status(
+                            int(active_function_id),
+                            False,
+                            execute=True,
+                            timeout=timeout,
+                        )
+                    res = backend.set_function_status(
+                        int(function_id), True, execute=True, timeout=timeout
+                    )
+                    if res.observed.get("observed_matches") is False:
+                        status = "warning"
+                        err_msg = "Requested state could not be verified."
+                    active_function_id = function_id
+                except Exception as exc:
+                    status = "failed"
+                    err_msg = str(exc)
+            else:
+                status = "failed"
+                err_msg = f"Scene function '{scene_name}' not found in QLC+."
+
+        playout_log.append(
+            {
+                "cue_number": cue.number,
+                "cue_label": cue.label,
+                "scheduled_time": cue.timestamp,
+                "actual_trigger_time": trigger_time,
+                "status": status,
+                "error": err_msg,
+            }
+        )
+
+        if not json_output:
+            status_color = (
+                "green"
+                if status == "success"
+                else "red"
+                if status == "failed"
+                else "yellow"
+            )
+            console.print(
+                f"  [{trigger_time:.2f}s] Cue {cue.number:g}: {cue.label} -> "
+                f"[{status_color}]{status.upper()}[/{status_color}]"
+            )
+            if err_msg:
+                console.print(f"    [yellow]Warning/Error: {err_msg}[/yellow]")
+
+    if live and active_function_id is not None:
+        try:
+            backend.set_function_status(
+                int(active_function_id), False, execute=True, timeout=timeout
+            )
+        except Exception:
+            pass
+
+    report = {
+        "show": show.name,
+        "rig": rig.name,
+        "mode": "live" if live else "dry-run",
+        "video_path": str(video_path) if video_path else None,
+        "audio_path": str(audio_path) if audio_path else None,
+        "playout_log": playout_log,
+        "timestamp": datetime.now(UTC).isoformat(timespec="seconds"),
+        "status": "completed"
+        if all(item["status"] in {"success", "warning"} for item in playout_log)
+        else "failed",
+    }
+
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json_module.dumps(report, indent=2) + "\n", encoding="utf-8")
+
+    if json_output:
+        typer.echo(json_module.dumps(report, indent=2))
+        return
+
+    console.print("\n[bold green]Playout complete![/bold green]")
+    if output is not None:
+        console.print(f"Recording report saved to: [cyan]{output}[/cyan]")
+    if video_path:
+        console.print(f"Video file linked: [cyan]{video_path}[/cyan]")
