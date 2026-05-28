@@ -46,6 +46,10 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 - **Keep QLC+ QXF Beside QXW for Direct Open**: When opening a generated QXW directly in QLC+, fixture definitions are resolved from QLC+'s fixture library or the workspace directory. If QXF files are written to a sibling subdirectory, static validation can pass while live import logs missing fixture definitions.
 - **Function Proof Before GUI Proof**: For controller playback validation, first prove the imported function/scene can be triggered and queried through a stable API before attempting brittle GUI button automation.
 - **Plot Before Cues**: Treat the rig as the instrument. Generate top/front plots and review fixture roles, shape, patch, and inspiration before updating show cues against the rig.
+- **Semantic Presets, Concrete Rendering**: Rig presets may carry semantic
+  design vocabulary such as `beam` or `position`; fixture-aware DMX preview
+  should merge only renderer-supported concrete attributes from presets and let
+  explicit cue attributes provide the renderable values.
 
 ## [REVIEW AGENTS]
 

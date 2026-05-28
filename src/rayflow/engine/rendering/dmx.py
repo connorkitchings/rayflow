@@ -29,6 +29,11 @@ POSITION_ATTRIBUTES = {
     "position.tilt": "Tilt",
 }
 NUMERIC_FAMILIES = frozenset({"zoom", "focus", "shutter", "gobo"})
+PRESET_RENDER_ATTRIBUTES = (
+    {"dimmer", "color", "gobo.speed", "gobo.rotation"}
+    | set(POSITION_ATTRIBUTES)
+    | NUMERIC_FAMILIES
+)
 
 
 @dataclass(frozen=True)
@@ -239,7 +244,13 @@ def _effective_attributes(show: Show, rig: Rig, cue: Cue) -> dict[str, str]:
     if cue.preset:
         preset = resolve_presets(rig, show).get(cue.preset)
         if preset is not None:
-            attributes.update(preset.attributes)
+            attributes.update(
+                {
+                    family: value
+                    for family, value in preset.attributes.items()
+                    if family in PRESET_RENDER_ATTRIBUTES
+                }
+            )
     attributes.update(cue.attributes)
     return attributes
 

@@ -141,6 +141,44 @@ def test_cue_attributes_override_preset_attributes() -> None:
     assert rendered.frames[0].channels[23] == 255
 
 
+def test_preset_semantic_attributes_do_not_create_renderer_warnings() -> None:
+    preset = Preset(
+        name="Full Peak",
+        description="Semantic console preset with renderer-safe values.",
+        attributes={
+            "dimmer": "80",
+            "color": "White",
+            "beam": "tight_aerial",
+            "position": "cross_center_x",
+        },
+        channels="1",
+    )
+    cue = Cue(
+        number=1,
+        label="Peak",
+        section="Intro",
+        timestamp=0,
+        preset="Full Peak",
+        attributes={"zoom": "10"},
+    )
+    rig = _rig_with_fixture(
+        FixtureSlot(
+            fixture_name="Robin iSpiiderX",
+            mode="Mode 2 - Basic",
+            label="Spiider 1",
+            universe=0,
+            start_address=1,
+            channels="1",
+        ),
+        presets={"Full Peak": preset},
+    )
+
+    rendered = render_cue_to_dmx(_show([cue]), rig, cue, fixture_dir=SAMPLES_DIR)
+
+    assert rendered.frames[0].channels
+    assert rendered.warnings == []
+
+
 def test_named_color_maps_sample_warm_amber() -> None:
     cue = Cue(
         number=1,
