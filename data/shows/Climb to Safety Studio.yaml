@@ -98,7 +98,7 @@ cues:
     zoom: '90'
   fade_time: 4.0
 - number: 3
-  label: Verse 1 Amber Groove
+  label: Verse 1 Amber Groove (less movement)
   section: Verse 1
   timestamp: 16.0
   preset: front_low_amber
@@ -108,7 +108,7 @@ cues:
     color: '#FFB347'
   fade_time: 2.0
 - number: 4
-  label: Verse 1 Subtle Texture
+  label: Verse 1 Subtle Texture (less movement)
   section: Verse 1
   timestamp: 37.14
   preset: blade_texture
@@ -120,30 +120,36 @@ cues:
     focus: '60'
   fade_time: 3.0
 - number: 5
-  label: Chorus 1 Open Front
+  label: Chorus 1 Open Front (bigger)
   section: Chorus 1
   timestamp: 58.0
   preset: front_warm
   channels: 1 Thru 6
   attributes:
-    dimmer: '72'
+    dimmer: '92'
     color: Warm Amber
-  fade_time: 1.0
+    zoom: '10'
+    shutter: '70'
+    movement.type: sine
+    movement.speed: '0.8'
+    movement.size: 24,12
+  fade_time: 0.5
 - number: 6
-  label: Chorus 1 Cool Lift
+  label: Chorus 1 Cool Lift (bigger)
   section: Chorus 1
   timestamp: 72.86
   preset: electric_blue_cyan
   channels: 7 Thru 10
   attributes:
-    dimmer: '76'
+    dimmer: '96'
     color: '#2146D0'
-    zoom: '55'
+    zoom: '10'
     movement.type: sine
     movement.center: 50,55
     movement.size: 12,6
     movement.speed: '0.35'
-  fade_time: 1.0
+    shutter: '70'
+  fade_time: 0.5
 - number: 7
   label: Verse 2 Warm Drive
   section: Verse 2
@@ -221,31 +227,41 @@ cues:
     movement.speed: '0.25'
   fade_time: 10.0
 - number: 13
-  label: Final Chorus Full Front
+  label: Final Chorus Full Front (psychedelic)
   section: Final Chorus
   timestamp: 222.0
   preset: full_warm_blue
   channels: 1 Thru 6
   attributes:
     dimmer: '92'
-    color: Warm Amber
+    color: '#FFB347'
+    movement.type: circle
+    movement.speed: '0.75'
+    movement.size: '28'
+    gobo: '75'
+    gobo.speed: 70%
+    gobo.rotation: 65%
+    zoom: '18'
   fade_time: 0.5
 - number: 14
-  label: Final Chorus Texture Peak
+  label: Final Chorus Texture Peak (psychedelic)
   section: Final Chorus
   timestamp: 244.29
   preset: prism_peak
   channels: 11 Thru 14
   attributes:
     dimmer: '88'
-    gobo: '70'
+    gobo: '75'
     zoom: '18'
     focus: '55'
     shutter: '65'
     movement.type: circle
     movement.center: 50,50
-    movement.size: '20'
-    movement.speed: '0.65'
+    movement.size: '28'
+    movement.speed: '0.75'
+    color: '#FFB347'
+    gobo.speed: 70%
+    gobo.rotation: 65%
   fade_time: 0.5
 - number: 15
   label: Outro Warm Resolve
