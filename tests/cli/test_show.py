@@ -50,10 +50,10 @@ SHOW_COMMANDS = [
     "save",
     "set-song-meta",
     "set-vibe",
+    "switch",
     "update-cue",
-    "update-section",
     "validate-qxw",
-    "versions",
+    "visualize",
     "workflow-report",
 ]
 
@@ -3192,3 +3192,301 @@ presets: {}
         )
         assert result.exit_code == 1
         assert "Error: Show not found" in result.output
+
+
+class TestShowVisualize:
+    """Tests for the show visualize command."""
+
+    def test_visualize_dry_run(self, tmp_path: Path) -> None:
+        from rayflow.design.models import (
+            Cue,
+            FixtureSlot,
+            Position3D,
+            Rig,
+            Section,
+            Show,
+            Song,
+            Venue,
+        )
+        from rayflow.design.serializers import save_show
+
+        venue = Venue(name="Test Venue", dimensions=(10, 8, 5))
+        slot = FixtureSlot(
+            fixture_name="LED PAR 64 RGBW",
+            mode="Default",
+            label="Test PAR",
+            universe=0,
+            start_address=1,
+            position=Position3D(x=0, y=0, z=3, pan=0, tilt=0),
+        )
+        rig = Rig(name="Test Rig", venue=venue, fixtures=[slot])
+        rig_path = tmp_path / "Test Rig.yaml"
+        save_show(rig, rig_path)
+
+        song = Song(
+            title="Test Song",
+            artist="Test Artist",
+            duration=180.0,
+            sections=[Section(name="Verse", start=0.0, end=30.0, energy=0.5)],
+        )
+        cue = Cue(
+            number=1,
+            label="Test Cue",
+            section="Verse",
+            timestamp=0.0,
+            attributes={"dimmer": "50"},
+        )
+        show = Show(name="Test Show", rig_name="Test Rig", song=song, cues=[cue])
+        show_path = tmp_path / "Test Show.yaml"
+        save_show(show, show_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "visualize",
+                "Test Show",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+            ],
+        )
+        assert result.exit_code == 0
+        assert "Visualize: Test Show" in result.output
+        assert "Dry run" in result.output
+        assert "MVR exported" in result.output
+
+    def test_visualize_show_not_found(self, tmp_path: Path) -> None:
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "visualize",
+                "Missing Show",
+                "--dir",
+                str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Error: Show not found" in result.output
+
+    def test_visualize_rig_not_found(self, tmp_path: Path) -> None:
+        from rayflow.design.models import Show, Song
+        from rayflow.design.serializers import save_show
+
+        song = Song(title="Test Song", artist="Test Artist", duration=180.0)
+        show = Show(name="Test Show", rig_name="Missing Rig", song=song)
+        show_path = tmp_path / "Test Show.yaml"
+        save_show(show, show_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "visualize",
+                "Test Show",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 1
+        assert "Error: Rig not found" in result.output
+
+    def test_visualize_json_output(self, tmp_path: Path) -> None:
+        from rayflow.design.models import (
+            Cue,
+            FixtureSlot,
+            Position3D,
+            Rig,
+            Section,
+            Show,
+            Song,
+            Venue,
+        )
+        from rayflow.design.serializers import save_show
+
+        venue = Venue(name="Test Venue", dimensions=(10, 8, 5))
+        slot = FixtureSlot(
+            fixture_name="LED PAR 64 RGBW",
+            mode="Default",
+            label="Test PAR",
+            universe=0,
+            start_address=1,
+            position=Position3D(x=0, y=0, z=3, pan=0, tilt=0),
+        )
+        rig = Rig(name="Test Rig", venue=venue, fixtures=[slot])
+        rig_path = tmp_path / "Test Rig.yaml"
+        save_show(rig, rig_path)
+
+        song = Song(
+            title="Test Song",
+            artist="Test Artist",
+            duration=180.0,
+            sections=[Section(name="Verse", start=0.0, end=30.0, energy=0.5)],
+        )
+        cue = Cue(
+            number=1,
+            label="Test Cue",
+            section="Verse",
+            timestamp=0.0,
+            attributes={"dimmer": "50"},
+        )
+        show = Show(name="Test Show", rig_name="Test Rig", song=song, cues=[cue])
+        show_path = tmp_path / "Test Show.yaml"
+        save_show(show, show_path)
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "visualize",
+                "Test Show",
+                "--dir",
+                str(tmp_path),
+                "--rig-dir",
+                str(tmp_path),
+                "--fixture-dir",
+                str(SAMPLE_FIXTURE_DIR),
+                "--json",
+            ],
+        )
+        assert result.exit_code == 0
+        data = json.loads(result.output)
+        assert data["show"] == "Test Show"
+        assert "mvr_exported" in data
+        assert "cue_count" in data
+        assert data["mode"] == "dry-run"
+
+    def test_visualize_execute_ma3_not_running(self, tmp_path: Path) -> None:
+        from rayflow.design.models import (
+            Cue,
+            FixtureSlot,
+            Position3D,
+            Rig,
+            Section,
+            Show,
+            Song,
+            Venue,
+        )
+        from rayflow.design.serializers import save_show
+
+        venue = Venue(name="Test Venue", dimensions=(10, 8, 5))
+        slot = FixtureSlot(
+            fixture_name="LED PAR 64 RGBW",
+            mode="Default",
+            label="Test PAR",
+            universe=0,
+            start_address=1,
+            position=Position3D(x=0, y=0, z=3, pan=0, tilt=0),
+        )
+        rig = Rig(name="Test Rig", venue=venue, fixtures=[slot])
+        rig_path = tmp_path / "Test Rig.yaml"
+        save_show(rig, rig_path)
+
+        song = Song(
+            title="Test Song",
+            artist="Test Artist",
+            duration=180.0,
+            sections=[Section(name="Verse", start=0.0, end=30.0, energy=0.5)],
+        )
+        cue = Cue(
+            number=1,
+            label="Test Cue",
+            section="Verse",
+            timestamp=0.0,
+            attributes={"dimmer": "50"},
+        )
+        show = Show(name="Test Show", rig_name="Test Rig", song=song, cues=[cue])
+        show_path = tmp_path / "Test Show.yaml"
+        save_show(show, show_path)
+
+        with patch("rayflow.cli.show.main._check_ma3_running", return_value=False):
+            result = runner.invoke(
+                app,
+                [
+                    "show",
+                    "visualize",
+                    "Test Show",
+                    "--dir",
+                    str(tmp_path),
+                    "--rig-dir",
+                    str(tmp_path),
+                    "--fixture-dir",
+                    str(SAMPLE_FIXTURE_DIR),
+                    "--execute",
+                ],
+            )
+        assert result.exit_code == 1
+        assert "MA3 onPC is not running" in result.output
+
+    def test_visualize_execute_sends_osc(self, tmp_path: Path) -> None:
+        from rayflow.design.models import (
+            Cue,
+            FixtureSlot,
+            Position3D,
+            Rig,
+            Section,
+            Show,
+            Song,
+            Venue,
+        )
+        from rayflow.design.serializers import save_show
+
+        venue = Venue(name="Test Venue", dimensions=(10, 8, 5))
+        slot = FixtureSlot(
+            fixture_name="LED PAR 64 RGBW",
+            mode="Default",
+            label="Test PAR",
+            universe=0,
+            start_address=1,
+            position=Position3D(x=0, y=0, z=3, pan=0, tilt=0),
+        )
+        rig = Rig(name="Test Rig", venue=venue, fixtures=[slot])
+        rig_path = tmp_path / "Test Rig.yaml"
+        save_show(rig, rig_path)
+
+        song = Song(
+            title="Test Song",
+            artist="Test Artist",
+            duration=180.0,
+            sections=[Section(name="Verse", start=0.0, end=30.0, energy=0.5)],
+        )
+        cue = Cue(
+            number=1,
+            label="Test Cue",
+            section="Verse",
+            timestamp=0.0,
+            attributes={"dimmer": "50"},
+        )
+        show = Show(name="Test Show", rig_name="Test Rig", song=song, cues=[cue])
+        show_path = tmp_path / "Test Show.yaml"
+        save_show(show, show_path)
+
+        with (
+            patch("rayflow.cli.show.main._check_ma3_running", return_value=True),
+            patch("rayflow.engine.console.osc.Ma3OscClient") as mock_client,
+        ):
+            mock_instance = mock_client.return_value
+            result = runner.invoke(
+                app,
+                [
+                    "show",
+                    "visualize",
+                    "Test Show",
+                    "--dir",
+                    str(tmp_path),
+                    "--rig-dir",
+                    str(tmp_path),
+                    "--fixture-dir",
+                    str(SAMPLE_FIXTURE_DIR),
+                    "--execute",
+                ],
+            )
+        assert result.exit_code == 0
+        assert "Sent" in result.output
+        assert mock_instance.send.called

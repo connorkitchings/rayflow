@@ -1350,3 +1350,206 @@ def show_record(
         console.print(f"Recording report saved to: [cyan]{output}[/cyan]")
     if video_path:
         console.print(f"Video file linked: [cyan]{video_path}[/cyan]")
+
+
+@show_app.command("visualize")
+def show_visualize(
+    show_name: str | None = typer.Argument(None, help="Show name"),
+    execute: bool = typer.Option(
+        False, "--execute", help="Actually send OSC commands to MA3"
+    ),
+    sequence: int = typer.Option(1, "--sequence", help="Target MA3 sequence number"),
+    ip: str = typer.Option("127.0.0.1", "--ip", help="grandMA3 onPC IP"),
+    port: int = typer.Option(8000, "--port", "-p", help="OSC port"),
+    show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+    rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+    fixture_dir: str = typer.Option(
+        "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+    ),
+    output_dir: str = typer.Option(
+        "exports/ma3", "--output-dir", help="MVR export directory"
+    ),
+    json_output: bool = typer.Option(False, "--json", help="JSON output"),
+) -> None:
+    """Export rig to MVR and push cues to MA3 for 3D pre-viz visualization.
+
+    Single-command workflow: exports the rig as an MVR file, then pushes all
+    show cues to grandMA3 onPC via OSC. By default runs as a dry-run showing
+    what would happen. Use --execute to actually send OSC commands.
+    """
+    show_name = resolve_show_name(show_name)
+    from rayflow.design.models import resolve_presets
+    from rayflow.design.serializers import load_rig, load_show
+    from rayflow.engine.console.push import commands_for_show
+
+    path = show_path(show_name, show_dir_path(show_dir))
+    if not path.exists():
+        typer.echo(f"Error: Show not found: {show_name}", err=True)
+        raise typer.Exit(code=1)
+
+    show = load_show(path)
+    rig_file = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
+    if not rig_file.exists():
+        typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
+        raise typer.Exit(code=1)
+
+    rig = load_rig(rig_file)
+
+    ma3_running = _check_ma3_running()
+
+    mvr_path = _export_mvr_for_show(rig, fixture_dir, output_dir, show_name)
+
+    presets = resolve_presets(rig, show)
+    commands = commands_for_show(
+        show, presets, sequence=sequence, rig=rig, fixture_dir=fixture_dir
+    )
+
+    result = {
+        "show": show_name,
+        "rig": show.rig_name,
+        "ma3_running": ma3_running,
+        "mvr_exported": str(mvr_path),
+        "cue_count": len(commands),
+        "mode": "execute" if execute else "dry-run",
+    }
+
+    if json_output:
+        typer.echo(json_module.dumps(result, indent=2))
+        return
+
+    console.print(f"\n[bold]Visualize: {show_name}[/bold]")
+    console.print(f"  Rig: {show.rig_name}")
+    console.print(f"  Song: {show.song.title} by {show.song.artist}")
+    console.print(f"  Cues: {len(commands)}")
+
+    if ma3_running:
+        console.print("  MA3 onPC: [green]running[/green]")
+    else:
+        console.print("  MA3 onPC: [yellow]not detected[/yellow]")
+
+    console.print(f"  MVR exported: [cyan]{mvr_path}[/cyan]")
+
+    if not commands:
+        console.print("[dim]No cues to push[/dim]")
+        return
+
+    if not execute:
+        console.print(
+            f"\n[bold yellow]Dry run[/bold yellow] — {len(commands)} OSC commands ready"
+        )
+        console.print(f'  Sequence {sequence} ("{show.song.title}")')
+        console.print(f"  Pass --execute to send commands to MA3 at {ip}:{port}")
+        if not ma3_running:
+            console.print("\n[yellow]Warning: MA3 onPC is not running.[/yellow]")
+            console.print("  Start grandMA3 onPC before using --execute.")
+        console.print(
+            "\n[dim]Import "
+            f"{mvr_path} into MA3, "
+            "then run with --execute to push cues.[/dim]"
+        )
+        return
+
+    if not ma3_running:
+        console.print("\n[bold red]Error: MA3 onPC is not running.[/bold red]")
+        console.print("  Start grandMA3 onPC before using --execute.")
+        raise typer.Exit(code=1)
+
+    from rayflow.engine.console.osc import Ma3OscClient
+
+    client = Ma3OscClient(ip=ip, port=port)
+    sent = 0
+    for cmd in commands:
+        try:
+            client.send(cmd.command)
+            sent += 1
+        except Exception as e:
+            console.print(f"  [red]Failed: {cmd.command} — {e}[/red]")
+
+    console.print(
+        f"\n[bold green]Sent[/bold green] {sent}/{len(commands)} OSC commands "
+        f"to Sequence {sequence} on {ip}:{port}"
+    )
+    console.print("[dim]Open MA3 3D pre-viz to see the result.[/dim]")
+
+
+def _check_ma3_running() -> bool:
+    """Check if grandMA3 onPC is running on macOS."""
+    import platform
+    import subprocess
+
+    if platform.system() != "Darwin":
+        return True
+
+    try:
+        result = subprocess.run(
+            ["pgrep", "-f", "grandMA3"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        return result.returncode == 0
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return True
+
+
+def _export_mvr_for_show(
+    rig, fixture_dir: str, output_dir: str, show_name: str
+) -> Path:
+    """Export rig to MVR file for the given show."""
+    from rayflow.engine.fixtures.library import FixtureLibrary
+    from rayflow.engine.fixtures.mvr_export import (
+        FixturePosition,
+        build_patch_entry,
+    )
+    from rayflow.engine.fixtures.mvr_export import export_mvr as _export_mvr
+
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    mvr_file = output_path / f"{show_name.replace(' ', '_')}.mvr"
+
+    try:
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError):
+        return mvr_file
+
+    patches = []
+    address = 1
+    for slot in rig.fixtures:
+        parser = library.get(slot.fixture_name)
+        if parser is None:
+            continue
+
+        mode_idx = 0
+        mode_names = parser.mode_names()
+        if slot.mode in mode_names:
+            mode_idx = mode_names.index(slot.mode)
+
+        channel_count = parser.get_channel_count(mode_idx)
+        pos = FixturePosition(
+            name=slot.label,
+            x=slot.position.x,
+            y=slot.position.y,
+            z=slot.position.z,
+            pan=slot.position.pan,
+            tilt=slot.position.tilt,
+        )
+        gdtf_file = getattr(parser, "path", None)
+        patches.append(
+            build_patch_entry(
+                name=slot.label,
+                manufacturer=parser.manufacturer,
+                fixture_type=f"{parser.manufacturer}@{parser.name}",
+                dmx_mode=slot.mode,
+                universe=slot.universe,
+                address=address,
+                position=pos,
+                gdtf_file=gdtf_file,
+            )
+        )
+        address += channel_count
+
+    if patches:
+        _export_mvr(patches, mvr_file, scene_name=rig.name)
+
+    return mvr_file
