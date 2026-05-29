@@ -51,6 +51,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
   should merge only renderer-supported concrete attributes from presets and let
   explicit cue attributes provide the renderable values.
 - **Automated Playout for Capture**: Automate controller playout (e.g., `show record`) by triggering scene functions in real-time using timed sleeps between cue timestamps. This simplifies screen-recording captures and generates structured recording reports linking all show and output artifacts.
+- **Visualize Before Refine**: Use `show visualize` to export MVR and generate OSC commands before running `show refine-cues`. The visualize command confirms the rig is exportable and the cue count is correct, providing a baseline for refinement iterations.
 
 ## [REVIEW AGENTS]
 
