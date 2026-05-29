@@ -59,16 +59,16 @@ rayflow/
 - Phase 15 Option A (2026-05-25): QLC+ workspace exporter — `rayflow rig export-qxw` generates a `.qxw` file directly from a RayFlow rig; 583 tests at 81.98% coverage
 - Product V1 setup loop (2026-05-25): `rayflow rig plan-build` and `rayflow show plan-palettes` add proposal/apply flows for generated rigs and show-specific `rf_` palette overrides; 597 tests at 82.84% coverage
 - Preview/Critique V1 (2026-05-25): `rayflow show preview` and MCP `preview_show` build dry-run critique packets with rendered DMX evidence, fixture capabilities, warnings, and property-specific prompts; 605 tests at 83.07% coverage
+- Design loop closed (2026-05-29): `rayflow show visualize` exports MVR + pushes cues to MA3 via OSC in one command; 3 refinement cycles completed on "Climb to Safety Studio"; 671 tests at ~83% coverage
 
 **Current Focus:**
 - All Phases 1–11 and the full post-Phase 11 candidate track are complete.
-- Phase 15 Option A (QLC+ workspace exporter) shipped: `rayflow rig export-qxw` writes a loadable `.qxw` file.
-- Rig Builder V1 and Palette Generator V1 shipped: AI can now propose/apply a deterministic generated rig from plain language and propose/apply a minimal generated palette library as show overrides.
-- Preview/Critique V1 shipped: AI can now package show state, fixture capabilities, effective presets, rendered DMX frames, and critique prompts into one dry-run review artifact.
+- Design loop is closed: describe → build → see (via `show visualize` + MA3 3D) → iterate (via `show refine-cues`) → record.
+- Rig Builder V1, Palette Generator V1, Preview/Critique V1, and MA3 Visualization Workflow all shipped.
 - Phase 15 Options B/C: QLC+ fixture definitions and function/scene triggers shipped; QLC+ depth now covers QXW workspace export, QXF fixture definitions, channel evidence, and function status/trigger commands.
-- Next product priority: console show file export or recording/export workflow, with preview packet feedback available for iteration.
+- Next product priority: full song pilot on "Climb to Safety" with MA3 running, then console show file export or recording/export workflow.
 
-**Active Branch:** `codex/continue-development-session`
+**Active Branch:** `feat/visualize-command` (pushed to origin, PR open)
 
 **grandMA3 Context:**
 - Local installed version verified: grandMA3 onPC 2.3.2.0 (`/Applications/grandMA3.app`)

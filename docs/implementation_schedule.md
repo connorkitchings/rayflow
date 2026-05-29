@@ -209,7 +209,8 @@ authoring, and live import validation.
 | Feedback-driven cue refinement | Let the user critique an existing generated show in plain language and have RayFlow revise cues instead of regenerating from scratch | `show refine-cues` accepts `less-movement`, `more-psychedelic`, `bigger-chorus`, or `too-busy`; preserves unaffected sections; and stays proposal-first until `--apply` | ✅ Done |
 | MA3 disposable live OSC proof | Keep live MA3 mutation restricted to an explicit disposable harness | `console probe live-osc-proof` reuses the command-acceptance export probe and rejects any target show except `rayflow_control_probe` | ✅ Done |
 | Recording/export workflow | Make the final “record the show” path repeatable after QLC+ validation succeeds | Document and/or automate the handoff from a validated QLC+ workspace to recording: open QXW, verify live function list, trigger scenes in order, capture output via QLC+/visualizer/screen recording, and store a report linking the recording to the show/export artifacts | ✅ Done |
-| First real song pilot | Start the actual RayFlow usage loop on a known song | Use the studio/album version of Widespread Panic's "Climb to Safety" to build a stage/rig/show, generate AI-assisted presets, and run a first cue/look pass | ☐ Not Started |
+| First real song pilot | Start the actual RayFlow usage loop on a known song | Use the studio/album version of Widespread Panic's "Climb to Safety" to build a stage/rig/show, generate AI-assisted presets, and run a first cue/look pass | ▶ In Progress — design loop closed, 3 refinement cycles completed on "Climb to Safety Studio"; full song pilot pending |
+| MA3 visualization workflow | Single-command export and push for 3D pre-viz review | `show visualize` exports MVR, checks MA3 is running, generates OSC commands; dry-run by default, `--execute` for live push | ✅ Done |
 
 Recommended order:
 
