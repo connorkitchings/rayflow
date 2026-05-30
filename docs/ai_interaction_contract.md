@@ -1,3 +1,9 @@
+---
+title: "AI Interaction Contract"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "RayFlow's primary interface is through an AI coding tool running in this repository. The user directs the AI in natural language; the AI reads the show conte..."
+---
+
 # AI Interaction Contract
 
 > **Purpose**: Define how AI coding tools (Claude Code, Codex, etc.) interact with RayFlow to build and modify lighting shows. This is the framework that makes natural-language direction effective.

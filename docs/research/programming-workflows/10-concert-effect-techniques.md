@@ -1,3 +1,9 @@
+---
+title: "Concert Effect Techniques: Speed Masters, Effect Engines, and Real-Time Manipulation"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** Industry knowledge, console programming guides, LD techniques"
+---
+
 # Concert Effect Techniques: Speed Masters, Effect Engines, and Real-Time Manipulation
 
 **Source:** Industry knowledge, console programming guides, LD techniques

@@ -1,3 +1,9 @@
+---
+title: "QLC+ Setup Guide"
+tags: [research, guides, qlcplus, gdtf, art-net, sacn]
+summary: "[QLC+](https://www.qlcplus.org/) is an open-source DMX lighting controller. It"
+---
+
 # QLC+ Setup Guide
 
 > **Status:** Supported for file export and queryable WebSocket control paths.

@@ -1,3 +1,9 @@
+---
+title: "Jefferson Waful — Umphrey's McGee"
+tags: [research, concert-lds]
+summary: "**Era:** Early 2000s – 2023"
+---
+
 # Jefferson Waful — Umphrey's McGee
 
 **Era:** Early 2000s – 2023

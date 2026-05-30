@@ -1,3 +1,9 @@
+---
+title: "Show Building Workflow — Song to Finished Show"
+tags: [research, ai, grandma3, gdtf, art-net, osc]
+summary: "```"
+---
+
 # Show Building Workflow — Song to Finished Show
 
 > **FOR AI AGENTS.** Complete end-to-end process for building a lighting show. Each phase includes exact MA3 operations and RayFlow commands. Use this alongside [MA3_OPERATIONS.md](./MA3_OPERATIONS.md).

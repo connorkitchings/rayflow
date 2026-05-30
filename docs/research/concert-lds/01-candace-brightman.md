@@ -1,3 +1,9 @@
+---
+title: "Candace Brightman — Grateful Dead"
+tags: [research, concert-lds]
+summary: "**Era:** Early 1970s – 1995"
+---
+
 # Candace Brightman — Grateful Dead
 
 **Era:** Early 1970s – 1995

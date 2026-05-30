@@ -1,3 +1,9 @@
+---
+title: "Authoring Workflow"
+tags: [research, guides, qlcplus, art-net]
+summary: "Phase 10 generalizes the Phase 9 practice-show authoring loop for any RayFlow"
+---
+
 # Authoring Workflow
 
 Phase 10 generalizes the Phase 9 practice-show authoring loop for any RayFlow

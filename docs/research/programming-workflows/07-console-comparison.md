@@ -1,3 +1,9 @@
+---
+title: "Console Comparison: Terminology, Philosophy, and Feature Mapping"
+tags: [research, programming, workflow, console-operation, grandma3, osc]
+summary: "**Source:** Console manuals, web research, cross-training guides"
+---
+
 # Console Comparison: Terminology, Philosophy, and Feature Mapping
 
 **Source:** Console manuals, web research, cross-training guides

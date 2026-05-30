@@ -1,3 +1,9 @@
+---
+title: "The Design Iteration Loop: Author → Critique → Refine"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** Industry knowledge, LD workflows, design process theory"
+---
+
 # The Design Iteration Loop: Author → Critique → Refine
 
 **Source:** Industry knowledge, LD workflows, design process theory

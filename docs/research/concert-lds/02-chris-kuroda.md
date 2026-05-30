@@ -1,3 +1,9 @@
+---
+title: "Chris Kuroda (CK5) — Phish"
+tags: [research, concert-lds, grandma3, art-net, sacn]
+summary: "**Era:** 1989 – present"
+---
+
 # Chris Kuroda (CK5) — Phish
 
 **Era:** 1989 – present

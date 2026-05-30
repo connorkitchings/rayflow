@@ -1,3 +1,9 @@
+---
+title: "grandMA3 2.3 Operations Reference"
+tags: [research, ai, grandma3, gdtf, art-net, sacn, osc]
+summary: "**GUI:** Launch MA3 → Select \"New Show\" when prompted → Name show → OK"
+---
+
 # grandMA3 2.3 Operations Reference
 
 > **FOR AI AGENTS.** Every MA3 operation documented with three approaches: GUI menu path, command-line syntax, and RayFlow/OSC equivalent. Sourced from the grandMA3 2.3 online manual, verified against 2.3.2.0.

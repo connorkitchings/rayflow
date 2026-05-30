@@ -1,3 +1,9 @@
+---
+title: "System Architecture, Patching, and Digital Protocols"
+tags: [research, protocol, system-architecture, network, art-net, sacn]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # System Architecture, Patching, and Digital Protocols
 
 **Source:** `docs/research/manual_research2.txt`  

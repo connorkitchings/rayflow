@@ -1,3 +1,9 @@
+---
+title: "Andrew Giffin — Programmer for Chris Kuroda (Phish)"
+tags: [research, concert-lds]
+summary: "**Era:** 2010s – present"
+---
+
 # Andrew Giffin — Programmer for Chris Kuroda (Phish)
 
 **Era:** 2010s – present

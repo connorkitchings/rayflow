@@ -1,3 +1,9 @@
+---
+title: "Getting Started"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn]
+summary: "RayFlow can run its CLI and tests without a lighting console. Install external"
+---
+
 # Getting Started
 
 > **Purpose:** Get RayFlow running and send your first DMX values through the

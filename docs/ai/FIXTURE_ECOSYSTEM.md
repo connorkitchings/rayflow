@@ -1,3 +1,9 @@
+---
+title: "GDTF Fixture Ecosystem"
+tags: [research, ai, grandma3, gdtf]
+summary: "**General Device Type Format (GDTF)** is an open standard (DIN SPEC 15800:2022) for describing lighting fixtures. A GDTF file is a `.zip` archive containing:"
+---
+
 # GDTF Fixture Ecosystem
 
 > **FOR AI AGENTS.** Everything about GDTF fixtures: what they are, where to find them, how to inspect them, how MA3 handles them, and how RayFlow integrates.

@@ -1,3 +1,9 @@
+---
+title: "Rig Design and Fixture Placement"
+tags: [research, design-concept, lighting-design, theory]
+summary: "**Source:** Web research, stage lighting design literature, professional rigging guides"
+---
+
 # Rig Design and Fixture Placement
 
 **Source:** Web research, stage lighting design literature, professional rigging guides

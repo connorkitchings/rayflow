@@ -1,3 +1,9 @@
+---
+title: "Project Brief"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "RayFlow"
+---
+
 # Project Brief
 
 ## Project Name:

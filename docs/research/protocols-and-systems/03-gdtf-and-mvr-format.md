@@ -1,3 +1,9 @@
+---
+title: "GDTF and MVR Format Reference"
+tags: [research, protocol, system-architecture, network, grandma3, gdtf]
+summary: "**Source:** `docs/research/ma3-probes/ma3_disposable_show_and_fixture_probe_2_3_2.md`, `docs/research/ma3-probes/ma3_fixture_import_probe_result.json`"
+---
+
 # GDTF and MVR Format Reference
 
 **Source:** `docs/research/ma3-probes/ma3_disposable_show_and_fixture_probe_2_3_2.md`, `docs/research/ma3-probes/ma3_fixture_import_probe_result.json`  

@@ -1,3 +1,9 @@
+---
+title: "GrandMA3 Tutorial Series 2 — Reference Index"
+tags: [research, programming, workflow, console-operation, grandma3, gdtf]
+summary: "**Source:** YouTube playlist — https://www.youtube.com/playlist?list=PL_CGrOZmBj_DiqpjYDRltnnR8pSRRocv3"
+---
+
 # GrandMA3 Tutorial Series 2 — Reference Index
 
 **Source:** YouTube playlist — https://www.youtube.com/playlist?list=PL_CGrOZmBj_DiqpjYDRltnnR8pSRRocv3

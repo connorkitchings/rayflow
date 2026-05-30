@@ -1,3 +1,9 @@
+---
+title: "Virtual Show Development — Andrew Goedde and the Offline-First Pipeline"
+tags: [research, design-concept, lighting-design, theory, grandma3, art-net, osc]
+summary: "**Source:** Industry knowledge, LD workflows, pre-viz and console offline editor practices"
+---
+
 # Virtual Show Development — Andrew Goedde and the Offline-First Pipeline
 
 **Source:** Industry knowledge, LD workflows, pre-viz and console offline editor practices

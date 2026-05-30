@@ -1,3 +1,9 @@
+---
+title: "Color Theory and LED Transitions"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Color Theory and LED Transitions
 
 **Source:** `docs/research/manual_research2.txt`  

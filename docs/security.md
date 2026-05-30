@@ -1,3 +1,9 @@
+---
+title: "Security & Privacy Notes"
+tags: [research, grandma3, gdtf, art-net, sacn, osc]
+summary: "This document outlines security and privacy considerations for RayFlow."
+---
+
 # Security & Privacy Notes
 
 This document outlines security and privacy considerations for RayFlow.

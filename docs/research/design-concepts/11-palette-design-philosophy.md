@@ -1,3 +1,9 @@
+---
+title: "Palette and Preset Design Philosophy"
+tags: [research, design-concept, lighting-design, theory, grandma3]
+summary: "**Source:** Web research, console manuals, professional programming guides"
+---
+
 # Palette and Preset Design Philosophy
 
 **Source:** Web research, console manuals, professional programming guides

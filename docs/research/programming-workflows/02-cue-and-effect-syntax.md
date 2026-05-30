@@ -1,3 +1,9 @@
+---
+title: "Cue and Effect Syntax"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Cue and Effect Syntax
 
 **Source:** `docs/research/manual_research2.txt`  

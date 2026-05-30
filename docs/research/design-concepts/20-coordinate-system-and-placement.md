@@ -1,3 +1,9 @@
+---
+title: "Coordinate System and Fixture Placement"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Purpose:** Define the spatial model for RayFlow's rig builder. Every fixture position, every venue dimension, every truss structure uses this coordinate sy..."
+---
+
 # Coordinate System and Fixture Placement
 
 **Purpose:** Define the spatial model for RayFlow's rig builder. Every fixture position, every venue dimension, every truss structure uses this coordinate system.

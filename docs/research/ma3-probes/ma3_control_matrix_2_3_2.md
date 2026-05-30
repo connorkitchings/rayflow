@@ -1,3 +1,9 @@
+---
+title: "MA3 Control Capability Matrix"
+tags: [research, grandma3, probe, compatibility, qlcplus, gdtf, art-net, sacn, osc]
+summary: "**Date:** 2026-05-22"
+---
+
 # MA3 Control Capability Matrix
 
 **Date:** 2026-05-22  

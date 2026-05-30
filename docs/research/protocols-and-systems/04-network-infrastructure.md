@@ -1,3 +1,9 @@
+---
+title: "Network Infrastructure for Lighting Systems"
+tags: [research, protocol, system-architecture, network, grandma3, art-net, sacn]
+summary: "**Source:** Web research, Art-Net/sACN specifications, network engineering for live events"
+---
+
 # Network Infrastructure for Lighting Systems
 
 **Source:** Web research, Art-Net/sACN specifications, network engineering for live events

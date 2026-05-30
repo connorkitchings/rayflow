@@ -1,3 +1,10 @@
+---
+title: "AI Agent Guide"
+tags: [playbook, guide, ai-agent, workflows, instructions]
+summary: "Setup guidelines, safety guardrails, commands, and best practices for AI agents interacting with the RayFlow repository."
+related: [docs/index.md, docs/ai_interaction_contract.md]
+---
+
 # AI Guide — Front Door for Agents & Humans
 
 **Purpose.** This is the shortest path to doing real work in this repo. Read this page first, then jump via the links below. Keep changes small, testable, and linked to the schedule.

@@ -1,3 +1,9 @@
+---
+title: "Runbook"
+tags: [research, grandma3, gdtf, art-net, sacn, osc]
+summary: "This runbook documents how to operate and troubleshoot RayFlow in its default state."
+---
+
 # Runbook
 
 This runbook documents how to operate and troubleshoot RayFlow in its default state.

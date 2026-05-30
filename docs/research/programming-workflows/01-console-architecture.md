@@ -1,3 +1,9 @@
+---
+title: "Console Architecture and Tracking"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Console Architecture and Tracking
 
 **Source:** `docs/research/manual_research2.txt`  

@@ -1,3 +1,9 @@
+---
+title: "Phase 2 Bridge Design"
+tags: [research, architecture, grandma3, gdtf, art-net, sacn, osc]
+summary: "Design the bridge layer that allows RayFlow to send and receive DMX values over Art-Net and sACN protocols. This document defines the architecture, API contr..."
+---
+
 # Phase 2 Bridge Design
 
 > **Status:** Archived (Phase 2 complete) · **Phase:** 2 — Art-Net / sACN Bridge · **Date:** 2026-05-15

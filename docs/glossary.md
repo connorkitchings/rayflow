@@ -1,3 +1,10 @@
+---
+title: "RayFlow Glossary"
+tags: [glossary, definition, terminology, lighting-design]
+summary: "Definitions of common lighting industry terms and project-specific acronyms."
+related: [docs/index.md, docs/knowledge_base.md]
+---
+
 # Glossary
 
 This glossary defines lighting industry terms and project-specific acronyms used throughout RayFlow.

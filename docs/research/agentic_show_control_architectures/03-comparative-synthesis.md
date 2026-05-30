@@ -1,3 +1,9 @@
+---
+title: "Comparative Synthesis"
+tags: [research, architecture, show-control, agentic, grandma3, qlcplus, art-net, sacn, osc]
+summary: "The strongest pattern across the research is adapter separation:"
+---
+
 # Comparative Synthesis
 
 ## Platform Comparison

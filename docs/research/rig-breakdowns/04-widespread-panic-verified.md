@@ -1,3 +1,9 @@
+---
+title: "Widespread Panic — Verified Rig Details (2019, 2021, 2026)"
+tags: [research, rig-breakdown, show-analysis, verified-source]
+summary: "**Band:** Widespread Panic"
+---
+
 # Widespread Panic — Verified Rig Details (2019, 2021, 2026)
 
 **Band:** Widespread Panic

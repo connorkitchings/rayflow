@@ -1,3 +1,9 @@
+---
+title: "Building a Rig — Create a Virtual Stage"
+tags: [research, guides, grandma3, gdtf]
+summary: "This guide walks through creating a virtual stage with GDTF fixtures that you can import into grandMA3 onPC."
+---
+
 # Building a Rig — Create a Virtual Stage
 
 This guide walks through creating a virtual stage with GDTF fixtures that you can import into grandMA3 onPC.

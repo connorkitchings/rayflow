@@ -1,3 +1,9 @@
+---
+title: "Above AVL / Learn Stage Lighting — YouTube Reference Index"
+tags: [research, programming, workflow, console-operation, grandma3]
+summary: "**Source:** YouTube channel — Above AVL / Learn Stage Lighting"
+---
+
 # Above AVL / Learn Stage Lighting — YouTube Reference Index
 
 **Source:** YouTube channel — Above AVL / Learn Stage Lighting

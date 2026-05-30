@@ -1,3 +1,9 @@
+---
+title: "Mathematical Oscillators and Effect Primitives"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** Web research (ETC Eos effect engine documentation, console programming guides)"
+---
+
 # Mathematical Oscillators and Effect Primitives
 
 **Source:** Web research (ETC Eos effect engine documentation, console programming guides)

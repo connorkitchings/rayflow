@@ -1,3 +1,9 @@
+---
+title: "First DMX — Send Your First DMX Values"
+tags: [research, guides, grandma3, qlcplus, art-net, sacn]
+summary: "This tutorial walks through sending DMX values from RayFlow to an Art-Net"
+---
+
 # First DMX — Send Your First DMX Values
 
 This tutorial walks through sending DMX values from RayFlow to an Art-Net

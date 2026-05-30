@@ -1,3 +1,9 @@
+---
+title: "Common Techniques Across Improvisational Concert LDs"
+tags: [research, concert-lds]
+summary: "**Source:** Analysis of shared patterns across the LDs profiled in this directory"
+---
+
 # Common Techniques Across Improvisational Concert LDs
 
 **Source:** Analysis of shared patterns across the LDs profiled in this directory

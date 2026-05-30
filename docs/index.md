@@ -1,3 +1,10 @@
+---
+title: "RayFlow Documentation Index"
+tags: [index, moc, documentation, home]
+summary: "Primary entry point and Map of Content (MOC) for RayFlow documentation and knowledge base."
+related: [docs/getting_started.md, docs/project_charter.md]
+---
+
 # RayFlow Documentation
 
 > AI-assisted lighting show authoring — build rigs, program cues, render through fixture-aware DMX, and output via Art-Net/sACN or export to grandMA3.
@@ -7,6 +14,7 @@
 | Document | Description |
 |----------|-------------|
 | [System Overview](./architecture/system_overview.md) | How RayFlow's backend-neutral components fit together |
+| [Codebase Map](./architecture/codebase_map.md) | Technical guide mapping codebase modules and data flows |
 | [Control Backend Direction](./architecture/control-backend-direction.md) | Adapter strategy and pivot rationale |
 | [Backend Adapter Contract](./architecture/backend-adapter-contract.md) | Interface contract for output backends |
 | [Renderer](./architecture/renderer.md) | Fixture-aware DMX rendering from cue intent |

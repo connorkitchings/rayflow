@@ -1,3 +1,9 @@
+---
+title: "The Four Controllable Properties of Light — A Design Framework for AI Authoring"
+tags: [research, ai-pattern, lighting-design, prompting, gdtf, osc]
+summary: "**Source:** ETC Blog — \"Stage Lighting Design\" series (Parts 1–9), Vectorworks concert lighting guide"
+---
+
 # The Four Controllable Properties of Light — A Design Framework for AI Authoring
 
 **Source:** ETC Blog — "Stage Lighting Design" series (Parts 1–9), Vectorworks concert lighting guide

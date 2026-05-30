@@ -1,3 +1,9 @@
+---
+title: "Reading a Rig: Identifying Fixtures from Photos and Video"
+tags: [research, design-concept, lighting-design, theory, grandma3, gdtf]
+summary: "**Purpose:** Given concert photos, live streams, or phone videos, identify the lighting rig — fixture types, truss positions, programming patterns — and tran..."
+---
+
 # Reading a Rig: Identifying Fixtures from Photos and Video
 
 **Purpose:** Given concert photos, live streams, or phone videos, identify the lighting rig — fixture types, truss positions, programming patterns — and translate that into a buildable virtual rig.

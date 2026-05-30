@@ -1,3 +1,9 @@
+---
+title: "Gobo Design, Construction, and Selection"
+tags: [research, design-concept, lighting-design, theory, gdtf, osc]
+summary: "**Source:** Web research, manufacturer documentation, lighting design guides"
+---
+
 # Gobo Design, Construction, and Selection
 
 **Source:** Web research, manufacturer documentation, lighting design guides

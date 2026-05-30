@@ -1,3 +1,9 @@
+---
+title: "Visual Textures, Movement, and Dynamic Punctuations"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Visual Textures, Movement, and Dynamic Punctuations
 
 **Source:** `docs/research/manual_research2.txt`  

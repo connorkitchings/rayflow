@@ -1,3 +1,9 @@
+---
+title: "Layered Design"
+tags: [research, architecture, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "The source of truth is RayFlow project data:"
+---
+
 # Layered Design
 
 > **Merged:** The content of this document has been consolidated into

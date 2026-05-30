@@ -1,3 +1,9 @@
+---
+title: "Busking Architecture: The Console as an Instrument"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** Industry knowledge, LD techniques, console programming philosophy"
+---
+
 # Busking Architecture: The Console as an Instrument
 
 **Source:** Industry knowledge, LD techniques, console programming philosophy

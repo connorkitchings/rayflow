@@ -1,3 +1,9 @@
+---
+title: "MA3 Probe Evidence Index"
+tags: [research, grandma3, probe, compatibility, qlcplus, art-net, sacn, osc]
+summary: "**grandMA3 onPC version:** 2.3.2.0"
+---
+
 # MA3 Probe Evidence Index
 
 **grandMA3 onPC version:** 2.3.2.0  

@@ -1,3 +1,10 @@
+---
+title: "RayFlow Knowledge Base"
+tags: [patterns, protocols, art-net, sacn, gdtf, grandma3, mvr, stupid-artnet, dmx]
+summary: "Curated collection of reusable patterns, protocol specifications, grandMA3 configurations, and insights discovered during development."
+related: [docs/index.md, docs/ai/MASTER_CONTEXT.md]
+---
+
 # Knowledge Base
 
 This document is a curated collection of reusable patterns, protocol specifications, and insights discovered during RayFlow development.

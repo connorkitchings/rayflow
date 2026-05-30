@@ -1,3 +1,9 @@
+---
+title: "Lighting for Different Performance Types"
+tags: [research, design-concept, lighting-design, theory]
+summary: "**Source:** Web research, professional programming guides, lighting design literature"
+---
+
 # Lighting for Different Performance Types
 
 **Source:** Web research, professional programming guides, lighting design literature

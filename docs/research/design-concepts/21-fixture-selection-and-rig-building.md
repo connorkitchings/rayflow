@@ -1,3 +1,9 @@
+---
+title: "Fixture Selection and Rig Building"
+tags: [research, design-concept, lighting-design, theory, art-net, sacn]
+summary: "**Purpose:** Given a venue and a show concept, which fixtures do you choose and where do you put them? This document provides heuristics for fixture selectio..."
+---
+
 # Fixture Selection and Rig Building
 
 **Purpose:** Given a venue and a show concept, which fixtures do you choose and where do you put them? This document provides heuristics for fixture selection, fixture mix by role, and the step-by-step rig building process — all encodable as software rules.

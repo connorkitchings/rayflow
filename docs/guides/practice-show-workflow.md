@@ -1,3 +1,9 @@
+---
+title: "Practice Show Workflow"
+tags: [research, guides, grandma3, qlcplus, art-net, sacn]
+summary: "Phase 9 starts with a deterministic practice workflow that uses only checked-in"
+---
+
 # Practice Show Workflow
 
 Phase 9 starts with a deterministic practice workflow that uses only checked-in

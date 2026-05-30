@@ -1,3 +1,9 @@
+---
+title: "RayFlow — Implementation Schedule"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "**Status Legend:** ☐ Not Started · ▶ In Progress · ✅ Done · ⚠ Risk/Blocked"
+---
+
 # RayFlow — Implementation Schedule
 
 **Status Legend:** ☐ Not Started · ▶ In Progress · ✅ Done · ⚠ Risk/Blocked

@@ -1,3 +1,9 @@
+---
+title: "Current RayFlow Workflow"
+tags: [research, guides, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "RayFlow's current usable workflow is file-first, dry-run-first, and compatible"
+---
+
 # Current RayFlow Workflow
 
 RayFlow's current usable workflow is file-first, dry-run-first, and compatible

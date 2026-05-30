@@ -1,3 +1,9 @@
+---
+title: "Recording a Show — Program Cues and Export Video"
+tags: [research, guides, grandma3, qlcplus]
+summary: "This guide walks through the complete workflow: load a song, program lighting cues, and export a video of your virtual show."
+---
+
 # Recording a Show — Program Cues and Export Video
 
 This guide walks through the complete workflow: load a song, program lighting cues, and export a video of your virtual show.

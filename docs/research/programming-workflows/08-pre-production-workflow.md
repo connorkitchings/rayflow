@@ -1,3 +1,9 @@
+---
+title: "Pre-Production Workflow: Concept to Curtain"
+tags: [research, programming, workflow, console-operation, gdtf]
+summary: "**Source:** Web research, professional production workflows, touring practices"
+---
+
 # Pre-Production Workflow: Concept to Curtain
 
 **Source:** Web research, professional production workflows, touring practices

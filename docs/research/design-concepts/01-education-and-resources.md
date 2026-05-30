@@ -1,3 +1,9 @@
+---
+title: "Pedagogical Pathways and Educational Resources in Lighting Design"
+tags: [research, design-concept, lighting-design, theory]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Pedagogical Pathways and Educational Resources in Lighting Design
 
 **Source:** `docs/research/manual_research2.txt`  

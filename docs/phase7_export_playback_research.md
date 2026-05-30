@@ -1,3 +1,9 @@
+---
+title: "Phase 7 Export & Playback Research"
+tags: [research, grandma3, qlcplus, art-net, sacn, osc]
+summary: "**Date:** 2026-05-19"
+---
+
 # Phase 7 Export & Playback Research
 
 **Date:** 2026-05-19  

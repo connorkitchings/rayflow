@@ -1,3 +1,9 @@
+---
+title: "grandMA3 Learning Resources"
+tags: [research, guides, grandma3, gdtf, art-net, osc]
+summary: "This page captures the learning sources RayFlow agents should use before giving grandMA3 workflow guidance."
+---
+
 # grandMA3 Learning Resources
 
 This page captures the learning sources RayFlow agents should use before giving grandMA3 workflow guidance.

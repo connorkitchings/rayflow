@@ -1,3 +1,9 @@
+---
+title: "Pixel Mapping Fundamentals"
+tags: [research, design-concept, lighting-design, theory, grandma3, gdtf, art-net, sacn]
+summary: "**Source:** Web research, Art-Net specification, LED fixture documentation"
+---
+
 # Pixel Mapping Fundamentals
 
 **Source:** Web research, Art-Net specification, LED fixture documentation

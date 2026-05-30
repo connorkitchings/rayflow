@@ -1,3 +1,9 @@
+---
+title: "Quality Gates & Checklists"
+tags: [research, grandma3, gdtf, art-net, sacn, osc]
+summary: "This document contains all quality gates and checklists to ensure high-quality, consistent work throughout the development process."
+---
+
 # Quality Gates & Checklists
 
 This document contains all quality gates and checklists to ensure high-quality, consistent work throughout the development process.

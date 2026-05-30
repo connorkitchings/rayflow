@@ -1,3 +1,9 @@
+---
+title: "API-First Alternatives"
+tags: [research, architecture, show-control, agentic, grandma3, qlcplus, art-net, sacn, osc]
+summary: "QLC+ is the strongest cue-based alternative in the research. When launched with `--web`, it exposes a WebSocket endpoint at `ws://127.0.0.1:9999/qlcplusWS`."
+---
+
 # API-First Alternatives
 
 ## QLC+ Via WebSockets

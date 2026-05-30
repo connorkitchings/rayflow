@@ -1,3 +1,9 @@
+---
+title: "Fixture Types and DMX Channel Capabilities"
+tags: [research, protocol, system-architecture, network, gdtf, art-net, sacn, osc]
+summary: "**Source:** `docs/research/manual_research2.txt`, `docs/research/manual_research1.txt`"
+---
+
 # Fixture Types and DMX Channel Capabilities
 
 **Source:** `docs/research/manual_research2.txt`, `docs/research/manual_research1.txt`  

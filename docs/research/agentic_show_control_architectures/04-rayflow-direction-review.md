@@ -1,3 +1,9 @@
+---
+title: "RayFlow Direction Review"
+tags: [research, architecture, show-control, agentic, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "RayFlow has been moving toward a grandMA3-centered workflow:"
+---
+
 # RayFlow Direction Review
 
 ## Current Direction

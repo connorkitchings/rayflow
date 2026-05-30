@@ -1,3 +1,9 @@
+---
+title: "Show File Organization and Version Control"
+tags: [research, programming, workflow, console-operation, grandma3, gdtf, art-net, sacn]
+summary: "**Source:** Web research, professional touring workflows, console best practices"
+---
+
 # Show File Organization and Version Control
 
 **Source:** Web research, professional touring workflows, console best practices

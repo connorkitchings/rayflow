@@ -1,3 +1,9 @@
+---
+title: "Paul Hoffman — Widespread Panic"
+tags: [research, concert-lds]
+summary: "**Era:** 1990s – present"
+---
+
 # Paul Hoffman — Widespread Panic
 
 **Era:** 1990s – present

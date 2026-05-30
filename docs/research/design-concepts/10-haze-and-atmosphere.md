@@ -1,3 +1,9 @@
+---
+title: "Haze, Fog, and Atmospheric Effects"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** Web research, manufacturer documentation, professional lighting guides"
+---
+
 # Haze, Fog, and Atmospheric Effects
 
 **Source:** Web research, manufacturer documentation, professional lighting guides

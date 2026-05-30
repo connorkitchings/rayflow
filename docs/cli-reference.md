@@ -1,3 +1,9 @@
+---
+title: "CLI Reference"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "Complete reference for the `rayflow` command-line interface."
+---
+
 # CLI Reference
 
 Complete reference for the `rayflow` command-line interface.

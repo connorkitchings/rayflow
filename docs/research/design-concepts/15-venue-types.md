@@ -1,3 +1,9 @@
+---
+title: "Venue Types and Constraints"
+tags: [research, design-concept, lighting-design, theory, grandma3, osc]
+summary: "**Source:** Web research, professional touring workflows, venue tech specs"
+---
+
 # Venue Types and Constraints
 
 **Source:** Web research, professional touring workflows, venue tech specs

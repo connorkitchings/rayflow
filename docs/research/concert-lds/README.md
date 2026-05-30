@@ -1,3 +1,10 @@
+---
+title: "Concert LDs Index"
+tags: [moc, concert-lds, jam-band, busking, index]
+summary: "Map of Content (MOC) profiling key lighting designers in the improvisational concert lighting tradition."
+related: [docs/index.md, docs/research/concert-lds/10-common-techniques.md]
+---
+
 # Concert LDs: The Improvisational Tradition
 
 This directory profiles the key lighting designers in the improvisational concert lighting tradition — the practice of operating the lighting console as a musical instrument, reacting to and co-creating the performance in real time.
@@ -17,6 +24,7 @@ These LDs share a philosophy: the lighting director must listen like a musician,
 | Andrew Goedde | Goose | 2010s–present | Modern jam band aesthetic. Visually dense, color-forward. |
 | Ben Factor | Spafford, Umphrey's McGee | 2010s–present | Hybrid busking/timecoded. Evolving rigs, layered programming. |
 | Luke Stratton | Various jam/electronic acts | 2010s–present | Festival and tour LD. Adaptable, efficient busking workflows. |
+| Mike Jaws | Eggy, Dopapod | 2010s–present | Progressive/improv fusion. Rich contrasting pastels, high accent syncopation. |
 
 ## Shared Techniques
 
@@ -37,4 +45,5 @@ These LDs share a philosophy: the lighting director must listen like a musician,
 - `06-andrew-goedde.md` — Goose
 - `07-ben-factor.md` — Spafford, Umphrey's McGee
 - `08-luke-stratton.md` — Various jam/electronic acts
+- `11-mike-jaws.md` — Eggy, Dopapod
 - `10-common-techniques.md` — Shared patterns across all LDs

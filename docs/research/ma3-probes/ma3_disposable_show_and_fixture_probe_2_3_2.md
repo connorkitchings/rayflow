@@ -1,3 +1,9 @@
+---
+title: "MA3 Disposable Show And Fixture Probe"
+tags: [research, grandma3, probe, compatibility, gdtf, osc]
+summary: "**Date:** 2026-05-22"
+---
+
 # MA3 Disposable Show And Fixture Probe
 
 **Date:** 2026-05-22

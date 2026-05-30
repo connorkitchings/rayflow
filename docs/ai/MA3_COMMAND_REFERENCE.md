@@ -1,3 +1,9 @@
+---
+title: "grandMA3 2.3 — Complete Command Reference"
+tags: [research, ai, grandma3, art-net, osc]
+summary: "```"
+---
+
 # grandMA3 2.3 — Complete Command Reference
 
 > **FOR AI AGENTS.** This is the exhaustive MA3 command-line syntax reference. Sourced from the grandMA3 2.3 online manual and verified against 2.3.2.0.

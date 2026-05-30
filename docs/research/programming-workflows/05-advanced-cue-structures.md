@@ -1,3 +1,9 @@
+---
+title: "Advanced Cue Structures: Parts, Mark Cues, Crossfades, and Blocking"
+tags: [research, programming, workflow, console-operation, grandma3]
+summary: "**Source:** Web research, console manuals, professional programming workflows"
+---
+
 # Advanced Cue Structures: Parts, Mark Cues, Crossfades, and Blocking
 
 **Source:** Web research, console manuals, professional programming workflows

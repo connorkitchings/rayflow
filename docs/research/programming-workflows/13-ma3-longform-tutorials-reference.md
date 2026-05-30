@@ -1,3 +1,9 @@
+---
+title: "MA3 Longform Tutorial References"
+tags: [research, programming, workflow, console-operation, grandma3, gdtf]
+summary: "**Source:** YouTube, three instructional videos"
+---
+
 # MA3 Longform Tutorial References
 
 **Source:** YouTube, three instructional videos

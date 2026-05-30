@@ -1,3 +1,9 @@
+---
+title: "Phase 5 Architecture — Show & Rig Framework"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "RayFlow manages **rigs** (stage configurations with fixtures, positions, and presets) and **shows** (a rig + a song + a timecoded cue sequence). An AI coding..."
+---
+
 # Phase 5 Architecture — Show & Rig Framework
 
 > **Purpose**: Define the data model, file structure, and design decisions for Phase 5 — the foundation that enables AI-assisted show creation.

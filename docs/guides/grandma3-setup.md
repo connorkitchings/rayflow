@@ -1,3 +1,9 @@
+---
+title: "grandMA3 onPC Setup Guide"
+tags: [research, guides, grandma3, gdtf, art-net, sacn, osc]
+summary: "This guide walks through installing and configuring grandMA3 onPC on macOS for RayFlow development."
+---
+
 # grandMA3 onPC Setup Guide
 
 This guide walks through installing and configuring grandMA3 onPC on macOS for RayFlow development.

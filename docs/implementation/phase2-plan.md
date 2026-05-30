@@ -1,3 +1,9 @@
+---
+title: "Phase 2 Implementation Plan"
+tags: [research, implementation, art-net, sacn]
+summary: "**Dependencies:** None"
+---
+
 # Phase 2 Implementation Plan
 
 > **Phase:** 2 — Art-Net / sACN Bridge · **Date:** 2026-05-15 · **Status:** In Progress

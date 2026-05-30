@@ -1,3 +1,9 @@
+---
+title: "MA3 Basic Looks Control Probe"
+tags: [research, grandma3, probe, compatibility, osc]
+summary: "**Date:** 2026-05-22"
+---
+
 # MA3 Basic Looks Control Probe
 
 **Date:** 2026-05-22  

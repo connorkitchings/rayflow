@@ -1,3 +1,9 @@
+---
+title: "Development Standards & Workflow"
+tags: [research, grandma3, gdtf, art-net, sacn, osc]
+summary: "This document provides comprehensive standards, workflows, and best practices for development in RayFlow."
+---
+
 # Development Standards & Workflow
 
 This document provides comprehensive standards, workflows, and best practices for development in RayFlow.

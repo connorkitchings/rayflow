@@ -1,3 +1,9 @@
+---
+title: "Rig 1 Fixture Capability Research"
+tags: [research, fixture-capability, gdtf, specification]
+summary: "**Rig:** `Rig 1`"
+---
+
 # Rig 1 Fixture Capability Research
 
 **Rig:** `Rig 1`  

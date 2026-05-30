@@ -1,3 +1,9 @@
+---
+title: "Ben Factor — Spafford, Umphrey's McGee"
+tags: [research, concert-lds]
+summary: "**Era:** 2010s – present"
+---
+
 # Ben Factor — Spafford, Umphrey's McGee
 
 **Era:** 2010s – present

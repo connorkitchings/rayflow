@@ -1,3 +1,9 @@
+---
+title: "Agentic Show Control Architectures"
+tags: [research, architecture, show-control, agentic, grandma3, qlcplus, art-net, sacn, osc]
+summary: "**Source:** `docs/research/manual_research.txt`"
+---
+
 # Agentic Show Control Architectures
 
 **Source:** `docs/research/manual_research.txt`  

@@ -1,3 +1,9 @@
+---
+title: "Billy Strings — 2025–2026 Touring Rig"
+tags: [research, rig-breakdown, show-analysis, verified-source, grandma3]
+summary: "**Band:** Billy Strings"
+---
+
 # Billy Strings — 2025–2026 Touring Rig
 
 **Band:** Billy Strings

@@ -1,3 +1,9 @@
+---
+title: "Pre-Visualization Tools and Workflows"
+tags: [research, design-concept, lighting-design, theory, grandma3, gdtf, art-net, sacn]
+summary: "**Source:** Web research, manufacturer documentation, professional design workflows"
+---
+
 # Pre-Visualization Tools and Workflows
 
 **Source:** Web research, manufacturer documentation, professional design workflows

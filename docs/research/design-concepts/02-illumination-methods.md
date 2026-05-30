@@ -1,3 +1,9 @@
+---
+title: "Conceptual Fundamentals and Angles of Illumination"
+tags: [research, design-concept, lighting-design, theory]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Conceptual Fundamentals and Angles of Illumination
 
 **Source:** `docs/research/manual_research2.txt`  

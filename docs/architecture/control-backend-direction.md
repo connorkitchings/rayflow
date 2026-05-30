@@ -1,3 +1,9 @@
+---
+title: "Control Backend Direction"
+tags: [research, architecture, grandma3, qlcplus, art-net, sacn, osc]
+summary: "**Status:** Current architecture direction as of 2026-05-23."
+---
+
 # Control Backend Direction
 
 **Status:** Current architecture direction as of 2026-05-23.

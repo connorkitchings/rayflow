@@ -1,3 +1,9 @@
+---
+title: "Show Builder Prompt Template"
+tags: [research, prompts, grandma3, osc]
+summary: "Use this template when working with an AI coding tool to build or modify a lighting show in RayFlow."
+---
+
 # Show Builder Prompt Template
 
 Use this template when working with an AI coding tool to build or modify a lighting show in RayFlow.

@@ -1,3 +1,9 @@
+---
+title: "Cue Timing Philosophy: Beat-Based, Perceptual, and Musical Timing"
+tags: [research, design-concept, lighting-design, theory]
+summary: "**Source:** Web research, professional programming guides, musical theory crossover"
+---
+
 # Cue Timing Philosophy: Beat-Based, Perceptual, and Musical Timing
 
 **Source:** Web research, professional programming guides, musical theory crossover

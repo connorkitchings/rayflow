@@ -1,3 +1,9 @@
+---
+title: "Busking Layouts and Live Execution"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Busking Layouts and Live Execution
 
 **Source:** `docs/research/manual_research2.txt`  

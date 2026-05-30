@@ -1,3 +1,9 @@
+---
+title: "The Improvisational Concert Lighting Tradition"
+tags: [research, design-concept, lighting-design, theory, grandma3]
+summary: "**Source:** Industry knowledge, LD interviews, live performance observation"
+---
+
 # The Improvisational Concert Lighting Tradition
 
 **Source:** Industry knowledge, LD interviews, live performance observation

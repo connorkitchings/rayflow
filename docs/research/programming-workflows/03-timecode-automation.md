@@ -1,3 +1,9 @@
+---
+title: "Timecode Integration and Automation"
+tags: [research, programming, workflow, console-operation]
+summary: "**Source:** `docs/research/manual_research2.txt`"
+---
+
 # Timecode Integration and Automation
 
 **Source:** `docs/research/manual_research2.txt`  

@@ -1,3 +1,9 @@
+---
+title: "AI Lighting Architecture Patterns"
+tags: [research, ai-pattern, lighting-design, prompting, grandma3, qlcplus, art-net, sacn, osc]
+summary: "**Source:** `docs/research/manual_research1.txt`"
+---
+
 # AI Lighting Architecture Patterns
 
 **Source:** `docs/research/manual_research1.txt`  

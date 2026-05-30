@@ -1,3 +1,9 @@
+---
+title: "Umphrey's McGee — Iceland 2022"
+tags: [research, rig-breakdown, show-analysis, verified-source, grandma3]
+summary: "**Band:** Umphrey's McGee"
+---
+
 # Umphrey's McGee — Iceland 2022
 
 **Band:** Umphrey's McGee

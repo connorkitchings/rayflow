@@ -1,3 +1,9 @@
+---
+title: "Umphrey's McGee — Early Waful Era (2009–2014)"
+tags: [research, rig-breakdown, show-analysis, verified-source]
+summary: "**Band:** Umphrey's McGee"
+---
+
 # Umphrey's McGee — Early Waful Era (2009–2014)
 
 **Band:** Umphrey's McGee

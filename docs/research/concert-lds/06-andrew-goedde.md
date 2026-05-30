@@ -1,3 +1,9 @@
+---
+title: "Andrew Goedde — Goose"
+tags: [research, concert-lds, grandma3]
+summary: "**Era:** 2010s – present"
+---
+
 # Andrew Goedde — Goose
 
 **Era:** 2010s – present

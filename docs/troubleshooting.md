@@ -1,3 +1,9 @@
+---
+title: "Troubleshooting Guide"
+tags: [research, grandma3, gdtf, art-net, sacn, osc]
+summary: "Quick reference for diagnosing and resolving common issues."
+---
+
 # Troubleshooting Guide
 
 Quick reference for diagnosing and resolving common issues.

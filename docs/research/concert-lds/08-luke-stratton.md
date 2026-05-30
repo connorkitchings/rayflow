@@ -1,3 +1,9 @@
+---
+title: "Luke Stratton"
+tags: [research, concert-lds]
+summary: "**Era:** 2010s – present"
+---
+
 # Luke Stratton
 
 **Era:** 2010s – present

@@ -1,3 +1,9 @@
+---
+title: "Movement Patterns, Phasing, and Fanning"
+tags: [research, design-concept, lighting-design, theory, grandma3, osc]
+summary: "**Source:** Web research, console programming guides, lighting design literature"
+---
+
 # Movement Patterns, Phasing, and Fanning
 
 **Source:** Web research, console programming guides, lighting design literature

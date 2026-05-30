@@ -1,3 +1,9 @@
+---
+title: "MA2 Techniques — YouTube Reference Index"
+tags: [research, programming, workflow, console-operation, grandma3, art-net]
+summary: "**Source:** YouTube — Christian Jackson / \"Learn Stage Lighting .com\" channel"
+---
+
 # MA2 Techniques — YouTube Reference Index
 
 **Source:** YouTube — Christian Jackson / "Learn Stage Lighting .com" channel

@@ -1,3 +1,9 @@
+---
+title: "Backend Adapter Contract"
+tags: [research, architecture, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "**Status:** Phase 8 implementation contract."
+---
+
 # Backend Adapter Contract
 
 **Status:** Phase 8 implementation contract.

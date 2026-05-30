@@ -1,3 +1,9 @@
+---
+title: "Color Harmony Systems for Lighting Design"
+tags: [research, design-concept, lighting-design, theory, osc]
+summary: "**Source:** Web research, color theory literature, lighting design guides"
+---
+
 # Color Harmony Systems for Lighting Design
 
 **Source:** Web research, color theory literature, lighting design guides

@@ -1,3 +1,9 @@
+---
+title: "Dimmer Curve Physics and Perceptual Response"
+tags: [research, design-concept, lighting-design, theory, grandma3]
+summary: "**Source:** Web research, industry standards, perceptual psychology literature"
+---
+
 # Dimmer Curve Physics and Perceptual Response
 
 **Source:** Web research, industry standards, perceptual psychology literature

@@ -1,3 +1,9 @@
+---
+title: "Fixture-Aware DMX Renderer"
+tags: [research, architecture, gdtf]
+summary: "The renderer translates RayFlow cue intent into concrete DMX universe/channel"
+---
+
 # Fixture-Aware DMX Renderer
 
 The renderer translates RayFlow cue intent into concrete DMX universe/channel

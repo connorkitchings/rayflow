@@ -1,3 +1,9 @@
+---
+title: "grandMA3 Tutorial Series — Extracted Reference"
+tags: [research, programming, workflow, console-operation, grandma3, gdtf]
+summary: "**Source:** YouTube playlist \"GrandMA 3 Tutorials\" — https://www.youtube.com/playlist?list=PLhh6ZoFPnUu1hMCDT2YhuYJxLgW_G0rTn"
+---
+
 # grandMA3 Tutorial Series — Extracted Reference
 
 **Source:** YouTube playlist "GrandMA 3 Tutorials" — https://www.youtube.com/playlist?list=PLhh6ZoFPnUu1hMCDT2YhuYJxLgW_G0rTn

@@ -1,3 +1,9 @@
+---
+title: "grandMA3 Agent Friction"
+tags: [research, architecture, show-control, agentic, grandma3, osc]
+summary: "grandMA3 is an industry-standard lighting console with deep show-control capabilities, but it was not designed as a deterministic API target for terminal-bas..."
+---
+
 # grandMA3 Agent Friction
 
 ## What The Research Says

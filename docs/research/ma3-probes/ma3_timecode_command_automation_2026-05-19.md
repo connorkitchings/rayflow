@@ -1,3 +1,9 @@
+---
+title: "MA3 Timecode Command Automation Research"
+tags: [research, grandma3, probe, compatibility, osc]
+summary: "**Date:** 2026-05-19"
+---
+
 # MA3 Timecode Command Automation Research
 
 **Date:** 2026-05-19

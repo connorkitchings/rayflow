@@ -1,3 +1,10 @@
+---
+title: "AI Master Context"
+tags: [grandma3, compatibility, osc, mvr, timecode, config]
+summary: "Entry point and quick reference map for sessions involving grandMA3 onPC compatibility workflows."
+related: [docs/index.md, docs/ai_guide.md]
+---
+
 # AI Master Context — grandMA3 Compatibility Track
 
 > **FOR AI AGENTS.** This document is the entry point for sessions involving

@@ -1,3 +1,9 @@
+---
+title: "Project Charter"
+tags: [research, grandma3, qlcplus, gdtf, art-net, sacn, osc]
+summary: "This document is the single source of truth for RayFlow's goals, scope, and technical context."
+---
+
 # Project Charter
 
 This document is the single source of truth for RayFlow's goals, scope, and technical context.
