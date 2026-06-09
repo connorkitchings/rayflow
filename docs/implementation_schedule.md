@@ -2,6 +2,11 @@
 
 **Status Legend:** ☐ Not Started · ▶ In Progress · ✅ Done · ⚠ Risk/Blocked
 
+> **Canonical progress source:** `.agent/progress/feature_list.json`.
+> Validate and summarize it with `uv run python scripts/progress_tracker.py`.
+> This Markdown file is a human-readable historical companion and should not
+> contradict the JSON tracker.
+
 ---
 
 ## Direction Reset

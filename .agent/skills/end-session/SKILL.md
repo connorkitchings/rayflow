@@ -23,6 +23,7 @@ Use this skill to close every development session properly and prepare handoff f
 - Files modified
 - Tests run and results
 - Any blockers or issues encountered
+- Progress tracker updates needed in `.agent/progress/feature_list.json`
 
 ## Steps
 
@@ -147,15 +148,34 @@ Follow steps in .agent/workflows/health-check.md
 - Fix issues or note them for next session
 - DO NOT commit broken code
 
-### 5. Update Implementation Schedule
+### 5. Update Canonical Progress Tracker
 
+If tracked work changed:
+- Open `.agent/progress/feature_list.json`
+- Update only the affected feature entries
+- Add `verification` evidence before marking a feature `done`
+- Add `blockers` before marking a feature `blocked`
+- Update `updated_at`
+- Keep long narrative details in `session_logs/`
+
+Validate the tracker:
+
+```bash
+uv run python scripts/progress_tracker.py validate
+uv run python scripts/progress_tracker.py summary --markdown
+```
+
+### 6. Update Implementation Schedule
+
+`docs/implementation_schedule.md` is a human-readable/historical companion.
 If tasks were completed:
 - Open `docs/implementation_schedule.md`
-- Update task status (mark completed tasks)
+- Update task status only when it helps human readers
 - Add new tasks if discovered
 - Note any timeline impacts
+- Do not let it contradict `.agent/progress/feature_list.json`
 
-### 6. Prepare Commit
+### 7. Prepare Commit
 
 **DO NOT commit directly.** Propose a commit message for user review:
 
@@ -180,7 +200,7 @@ Refs: session_logs/YYYY-MM-DD/NN.md
 - `chore:` Maintenance tasks
 - `perf:` Performance improvements
 
-### 7. Document Handoff
+### 8. Document Handoff
 
 Create handoff documentation for the next session:
 
@@ -193,8 +213,16 @@ Create handoff documentation for the next session:
 
 **Where to document:**
 - Session log (Handoff Notes section)
-- Implementation schedule (task notes)
+- Progress tracker (status/evidence fields)
+- Implementation schedule (task notes, when useful)
 - Code comments (for complex logic)
+
+### 9. Note Harness Friction
+
+If the tracker, skills, templates, or session workflow slowed the work without
+improving quality, note it in the session log. Use
+`.agent/workflows/harness-review.md` for periodic cleanup instead of adding
+more process on top of stale process.
 
 ## Validation
 
@@ -203,7 +231,8 @@ Before ending session, confirm:
 - [ ] Lessons captured (if user corrected you during session)
 - [ ] (Optional) Session prepared for handoff with cli-continues
 - [ ] Health check passed (or failures documented)
-- [ ] Implementation schedule updated if tasks completed
+- [ ] Progress tracker updated and validated if tracked work changed
+- [ ] Implementation schedule updated if human-readable status changed
 - [ ] Commit message proposed (not executed)
 - [ ] Handoff notes documented
 - [ ] All work saved and pushed to feature branch (if ready)
@@ -215,6 +244,7 @@ Before ending session, confirm:
 3. **Committing without user approval** — Propose, don't execute
 4. **Missing handoff notes** — Next session needs context
 5. **Forgetting to update schedule** — Keep schedule current
+6. **Marking tracker items done without evidence** — Link commands, artifacts, or session logs
 
 ## Health Check Failures
 
@@ -273,6 +303,8 @@ Document these for the next session:
 - Context: `.agent/CONTEXT.md`
 - Principles: `.agent/PRINCIPLES.md`
 - Skills catalog: `.agent/skills/CATALOG.md`
+- Progress tracker: `.agent/progress/feature_list.json`
+- Harness review: `.agent/workflows/harness-review.md`
 - Agent guidance: `.agent/AGENTS.md`
 - Implementation schedule: `docs/implementation_schedule.md`
 - Lessons learned: `.agent/tasks/lessons.md`

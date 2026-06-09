@@ -19,6 +19,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 14. **Command Acceptance Before MA3 Mutation**: Before running live MA3 mutation probes, send a low-risk OSC `/cmd` command that must produce observable export evidence. UDP listener presence alone does not prove command acceptance.
 15. **Reset MA3 Command Destination**: MA3 `/cmd` commands inherit the visible command-line destination such as `Fixture`. Prepend `ChangeDestination Root` before generated MA3 probe/export/show commands.
 16. **Rig Plots Required**: Every new or materially revised rig must include generated top and front plot artifacts plus a fixture index before cue authoring begins.
+17. **JSON Progress Is Canonical**: `.agent/progress/feature_list.json` is the machine-readable source of truth for feature/task status. Markdown schedules and session logs summarize or evidence it; they must not silently diverge.
 
 ## [STRATEGIES]
 1. **Start Simple**: Begin with basic Art-Net sender, then add receiver, then sACN, then OSC. Each step verified before next.
@@ -30,6 +31,7 @@ This playbook maintains the evolving knowledge, strategic constraints, and execu
 7. **Context-First AI**: Always provide the AI with the full rig definition, fixture capabilities, and current show state before requesting changes. See `docs/ai_interaction_contract.md`.
 8. **MCP Follows Verified Control**: Do not build MCP tools for MA3 programming until the underlying MA3 operation has command, export/readback, or observation proof. MCP should expose known capabilities, not hide unresolved console-control gaps.
 9. **API-First Control Loop**: Keep RayFlow's core agent workflow on deterministic, structured interfaces such as RayFlow show data, QLC+ WebSockets, Art-Net, or sACN. Treat grandMA3 as a professional compatibility/export target until MA3 mutation and readback are repeatably proven.
+10. **Build Harnesses To Delete**: Periodically review `.agent` workflows and remove stale or duplicative process. Harness components are useful only while they prevent real mistakes or improve verification.
 
 ## [SUCCESS_PATTERNS]
 - **Incremental Protocol Testing**: Send one DMX value, verify it arrives, then expand to full universe.

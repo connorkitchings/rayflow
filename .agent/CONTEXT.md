@@ -31,6 +31,7 @@ rayflow/
 
 - **For Execution & Workflows:** Proceed to `.agent/skills/CATALOG.md` and load the appropriate skill for your task (e.g., `start-session`, `art-net-bridge`, `gdtf-fixture`).
 - **For Project State & Rules:** Read `.agent/PLAYBOOK.md` to understand current strategies, rules, and success patterns.
+- **For Canonical Progress:** Read `.agent/progress/feature_list.json` and validate it with `uv run python scripts/progress_tracker.py validate`. Use `docs/implementation_schedule.md` as a human-readable companion, not the source of truth.
 - **For Fast Commands:** Review `.codex/QUICKSTART.md`.
 - **For Immediate Context:** Check the latest log in `session_logs/`.
 - **For AI-Operable MA3 Docs:** Read `docs/ai/MASTER_CONTEXT.md` — comprehensive references for AI agents to drive grandMA3 onPC.
@@ -61,6 +62,8 @@ rayflow/
 - Preview/Critique V1 (2026-05-25): `rayflow show preview` and MCP `preview_show` build dry-run critique packets with rendered DMX evidence, fixture capabilities, warnings, and property-specific prompts; 605 tests at 83.07% coverage
 
 **Current Focus:**
+- Canonical current priorities are tracked in `.agent/progress/feature_list.json`.
+- Use `uv run python scripts/progress_tracker.py next` to select the highest-priority unblocked tracked task unless the user gives a different explicit priority.
 - All Phases 1–11 and the full post-Phase 11 candidate track are complete.
 - Phase 15 Option A (QLC+ workspace exporter) shipped: `rayflow rig export-qxw` writes a loadable `.qxw` file.
 - Rig Builder V1 and Palette Generator V1 shipped: AI can now propose/apply a deterministic generated rig from plain language and propose/apply a minimal generated palette library as show overrides.

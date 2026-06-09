@@ -20,6 +20,13 @@
 **Outputs**: Session log, health check results, handoff notes
 **Use when**: Completing any development session
 
+### progress-tracker
+**Path**: `.agent/skills/progress-tracker/SKILL.md`
+**Purpose**: Validate the canonical JSON feature list, summarize project status, and select the next unblocked task
+**Triggers**: "progress", "tracker", "feature list", "next task", "status", "harness"
+**Outputs**: Validated tracker state, status summary, next-task recommendation
+**Use when**: Starting/ending sessions, updating feature status, or choosing implementation focus
+
 ---
 
 ## Lighting Protocol Skills

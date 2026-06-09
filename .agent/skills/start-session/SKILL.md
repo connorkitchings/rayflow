@@ -22,6 +22,7 @@ Use this skill to begin every development session safely and effectively.
 - User request (what they want to accomplish)
 - Current branch status
 - Recent session logs (last 3-5 from `session_logs/`)
+- Canonical progress tracker state from `.agent/progress/feature_list.json`
 
 ## Steps
 
@@ -56,11 +57,12 @@ git stash pop
 **Tier 1 - Minimal (ALWAYS read first):**
 - `.agent/CONTEXT.md` — Project snapshot, current status, critical rules
 - `.agent/skills/CATALOG.md` — Available skills for common tasks
+- `.agent/progress/feature_list.json` — Canonical machine-readable project progress
 
 **Tier 2 - As needed for specific task:**
 - `README.md` — Project overview
 - `AGENTS.md` — Agent roles and guidance
-- `docs/implementation_schedule.md` — Current priorities
+- `docs/implementation_schedule.md` — Historical/human-readable schedule summary
 
 **Tier 3 - Deep dive (on-demand only):**
 - `docs/architecture/` — Architecture decisions
@@ -82,6 +84,17 @@ git stash pop
 - Read `.agent/tasks/lessons.md` for patterns to avoid
 - Note any relevant lessons for the current task
 - This is part of the Self-Improve principle
+
+**Check Canonical Progress:**
+```bash
+uv run python scripts/progress_tracker.py validate
+uv run python scripts/progress_tracker.py status
+uv run python scripts/progress_tracker.py next
+```
+
+- Treat `.agent/progress/feature_list.json` as the canonical current-priority source.
+- Use `docs/implementation_schedule.md` as a human-readable/historical companion.
+- If the user's request conflicts with the selected next tracker item, prefer the explicit user request and note the reason in the sprint contract.
 
 ### 4. (Optional) Inject Previous Context
 
@@ -119,8 +132,20 @@ Your output must include:
 - **Recent Work**: Summary of last 3-5 session logs
 - **Blockers**: Any implementation blockers
 - **Documentation Alignment**: Any contradictions found
+- **Progress Tracker**: Validation result and next recommended task
 
-#### B. Roadmap Options (3-6 alternatives)
+#### B. Grounded Sprint Contract
+
+Use `.agent/templates/sprint_contract.md` for the selected or recommended task.
+The contract must include:
+- One-task boundary
+- Real file paths/symbols inspected
+- Acceptance criteria
+- Verification commands
+- Rollback notes
+- Evaluator checklist
+
+#### C. Roadmap Options (3-6 alternatives)
 
 For each option provide:
 - **Goal**: What will be accomplished
@@ -138,7 +163,7 @@ For each option provide:
 5. Infrastructure / DevOps
 6. Code Refactoring
 
-#### C. Questions for the User
+#### D. Questions for the User
 
 Ask specific questions that must be answered before selecting a plan:
 - Which feature or area to prioritize?
@@ -161,7 +186,9 @@ Ask specific questions that must be answered before selecting a plan:
 Before proceeding to implementation, confirm:
 - [ ] You are NOT on `main` branch
 - [ ] Context loaded from `.agent/CONTEXT.md`
+- [ ] Progress tracker validated and next task reviewed
 - [ ] Recent session logs reviewed
+- [ ] Grounded sprint contract produced for the selected task
 - [ ] (Optional) Previous context injected via cli-continues
 - [ ] Planning output produced with roadmap options
 - [ ] User has selected and approved a plan
@@ -173,6 +200,7 @@ Before proceeding to implementation, confirm:
 3. **Loading too much context** — Use tiered approach, fetch on-demand
 4. **Missing recent logs** — Always check last 3-5 session logs
 5. **Skipping questions** — Ask clarifying questions before planning
+6. **Skipping tracker validation** — Do not plan from stale or invalid progress state
 
 ## Rollback
 
@@ -204,6 +232,8 @@ Rollback: [If applicable]
 - Context: `.agent/CONTEXT.md`
 - Principles: `.agent/PRINCIPLES.md`
 - Skills catalog: `.agent/skills/CATALOG.md`
+- Progress tracker: `.agent/progress/feature_list.json`
+- Sprint contract: `.agent/templates/sprint_contract.md`
 - Agent guidance: `.agent/AGENTS.md`
 - Implementation schedule: `docs/implementation_schedule.md`
 - Lessons learned: `.agent/tasks/lessons.md`
