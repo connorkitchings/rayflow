@@ -1,13 +1,15 @@
-# QLC+ Setup Guide
+# QLC+ Legacy Setup Guide
 
-> **Status:** Supported for file export and queryable WebSocket control paths.
-> Runtime mutation remains gated behind explicit `--execute`.
+> **Status:** Legacy compatibility and adapter evidence only. Capture/MVR is the
+> current product-loop visual-review path. Runtime mutation remains gated behind
+> explicit `--execute`.
 
 ## What Is QLC+?
 
 [QLC+](https://www.qlcplus.org/) is an open-source DMX lighting controller. It
 exposes a WebSocket API that RayFlow can use as an alternative to Art-Net/sACN for
-structured command/query workflows.
+structured command/query workflows. It is no longer used for the primary
+RayFlow review-and-record loop.
 
 ## Current RayFlow Support
 
@@ -50,8 +52,9 @@ After opening the workspace in QLC+ with WebSocket access enabled, run
 `show validate-qxw --live --json` to merge the static QXW checks with QLC+'s
 observed function list. Add `--trigger-functions` to start each exported Scene
 function through the QLC+ WebSocket API and record `observed_matches` evidence
-from function status queries. This is the current playback proof target; it does
-not automate clicking the Virtual Console widget itself.
+from function status queries. This is retained as adapter evidence; it does not
+automate clicking the Virtual Console widget itself and should not block Capture
+review work.
 
 ## Installing QLC+
 

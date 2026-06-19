@@ -205,22 +205,23 @@ these candidate tracks:
 
 ## Next Product Steps
 
-These are the next implementation tracks after QLC+ show export, complete-look
-authoring, and live import validation.
+These are the next implementation tracks after the QLC+ adapter proof,
+complete-look authoring, and the Capture product-loop pivot.
 
 | Track | Goal | Plan | Status |
 |-------|------|------|--------|
 | QLC+ Virtual Console button proof | Prove generated Scene functions trigger after import, not just that functions import | `show validate-qxw --live --trigger-functions` starts exported Scene functions through QLC+ WebSocket, captures status evidence, and records `observed_matches` in the validation report | ✅ Done |
 | Feedback-driven cue refinement | Let the user critique an existing generated show in plain language and have RayFlow revise cues instead of regenerating from scratch | `show refine-cues` accepts `less-movement`, `more-psychedelic`, `bigger-chorus`, or `too-busy`; preserves unaffected sections; and stays proposal-first until `--apply` | ✅ Done |
 | MA3 disposable live OSC proof | Keep live MA3 mutation restricted to an explicit disposable harness | `console probe live-osc-proof` reuses the command-acceptance export probe and rejects any target show except `rayflow_control_probe` | ✅ Done |
-| Recording/export workflow | Make the final “record the show” path repeatable after QLC+ validation succeeds | Document and/or automate the handoff from a validated QLC+ workspace to recording: open QXW, verify live function list, trigger scenes in order, capture output via QLC+/visualizer/screen recording, and store a report linking the recording to the show/export artifacts | ✅ Done |
-| First real song pilot | Start the actual RayFlow usage loop on a known song | Use the studio/album version of Widespread Panic's "Climb to Safety" to build a stage/rig/show, generate AI-assisted presets, and run a first cue/look pass | ☐ Not Started |
+| Recording/export workflow | Make the final “record the show” path repeatable through Capture | A manually placed Capture `Generic Par 64` is patched at `1.1`, and Capture visibly received RayFlow Art-Net universe 0/channel 1 at 100%. Next: timed playout and a recording/report artifact. MVR fixture placement remains a separate blocker. | ▶ In Progress |
+| First real song pilot | Prove the actual RayFlow usage loop on a known song | The studio/album version of Widespread Panic's "Climb to Safety" now has `Rig 1`, a 16-cue show, Capture/MVR and MA3/MVR exports, before/after snapshots, a chorus-lift refinement pass, and a proven manual-fixture Art-Net path. Next proof is timed Capture review and recording. | ▶ In Progress |
+| Capture integration research | Ground the Capture path in official docs and sample project inspection | `docs/research/capture-integration/README.md` documents MVR import, Art-Net/sACN connectivity, Student Edition constraints, native `.c2p`/`.c2s` boundaries, risks, and next proof steps | ✅ Done |
 
 Recommended order:
 
-1. Start the first real song pilot for "Climb to Safety".
-2. Turn the validated playback path into a recording/export workflow.
-3. Continue MA3 import/playback hardening as a compatibility track.
+1. Use `exports/capture/proofs/rayflow-visual-proof.c2s` for timed Art-Net playout against the studio track.
+2. Feed section-level visual notes back through `show refine-cues` or targeted cue edits.
+3. Continue MA3 import-playback hardening as a compatibility track after the Capture review loop produces a real recording.
 
 ---
 

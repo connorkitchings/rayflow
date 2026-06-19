@@ -7,7 +7,7 @@ This guide walks through the complete workflow: load a song, program lighting cu
 - RayFlow installed
 - A song you want to light
 - A generated RayFlow show and rig
-- For the current validated path: QLC+ 5.2.1 with WebSocket access enabled
+- For the current visual-review path: Capture 2026 or Capture 2026 Student Edition
 - Optional compatibility path: grandMA3 onPC with a rig loaded
 
 ## Step 1: Listen and Analyze the Song
@@ -88,66 +88,43 @@ Use `--style vibe-palette` to draw colors from the show's vibe instead of specif
 
 For more detail, see the [AI Interaction Contract](../ai_interaction_contract.md).
 
-## Step 8: Export And Validate QLC+
+## Step 8: Export The Capture Handoff
 
-Export the generated show into a QLC+ workspace:
+Export the generated show into a Capture-ready handoff bundle:
 
 ```bash
-uv run rayflow show export-qxw my_show \
+uv run rayflow show export-capture my_show \
+  --dir data/shows \
   --rig-dir data/rigs \
   --fixture-dir data/fixtures/samples \
-  --output exports/qlc/my_show.qxw \
-  --qxf-dir exports/qlc/fixtures
+  --output-dir exports/capture/my_show \
+  --dmx-protocol sacn
 ```
 
-RayFlow copies generated `.qxf` fixture definitions beside the `.qxw` workspace
-for direct QLC+ opening. Validate the file before opening it:
+The bundle contains:
 
-```bash
-uv run rayflow show validate-qxw exports/qlc/my_show.qxw \
-  --qxf-dir exports/qlc \
-  --json
-```
-
-Open the workspace in QLC+ with WebSocket enabled, then run live validation:
-
-```bash
-uv run rayflow show validate-qxw exports/qlc/my_show.qxw --live --json
-```
-
-The workspace is ready for review when the report shows all Scene functions,
-Virtual Console buttons, and live function names with readiness `ready`.
+- `rig.mvr` for Capture import
+- `cue_sheet.md` for human review
+- `metadata.json` linking the show, rig, fixture count, cue count, and DMX protocol
+- `README.md` with the exact Capture import and review steps
 
 ## Step 9: Rehearse the Show
 
-1. Press **Go** to play the sequence from the beginning
-2. Watch the visualizer while listening to the audio
-3. Note timing issues — cues may need to trigger earlier or later
-4. Adjust cue timing as needed
+1. Open Capture and import `exports/capture/my_show/rig.mvr`.
+2. If Capture asks for fixture matching, map imported fixture types to the nearest available Capture library fixtures.
+3. Enable the selected DMX input protocol, starting with sACN unless your local setup requires Art-Net.
+4. Play the song and trigger the RayFlow cues in song time.
+5. Note timing, color, movement, and intensity issues by timestamp.
 
-## Step 10: Record the Visualizer and Automate Playout
+## Step 10: Record Capture
 
-RayFlow provides an automated playout helper to trigger QLC+ Scene functions in real-time according to their timestamps, letting you focus on capturing the output without manual button-clicking:
+Use Capture as the review surface and record that window with QuickTime, OBS, or another screen recorder:
 
-```bash
-# Dry-run playout to verify timing and command structure
-uv run rayflow show record my_show --rig my_rig
-
-# Live playout with QLC+ WebSocket triggering and recording report output
-uv run rayflow show record my_show \
-  --rig my_rig \
-  --live \
-  --video-path exports/recordings/my_show.mp4 \
-  --audio-path data/audio/my_song.mp3 \
-  --output exports/recordings/my_show_recording_report.json
-```
-
-Follow these steps for the live automated recording:
 1. Start your screen/audio recorder (e.g. OBS, QuickTime).
-2. Set it to capture the QLC+ visualizer window.
-3. Run the live record command with `--live`.
-4. Press ENTER when prompted to start playout. RayFlow will execute the entire cue sequence in real-time.
-5. Stop the screen recording once the song completes.
+2. Set it to capture the Capture visualizer window and the song audio.
+3. Start RayFlow DMX output for the show through the selected protocol.
+4. Stop the screen recording once the song completes.
+5. Save the video beside the Capture handoff bundle and link it in the pilot report.
 
 ## Step 11: Recording Report
 
@@ -158,14 +135,21 @@ The generated recording report links the show design, rig, and output artifacts:
   "show": "my_show",
   "rig": "my_rig",
   "mode": "live",
+  "timing": {
+    "kind": "observed",
+    "summary": "Live mode records measured trigger offsets from the WebSocket playout loop."
+  },
   "video_path": "exports/recordings/my_show.mp4",
   "audio_path": "data/audio/my_song.mp3",
+  "visualizer": "Capture",
+  "handoff_bundle": "exports/capture/my_show",
   "playout_log": [
     {
       "cue_number": 1,
       "cue_label": "Intro",
       "scheduled_time": 0.0,
       "actual_trigger_time": 0.002,
+      "trigger_time_kind": "observed",
       "status": "success",
       "error": null
     }
@@ -191,4 +175,3 @@ Once you're happy with the recording:
 1. The video file is saved to your chosen output location.
 2. You can add the original audio track in a video editor if needed.
 3. Export as MP4 for sharing on social media or portfolio.
-

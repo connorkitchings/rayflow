@@ -7,11 +7,12 @@ import zipfile
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 from xml.etree import ElementTree as ET
 
 MVR_XML_FILENAME = "GeneralSceneDescription.xml"
 MVR_NS = ""
+MvrExportProfile = Literal["ma3", "capture"]
 
 
 @dataclass(frozen=True)
@@ -56,6 +57,7 @@ def build_mvr_scene_element(
     *,
     scene_name: str = "RayFlow Rig",
     layer_name: str = "Fixtures",
+    profile: MvrExportProfile = "ma3",
 ) -> ET.Element:
     """Build the MVR myvirtualrig.xml root element with fixture data."""
     root = ET.Element("GeneralSceneDescription")
@@ -63,6 +65,8 @@ def build_mvr_scene_element(
     root.set("date", _today_date())
     root.set("verMajor", "1")
     root.set("verMinor", "8")
+    root.set("provider", "RayFlow")
+    root.set("providerVersion", "0")
 
     _add_user_data(root)
     scene = ET.SubElement(root, "Scene")
@@ -73,7 +77,7 @@ def build_mvr_scene_element(
     child_list = ET.SubElement(layer, "ChildList")
 
     for fixture_id, patch in enumerate(patches, start=1):
-        _add_fixture(child_list, patch, fixture_id=fixture_id)
+        _add_fixture(child_list, patch, fixture_id=fixture_id, profile=profile)
 
     return root
 
@@ -83,11 +87,16 @@ def export_mvr(
     output_path: str | Path,
     *,
     scene_name: str = "RayFlow Rig",
+    profile: MvrExportProfile = "ma3",
 ) -> Path:
     """Export a fixture patch list as an MVR file (.mvr)."""
     output_path = Path(output_path)
-    root = build_mvr_scene_element(patches, scene_name=scene_name)
-    xml_content = ET.tostring(root, encoding="unicode")
+    root = build_mvr_scene_element(patches, scene_name=scene_name, profile=profile)
+    xml_content = ET.tostring(
+        root,
+        encoding="utf-8",
+        xml_declaration=True,
+    )
 
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as archive:
         archive.writestr(MVR_XML_FILENAME, xml_content)
@@ -139,25 +148,28 @@ def _embed_gdtf_files(
     written: set[str] = set()
     for patch in patches:
         if patch.gdtf_file and patch.gdtf_file.exists():
-            gdtf_name = f"{_gdtf_spec_name(patch)}.gdtf"
+            gdtf_name = _gdtf_filename(patch)
             if gdtf_name not in written:
                 archive.write(patch.gdtf_file, gdtf_name)
                 written.add(gdtf_name)
 
 
 def _add_fixture(
-    parent: ET.Element, patch: FixturePatchEntry, *, fixture_id: int
+    parent: ET.Element,
+    patch: FixturePatchEntry,
+    *,
+    fixture_id: int,
+    profile: MvrExportProfile,
 ) -> None:
     fixture = ET.SubElement(parent, "Fixture")
     fixture.set("name", patch.name)
     fixture.set("uuid", patch.gdtf_uuid)
-    if patch.gdtf_file and patch.gdtf_file.exists():
-        spec = _gdtf_spec_name(patch)
-    else:
-        spec = _gdtf_spec_name(patch)
 
     _add_position(fixture, patch.position)
-    ET.SubElement(fixture, "GDTFSpec").text = spec
+    ET.SubElement(fixture, "GDTFSpec").text = _gdtf_spec_reference(
+        patch,
+        profile=profile,
+    )
     ET.SubElement(fixture, "GDTFMode").text = patch.dmx_mode
     _add_addressing(fixture, patch)
     ET.SubElement(fixture, "FixtureID").text = str(fixture_id)
@@ -172,6 +184,20 @@ def _gdtf_spec_name(patch: FixturePatchEntry) -> str:
     if "@" in patch.fixture_type:
         return patch.fixture_type
     return f"{patch.manufacturer}@{patch.fixture_type}"
+
+
+def _gdtf_filename(patch: FixturePatchEntry) -> str:
+    return f"{_gdtf_spec_name(patch)}.gdtf"
+
+
+def _gdtf_spec_reference(
+    patch: FixturePatchEntry,
+    *,
+    profile: MvrExportProfile,
+) -> str:
+    if profile == "capture":
+        return _gdtf_filename(patch)
+    return _gdtf_spec_name(patch)
 
 
 def _add_addressing(parent: ET.Element, patch: FixturePatchEntry) -> None:

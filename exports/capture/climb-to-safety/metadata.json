@@ -1,0 +1,19 @@
+{
+  "show": "Climb to Safety Studio",
+  "song": {
+    "title": "Climb to Safety",
+    "artist": "Widespread Panic",
+    "duration": 281.0
+  },
+  "rig": "Rig 1",
+  "fixture_count": 14,
+  "cue_count": 16,
+  "dmx_protocol": "sacn",
+  "files": {
+    "mvr": "rig.mvr",
+    "readme": "README.md",
+    "cue_sheet": "cue_sheet.md"
+  },
+  "visual_path": "capture",
+  "qlcplus": "not_used"
+}

@@ -251,6 +251,65 @@ def test_export_mvr_scene_name_flows_through(tmp_path: Path):
         assert "Festival Rig 2026" in xml_text
 
 
+def test_export_mvr_capture_profile_references_exact_gdtf_filename(tmp_path: Path):
+    gdtf_file = tmp_path / "TestCo_LED_PAR.gdtf"
+    gdtf_file.write_bytes(b"fake gdtf payload")
+    patches = [
+        build_patch_entry(
+            name="PAR 1",
+            manufacturer="TestCo",
+            fixture_type="LED PAR",
+            dmx_mode="Standard",
+            universe=0,
+            address=1,
+            gdtf_file=gdtf_file,
+        ),
+    ]
+
+    output = tmp_path / "capture_probe.mvr"
+    export_mvr(patches, output, profile="capture")
+
+    with ZipFile(output) as archive:
+        names = archive.namelist()
+        xml_bytes = archive.read("GeneralSceneDescription.xml")
+        xml_text = xml_bytes.decode()
+
+    assert xml_bytes.startswith(b"<?xml version='1.0' encoding='utf-8'?>")
+    assert "TestCo@LED PAR.gdtf" in names
+    root = ET.fromstring(xml_text)
+    assert root.get("provider") == "RayFlow"
+    assert root.get("providerVersion") == "0"
+    assert root.findtext(".//Fixture/GDTFSpec") == "TestCo@LED PAR.gdtf"
+    assert root.findtext(".//Fixture/GDTFMode") == "Standard"
+    assert root.findtext(".//Fixture/FixtureID") == "1"
+    assert root.findtext(".//Fixture/Addresses/Address") == "1"
+
+
+def test_export_mvr_ma3_profile_keeps_extensionless_gdtf_spec(tmp_path: Path):
+    gdtf_file = tmp_path / "TestCo_LED_PAR.gdtf"
+    gdtf_file.write_bytes(b"fake gdtf payload")
+    patches = [
+        build_patch_entry(
+            name="PAR 1",
+            manufacturer="TestCo",
+            fixture_type="LED PAR",
+            dmx_mode="Standard",
+            universe=0,
+            address=1,
+            gdtf_file=gdtf_file,
+        ),
+    ]
+
+    output = tmp_path / "ma3_probe.mvr"
+    export_mvr(patches, output)
+
+    with ZipFile(output) as archive:
+        xml_text = archive.read("GeneralSceneDescription.xml").decode()
+
+    root = ET.fromstring(xml_text)
+    assert root.findtext(".//Fixture/GDTFSpec") == "TestCo@LED PAR"
+
+
 def test_fixture_position_as_dict():
     pos = FixturePosition(name="Test", x=1, y=2, z=3, pan=90, tilt=45)
 

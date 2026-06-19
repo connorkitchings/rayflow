@@ -179,14 +179,12 @@ uv run rayflow show output-cue sample_show 6 \
 10. Manually authored cues can now render additional numeric fixture families
    when the selected GDTF mode supports them: `pan`, `tilt`, `position.pan`,
    `position.tilt`, `zoom`, `focus`, `shutter`, and `gobo`.
-11. Use `show validate-qxw --json` after `show export-qxw` to verify QLC+
-   Scene functions, Virtual Console buttons, and optional QXF fixture
-   definitions before live import. After opening the workspace in QLC+, add
-   `--live` to compare the exported Scene functions with the running QLC+
-   function list, and add `--trigger-functions` to prove function start/status
-   evidence.
-12. Use `show qlc-spike --json` for experimental QLC+ WebSocket command/query
-   evidence when investigating API behavior.
+11. Use `show export-capture` to produce the current visual-review handoff:
+   `rig.mvr`, `cue_sheet.md`, `metadata.json`, and a Capture import README.
+   Import the MVR into Capture, enable the selected sACN or Art-Net input, and
+   review the show against the song there.
+12. Treat QLC+ commands as legacy compatibility tools only. They are useful for
+   old adapter evidence, but they are no longer the product-loop visual path.
 13. Keep MA3 as an export/playback adapter with explicit evidence gates. Use
    `console probe live-osc-proof` only against the disposable
    `rayflow_control_probe` show for live OSC acceptance proof.

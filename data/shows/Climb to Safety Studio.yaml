@@ -120,30 +120,31 @@ cues:
     focus: '60'
   fade_time: 3.0
 - number: 5
-  label: Chorus 1 Open Front
+  label: Chorus 1 Open Front (bigger)
   section: Chorus 1
   timestamp: 58.0
   preset: front_warm
   channels: 1 Thru 6
   attributes:
-    dimmer: '72'
+    dimmer: '92'
     color: Warm Amber
-  fade_time: 1.0
+  fade_time: 0.5
 - number: 6
-  label: Chorus 1 Cool Lift
+  label: Chorus 1 Cool Lift (bigger)
   section: Chorus 1
   timestamp: 72.86
   preset: electric_blue_cyan
   channels: 7 Thru 10
   attributes:
-    dimmer: '76'
+    dimmer: '96'
     color: '#2146D0'
-    zoom: '55'
+    zoom: '10'
     movement.type: sine
     movement.center: 50,55
     movement.size: 12,6
     movement.speed: '0.35'
-  fade_time: 1.0
+    shutter: '70'
+  fade_time: 0.5
 - number: 7
   label: Verse 2 Warm Drive
   section: Verse 2
@@ -171,30 +172,31 @@ cues:
     movement.speed: '0.25'
   fade_time: 2.5
 - number: 9
-  label: Chorus 2 Bigger Front
+  label: Chorus 2 Bigger Front (bigger)
   section: Chorus 2
   timestamp: 132.0
   preset: front_warm
   channels: 1 Thru 6
   attributes:
-    dimmer: '80'
+    dimmer: '100'
     color: Warm Amber
-  fade_time: 0.75
+  fade_time: 0.5
 - number: 10
-  label: Chorus 2 Blue Back Sweep
+  label: Chorus 2 Blue Back Sweep (bigger)
   section: Chorus 2
   timestamp: 149.14
   preset: electric_blue_cyan
   channels: 7 Thru 10
   attributes:
-    dimmer: '86'
+    dimmer: '100'
     color: '#2146D0'
-    zoom: '45'
+    zoom: '10'
     movement.type: sine
     movement.center: 50,60
     movement.size: 16,8
     movement.speed: '0.45'
-  fade_time: 0.75
+    shutter: '70'
+  fade_time: 0.5
 - number: 11
   label: Bridge Amber To Red
   section: Bridge Build
@@ -221,27 +223,27 @@ cues:
     movement.speed: '0.25'
   fade_time: 10.0
 - number: 13
-  label: Final Chorus Full Front
+  label: Final Chorus Full Front (bigger)
   section: Final Chorus
   timestamp: 222.0
   preset: full_warm_blue
   channels: 1 Thru 6
   attributes:
-    dimmer: '92'
+    dimmer: '100'
     color: Warm Amber
   fade_time: 0.5
 - number: 14
-  label: Final Chorus Texture Peak
+  label: Final Chorus Texture Peak (bigger)
   section: Final Chorus
   timestamp: 244.29
   preset: prism_peak
   channels: 11 Thru 14
   attributes:
-    dimmer: '88'
+    dimmer: '100'
     gobo: '70'
-    zoom: '18'
+    zoom: '10'
     focus: '55'
-    shutter: '65'
+    shutter: '70'
     movement.type: circle
     movement.center: 50,50
     movement.size: '20'

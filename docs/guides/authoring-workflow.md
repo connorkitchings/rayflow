@@ -77,32 +77,20 @@ uv run rayflow show workflow-report phase9_practice_show \
 Live output remains gated through `workflow-report --execute`,
 `output-cue --execute`, or `output-section --execute`.
 
-For the QLC+ path, export and validate the show workspace:
+For the Capture path, export the handoff bundle:
 
 ```bash
-uv run rayflow show export-qxw phase9_practice_show \
+uv run rayflow show export-capture phase9_practice_show \
   --dir data/shows/samples \
+  --rig-dir data/rigs \
   --fixture-dir data/fixtures/samples \
-  --output exports/qlc/phase9_practice_show.qxw \
-  --qxf-dir exports/qlc/fixtures
-
-uv run rayflow show validate-qxw exports/qlc/phase9_practice_show.qxw \
-  --qxf-dir exports/qlc \
-  --json
+  --output-dir exports/capture/phase9_practice_show \
+  --dmx-protocol sacn
 ```
 
-After opening the workspace in QLC+ with WebSocket access enabled, add `--live`
-to compare the exported Scene names against QLC+'s imported function list. Add
-`--trigger-functions` when you want proof that the imported Scene functions can
-be started and queried:
-
-```bash
-uv run rayflow show validate-qxw exports/qlc/phase9_practice_show.qxw \
-  --qxf-dir exports/qlc \
-  --live \
-  --trigger-functions \
-  --json
-```
+Import `exports/capture/phase9_practice_show/rig.mvr` into Capture, match any
+prompted fixture types, enable the selected DMX input protocol, and use the cue
+sheet in the same bundle to review the show by song section.
 
 ## Feedback Refinement
 
@@ -126,12 +114,12 @@ proposed edits should replace the selected cues in the show YAML.
 The intended refinement loop is:
 
 1. Generate or apply cues with `plan-cues`.
-2. Export and validate QLC+ with `export-qxw` and `validate-qxw`.
+2. Export the Capture handoff with `export-capture`.
 3. User reviews the result and gives critique such as "too busy," "less
    movement," "more psychedelic," or "make the chorus bigger."
 4. RayFlow proposes targeted cue edits for the affected sections, preserving
    unrelated cues.
-5. The AI applies only after review, then reruns preview/export validation.
+5. The AI applies only after review, then reruns preview and Capture export.
 
 Refinement reuses existing cue fields and `look-*` vocabulary rather than
 introducing a new persistent show schema.

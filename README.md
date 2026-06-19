@@ -7,8 +7,8 @@ AI-assisted concert lighting design toolkit with backend-neutral show data, DMX 
 RayFlow bridges creative intent and lighting execution. It keeps the show,
 rig, fixture, cue, and vibe data in AI-readable project files, then renders that
 intent through deterministic backends: direct Art-Net/sACN DMX output,
-structured controller adapters such as QLC+, and gated professional-console
-adapters such as grandMA3.
+Capture/MVR visual handoff artifacts, and gated professional-console adapters
+such as grandMA3.
 
 The project started with grandMA3 onPC as the primary execution target. Live
 probing showed that MA3 remains valuable for professional compatibility, but
@@ -47,8 +47,8 @@ and API-first output adapters.
         ┌──────────────────────┬─────────────────────┼─────────────────────┐
         ▼                      ▼                     ▼                     ▼
 ┌──────────────┐        ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│ Art-Net/sACN │        │ QLC+ WS      │      │ MA3 Export   │      │ Middleware   │
-│ DMX Output   │        │ Adapter      │      │ + Gated OSC  │      │ Adapters     │
+│ Art-Net/sACN │        │ Capture/MVR  │      │ MA3 Export   │      │ Middleware   │
+│ DMX Output   │        │ Handoff      │      │ + Gated OSC  │      │ Adapters     │
 └──────────────┘        └──────────────┘      └──────────────┘      └──────────────┘
 ```
 
@@ -60,7 +60,7 @@ and API-first output adapters.
 | Data | YAML + JSON | Show/rig serialization, AI-readable source of truth |
 | Fixtures | GDTF | Open fixture definition standard |
 | Direct DMX | Art-Net, sACN | Deterministic output and protocol-level verification |
-| Controller adapter | QLC+ WebSockets | Planned API-first structured controller target |
+| Pre-viz target | Capture 2026 via MVR + DMX | Primary visual-review path |
 | Console adapter | grandMA3 onPC 2.3.2.0 | Compatibility/export target with gated OSC probes |
 | AI Interface | AI coding tools | Claude, Codex, Gemini CLI, OpenCode, etc. |
 | Package mgmt | uv | Python package manager |
@@ -138,7 +138,7 @@ rayflow/
 - **Art-Net** — DMX512 over UDP, the most widely used lighting network protocol
 - **sACN (E1.31)** — Streaming ACN, modern alternative to Art-Net
 - **OSC** — Open Sound Control, used for MA3 and middleware control
-- **WebSocket** — Planned structured controller path for QLC+
+- **MVR** — Primary rig handoff path for Capture and MA3
 - **GDTF** — General Device Type Format, open fixture definition standard
 - **MVR** — My Virtual Rig, scene sharing between consoles and visualizers
 

@@ -1251,7 +1251,7 @@ def show_record(
             if sleep_time > 0:
                 time.sleep(sleep_time)
 
-        trigger_time = time.time() - start_time
+        trigger_time = time.time() - start_time if live else target_elapsed
         status = "success"
         err_msg = None
 
@@ -1296,6 +1296,7 @@ def show_record(
                 "cue_label": cue.label,
                 "scheduled_time": cue.timestamp,
                 "actual_trigger_time": trigger_time,
+                "trigger_time_kind": "observed" if live else "simulated",
                 "status": status,
                 "error": err_msg,
             }
@@ -1328,6 +1329,15 @@ def show_record(
         "show": show.name,
         "rig": rig.name,
         "mode": "live" if live else "dry-run",
+        "timing": {
+            "kind": "observed" if live else "simulated",
+            "summary": (
+                "Live mode records measured trigger offsets from the WebSocket "
+                "playout loop."
+                if live
+                else "Dry-run mode records intended cue timestamps without sleeping."
+            ),
+        },
         "video_path": str(video_path) if video_path else None,
         "audio_path": str(audio_path) if audio_path else None,
         "playout_log": playout_log,

@@ -28,6 +28,8 @@ SHOW_COMMANDS = [
     "delete-section",
     "diff",
     "export",
+    "export-capture",
+    "export-capture-probe",
     "export-mvr",
     "export-qxw",
     "generate-cues",
@@ -1777,6 +1779,9 @@ class TestShowRefineCues:
         assert payload["section"] == "Chorus"
         assert payload["changed_cue_numbers"] == [5, 6]
         assert payload["proposed_cues"][0]["attributes"]["dimmer"] == "100"
+        assert "zoom" not in payload["proposed_cues"][0]["attributes"]
+        assert "shutter" not in payload["proposed_cues"][0]["attributes"]
+        assert "movement.type" not in payload["proposed_cues"][0]["attributes"]
 
     def test_refine_cues_apply_preserves_unrelated_sections(
         self, tmp_path: Path
@@ -2117,6 +2122,106 @@ cues: []
         assert result.exit_code == 0
         assert "MVR exported" in result.output
         assert output.exists()
+
+    def test_show_export_capture_bundle(self, tmp_path: Path) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        rig_dir = tmp_path / "rigs"
+        rig_dir.mkdir()
+        (rig_dir / "Capture Rig.yaml").write_text(
+            """name: "Capture Rig"
+venue:
+  name: "Test"
+  dimensions: [10, 5, 3]
+fixtures:
+  - fixture_name: "LED PAR 64 RGBW"
+    mode: "Default"
+    label: "PAR 1"
+    universe: 0
+    start_address: 1
+presets: {}
+"""
+        )
+        show_dir = tmp_path / "shows"
+        show_dir.mkdir()
+        (show_dir / "Capture Show.yaml").write_text(
+            """name: "Capture Show"
+rig_name: "Capture Rig"
+song:
+  title: "Capture Song"
+  artist: "Artist"
+  duration: 180
+cues:
+  - number: 1
+    label: "Intro"
+    section: "Intro"
+    timestamp: 0
+    preset: "front_warm"
+"""
+        )
+        output_dir = tmp_path / "capture"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-capture",
+                "Capture Show",
+                "--output-dir",
+                str(output_dir),
+                "--dir",
+                str(show_dir),
+                "--rig-dir",
+                str(rig_dir),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Capture handoff exported" in result.output
+        assert (output_dir / "rig.mvr").exists()
+        assert "QLC+ is not used" in (output_dir / "README.md").read_text()
+        assert (
+            "| 1 | 0s | Intro | Intro | front_warm |"
+            in (output_dir / "cue_sheet.md").read_text()
+        )
+        metadata = json.loads((output_dir / "metadata.json").read_text())
+        assert metadata["visual_path"] == "capture"
+        assert metadata["qlcplus"] == "not_used"
+
+    def test_show_export_capture_probe_writes_capture_profile_mvr(
+        self, tmp_path: Path
+    ) -> None:
+        fixture_dir = _copy_samples(tmp_path)
+        output = tmp_path / "probes" / "one_fixture.mvr"
+
+        result = runner.invoke(
+            app,
+            [
+                "show",
+                "export-capture-probe",
+                "--output",
+                str(output),
+                "--fixture-dir",
+                str(fixture_dir),
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Capture probe MVR exported" in result.output
+        assert output.exists()
+        with ZipFile(output) as archive:
+            names = archive.namelist()
+            mvr_xml = archive.read("GeneralSceneDescription.xml").decode()
+        assert "BlenderDMX@LED PAR 64 RGBW.gdtf" in names
+        mvr_root = ET.fromstring(mvr_xml)
+        assert mvr_root.get("provider") == "RayFlow"
+        fixture = mvr_root.find(".//Fixture")
+        assert fixture is not None
+        assert fixture.findtext("GDTFSpec") == "BlenderDMX@LED PAR 64 RGBW.gdtf"
+        assert fixture.findtext("GDTFMode") == "Default"
+        assert fixture.findtext("FixtureID") == "1"
+        assert fixture.findtext("Addresses/Address") == "1"
 
     def test_show_export_mvr_rig_not_found(self, tmp_path: Path) -> None:
         show_dir = tmp_path / "shows"
@@ -3073,11 +3178,14 @@ presets: {}
         assert report["show"] == "Test Show"
         assert report["rig"] == "Test Rig"
         assert report["mode"] == "dry-run"
+        assert report["timing"]["kind"] == "simulated"
         assert report["video_path"] == "exports/recordings/test.mp4"
         assert report["audio_path"] == "data/audio/test.mp3"
         assert len(report["playout_log"]) == 2
         assert report["playout_log"][0]["cue_label"] == "Intro"
         assert report["playout_log"][1]["cue_label"] == "Verse"
+        assert report["playout_log"][1]["actual_trigger_time"] == 5.0
+        assert report["playout_log"][1]["trigger_time_kind"] == "simulated"
         assert report["status"] == "completed"
 
     def test_show_record_live_mocked(self, tmp_path: Path, monkeypatch) -> None:
@@ -3175,6 +3283,7 @@ presets: {}
 
         report = json_module.loads(output_report.read_text())
         assert report["mode"] == "live"
+        assert report["timing"]["kind"] == "observed"
         assert report["playout_log"][0]["status"] == "success"
 
     def test_show_record_missing_show(self, tmp_path: Path) -> None:

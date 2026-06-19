@@ -211,7 +211,8 @@ def refine_cues(
     warnings: list[str] = []
     capabilities = _rig_capabilities(rig, fixture_dir, warnings)
     proposed = [
-        _refined_cue(show, cue, normalized, capabilities) for cue in selected_cues
+        _refined_cue(show, rig, cue, normalized, capabilities, fixture_dir)
+        for cue in selected_cues
     ]
     changed_numbers = [cue.number for cue in proposed]
     next_command = (
@@ -248,13 +249,16 @@ def _parse_refinement_critique(critique: str) -> str:
 
 def _refined_cue(
     show: Show,
+    rig: Rig,
     cue: Cue,
     critique: str,
     capabilities: dict[str, bool],
+    fixture_dir: str | Path,
 ) -> Cue:
     attrs = dict(cue.attributes)
     label = cue.label
     fade_time = cue.fade_time
+    cue_capabilities = _cue_capabilities(show, rig, cue, fixture_dir, capabilities)
 
     if critique == "too-busy":
         attrs = _remove_motion_texture(attrs)
@@ -268,7 +272,7 @@ def _refined_cue(
     elif critique == "more-psychedelic":
         colors = _vibe_colors(show, [])
         attrs["color"] = colors[1 % len(colors)]
-        if capabilities["position"]:
+        if cue_capabilities["position"]:
             attrs.update(
                 {
                     "movement.type": "circle",
@@ -276,10 +280,10 @@ def _refined_cue(
                     "movement.size": "28",
                 }
             )
-        if capabilities["gobo"]:
+        if cue_capabilities["gobo"]:
             attrs["gobo"] = "75"
-            attrs.update(_gobo_motion_attrs(capabilities, speed=70, rotation=65))
-        if capabilities["beam"]:
+            attrs.update(_gobo_motion_attrs(cue_capabilities, speed=70, rotation=65))
+        if cue_capabilities["beam"]:
             attrs["zoom"] = "18"
         fade_time = min(fade_time or 0.75, 0.75)
         label = _with_refinement_label(label, "psychedelic")
@@ -287,10 +291,10 @@ def _refined_cue(
         attrs["dimmer"] = str(
             min(100, _attribute_percent(attrs.get("dimmer"), 75) + 20)
         )
-        if capabilities["beam"]:
+        if cue_capabilities["beam"]:
             attrs["zoom"] = "10"
             attrs["shutter"] = "70"
-        if capabilities["position"]:
+        if cue_capabilities["position"]:
             attrs.setdefault("movement.type", "sine")
             attrs.setdefault("movement.speed", "0.8")
             attrs.setdefault("movement.size", "24,12")
@@ -309,6 +313,45 @@ def _refined_cue(
         follow_time=cue.follow_time,
         notes=cue.notes,
     )
+
+
+def _cue_capabilities(
+    show: Show,
+    rig: Rig,
+    cue: Cue,
+    fixture_dir: str | Path,
+    fallback: dict[str, bool],
+) -> dict[str, bool]:
+    """Return supported families for fixtures targeted by a specific cue."""
+    from rayflow.engine.rendering.dmx import _effective_channels, _target_fixture_slots
+
+    target_slots = _target_fixture_slots(rig, _effective_channels(show, rig, cue))
+    if not target_slots:
+        return dict(fallback)
+
+    cue_capabilities = {"position": False, "beam": False, "gobo": False}
+    try:
+        from rayflow.design.presets import fixture_supports_attribute
+        from rayflow.engine.fixtures.library import FixtureLibrary
+
+        library = FixtureLibrary(fixture_dir)
+        library.load()
+    except (FileNotFoundError, ValueError):
+        return dict(fallback)
+
+    for slot in target_slots:
+        parser = library.get(slot.fixture_name)
+        if parser is None:
+            continue
+        mode_idx = 0
+        mode_names = parser.mode_names()
+        if slot.mode in mode_names:
+            mode_idx = mode_names.index(slot.mode)
+        for family in cue_capabilities:
+            cue_capabilities[family] = cue_capabilities[
+                family
+            ] or fixture_supports_attribute(parser, mode_idx, family)
+    return cue_capabilities
 
 
 def _remove_motion_texture(attrs: dict[str, str]) -> dict[str, str]:

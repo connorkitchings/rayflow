@@ -1,0 +1,9 @@
+{
+  "version_id": "20260529T153103Z",
+  "show_name": "Climb to Safety Studio",
+  "source_path": "data/shows/Climb to Safety Studio.yaml",
+  "created_at": "2026-05-29T15:31:03.230785+00:00",
+  "rayflow_version": "0.1.0",
+  "cue_count": 16,
+  "message": "after 3 refinement cycles: bigger-chorus, more-psychedelic, less-movement"
+}

@@ -128,6 +128,20 @@
 **Example:**
 > Should have: checked running MA3 GUI processes and window titles before interpreting OSC setup, then used the `app_gma3` title/status as the UI evidence path.
 
+### [Date: 2026-06-05]
+
+**Mistake:**
+> Treated QLC+ workspace export/import readiness as enough evidence for the product visual-review loop before proving the visible stage output was useful to the user.
+
+**Root Cause:**
+> Optimized around inspectable controller artifacts and WebSocket validation because they were automation-friendly. The actual project goal requires a non-programmer-reviewable light-show recording, so the visualizer quality was the gating criterion.
+
+**Rule Added:**
+> **Prove visual usefulness before deepening a visualizer integration.** For any external visualization target, first verify that imported fixtures, stage context, DMX input, and recording workflow produce a reviewable visual artifact. Keep file/export validation as supporting evidence, not the product proof.
+
+**Example:**
+> Should have: imported the generated QLC+ workspace, checked whether 2D/3D views showed meaningful fixtures and light output, then pivoted earlier to Capture/MVR once QLC+ failed the reviewability test.
+
 ### Template for New Entries
 
 ```markdown

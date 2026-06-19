@@ -116,7 +116,8 @@ The AI can perform these actions on a show:
 - `render_dmx(show, rig, execute=False)` — Planned action: render cue intent to universe/channel frames, dry-run by default
 - `send_artnet(frame, execute=False)` — Send rendered frames over Art-Net only after explicit approval
 - `send_sacn(frame, execute=False)` — Send rendered frames over sACN only after explicit approval
-- `send_to_qlc(show, execute=False)` — Planned action: send/query QLC+ WebSocket commands after adapter proof
+- `export_capture_handoff(show, rig, output_dir)` — Export MVR, cue sheet, and metadata for Capture visual review
+- `send_to_capture_dmx(show, rig, protocol="sacn", execute=False)` — Planned action: drive Capture through rendered DMX over sACN or Art-Net after explicit approval
 - `preview_show(show, rig, section="all")` — Build a dry-run critique packet with rendered DMX evidence, fixture capability gaps, and property-specific review prompts
 - `push_to_ma3(show, execute=False)` — Generate OSC commands for MA3-compatible cues, dry-run by default
 - `push_section_to_ma3(show, section, execute=False)` — Push MA3-compatible cues for one section

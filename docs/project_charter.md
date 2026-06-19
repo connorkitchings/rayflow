@@ -81,11 +81,14 @@ These are implementation details that make the design loop possible — they are
 
 ### What's Next (Priority Order)
 
-1. **First real song pilot** — Use the studio/album version of Widespread
-   Panic's "Climb to Safety" to build a stage/rig/show, collaborate on presets,
-   and create the first cue/look pass.
-2. **Record/export workflow** — Capture the finished show after the QLC+
-   workspace has passed static and live validation.
+1. **First real song pilot visual review** — The studio/album version of
+   Widespread Panic's "Climb to Safety" now has a reusable rig, cue stack,
+   Capture/MVR handoff, MA3/MVR compatibility bundle, and before/after
+   refinement snapshots. The next step is to import the MVR into Capture,
+   drive it with DMX, record the result, and refine from section-level taste
+   notes.
+2. **Record/export workflow** — Capture the finished show after the Capture
+   import and DMX visual-review path are proven.
 3. **Console compatibility hardening** — Continue MA3/MVR/timecode export work
    as a compatibility track, not the main blocker for the product loop.
 
@@ -153,3 +156,4 @@ The user talks to the AI. The AI reads the knowledge base and uses the design en
 | 2026-05-25 | Research serves AI knowledge base | 55+ research docs exist so the AI can translate amateur descriptions into correct technical output |
 | 2026-05-25 | Priority after rig/palette V1: integrated visualization / critique loop | Backend work (Art-Net, sACN, QLC+) is enabling infrastructure, not product features |
 | 2026-05-25 | Preview/Critique V1 shipped as dry-run evidence packet, not a custom visualizer | The project still avoids a custom 3D visualizer; preview packages evidence and critique prompts for AI-led iteration |
+| 2026-06-05 | QLC+ removed from product visual path | QLC+ proved useful for controller/export smoke tests but did not provide a usable visual-review environment. Capture/MVR is now the primary visual target. |

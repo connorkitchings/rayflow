@@ -1,0 +1,159 @@
+{
+  "show": "Climb to Safety Studio",
+  "rig": "Rig 1",
+  "mode": "dry-run",
+  "timing": {
+    "kind": "simulated",
+    "summary": "Dry-run mode records intended cue timestamps without sleeping."
+  },
+  "video_path": "exports/recordings/climb_to_safety/manual_capture.mov",
+  "audio_path": "audio/climb_to_safety_studio.wav",
+  "playout_log": [
+    {
+      "cue_number": 1,
+      "cue_label": "Intro Warm Front",
+      "scheduled_time": 0.0,
+      "actual_trigger_time": 0.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 2,
+      "cue_label": "Intro Lavender Back",
+      "scheduled_time": 8.0,
+      "actual_trigger_time": 8.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 3,
+      "cue_label": "Verse 1 Amber Groove",
+      "scheduled_time": 16.0,
+      "actual_trigger_time": 16.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 4,
+      "cue_label": "Verse 1 Subtle Texture",
+      "scheduled_time": 37.14,
+      "actual_trigger_time": 37.14,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 5,
+      "cue_label": "Chorus 1 Open Front (bigger)",
+      "scheduled_time": 58.0,
+      "actual_trigger_time": 58.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 6,
+      "cue_label": "Chorus 1 Cool Lift (bigger)",
+      "scheduled_time": 72.86,
+      "actual_trigger_time": 72.86,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 7,
+      "cue_label": "Verse 2 Warm Drive",
+      "scheduled_time": 88.0,
+      "actual_trigger_time": 88.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 8,
+      "cue_label": "Verse 2 Guitar Texture",
+      "scheduled_time": 109.71,
+      "actual_trigger_time": 109.71,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 9,
+      "cue_label": "Chorus 2 Bigger Front (bigger)",
+      "scheduled_time": 132.0,
+      "actual_trigger_time": 132.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 10,
+      "cue_label": "Chorus 2 Blue Back Sweep (bigger)",
+      "scheduled_time": 149.14,
+      "actual_trigger_time": 149.14,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 11,
+      "cue_label": "Bridge Amber To Red",
+      "scheduled_time": 166.0,
+      "actual_trigger_time": 166.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 12,
+      "cue_label": "Bridge Slow Blue Sweep",
+      "scheduled_time": 194.0,
+      "actual_trigger_time": 194.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 13,
+      "cue_label": "Final Chorus Full Front (bigger)",
+      "scheduled_time": 222.0,
+      "actual_trigger_time": 222.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 14,
+      "cue_label": "Final Chorus Texture Peak (bigger)",
+      "scheduled_time": 244.29,
+      "actual_trigger_time": 244.29,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 15,
+      "cue_label": "Outro Warm Resolve",
+      "scheduled_time": 267.0,
+      "actual_trigger_time": 267.0,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    },
+    {
+      "cue_number": 16,
+      "cue_label": "Outro Back Fade",
+      "scheduled_time": 273.86,
+      "actual_trigger_time": 273.86,
+      "trigger_time_kind": "simulated",
+      "status": "success",
+      "error": null
+    }
+  ],
+  "timestamp": "2026-06-05T13:02:13+00:00",
+  "status": "completed"
+}

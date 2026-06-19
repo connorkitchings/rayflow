@@ -271,6 +271,170 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         console.print(f"  Fixtures: {len(patches)}")
         console.print(f"  Scene: {rig.name}")
 
+    @show_app.command("export-capture")
+    def show_export_capture(
+        show_name: str | None = typer.Argument(None, help="Show name"),
+        output_dir: Path = typer.Option(
+            ..., "--output-dir", "-o", help="Output Capture handoff directory"
+        ),
+        show_dir: str = typer.Option("data/shows", "--dir", help="Show directory"),
+        rig_dir: str = typer.Option("data/rigs", "--rig-dir", help="Rig directory"),
+        fixture_dir: str = typer.Option(
+            "data/fixtures", "--fixture-dir", help="Fixture directory"
+        ),
+        dmx_protocol: str = typer.Option(
+            "sacn", "--dmx-protocol", help="Capture DMX protocol: sacn or artnet"
+        ),
+    ) -> None:
+        """Export a Capture-focused visual review handoff bundle."""
+        show_name = resolve_show_name(show_name)
+        from rayflow.design.serializers import load_rig, load_show
+        from rayflow.engine.console.export_bundle import build_mvr_patches
+        from rayflow.engine.fixtures.mvr_export import export_mvr as _export_mvr
+
+        protocol = dmx_protocol.strip().lower()
+        if protocol not in {"sacn", "artnet"}:
+            typer.echo("Error: --dmx-protocol must be sacn or artnet", err=True)
+            raise typer.Exit(code=1)
+
+        path = show_path(show_name, show_dir_path(show_dir))
+        if not path.exists():
+            typer.echo(f"Error: Show not found: {show_name}", err=True)
+            raise typer.Exit(code=1)
+
+        show = load_show(path)
+        rig_path = _rig_path(show.rig_name, _rig_dir_path(rig_dir))
+        if not rig_path.exists():
+            typer.echo(f"Error: Rig not found: {show.rig_name}", err=True)
+            raise typer.Exit(code=1)
+
+        rig = load_rig(rig_path)
+        try:
+            patches = build_mvr_patches(rig, fixture_dir)
+        except (FileNotFoundError, ValueError) as e:
+            typer.echo(f"Error loading fixtures: {e}", err=True)
+            raise typer.Exit(code=1)
+
+        if not patches:
+            typer.echo("Error: No valid fixtures to export", err=True)
+            raise typer.Exit(code=1)
+
+        output_dir.mkdir(parents=True, exist_ok=True)
+        mvr_path = output_dir / "rig.mvr"
+        _export_mvr(patches, mvr_path, scene_name=rig.name)
+
+        cue_sheet_path = output_dir / "cue_sheet.md"
+        cue_sheet_path.write_text(_capture_cue_sheet(show), encoding="utf-8")
+
+        readme_path = output_dir / "README.md"
+        readme_path.write_text(
+            _capture_handoff_readme(show, rig, protocol),
+            encoding="utf-8",
+        )
+
+        metadata_path = output_dir / "metadata.json"
+        import json as json_module
+
+        metadata_path.write_text(
+            json_module.dumps(
+                {
+                    "show": show.name,
+                    "song": {
+                        "title": show.song.title,
+                        "artist": show.song.artist,
+                        "duration": show.song.duration,
+                    },
+                    "rig": rig.name,
+                    "fixture_count": len(patches),
+                    "cue_count": len(show.cues),
+                    "dmx_protocol": protocol,
+                    "files": {
+                        "mvr": mvr_path.name,
+                        "readme": readme_path.name,
+                        "cue_sheet": cue_sheet_path.name,
+                    },
+                    "visual_path": "capture",
+                    "qlcplus": "not_used",
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        console.print(f"[green]Capture handoff exported[/green] to {output_dir}")
+        console.print(f"  MVR: {mvr_path}")
+        console.print(f"  README: {readme_path}")
+        console.print(f"  Cue sheet: {cue_sheet_path}")
+        console.print(f"  Metadata: {metadata_path}")
+        console.print(f"  DMX protocol: {protocol}")
+        console.print(f"  Fixtures: {len(patches)}")
+
+    @show_app.command("export-capture-probe")
+    def show_export_capture_probe(
+        output: Path = typer.Option(
+            ...,
+            "--output",
+            "-o",
+            help="Output one-fixture Capture probe MVR path",
+        ),
+        fixture_dir: str = typer.Option(
+            "data/fixtures/samples", "--fixture-dir", help="Fixture directory"
+        ),
+    ) -> None:
+        """Export a one-fixture MVR probe for desktop Capture import testing."""
+        from rayflow.engine.fixtures.library import FixtureLibrary
+        from rayflow.engine.fixtures.mvr_export import (
+            FixturePosition,
+            build_patch_entry,
+        )
+        from rayflow.engine.fixtures.mvr_export import (
+            export_mvr as _export_mvr,
+        )
+
+        library = FixtureLibrary(fixture_dir)
+        try:
+            library.load()
+        except (FileNotFoundError, ValueError) as e:
+            typer.echo(f"Error loading fixtures: {e}", err=True)
+            raise typer.Exit(code=1)
+
+        parser = library.get("LED PAR 64 RGBW")
+        if parser is None:
+            typer.echo("Error: LED PAR 64 RGBW fixture not found", err=True)
+            raise typer.Exit(code=1)
+
+        gdtf_file = getattr(parser, "path", None)
+        patch = build_patch_entry(
+            name="Capture Probe PAR 1",
+            manufacturer=parser.manufacturer,
+            fixture_type=f"{parser.manufacturer}@{parser.name}",
+            dmx_mode="Default",
+            universe=0,
+            address=1,
+            position=FixturePosition(
+                name="Capture Probe PAR 1",
+                x=0.0,
+                y=0.0,
+                z=4.0,
+            ),
+            gdtf_file=gdtf_file,
+        )
+
+        output.parent.mkdir(parents=True, exist_ok=True)
+        saved = _export_mvr(
+            [patch],
+            output,
+            scene_name="RayFlow Capture Probe",
+            profile="capture",
+        )
+
+        console.print(f"[green]Capture probe MVR exported[/green] to {saved}")
+        console.print("  Fixture: LED PAR 64 RGBW")
+        console.print("  Mode: Default")
+        console.print("  Universe: 0")
+        console.print("  Address: 1")
+
     @show_app.command("export-qxw")
     def show_export_qxw(
         show_name: str | None = typer.Argument(None, help="Show name"),
@@ -289,7 +453,7 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
             help="Also export QLC+ fixture definitions for the workspace",
         ),
     ) -> None:
-        """Export a QLC+ workspace with fixtures and cue Scene functions."""
+        """Legacy compatibility: export a QLC+ workspace with cue Scenes."""
         show_name = resolve_show_name(show_name)
         from rayflow.design.serializers import load_rig, load_show
         from rayflow.engine.fixtures.library import FixtureLibrary
@@ -432,3 +596,61 @@ def register_show_export_commands(show_app: typer.Typer) -> None:
         console.print(f"  Sequence/Executor: {sequence}")
         console.print(f"  Cue events: {cue_count}")
         console.print("  [yellow]Validate import/playback in MA3 before use[/yellow]")
+
+
+def _capture_handoff_readme(show, rig, dmx_protocol: str) -> str:
+    protocol_name = "sACN" if dmx_protocol == "sacn" else "Art-Net"
+    return f"""# RayFlow Capture Handoff: {show.name}
+
+This bundle is the primary visual-review path for RayFlow. QLC+ is not used for
+this workflow.
+
+## Contents
+
+- `rig.mvr` — MVR rig export for Capture import.
+- `cue_sheet.md` — Cue list for review against the song.
+- `metadata.json` — Machine-readable handoff metadata.
+
+## Capture Import
+
+1. Open Capture 2026 or Capture 2026 Student Edition.
+2. Import `rig.mvr`.
+3. If Capture prompts for fixture matching, map imported GDTF fixture types to
+   available Capture library fixtures.
+4. Confirm the imported rig uses `{rig.name}` fixture positions and DMX patch.
+
+## DMX Review Path
+
+Use `{protocol_name}` for live visual review unless your local Capture setup is
+configured for a different DMX input protocol.
+
+RayFlow can render cue DMX frames directly. The next review loop should connect
+RayFlow's DMX output to Capture, then watch Capture while cues are triggered in
+song time.
+
+## Current Boundary
+
+This bundle imports the rig and cue review context. It does not create a native
+Capture project file and does not yet automate Capture fixture matching or
+camera setup.
+"""
+
+
+def _capture_cue_sheet(show) -> str:
+    lines = [
+        f"# Cue Sheet: {show.name}",
+        "",
+        f"Song: {show.song.artist} - {show.song.title}",
+        f"Duration: {show.song.duration:g}s",
+        "",
+        "| Cue | Time | Section | Label | Preset |",
+        "|-----|------|---------|-------|--------|",
+    ]
+    for cue in sorted(show.cues, key=lambda item: item.timestamp):
+        preset = cue.preset or ""
+        lines.append(
+            f"| {cue.number:g} | {cue.timestamp:g}s | {cue.section} | "
+            f"{cue.label} | {preset} |"
+        )
+    lines.append("")
+    return "\n".join(lines)

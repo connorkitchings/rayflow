@@ -57,8 +57,8 @@ rayflow bridge send [OPTIONS]
 | `rig add-preset` | Add a preset to a rig |
 | `rig plan-build` | Plan or apply a generated rig from a freeform description |
 | `rig export-mvr` | Export a rig as an MVR file |
-| `rig export-qxw` | Export a rig as a QLC+ workspace |
-| `rig export-qxf` | Export QLC+ fixture definition files for a rig |
+| `rig export-qxw` | Legacy compatibility: export a rig as a QLC+ workspace |
+| `rig export-qxf` | Legacy compatibility: export QLC+ fixture definition files for a rig |
 
 ## show — Show Definition Management
 
@@ -115,13 +115,11 @@ rayflow bridge send [OPTIONS]
 | `show render-cue` | Dry-run render one cue to fixture-aware DMX frames |
 | `show output-cue` | Dry-run or apply one rendered cue through a backend |
 | `show output-section` | Dry-run or apply all rendered cues in a section |
-| `show qlc-function` | List, query, or trigger QLC+ functions/scenes |
 | `show plan-cues` | Plan or apply renderer-safe cues (proposal by default) |
 | `show plan-palettes` | Plan or apply generated show-specific palette overrides |
 | `show plan-practice-cues` | Plan or apply deterministic practice cues |
 | `show preview` | Build a dry-run preview packet for critique |
 | `show refine-cues` | Propose or apply targeted cue edits from critique |
-| `show validate-qxw` | Validate generated QLC+ Scene/Button workspace structure, optionally with live WebSocket function and trigger evidence |
 | `show workflow-report` | Build a dry-run practice workflow report |
 
 ### Export and Compatibility
@@ -129,18 +127,20 @@ rayflow bridge send [OPTIONS]
 | Command | Description |
 |---------|-------------|
 | `show export` | Export a dry-run-safe MA3 bundle |
+| `show export-capture` | Export the current Capture visual-review handoff bundle with MVR, cue sheet, README, and metadata |
+| `show export-capture-probe` | Export a one-fixture Capture MVR probe for import testing |
 | `show export-mvr` | Export a show's rig as MVR |
-| `show export-qxw` | Export QLC+ workspace with cue Scene functions |
+| `show export-qxw` | Legacy compatibility: export QLC+ workspace with cue Scene functions |
 | `show export-timecode` | Export MA3 Timecode XML |
 | `show push-to-ma3` | Push all show cues to MA3 via OSC |
 | `show push-section` | Push cues for one section to MA3 via OSC |
 
-### Experimental
+### Legacy Compatibility
 
 | Command | Description |
 |---------|-------------|
-| `show qlc-function` | QLC+ WebSocket function/scene query and gated trigger |
-| `show validate-qxw` | Static or live QLC+ QXW import-readiness report |
+| `show qlc-function` | QLC+ WebSocket function/scene query and gated trigger; not part of the current product-loop visual path |
+| `show validate-qxw` | Static or live QLC+ QXW import-readiness report; retained for adapter evidence only |
 
 ## console — grandMA3 onPC Control
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-06-09",
+  "updated_at": "2026-06-19",
   "canonical": true,
   "features": [
     {
@@ -310,15 +310,22 @@
       "verification": {
         "session_logs": [
           "session_logs/06-06-2026/3 - Capture Compatible MVR Spike.md",
-          "session_logs/06-06-2026/4 - Capture Library Mapping Proof.md"
+          "session_logs/06-06-2026/4 - Capture Library Mapping Proof.md",
+          "session_logs/06-19-2026/1 - Visual Proof First Sprint.md"
         ],
-        "artifacts": ["exports/capture/probes/one_fixture.mvr"]
+        "artifacts": [
+          "exports/capture/probes/one_fixture.mvr",
+          "exports/capture/proofs/rayflow-visual-proof.c2s"
+        ],
+        "notes": [
+          "Manual Capture-library fixture placement proved the Art-Net visual-output path, but did not make the MVR probe create a project fixture row."
+        ]
       },
       "source_refs": [
         "session_logs/06-06-2026/3 - Capture Compatible MVR Spike.md",
         "session_logs/06-06-2026/4 - Capture Library Mapping Proof.md"
       ],
-      "updated_at": "2026-06-09"
+      "updated_at": "2026-06-19"
     },
     {
       "id": "recording-export-workflow",
@@ -326,23 +333,30 @@
       "category": "capture",
       "status": "in_progress",
       "priority": 2,
-      "summary": "Make the final record-the-show path repeatable through Capture once fixture import and visual response are proven.",
+      "summary": "A manually placed Capture fixture now responds to RayFlow Art-Net output; timed playout and recording evidence remain.",
       "acceptance": [
         "Capture handoff bundle is exported",
         "Imported Capture rig responds visibly to RayFlow Art-Net or sACN output",
         "A recording artifact and report link back to show/export inputs"
       ],
       "owner_agent": "VisualizerDev",
-      "dependencies": ["capture-mvr-fixture-placement-proof"],
+      "dependencies": ["capture-integration-research"],
       "verification": {
         "session_logs": [
           "session_logs/06-06-2026/1 - Capture Import And DMX Proof.md",
-          "session_logs/06-06-2026/2 - Desktop Capture Visual Proof.md"
+          "session_logs/06-06-2026/2 - Desktop Capture Visual Proof.md",
+          "session_logs/06-19-2026/1 - Visual Proof First Sprint.md"
         ],
-        "artifacts": ["exports/capture/"]
+        "artifacts": [
+          "exports/capture/proofs/rayflow-visual-proof.c2s",
+          "exports/visualizations/capture-proof/rayflow-artnet-universe-0-channel-1-100pct.png"
+        ],
+        "notes": [
+          "Capture universe 1, channel 1 visibly reached 100% from RayFlow Art-Net universe 0, channel 1."
+        ]
       },
       "source_refs": ["docs/implementation_schedule.md", "docs/guides/capture-workflow.md"],
-      "updated_at": "2026-06-09"
+      "updated_at": "2026-06-19"
     },
     {
       "id": "first-real-song-pilot",
@@ -350,7 +364,7 @@
       "category": "product-loop",
       "status": "in_progress",
       "priority": 3,
-      "summary": "The Climb to Safety pilot has a rig, show, exports, and refinements; the next product proof is Capture import plus DMX-driven visual review.",
+      "summary": "The Climb to Safety pilot has a rig, show, exports, refinements, and a proven manual-fixture Art-Net path; timed Capture review and recording remain.",
       "acceptance": [
         "The studio version show can be visually reviewed in Capture",
         "Feedback can be applied through cue refinement or targeted edits",
@@ -363,7 +377,7 @@
         "artifacts": ["data/shows/Climb to Safety Studio.yaml"]
       },
       "source_refs": ["docs/implementation_schedule.md", "data/shows/Climb to Safety Studio.yaml"],
-      "updated_at": "2026-06-09"
+      "updated_at": "2026-06-19"
     },
     {
       "id": "harness-json-progress-tracker",
