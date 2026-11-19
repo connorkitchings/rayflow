@@ -20,7 +20,7 @@ This folder contains all evidence from RayFlow's live grandMA3 onPC control prob
 | `ma3_dimmer_proof_probe_result.json` | Evidence JSON | Fail | Export did not write after show isolation issues; Sequence 1 not found |
 | `ma3_fixture_import_probe_result.json` | Evidence JSON | Pass (MVR gen) | MVR generation with MA3-compatible XML shape works; live import inconclusive |
 | `ma3_show_isolation_probe_result.json` | Evidence JSON | Pass (assumed) | User-confirmed disposable show; `SaveShow` executed but file mtime unchanged |
-| `ma3_lua_patch_3d_spike_2_5_1.md` | Spike plan | Written, awaiting onPC run | Lua plugin patches 2 fixtures, sets positions/rotation, lights dimmer, reads back state |
+| `ma3_lua_patch_3d_spike_2_5_1.md` | Spike plan + results | Run 2026-11-19, partial | Library imports, modes and mover patch work; wash patch, rotation and readback failed (`Stages` path nil); 3D beams, axes and rotation names unverified. Evidence: `ma3_patch_3d_spike_*` |
 | `ma3_sound_timecode_2_5_1.md` | Research | Unverified on onPC | Sound pool files can be added as a Sound track on a timecode show per the MA help pages; macOS playback not tested |
 
 ## Evidence Chain

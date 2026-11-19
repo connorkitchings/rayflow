@@ -1,7 +1,7 @@
 # MA3 Lua Patch and 3D Position Spike
 
 **Target:** grandMA3 onPC 2.5.1
-**Status:** written, not yet run
+**Status:** run 2026-11-19, partial: imports and mover patch worked; wash patch, rotation and readback failed
 **Plugin:** `ma3/plugins/spike_patch_3d/` (see its `README.md` for install and run steps)
 
 ## Questions this spike answers
@@ -71,20 +71,42 @@ Written to `gma3_library/`: `spike_patch_3d_log.txt`, `spike_patch_3d_readback.j
 
 ## Results
 
-Fill in after the run.
+Run 2026-11-19 in a new scratch show on grandMA3 onPC 2.5.1.1 (build `6dd1a8dc`, compiled 2026-10-06), macOS. The plugin ended with `done. errors=2`. Evidence: `ma3_patch_3d_spike_log.txt`, `ma3_patch_3d_spike_result.json`, `ma3_patch_3d_spike_exportjson_result.json` (copies of the three output files).
 
-- Run date / onPC build:
-- Exact library names that worked (mover):
-- Exact library names that worked (wash):
-- Resulting show fixture type names:
-- Mover modes and channel counts:
-- Wash modes and channel counts:
-- Mode chosen for each:
-- Index 1 pre-existed in `Stages.1.Fixtures`? (`stageFixtureCount`):
-- Fixture rows read back (name, FID, type, mode, patch, PosX/Y/Z):
-- Rotation property names:
-- Axis directions in onPC 3D (+X, +Y, +Z):
-- Hand-built JSON parses?:
-- `ExportJson` output valid JSON?:
-- Errors in log:
-- Follow-ups:
+"Verified" means backed by a line in the log or readback file. "Unverified" means not observed.
+
+| Question | Answer | Status |
+|---|---|---|
+| Plugin import into the Plugins pool | Imported `spike_patch_3d.xml` from the `spike_patch_3d/` subfolder of the library via the Edit dialog's Import button in the Plugins pool. The result was plugin `Spike Patch 3D` with component file `spike_patch_3d.lua` (16kB, Source: Showfile). The import browser first listed only MA's sample plugins, so how the file was located is not recorded | Verified (observed on screen) |
+| Mover library name and type | `import lib 'Moving Head'` returned OK; new type `Moving Head` (first candidate name worked) | Verified (log) |
+| Wash library name and type | `import lib 'LED - IRGBW'` returned OK; new type `LED - IRGBW` (first candidate name worked) | Verified (log) |
+| Modes and channel counts | `Moving Head`: `Default`, 9 channels. `LED - IRGBW`: `16 bit` (5 ch) and `8 bit` (5 ch). Chosen: mover `Default`, wash `16 bit` | Verified (readback) |
+| `store 2 thru 3` | Returned OK, but afterwards only slot 2 accepted commands. See the wash failure below | Verified (log) |
+| Mover patch and position | At slot 2: `Assign FixtureType`, `Set Property 'FID' 1`, `PosX -3`, `PosY 2`, `PosZ 6`, `Set property 'Mode'` and `Set 'Patch' 1.1` all returned OK | Command acceptance verified. Stored values not read back (see readback failure) |
+| Wash patch and position | Every `Set` at slot 3 returned `Illegal object`: FID 101, PosX/Y/Z, Mode, Patch 1.101. `Assign FixtureType ... at 3` returned OK | Verified (log). Cause unknown |
+| Index 1 pre-exists in `Stages.1.Fixtures` | Unknown. `cd 'Stages'`, `cd 1`, `cd 'Fixtures'` all returned OK, but the readback that counts fixtures crashed | Unverified |
+| Rotation property names and effect | Rotation step crashed before it ran | Unverified |
+| Axis directions in 3D (+X, +Y, +Z) | Not observed | Unverified |
+| Beams in 3D | No fixture or beam visible in the 3D Viewer (Display 2) with the Front and Auto cameras; only an empty grey room. Intensity was never set: `Fixture 1 + 101 At 100` returned `Object not found`. The Top camera was not checked | Unverified. This run does not show whether 3D beams render |
+| Hand-built readback JSON parses | Yes, `ma3_patch_3d_spike_result.json` parses with Python `json`, but it contains no data beyond imports, modes, build and the errors, with `"fixtures": []` | Verified |
+| `ExportJson` output valid JSON | No. It returned `true`, but the file is unquoted-key, tab-indented JS-object style and fails `json.load`. Treat it as non-JSON and use the hand-built writer | Verified |
+| Build info | `BigVersion` 2.5.1.1, `HostType` onPC, `CodeType` Release | Verified (readback) |
+
+### Errors in the log
+
+1. `Set 3 ...` x6 returned `Illegal object` (all commands on the wash at slot 3).
+2. `ERROR in rotation` and `ERROR in readback`, both at `spike_patch_3d.lua:151`: `attempt to index a nil value (field 'Stages')`. Line 151 is `Root().ShowData.Patch.Stages[1].Fixtures` in `stageFixtures()`. The command-line `cd 'Stages'` worked, so the Lua object path to `Stages` differs from the dot-index used.
+3. `Fixture 1 + 101 At 100` returned `Object not found`. This is expected because the wash never got FID 101, but it also means the mover was not given intensity.
+
+### Findings
+
+- Library imports work and the names `Moving Head` and `LED - IRGBW` are correct for 2.5.1.1, as are the modes above.
+- The Lua path `Root().ShowData.Patch.Stages` is `nil` in this build. The `stageFixtures()` helper needs a different lookup. Not yet determined which.
+- `store 2 thru 3` reporting OK is not proof that both fixtures exist. Slot 3 was an illegal object for `Set`.
+- The plugin has no step that verifies the stage fixtures after `store`, so a bad run looks successful until the readback.
+
+### Follow-ups (separate scoped change, not in this pass)
+
+1. Find the correct Lua path to the stage fixtures, for example by dumping `Root().ShowData.Patch` children in a small probe or using `Patch.Stages` via `Children()`.
+2. Re-check whether `store 2 thru 3` creates both slots, or whether the wash needs its own `store 3` or a different index.
+3. After the readback works, re-run to capture rotation property names, then check axis directions and beam rendering in 3D. Include the Top camera and set intensity on the mover only if the wash patch stays broken.

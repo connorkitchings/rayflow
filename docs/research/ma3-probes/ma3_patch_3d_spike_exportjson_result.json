@@ -1,0 +1,67 @@
+
+{
+	modes:{
+		Moving Head:[
+			{
+				channelCount:9
+				name:"Default"
+			}]
+		LED - IRGBW:[
+			{
+				channelCount:5
+				name:"16 bit"
+			},
+			{
+				channelCount:5
+				name:"8 bit"
+			}]
+	}
+	outputPaths:{
+		json:"/Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_readback.json"
+		log:"/Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_log.txt"
+		exportjs:"/Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_readback_exportjson.json"
+	}
+	plugin:"spike_patch_3d"
+	imports:{
+		mover:{
+			attempts:[
+				{
+					cmdResult:"OK"
+					newTypeName:"Moving Head"
+					libName:"Moving Head"
+				}]
+			libName:"Moving Head"
+			typeName:"Moving Head"
+		}
+		wash:{
+			attempts:[
+				{
+					cmdResult:"OK"
+					newTypeName:"LED - IRGBW"
+					libName:"LED - IRGBW"
+				}]
+			libName:"LED - IRGBW"
+			typeName:"LED - IRGBW"
+		}
+	}
+	ma3_target_version:"2.5.1"
+	errors:["ERROR in rotation: [string "Spike Patch 3D@spike_patch_3d.lua"]:151: attempt to index a nil value (field 'Stages')","ERROR in readback: [string "Spike Patch 3D@spike_patch_3d.lua"]:151: attempt to index a nil value (field 'Stages')"]
+	assumptions:["Stages.1.Fixtures index 1 pre-exists; fixtures stored from index 2 as in ShowPatch.lua"]
+	fixtures:[]
+	chosenModes:{
+		mover:"Default"
+		wash:"16 bit"
+	}
+	build:{
+		GitDate:"2026-10-06 09:55:15 +0200"
+		CompileDate:"Oct  6 2026"
+		CodeType:"Release"
+		CompileTime:"17:37:07"
+		SmallVersion:"2.5.0.0"
+		IsRelease:true
+		BigVersion:"2.5.1.1"
+		GitHash:"6dd1a8dc4455bd75374a94ad6a6625dd3c99b392"
+		HostType:"onPC"
+		HostSubType:"Undefined"
+	}
+}

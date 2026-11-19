@@ -1,0 +1,40 @@
+spike_patch_3d starting
+Cmd: cd Root  ->  OK
+Cmd: cd 'ShowData'.'Patch'  ->  OK
+Cmd: set 'FixtureTypes' 'Source'='library'  ->  OK
+Cmd: cd 'FixtureTypes'  ->  OK
+Cmd: import lib 'Moving Head'  ->  OK
+Import attempt [mover] lib 'Moving Head': cmd=OK newType=Moving Head
+Cmd: import lib 'LED - IRGBW'  ->  OK
+Import attempt [wash] lib 'LED - IRGBW': cmd=OK newType=LED - IRGBW
+Cmd: cd ..  ->  OK
+  type 'Moving Head' mode 'Default' channels=9
+  type 'LED - IRGBW' mode '16 bit' channels=5
+  type 'LED - IRGBW' mode '8 bit' channels=5
+Cmd: cd Root  ->  OK
+Cmd: cd 'ShowData'.'Patch'  ->  OK
+Cmd: cd 'Stages'  ->  OK
+Cmd: cd 1  ->  OK
+Cmd: cd 'Fixtures'  ->  OK
+Cmd: store 2 thru 3  ->  OK
+Cmd: Assign FixtureType 'Moving Head' at 2  ->  OK
+Cmd: Set 2 Property 'FID' 1  ->  OK
+Cmd: Set 2 'PosX' -3  ->  OK
+Cmd: Set 2 'PosY' 2  ->  OK
+Cmd: Set 2 'PosZ' 6  ->  OK
+Cmd: Set 2 property 'Mode' '#2000013FD'  ->  OK
+Cmd: Set 2 'Patch' 1.1  ->  OK
+Cmd: Assign FixtureType 'LED - IRGBW' at 3  ->  OK
+Cmd: Set 3 Property 'FID' 101  ->  Illegal object
+Cmd: Set 3 'PosX' 3  ->  Illegal object
+Cmd: Set 3 'PosY' -2  ->  Illegal object
+Cmd: Set 3 'PosZ' 6  ->  Illegal object
+Cmd: Set 3 property 'Mode' '#20000147B'  ->  Illegal object
+Cmd: Set 3 'Patch' 1.101  ->  Illegal object
+Cmd: cd Root  ->  OK
+ERROR in rotation: [string "Spike Patch 3D@spike_patch_3d.lua"]:151: attempt to index a nil value (field 'Stages')
+ERROR in readback: [string "Spike Patch 3D@spike_patch_3d.lua"]:151: attempt to index a nil value (field 'Stages')
+Cmd: Fixture 1 + 101 At 100  ->  Object not found
+Readback JSON (hand-built): /Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_readback.json
+ExportJson(/Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_readback_exportjson.json) returned true
+Log file: /Users/connorkitchings/MALightingTechnology/gma3_library/spike_patch_3d_log.txt
