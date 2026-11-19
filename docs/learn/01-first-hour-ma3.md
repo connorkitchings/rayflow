@@ -29,10 +29,8 @@ Fixture choice, modes, FIDs and addresses are in `starter-rig.md`. Use that tabl
 
 1. Press the **3D** key, or use **Menu** then add a **3D** window to a view.
 2. Fixtures appear at the origin of the stage, probably stacked. That is expected until you position them.
-3. Position each fixture: in Patch, open the fixture row's position settings (X, Y, Z in meters and rotation), or use the **Show 3D Positions** mini viewer in the Patch menu. Suggested layout:
-   - Movers on a back truss: Y = -3, Z = 5, X = -3, -1, 1, 3
-   - Washes on a front truss: Y = 3, Z = 5, X spread from -4 to 4
-   - Aim downward: rotate fixtures so they face the stage.
+3. Position each fixture: in Patch, open the fixture row's position settings (X, Y, Z in meters and rotation), or use the **Show 3D Positions** mini viewer in the Patch menu. Use the positions in the stage layout table in [`starter-rig.md`](starter-rig.md#stage-layout).
+   - Aim downward: rotate fixtures so they face the stage. The table gives positions only.
 4. If you see no beams later, check the 3D window settings for beam rendering and haze, and make sure the fixtures have intensity.
 
 ## 3. Select and set values

@@ -14,3 +14,7 @@ A continuous digital clock signal transmitted via MIDI Timecode (MTC) or SMPTE a
 3. **Timecode Mapping:** Each cue is assigned an absolute, frame-accurate timecode trigger instead of relying on a physical "GO" button.
 4. **Synchronized Playback:** As the master audio/video timeline plays, it broadcasts timecode. The console listens; when incoming clock matches a cue's trigger, the cue executes.
 5. **Redundancy Protocols:** Manual fallback options are configured. If timecode stream drops, the console transitions to manual tracking so the operator can execute cues on the beats without dropping output.
+
+## See also
+
+- [MA3 sound and timecode playback (2.5.1)](../ma3-probes/ma3_sound_timecode_2_5_1.md): what the MA help pages say about playing a sound file from a timecode show. Unverified on onPC.

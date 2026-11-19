@@ -1,11 +1,11 @@
 # MA3 Probe Evidence Index
 
-**grandMA3 onPC version:** 2.3.2.0  
+**grandMA3 onPC versions:** 2.3.2.0 and 2.5.1  
 **OSC endpoint:** `127.0.0.1:8000`
 
 ## Overview
 
-This folder contains all evidence from RayFlow's live grandMA3 onPC control probes. Each probe tests a specific capability boundary between RayFlow and MA3. The control matrix (`ma3_control_matrix_2_3_2.md`) synthesizes all findings into a capability status table.
+This folder contains all evidence from RayFlow's live grandMA3 onPC control probes. Each probe tests a specific capability boundary between RayFlow and MA3. Files suffixed `_2_3_2` record runs on onPC 2.3.2.0. Files suffixed `_2_5_1` are for onPC 2.5.1 and are written but not yet run. The control matrix (`ma3_control_matrix_2_3_2.md`) synthesizes the 2.3.2.0 findings into a capability status table.
 
 ## Probe Status Summary
 
@@ -20,6 +20,8 @@ This folder contains all evidence from RayFlow's live grandMA3 onPC control prob
 | `ma3_dimmer_proof_probe_result.json` | Evidence JSON | Fail | Export did not write after show isolation issues; Sequence 1 not found |
 | `ma3_fixture_import_probe_result.json` | Evidence JSON | Pass (MVR gen) | MVR generation with MA3-compatible XML shape works; live import inconclusive |
 | `ma3_show_isolation_probe_result.json` | Evidence JSON | Pass (assumed) | User-confirmed disposable show; `SaveShow` executed but file mtime unchanged |
+| `ma3_lua_patch_3d_spike_2_5_1.md` | Spike plan | Written, awaiting onPC run | Lua plugin patches 2 fixtures, sets positions/rotation, lights dimmer, reads back state |
+| `ma3_sound_timecode_2_5_1.md` | Research | Unverified on onPC | Sound pool files can be added as a Sound track on a timecode show per the MA help pages; macOS playback not tested |
 
 ## Evidence Chain
 
@@ -48,15 +50,3 @@ This folder contains all evidence from RayFlow's live grandMA3 onPC control prob
    └── Playback advances cursor; cue-fire needs visual confirmation
 ```
 
-## Gated Capabilities
-
-The following capabilities are **not yet safe to automate** and require additional evidence before MCP exposure:
-
-- `create_color_preset` — needs MA3-native color value syntax proof
-- `create_position_preset` — needs pan/tilt fixture patch proof
-- `program_basic_look` — needs fixture-aware preset content proof
-- `verify_current_cue` — needs reliable runtime readback method
-
-## Direction
-
-As of 2026-05-23, MA3 control research is scoped to the **MA3 compatibility track**. It should not block Phase 8 backend-neutral work on DMX rendering, Art-Net/sACN output, or QLC+ WebSocket control. See `docs/research/agentic_show_control_architectures/04-rayflow-direction-review.md`.

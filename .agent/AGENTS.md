@@ -31,9 +31,11 @@ Read `.agent/CONTEXT.md` first. Skills index: `.agent/skills/CATALOG.md`.
 ## 4. Current phase and gate
 
 - Phase 0 (restart around onPC and the 3D viewer): done.
-- Phase 1a (pre-work, agent-side): sourced LD research, style guide, learn index + starter rig + glossary, skills.
+- Phase 1a (pre-work, agent-side, done): sourced LD research, style guide, learn index + starter rig + glossary, skills.
 - Phase 1b (hands-on, user): modules 1-7 in onPC 2.5.
 - **1a end condition:** six profiles sourced, `docs/design/style-guide.md` exists, `docs/learn/README.md` + `starter-rig.md` + `glossary.md` exist, skills in place. Then the next session starts Module 1 in onPC.
+- The patch+3D spike (phase 2a) runs in onPC alongside Module 1, by the user's choice.
+- Phase 2 spikes: (a) patch+3D, (b) groups/presets/cues plus one slow position phaser, (c) sound + timecode playback.
 - No generator is built for a step that has not passed its spike.
 
 ## 5. Tooling

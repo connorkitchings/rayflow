@@ -2,9 +2,9 @@
 
 **Goal:** AI-assisted lit version of a song in grandMA3 onPC, viewed in its built-in 3D viewer. Beginner user; AI generates, explains, user tweaks.
 
-**State:** Restart after v1 (archived at tag `archive/rayflow-v1`). Phase 0 done. Phase 1a (pre-work: sourced LD research, style guide, learn index/starter rig/glossary, skills) is in progress. Phase 1b (hands-on modules 1-7 in onPC 2.5, starting with `docs/learn/01-first-hour-ma3.md`, confirming 3D beams render) follows and gates everything. Rig-as-code work (branch `connor/rig-as-code`): the patch+3D Lua spike is written but not yet run in onPC; `rigs/starter/rig.yaml` and the generator wait on its result.
+**State:** Restart after v1 (archived at tag `archive/rayflow-v1`). Phase 0 done. Phase 1a (pre-work: sourced LD research, style guide, learn index/starter rig/glossary, skills) is done. Phase 1b (hands-on modules 1-7 in onPC 2.5, starting with `docs/learn/01-first-hour-ma3.md`, confirming 3D beams render) follows and gates everything. Rig-as-code work (branch `connor/rig-as-code`): the patch+3D Lua spike is written but not yet run in onPC, and runs alongside Module 1 by the user's choice; `rigs/starter/rig.yaml` and the generator wait on its result.
 
-**Phases:** 1a pre-work → 1b hands-on learn → 2 Lua spikes (patch+3D, groups/presets, cues, song sync) → 3 minimal generator (`rig.yaml`, `song.yaml`, `design.yaml` → Jinja templates → Lua plugin + timecode XML).
+**Phases:** 1a pre-work (done) → 1b hands-on learn → 2 Lua spikes: (a) patch+3D, (b) groups/presets/cues plus one slow position phaser, (c) sound + timecode playback → 3 minimal generator (`rig.yaml`, `song.yaml`, `design.yaml` → Jinja templates → Lua plugin + timecode XML).
 
 **Rules for agents**
 - Do not build a generator for a step that has not passed its spike. Record each spike result with the plugin source in `docs/research/ma3-probes/`.
