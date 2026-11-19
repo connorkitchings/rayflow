@@ -2,7 +2,8 @@
 
 **Band:** Umphrey's McGee
 **Year:** 2022 (Reykjavik, Iceland destination shows)
-**LD:** Jefferson Waful
+**LD:** Jefferson Waful (as originally written; see the era note below)
+**Era:** Ben Factor era. Ben Factor followed Waful as Umphrey's McGee's LD from 2019 (`docs/research/concert-lds/07-ben-factor.md`, unverified), so a 2022 show is not a Waful rig.
 **Console:** grandMA2 or grandMA3
 
 ## Era Context

@@ -25,8 +25,6 @@ Profiles 01 to 06 are the core set. Each follows one template: numbered Sources 
 - To add an LD, follow the `ld-research` skill in `.agent/skills/`.
 - Sourcing was limited: Live Design pages returned HTTP 403, and no podcast or video transcripts were retrieved. Claims that could not be checked are listed in each profile's "Unverified or removed" section.
 
-## Follow-ups from the rewrite
+## Umphrey's McGee note
 
-- `../rig-breakdowns/03-um-early-waful-2009-2014.md` says Waful joined in 2009; sources say 2008.
-- `../rig-breakdowns/02-um-iceland-2022.md` describes a 2022 show, but sources say Waful left Umphrey's McGee in 2019. Needs review.
-- `../rig-breakdowns/06-billy-strings-2025-2026.md` lists the console as "grandMA3 (likely)"; no source confirms it.
+Ben Factor followed Jefferson Waful as Umphrey's McGee's lighting designer from 2019 (`07-ben-factor.md`, still unverified). Rig breakdowns for UM after 2019 are Ben Factor era, not Waful.

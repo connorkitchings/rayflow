@@ -17,6 +17,7 @@ Read `.agent/CONTEXT.md` first. Skills index: `.agent/skills/CATALOG.md`.
 | What lighting designers do | Sourced profiles `docs/research/concert-lds/01..06-*.md` |
 | How a look should be styled | `docs/design/style-guide.md` |
 | The rig (4 movers + 8 washes) | `docs/learn/starter-rig.md` |
+| Fixture families, LD fixture census, graduate-to fixtures | `docs/learn/fixtures-guide.md` |
 | Console and lighting terms | `docs/learn/glossary.md` |
 | Learning path | `docs/learn/README.md` |
 

@@ -31,6 +31,7 @@ Reading paths are under `docs/research/`. LD profiles are under `docs/research/c
 ### Module 2: Fixtures and attributes
 
 - Concept: every fixture is a set of attributes (dimmer, pan, tilt, color, zoom) that become DMX channels. Knowing what a fixture type can do tells you what a look can be.
+- Fixtures guide: [`fixtures-guide.md`](fixtures-guide.md) (fixture families, what the LDs hung, and the real fixtures to graduate to)
 - Reading: [`protocols-and-systems/02-fixture-types-and-capabilities.md`](../research/protocols-and-systems/02-fixture-types-and-capabilities.md), [`design-concepts/23-reading-a-rig.md`](../research/design-concepts/23-reading-a-rig.md)
 - 15-minute exercise:
   1. Select one mover and open each encoder bar layer in turn.
