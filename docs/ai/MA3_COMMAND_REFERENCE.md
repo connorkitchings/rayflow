@@ -1,5 +1,7 @@
 # grandMA3 2.3 — Complete Command Reference
 
+> **Version note:** content was verified on grandMA3 onPC 2.3.2 and is pending a 2.5 recheck. Confirm against the 2.5 manual or a probe in `docs/research/ma3-probes/` before relying on it.
+
 > **FOR AI AGENTS.** This is the exhaustive MA3 command-line syntax reference. Sourced from the grandMA3 2.3 online manual and verified against 2.3.2.0.
 >
 > **Conventions:**

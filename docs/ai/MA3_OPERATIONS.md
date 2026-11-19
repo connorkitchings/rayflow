@@ -1,6 +1,8 @@
 # grandMA3 2.3 Operations Reference
 
-> **FOR AI AGENTS.** Every MA3 operation documented with three approaches: GUI menu path, command-line syntax, and RayFlow/OSC equivalent. Sourced from the grandMA3 2.3 online manual, verified against 2.3.2.0.
+> **Version note:** content was verified on grandMA3 onPC 2.3.2 and is pending a 2.5 recheck. Menu paths and syntax may differ on 2.5; confirm against the 2.5 manual or a probe in `docs/research/ma3-probes/` before relying on them.
+
+> **FOR AI AGENTS.** Every MA3 operation documented with GUI menu path and command-line syntax. Sourced from the grandMA3 2.3 online manual, verified against 2.3.2.0.
 
 ---
 
@@ -9,19 +11,16 @@
 ### New Show
 **GUI:** Launch MA3 → Select "New Show" when prompted → Name show → OK
 **CLI:** `NewShow`
-**OSC:** `client.send("NewShow")`
 **Verify:** Console initializes with blank show. Patch menu shows no fixtures.
 
 ### Open Existing Show
 **GUI:** Launch MA3 → Select show file from list → Open
 **CLI:** `LoadShow "Path/ShowName.show"`
-**OSC:** Not available (requires file selection dialog)
 **Verify:** Fixtures, cues, and settings from the show file appear.
 
 ### Save Show
 **GUI:** Menu → Save Show (or `Ctrl+S` / `Cmd+S`)
 **CLI:** `SaveShow`
-**OSC:** `client.send("SaveShow")`
 **Verify:** No confirmation dialog; show file timestamp updates.
 
 ### Save Show As
@@ -41,7 +40,6 @@
 ### Open Patch Menu
 **GUI:** `Menu` → `[Tap] Patch`
 **CLI:** `Menu 'Patch'.'Edit'`
-**OSC:** `client.send("Menu 'Patch'.'Edit'")`
 **Verify:** Patch & Fixture Schedule window opens showing fixture rows.
 
 ### Add Fixture to Show (First Fixtures — Wizard)
@@ -68,7 +66,6 @@
 7. Tap **Create !**
 
 **CLI:** `Fixture 4 "LED PAR" At Address 1` — Patches 4 LED PARs starting at address 1
-**OSC:** `client.send('Fixture 4 "LED PAR" At Address 1')`
 **Verify:** Fixtures appear in Patch Menu rows. Check visualizer: fixtures appear in 3D stage.
 
 ### Assign DMX Address to Existing Fixture
@@ -81,7 +78,6 @@
 6. **AddressMode**: `Univ.addr` (universe.address) or `Absolute` (continuous numbering)
 
 **CLI:** `Patch Fixture 2 3.123` — Patch fixture 2 to universe 3, address 123
-**OSC:** `client.send("Patch Fixture 2 3.123")`
 **Verify:** Patch column updates. Visualizer: fixture responds at new address.
 
 ### Open Edit Patch for Range
@@ -93,7 +89,6 @@
 **GUI:** Patch Menu → Select fixture rows → Tap **Delete** → Save and Exit
 **WARNING:** Deletes ALL programmed data for those fixtures. Cannot undo with Oops.
 **CLI:** `Delete Fixture 2` (from patch context or main command line)
-**OSC:** `client.send("Delete Fixture 2")`
 **Verify:** Fixture rows disappear from Patch Menu and visualizer.
 
 ### Unpatch (Remove DMX Address, Keep Fixture)
@@ -114,7 +109,6 @@
 **From GDTF Share:** Requires World Server connection → Enable Share toggle (![Share]) → Browse library → Import
 
 **CLI:** `Import Library "FixtureTypeName"` (from FixtureTypes destination context)
-**OSC:** Not directly available (requires UI interaction)
 **Verify:** Fixture type appears in Fixture Types list. Available for patching.
 
 ### Select Fixtures by Type / DMX Address / Channel
@@ -169,13 +163,11 @@ Patch Fixture 2 Multipatch 3 42.6            — Patch multipatch 3 of fixture 2
 3. Tap empty Group Pool object, OR press `Group` key + enter group number + `Please`
 
 **CLI:** `Store Group 1` — Store current selection as Group 1
-**OSC:** `client.send("Store Group 1")`
 **Verify:** Group pool object appears with selection count. Tap it → fixtures highlight.
 
 ### Select Group
 **GUI:** Tap group in Group Pool
 **CLI:** `Group 1`
-**OSC:** `client.send("Group 1")`
 **Verify:** Fixtures in group highlight yellow.
 
 ### Create Preset
@@ -185,19 +177,16 @@ Patch Fixture 2 Multipatch 3 42.6            — Patch multipatch 3 of fixture 2
 3. Tap empty Preset Pool object in the appropriate feature group pool (e.g., Color Pool)
 
 **CLI:** `Store Preset 4.1` — Store as color preset 4.1
-**OSC:** `client.send("Store Preset 4.1")`
 **Verify:** Preset pool object appears. Tap it → fixtures take preset values.
 
 ### Apply Preset
 **GUI:** Select fixtures → tap preset in pool
 **CLI:** `At Preset 4.1` — Apply color preset 4.1 to selected fixtures
-**OSC:** `client.send("At Preset 4.1")`
 **Verify:** Selected fixtures take preset values.
 
 ### Update Preset
 **GUI:** Modify fixture values → tap preset icon → Update option
 **CLI:** `PresetUpdate 4.1` — Update preset with current values
-**OSC:** `client.send("PresetUpdate 4.1")`
 **Verify:** Preset reflects new values.
 
 ### Delete / Name Preset
@@ -278,13 +267,11 @@ At 3 0 Please                                — 30% (two digits)
 ### Set Color
 **GUI:** Encoder bar → Color layer → adjust RGB/CMY/RGBW encoders, OR tap color in Color Picker
 **CLI:** Fixture selected → encoder bar Color layer OR Apply color preset: `At Preset 4.1`
-**OSC:** `client.send("At Preset 4.1")`
 **Verify:** Visualizer shows color change.
 
 ### Set Position (Pan/Tilt)
 **GUI:** Encoder bar → Position layer → dual encoders for pan and tilt
 **CLI:** Adjust via encoders after selecting Position feature group, or apply position preset: `At Preset 2.3`
-**OSC:** `client.send("At Preset 2.3")`
 **Verify:** Visualizer shows fixture beam movement.
 
 ### Set Gobo / Beam
@@ -321,7 +308,6 @@ Store Cue 1 /Remove                         — Remove values from cue 1
 Store Cue Next                              — Store to next existing cue
 ```
 
-**OSC:** `client.send("Store Cue 1")` or `client.store_cue(1)`
 **Verify:** Cue appears in Sequence Sheet. `Go+` plays it back. Visualizer shows the look.
 
 ### Store Options Pop-up Context
@@ -392,7 +378,6 @@ Unblock Sequence 2                          — Remove redundant blocks
 ### Open Sequence Sheet
 **GUI:** Tap sequence in Sequence Pool, OR `Select Sequence [n]`
 **CLI:** `Select Sequence 1`
-**OSC:** `client.send("Select Sequence 1")`
 **Verify:** Sequence Sheet opens showing cue list.
 
 ### Assign Sequence to Executor
@@ -789,12 +774,8 @@ Rate 1                                       — Reset rate
 
 **Event Columns:** Time, AbsTime, Token (Go+, Pause, Flash, etc.), Cue Destination, Fade Override, Execute Command
 
-**RayFlow Timecode XML:**
-```bash
-rayflow show export-timecode "<show>" --output /tmp/timecode.xml --sequence 1
-```
-
-RayFlow's generated Timecode XML is based on local grandMA3 onPC 2.3.2.0
+**Timecode XML:**
+A generated Timecode XML is based on local grandMA3 onPC 2.3.2.0
 event-bearing exports. It writes UTF-8 with BOM and maps each cue to a
 sequence-targeted `Goto` event using decimal-second timestamps. Import the XML
 into the Timecode Pool, then verify event positions and playback in the
@@ -911,15 +892,6 @@ Timecode Viewer before using it for a finished show.
 | `/Page1/Fader201` | `i` or `f` | Direct fader control |
 | Enumerated addresses | `si` or `sif` | Pool object control (retrieve via Lua) |
 
-**RayFlow OSC usage:**
-```python
-from rayflow.engine.console.osc import Ma3OscClient
-
-client = Ma3OscClient("127.0.0.1", 8000)
-client.send("Store Cue 1")
-client.about()  # Connection test
-```
-
 ### Station Control (Master Toggle Panel)
 **Menu path:** `Menu` → `Network` → `Station Control`
 Master panel to toggle ALL protocol inputs/outputs in one place:
@@ -948,13 +920,10 @@ Master panel to toggle ALL protocol inputs/outputs in one place:
 7. Stop recording when done
 
 **CLI:** Not directly available via command line
-**OSC:** Not available (requires UI setup)
 **Verify:** Video file saved to output destination.
 
 ### MVR Export (Visualizer Rig)
 **GUI:** Menu → Export → MVR → select components → Export
-**CLI:** `rayflow fixture export-mvr -d data/fixtures/samples -o rig.mvr`
-**RayFlow:** `MvrExporter` in `src/rayflow/fixtures/mvr_export.py` — embeds GDTF files, scene hierarchy, fixture addressing, and 3D positions.
 
 ### Show File Backup
 **GUI:** Menu → Save Show As → choose location
@@ -983,7 +952,6 @@ Edit Macro 1                                 — Edit macro 1
 ### Run Macro
 **GUI:** Tap macro in Macro Pool → Play
 **CLI:** `Macro 1`
-**OSC:** `client.send("Macro 1")`
 **Verify:** Macro commands execute sequentially.
 
 ### Delete / Rename Macro
