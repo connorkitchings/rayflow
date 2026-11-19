@@ -1,5 +1,7 @@
 # Andrew Giffin — Programmer for Chris Kuroda (Phish)
 
+> **UNVERIFIED.** This profile has not been checked against sources and may contain inaccurate or invented claims. Do not use it as evidence for design decisions. Only profiles 01-06 are sourced.
+
 **Era:** 2010s – present
 **Role:** Lighting Programmer, Phish
 

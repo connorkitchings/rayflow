@@ -1,5 +1,7 @@
 # Ben Factor — Spafford, Umphrey's McGee
 
+> **UNVERIFIED.** This profile has not been checked against sources and may contain inaccurate or invented claims. Do not use it as evidence for design decisions. Only profiles 01-06 are sourced.
+
 **Era:** 2010s – present
 **Role:** Lighting Director, Spafford, Umphrey's McGee
 
