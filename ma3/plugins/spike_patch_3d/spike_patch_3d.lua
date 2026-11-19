@@ -151,6 +151,15 @@ local function stageFixtures()
   return Root().ShowData.Patch.Stages[1].Fixtures
 end
 
+-- Command-line cd into Stages.1.Fixtures. Commands below assume this location.
+local function enterStageFixtures()
+  cmd("cd Root")
+  cmd("cd 'ShowData'.'Patch'")
+  cmd("cd 'Stages'")
+  cmd("cd 1")
+  cmd("cd 'Fixtures'")
+end
+
 ---------------------------------------------------------------------------
 -- Step 1: import library fixture types
 ---------------------------------------------------------------------------
@@ -260,11 +269,7 @@ local function stepModes()
 end
 
 local function stepStore()
-  cmd("cd Root")
-  cmd("cd 'ShowData'.'Patch'")
-  cmd("cd 'Stages'")
-  cmd("cd 1")
-  cmd("cd 'Fixtures'")
+  enterStageFixtures()
   local last = FIRST_STORE_INDEX + #FIXTURES - 1
   cmd("store " .. FIRST_STORE_INDEX .. " thru " .. last)
   for i, fx in ipairs(FIXTURES) do
@@ -298,6 +303,7 @@ local ROT_CANDIDATES = { { "RotX", "RotY", "RotZ" }, { "RotationX", "RotationY",
 
 local function stepRotation()
   local children = safeChildren(stageFixtures())
+  enterStageFixtures()  -- the previous step leaves the command line at Root, where Set <idx> fails
   for _, fx in ipairs(FIXTURES) do
     local obj = children[fx.index]  -- UNVERIFIED: Children() order matches pool index
     local props = dumpProperties(obj)
@@ -313,6 +319,14 @@ local function stepRotation()
     log(string.format("Rotation for %s (index %d): property names %s",
       fx.role, fx.index, set and table.concat(fx.rotNames, "/") or "NOT FOUND (see property dump)"))
   end
+  cmd("cd Root")
+end
+
+-- Light both fixtures so the 3D window shows beams. The library LED wash may default its
+-- colour emitters to 0, so only the mover may light. One beam still proves 3D rendering.
+-- No colour attribute commands are sent on purpose.
+local function stepBeams()
+  cmd("Fixture 1 + 101 At 100")
 end
 
 ---------------------------------------------------------------------------
@@ -462,6 +476,7 @@ local function run()
   try("rotation", stepRotation)
   try("readback", stepReadback)
   try("cd Root", function() Cmd("cd Root") end)
+  try("beams", stepBeams)
   writeOutputs()
   log("spike_patch_3d done. errors=" .. #errors)
 end

@@ -10,6 +10,9 @@
 2. What are the available mode names and DMX channel counts for the wash type (and the mover), so the rig-as-code layer can pick a mode?
 3. In onPC 3D, which direction do +X, +Y and +Z point (mover set to X=-3 Y=2 Z=6, wash to X=3 Y=-2 Z=6)?
 4. Is the readback machine-readable: does the hand-built JSON parse, and does `ExportJson` produce valid JSON?
+5. Do beams render in the onPC 3D window after the final `Fixture 1 + 101 At 100` step? Record which beams appeared (mover only, wash only, both).
+
+Caveat for question 5: the library LED wash may default its colour emitters to 0, so it can stay dark even when it is patched and dimmed. Only the mover may light. One visible beam still proves 3D rendering. The spike sends no colour attribute commands.
 
 Secondary: the real names of the fixture rotation properties (the readback dumps every property of each fixture).
 

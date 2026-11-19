@@ -23,4 +23,5 @@ Run it only in a new scratch show. It stores fixtures into `Stages.1.Fixtures` a
 - `spike_patch_3d_readback_exportjson.json` (even if it looks malformed)
 - A screenshot of the 3D window showing both fixtures
 - Your note from step 9 on axis directions
+- Do beams render in 3D (and which: mover/wash/both)
 - The System Monitor text if any file is missing
