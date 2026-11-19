@@ -2,14 +2,14 @@
 
 Goal: patch a small rig, see it in the built-in 3D viewer, set intensity, color and position, store a cue, and play it. No hardware needed.
 
-This guide follows `docs/ai/MA3_OPERATIONS.md`, which was checked against onPC 2.3.2. Menu labels can move slightly in 2.5. If a label differs, tell your AI tutor what you see and it will adjust the guide.
+This guide follows `docs/ai/MA3_OPERATIONS.md`, which was checked against onPC 2.3.2, plus what was seen on onPC 2.5.1.1. Menu labels can still move. If a label differs, tell your AI tutor what you see and it will adjust the guide.
 
 ## 0. Before you start
 
-1. Update grandMA3 onPC from 2.3.2 to 2.5 (free, from the MA Lighting download page). Install it over the existing app.
-2. Launch onPC. On the start screen, create a **New Show** and name it `first-hour`.
+1. Launch grandMA3 onPC 2.5. It opens straight into the console, there is no start screen.
+2. Click the command line at the bottom, type `NewShow "first-hour"` and press Enter. This creates a new empty show named `first-hour` (seen working on 2.5; not in the 2.3.2 probes).
 
-Terms used below:
+Terms used below (full list in `glossary.md`):
 - **Patch**: the list of fixtures in the show, each with a fixture ID (FID) and a DMX address.
 - **Programmer**: the live scratchpad where you set values. Nothing is saved until you Store.
 - **Pool**: a grid of saved things (groups, presets, sequences).
@@ -17,11 +17,12 @@ Terms used below:
 
 ## 1. Patch the rig (4 movers, 8 washes)
 
-1. Open **Menu** and tap **Patch**. In an empty show a wizard opens.
-2. Choose the fixture type: Library tab, source **MA**, then pick a Manufacturer, Fixture and Mode. Any moving head with pan, tilt, color and dimmer works for the movers. Any LED wash or PAR works for the washes.
-   - Note the exact manufacturer, fixture and mode you chose. Phase 2 plugins need them.
-3. Quantity `4`, First FID `1`, address `1.1`. Tap **Create !**.
-4. Insert the washes: select a row, tap **Insert New Fixture**, choose the wash type, Quantity `8`, First FID `101`, address `1.101` (check it does not overlap the movers' channels; the mover rows show their address range). Tap **Create !**.
+Fixture choice, modes, FIDs and addresses are in `starter-rig.md`. Use that table, not guesses.
+
+1. Type `Menu 'Patch'.'Edit'` on the command line and press Enter. The Insert New Fixtures dialog opens. (Seen working on 2.5.)
+2. The dialog has a Show tab and a Library tab. Open the Library tab. The sources are MA, User and Share. Choose MA.
+3. Type `moving head` in the search box, pick Manufacturer `Generic`, fixture `Moving Head`, mode `Default`. Set Quantity `4`, First FID `1`, address `1.001`, then confirm (the button was labelled **Create !** in 2.3.2; the 2.5 label is unverified).
+4. Open the dialog again, search for the wash type listed in `starter-rig.md` (the wash row there is partly unverified; write down the mode you pick). Quantity `8`, First FID `101`, address `1.101`. Confirm.
 5. Check: the Patch window shows 12 rows.
 
 ## 2. Open the 3D viewer
