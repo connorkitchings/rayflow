@@ -1,1 +1,0 @@
-"""Show CLI subcommands package."""

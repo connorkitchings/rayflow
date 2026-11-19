@@ -1,11 +1,7 @@
-.PHONY: setup test lint docs clean
+.PHONY: setup lint lint-check clean
 
 setup:
-	uv sync --extra dev --extra lighting
-	uv run pre-commit install
-
-test:
-	uv run pytest
+	uv sync
 
 lint:
 	uv run ruff format .
@@ -15,17 +11,6 @@ lint-check:
 	uv run ruff format --check .
 	uv run ruff check .
 
-docs:
-	uv run mkdocs serve
-
-docs-build:
-	uv run mkdocs build --strict
-
 clean:
-	rm -rf .venv
-	rm -rf site
-	rm -rf htmlcov
-	rm -rf .pytest_cache
-	rm -rf .ruff_cache
+	rm -rf .venv .ruff_cache
 	find . -type d -name __pycache__ -exec rm -rf {} +
-	find . -type f -name "*.pyc" -delete

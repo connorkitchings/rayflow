@@ -230,3 +230,8 @@ GPUCache/
 # YouTube session cookies (never commit)
 youtube_cookies.txt
 *_cookies.txt
+
+# Local secrets and audio
+youtube_cookies.txt
+songs/*/*.wav
+songs/*/*.mp3

@@ -1,169 +1,41 @@
 # RayFlow
 
-AI-assisted concert lighting design toolkit with backend-neutral show data, DMX rendering, and console adapters.
+Take a song, build a stage, and make a lit version of the song in real console software, with AI help, as a beginner.
 
-## Overview
+RayFlow targets **grandMA3 onPC** and its **built-in 3D viewer**. No hardware or visualizer purchase is needed. (grandMA3 onPC cannot feed Capture without MA hardware, so Capture is deferred.)
 
-RayFlow bridges creative intent and lighting execution. It keeps the show,
-rig, fixture, cue, and vibe data in AI-readable project files, then renders that
-intent through deterministic backends: direct Art-Net/sACN DMX output,
-Capture/MVR visual handoff artifacts, and gated professional-console adapters
-such as grandMA3.
+## Workflow
 
-The project started with grandMA3 onPC as the primary execution target. Live
-probing showed that MA3 remains valuable for professional compatibility, but
-raw MA3 mutation is too fragile to be the core agent loop until command
-acceptance, fixture import, and readback are repeatably proven. The current
-direction is backend-neutral: RayFlow owns the show model and evidence
-contracts; output adapters translate that model into DMX frames, controller
-commands, or MA3 export/playback artifacts.
+1. **Stage** – `rig.yaml` lists fixtures and positions. AI turns it into a grandMA3 Lua plugin that patches, places fixtures in 3D and creates groups.
+2. **Song** – the audio file plus `song.yaml` (sections with timestamps). AI drafts the map, you correct it.
+3. **Design** – you describe the vibe. AI writes `design.yaml`: per section, the look, color, movement and timing, with plain-English reasoning.
+4. **Build** – a small generator fills templates of proven Lua plugins and a timecode XML.
+5. **Watch and iterate** – play the timecode in onPC, watch the 3D viewer, give feedback or edit in MA3 yourself.
 
-RayFlow can currently build and version show YAML, generate cue programming
-commands, export MA3 review bundles with MVR plus OSC command text, generate
-MA3 Timecode XML from captured 2.3.2.0 exports, and send dry-run-gated OSC
-commands to MA3. The next implementation focus is a fixture-aware DMX renderer
-and API-first output adapters.
+## Status
 
-## Architecture
+Restarted from scratch. The previous Python/DMX implementation is preserved at git tag `archive/rayflow-v1`.
 
-```
-┌─────────────────┐     Natural Language      ┌──────────────────┐
-│  Designer       │◄─────────────────────────►│  AI Coding Tool  │
-│  (You)          │                            │  (Claude/Codex)  │
-└─────────────────┘                            └────────┬─────────┘
-                                                        │
-                                                        ▼
-┌─────────────────┐     show direction      ┌──────────────────┐
-│  Designer       │◄───────────────────────►│  RayFlow Data    │
-│  + AI Tool      │                         │  Show/Rig/Cues   │
-└─────────────────┘                         └────────┬─────────┘
-                                                     │
-                                                     ▼
-                                            ┌──────────────────┐
-                                            │ Fixture-Aware    │
-                                            │ DMX Renderer     │
-                                            └────────┬─────────┘
-                                                     │
-        ┌──────────────────────┬─────────────────────┼─────────────────────┐
-        ▼                      ▼                     ▼                     ▼
-┌──────────────┐        ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│ Art-Net/sACN │        │ Capture/MVR  │      │ MA3 Export   │      │ Middleware   │
-│ DMX Output   │        │ Handoff      │      │ + Gated OSC  │      │ Adapters     │
-└──────────────┘        └──────────────┘      └──────────────┘      └──────────────┘
-```
+| Phase | What | State |
+|---|---|---|
+| 0 | Archive and prune | done |
+| 1 | Learning foundation: `docs/learn/01-first-hour-ma3.md`, confirm 3D viewer renders on this Mac | next (user) |
+| 2 | Lua plugin spikes in MA3: patch + 3D placement, groups/presets, cues, song sync | blocked on phase 1 |
+| 3 | Minimal generator, Climb to Safety end to end | blocked on phase 2 |
 
-## Tech Stack
+Rule: no generator is built for a step that has not passed its spike.
 
-| Component | Technology | Notes |
-|-----------|------------|-------|
-| Core | Python | CLI, data models, renderers, adapters |
-| Data | YAML + JSON | Show/rig serialization, AI-readable source of truth |
-| Fixtures | GDTF | Open fixture definition standard |
-| Direct DMX | Art-Net, sACN | Deterministic output and protocol-level verification |
-| Pre-viz target | Capture 2026 via MVR + DMX | Primary visual-review path |
-| Console adapter | grandMA3 onPC 2.3.2.0 | Compatibility/export target with gated OSC probes |
-| AI Interface | AI coding tools | Claude, Codex, Gemini CLI, OpenCode, etc. |
-| Package mgmt | uv | Python package manager |
+## Layout
 
-## Quick Start
+- `docs/research/` – lighting design and grandMA3 research (kept from v1)
+- `docs/research/ma3-probes/` – what was verified on onPC 2.3.2
+- `docs/ai/MA3_*.md` – grandMA3 command and operation references
+- `songs/climb-to-safety/song.yaml` – pilot song section map
+- `ma3/plugins/` – Lua plugins (spike results go to `docs/research/ma3-probes/`)
 
-```bash
-# Install dependencies
-uv sync
-
-# Install lighting extras
-uv sync --extra lighting
-
-# Run the CLI
-uv run rayflow --help
-```
-
-## Current Workflow
-
-RayFlow's usable workflow today is file-first and dry-run-first:
-
-```bash
-# Inspect existing rigs and shows
-uv run rayflow rig list
-uv run rayflow show list
-
-# Create a versioned snapshot before changing a show
-uv run rayflow show save "My Show" --message "before cue polish"
-
-# Export an MA3 compatibility bundle: MVR rig, OSC command list, README, metadata
-uv run rayflow show export "My Show" --output-dir exports/my-show --sequence 1
-
-# Review the MA3 command path without sending OSC
-uv run rayflow show push-to-ma3 "My Show" --sequence 1
-
-# Send cues to grandMA3 only when the dry-run and target show are confirmed
-uv run rayflow show push-to-ma3 "My Show" --sequence 1 --execute
-```
-
-The mainline roadmap now prioritizes rendering the same show data to direct
-DMX frames and API-first controller adapters. MA3 remains supported, but
-fixture-aware MA3 mutation is no longer the blocker for RayFlow's next
-milestone.
-
-Show snapshots are local YAML versions:
-
-```bash
-uv run rayflow show versions "My Show"
-uv run rayflow show diff "My Show" --version 20260520T120000Z
-uv run rayflow show restore "My Show" --version 20260520T120000Z --force
-```
-
-## Project Structure
+## Development
 
 ```
-rayflow/
-├── src/rayflow/
-│   ├── bridge/          # Art-Net / sACN protocol bridge
-│   ├── fixtures/        # GDTF fixture loading, parsing, MVR export
-│   ├── console/         # grandMA3 OSC compatibility and cue builders
-│   ├── shows/           # Show/rig models, exports, snapshots
-│   └── cli.py           # CLI entry point
-├── data/
-│   ├── fixtures/        # GDTF fixture library
-│   ├── rigs/            # Rig definitions (fixtures, presets, venue)
-│   └── shows/           # Show definitions (song, cues, vibe)
-├── tests/               # Test suite
-├── docs/                # Project documentation
-├── scripts/             # Session management utilities
-└── .agent/              # AI agent guidance and skills
+make setup   # uv sync
+make lint    # ruff format + check
 ```
-
-## Key Protocols
-
-- **Art-Net** — DMX512 over UDP, the most widely used lighting network protocol
-- **sACN (E1.31)** — Streaming ACN, modern alternative to Art-Net
-- **OSC** — Open Sound Control, used for MA3 and middleware control
-- **MVR** — Primary rig handoff path for Capture and MA3
-- **GDTF** — General Device Type Format, open fixture definition standard
-- **MVR** — My Virtual Rig, scene sharing between consoles and visualizers
-
-## grandMA3 onPC Setup
-
-1. Download from [MA Lighting](https://www.malighting.com/downloads/products/grandma3/)
-2. Install the macOS version. RayFlow currently targets grandMA3 onPC 2.3.2.0.
-3. Run in standalone mode or connect to RayFlow via Art-Net/OSC for compatibility testing.
-4. Enable Art-Net input or OSC input in the show before expecting RayFlow traffic to affect MA3.
-5. Use the built-in 3D visualizer as a compatibility preview target, not as RayFlow's only execution path.
-
-## AI-Assisted Development
-
-This project uses AI coding tools (Claude Code, Gemini CLI, Codex, OpenCode) as the primary interface for show design.
-
-- **AI Interaction Contract**: `docs/ai_interaction_contract.md` — How AI tools work with RayFlow
-- **Phase 5 Architecture**: `docs/phase5_architecture.md` — Show & rig data model design
-- **Project state**: `.agent/CONTEXT.md`
-- **Available skills**: `.agent/skills/CATALOG.md`
-- **Never work on `main`** — always use feature branches
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development workflow and standards.
-
-## License
-
-MIT — See [LICENSE](LICENSE) for details.

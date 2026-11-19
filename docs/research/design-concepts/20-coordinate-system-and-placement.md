@@ -34,10 +34,10 @@ All values in **feet** (US touring standard). Venues and fixtures are dimensione
 
 ```python
 Position3D(
-    x=0.0,      # Stage center (0 = center line)
-    y=10.0,     # 10 ft upstage from downstage edge
-    z=20.0,     # 20 ft above deck (trim height)
-    pan=0.0,    # Pan orientation: 0° = straight downstage
+    x=0.0,  # Stage center (0 = center line)
+    y=10.0,  # 10 ft upstage from downstage edge
+    z=20.0,  # 20 ft above deck (trim height)
+    pan=0.0,  # Pan orientation: 0° = straight downstage
     tilt=90.0,  # Tilt orientation: 90° = horizontal, 0° = straight down
 )
 ```
