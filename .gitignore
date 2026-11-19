@@ -39,6 +39,7 @@ pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
+tmp/
 .tox/
 .nox/
 .coverage
@@ -225,3 +226,12 @@ GPUCache/
 # grandMA3 onPC
 *.ma3show
 *.ma3backup
+
+# YouTube session cookies (never commit)
+youtube_cookies.txt
+*_cookies.txt
+
+# Local secrets and audio
+youtube_cookies.txt
+songs/*/*.wav
+songs/*/*.mp3

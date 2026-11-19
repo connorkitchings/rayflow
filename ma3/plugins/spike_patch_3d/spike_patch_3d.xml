@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GMA3 DataVersion="0.8.84.0">
+    <UserPlugin Name="Spike Patch 3D" Version="0.0.1.0" Path="/spike_patch_3d">
+        <ComponentLua Name="spike_patch_3d" FileName="spike_patch_3d.lua" />
+    </UserPlugin>
+</GMA3>

@@ -1,0 +1,23 @@
+{
+  "name": "fixture-import",
+  "target_show": "rayflow_control_probe",
+  "ma3_version": "2.3.2.0",
+  "osc_endpoint": "not-used",
+  "executed": true,
+  "passed": true,
+  "status": "passed",
+  "commands": [],
+  "exports": [],
+  "pre_show_mtimes": {},
+  "post_show_mtimes": {},
+  "metadata": {
+    "mvr_path": "data/ma3_exports/probes/rayflow_control_probe_no_ns.mvr",
+    "mvr_entries": [
+      "GeneralSceneDescription.xml",
+      "BlenderDMX@LED PAR 64 RGBW.gdtf",
+      "Robe Lighting@Robin MMX Blade.gdtf"
+    ],
+    "import_method": "none",
+    "assume_disposable": false
+  }
+}

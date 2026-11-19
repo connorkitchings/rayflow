@@ -1,4 +1,0 @@
-# Ignore local databases
-*.db
-*.sqlite
-*.duckdb

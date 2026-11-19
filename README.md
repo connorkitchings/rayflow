@@ -1,107 +1,42 @@
 # RayFlow
 
-AI-assisted lighting design toolkit — create timecoded light shows for recorded music using grandMA3 onPC.
+Take a song, build a stage, and make a lit version of the song in real console software, with AI help, as a beginner.
 
-## Overview
+RayFlow targets **grandMA3 onPC** and its **built-in 3D viewer**. No hardware or visualizer purchase is needed. (grandMA3 onPC cannot feed Capture without MA hardware, so Capture is deferred.)
 
-RayFlow bridges the gap between creative intent and console execution. It provides Python tooling for concert lighting programming, automating grandMA3 workflows, and an AI interaction layer that lets you direct show design in natural language. grandMA3 onPC serves as the console and 3D visualizer; RayFlow manages rigs, generates creative direction, and translates your ideas into concrete lighting cues.
+## Workflow
 
-## Architecture
+1. **Stage** – `rig.yaml` lists fixtures and positions. AI turns it into a grandMA3 Lua plugin that patches, places fixtures in 3D and creates groups.
+2. **Song** – the audio file plus `song.yaml` (sections with timestamps). AI drafts the map, you correct it.
+3. **Design** – you describe the vibe. AI writes `design.yaml`: per section, the look, color, movement and timing, with plain-English reasoning.
+4. **Build** – a small generator fills templates of proven Lua plugins and a timecode XML.
+5. **Watch and iterate** – play the timecode in onPC, watch the 3D viewer, give feedback or edit in MA3 yourself.
 
-```
-┌─────────────────┐     Natural Language      ┌──────────────────┐
-│  Designer       │◄─────────────────────────►│  AI Coding Tool  │
-│  (You)          │                            │  (Claude/Codex)  │
-└─────────────────┘                            └────────┬─────────┘
-                                                        │
-                                                        ▼
-┌─────────────────┐     Art-Net / sACN / OSC     ┌──────────────────┐
-│  grandMA3 onPC  │◄────────────────────────────►│  RayFlow CLI     │
-│  (Console+Viz)  │                               │  (Python)        │
-└─────────────────┘                               └────────┬─────────┘
-          ▲                                                  │
-          │  GDTF / MVR                                      │
-          │                                                  ▼
-          │                                         ┌──────────────────┐
-          │                                         │  GDTF Library    │
-          │                                         │  Show/Rig Data   │
-          └─────────────────────────────────────────└──────────────────┘
-```
+## Status
 
-## Tech Stack
+Restarted from scratch. The previous Python/DMX implementation is preserved at git tag `archive/rayflow-v1`.
 
-| Component | Technology | Notes |
-|-----------|------------|-------|
-| Console | grandMA3 onPC 2.3.2.0 | Verified local baseline, macOS native |
-| Bridge | Python | Art-Net, sACN (E1.31), OSC protocols |
-| Fixtures | GDTF | Open fixture definition standard |
-| Data | YAML + JSON | Show/rig serialization, AI-readable |
-| AI Interface | LLM API | Any LLM via AI coding tools |
-| Package mgmt | uv | High-performance Python package manager |
+| Phase | What | State |
+|---|---|---|
+| 0 | Archive and prune | done |
+| 1a | Pre-work: sourced LD research, style guide, learn index, starter rig, glossary, skills | done |
+| 1b | Hands-on modules 1-7 in onPC (start: `docs/learn/01-first-hour-ma3.md`), confirm 3D viewer renders on this Mac | next (user) |
+| 2 | Lua plugin spikes in MA3: (a) patch + 3D placement, (b) groups/presets/cues plus one slow position phaser, (c) sound + timecode playback | (a) written (`ma3/plugins/spike_patch_3d/`), not yet run; runs alongside Module 1 by the user's choice. (b) and (c) blocked on phase 1b |
+| 3 | Minimal generator, Climb to Safety end to end | blocked on phase 2 |
 
-## Quick Start
+Rule: no generator is built for a step that has not passed its spike.
 
-```bash
-# Install dependencies
-uv sync
+## Layout
 
-# Install lighting extras
-uv sync --extra lighting
+- `docs/research/` – lighting design and grandMA3 research (kept from v1)
+- `docs/research/ma3-probes/` – what was verified on onPC 2.3.2
+- `docs/ai/MA3_*.md` – grandMA3 command and operation references
+- `songs/climb-to-safety/song.yaml` – pilot song section map
+- `ma3/plugins/` – Lua plugins (spike results go to `docs/research/ma3-probes/`)
 
-# Run the CLI
-uv run rayflow --help
-```
-
-## Project Structure
+## Development
 
 ```
-rayflow/
-├── src/rayflow/
-│   ├── bridge/          # Art-Net / sACN protocol bridge
-│   ├── fixtures/        # GDTF fixture loading, parsing, MVR export
-│   ├── console/         # grandMA3 onPC OSC control and cue builders
-│   ├── shows/           # Show & rig data models (Phase 5)
-│   └── cli.py           # CLI entry point
-├── data/
-│   ├── fixtures/        # GDTF fixture library
-│   ├── rigs/            # Rig definitions (fixtures, presets, venue)
-│   └── shows/           # Show definitions (song, cues, vibe)
-├── tests/               # Test suite
-├── docs/                # Project documentation
-├── scripts/             # Session management utilities
-└── .agent/              # AI agent guidance and skills
+make setup   # uv sync
+make lint    # ruff format + check
 ```
-
-## Key Protocols
-
-- **Art-Net** — DMX512 over UDP, the most widely used lighting network protocol
-- **sACN (E1.31)** — Streaming ACN, modern alternative to Art-Net
-- **OSC** — Open Sound Control, used by grandMA3 for remote control
-- **GDTF** — General Device Type Format, open fixture definition standard
-- **MVR** — My Virtual Rig, scene sharing between consoles and visualizers
-
-## grandMA3 onPC Setup
-
-1. Download from [MA Lighting](https://www.malighting.com/downloads/products/grandma3/)
-2. Install the macOS version. RayFlow currently targets grandMA3 onPC 2.3.2.0.
-3. Run in standalone mode or connect to RayFlow via Art-Net/OSC.
-4. Enable Art-Net input or OSC input in the show before expecting RayFlow traffic to affect MA3.
-5. Use the built-in 3D visualizer to preview your shows.
-
-## AI-Assisted Development
-
-This project uses AI coding tools (Claude Code, Gemini CLI, Codex, OpenCode) as the primary interface for show design.
-
-- **AI Interaction Contract**: `docs/ai_interaction_contract.md` — How AI tools work with RayFlow
-- **Phase 5 Architecture**: `docs/phase5_architecture.md` — Show & rig data model design
-- **Project state**: `.agent/CONTEXT.md`
-- **Available skills**: `.agent/skills/CATALOG.md`
-- **Never work on `main`** — always use feature branches
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development workflow and standards.
-
-## License
-
-MIT — See [LICENSE](LICENSE) for details.

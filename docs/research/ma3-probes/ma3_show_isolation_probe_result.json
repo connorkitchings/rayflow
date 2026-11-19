@@ -1,0 +1,41 @@
+{
+  "name": "show-isolation",
+  "target_show": "rayflow_control_probe",
+  "ma3_version": "2.3.2.0",
+  "osc_endpoint": "127.0.0.1:8000",
+  "executed": true,
+  "passed": true,
+  "status": "passed",
+  "commands": [
+    {
+      "command": "ChangeDestination Root",
+      "sent": true,
+      "timestamp": 1779566334.883863
+    },
+    {
+      "command": "SaveShow",
+      "sent": true,
+      "timestamp": 1779566335.139136
+    }
+  ],
+  "exports": [],
+  "pre_show_mtimes": {
+    "As.show": 1779457921.0,
+    "NewShow_2026.05.22_13.36.00UTC.show": 1779565710.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_control_probe.show": 1779566254.0,
+    "rayflow_test.show": 1779456959.0
+  },
+  "post_show_mtimes": {
+    "As.show": 1779457921.0,
+    "NewShow_2026.05.22_13.36.00UTC.show": 1779565710.0,
+    "Rescue.show": 1779458489.0,
+    "rayflow_control_probe.show": 1779566254.0,
+    "rayflow_test.show": 1779456959.0
+  },
+  "metadata": {
+    "assume_disposable": true,
+    "assume_disposable_reason": "User confirmed the active MA3 show is disposable.",
+    "show_isolation_passed": false
+  }
+}

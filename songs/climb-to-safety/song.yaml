@@ -1,0 +1,50 @@
+# Section map for the pilot song. Times are seconds from the start of the audio.
+title: Climb to Safety
+artist: Widespread Panic
+duration_seconds: 281.0
+bpm: 105
+audio_file: climb-to-safety.wav
+sections:
+- name: Intro
+  start: 0.0
+  end: 16.0
+  energy: 0.35
+  mood: warm train-roll setup
+- name: Verse 1
+  start: 16.0
+  end: 58.0
+  energy: 0.45
+  mood: organic amber groove
+- name: Chorus 1
+  start: 58.0
+  end: 88.0
+  energy: 0.7
+  mood: open lift, cool backlight
+- name: Verse 2
+  start: 88.0
+  end: 132.0
+  energy: 0.52
+  mood: steady roots-rock drive
+- name: Chorus 2
+  start: 132.0
+  end: 166.0
+  energy: 0.78
+  mood: brighter singalong lift
+- name: Bridge Build
+  start: 166.0
+  end: 222.0
+  energy: 0.82
+  mood: slow full-rig sweep and tension
+- name: Final Chorus
+  start: 222.0
+  end: 267.0
+  energy: 0.92
+  mood: warm red-blue peak
+- name: Outro
+  start: 267.0
+  end: 281.0
+  energy: 0.35
+  mood: resolve and fade
+vibe_notes: First real RayFlow pilot for Widespread Panic's studio/album version of "Climb to Safety".
+  The design should prioritize band visibility, warm natural front light, lavender/blue backlight contrast,
+  and slow Hoffman-style color evolution over flashy beam effects.
