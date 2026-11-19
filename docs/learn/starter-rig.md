@@ -29,16 +29,48 @@ The `Moving Head` type has 9 attributes, each 16-bit (coarse and fine DMX channe
 
 Spacing the washes at 101 keeps them clear of the movers' address range even if the wash turns out to need more channels (the gap is 1.073 to 1.100).
 
+## Stage layout
+
+Where the 12 fixtures hang, with rough positions to type into the onPC 3D and Stage setup. The positions are `[house rule]` choices, not measured facts: they borrow the placement pattern of the sourced rigs, which hang spots on the upstage truss and washes on downstage and upstage trusses (`docs/research/rig-breakdowns/03-um-early-waful-2009-2014.md` puts its MAC III spots on the upstage truss and MAC 2000 washes downstage; `docs/research/rig-breakdowns/01-phish-2015.md` lists DS, Mid and US trusses with washes on all three).
+
+Coordinate convention `[house rule]`, in metres:
+- Origin: the centre of the stage, on the floor, midway between the front edge and the back wall.
+- X: positive toward the audience's right (stage left), negative toward the audience's left (stage right). Standing at the origin and facing the audience, X positive is on your left hand.
+- Y: positive upstage (away from the audience), negative downstage (toward the audience).
+- Z: positive up, height above the floor.
+- The axis directions in onPC's own Stage setup are unverified. When you first type a position, check that a fixture with a large negative `Y` lands on the audience side, and flip the sign if it does not.
+
+Trusses `[house rule]`: a downstage truss at `Y` = -2, `Z` = 6, and an upstage truss at `Y` = 6, `Z` = 7. Along the upstage truss the fixtures alternate wash, spot, wash, spot, then mirror, so a spot sits between two washes.
+
+| FID | Role | Hang position | X (m) | Y (m) | Z (m) |
+|---|---|---|---|---|---|
+| 1 | Mover (spot) | Upstage truss | -3 | 6 | 7 |
+| 2 | Mover (spot) | Upstage truss | -1 | 6 | 7 |
+| 3 | Mover (spot) | Upstage truss | 1 | 6 | 7 |
+| 4 | Mover (spot) | Upstage truss | 3 | 6 | 7 |
+| 101 | LED wash | Downstage truss (front) | -4.5 | -2 | 6 |
+| 102 | LED wash | Downstage truss (front) | -1.5 | -2 | 6 |
+| 103 | LED wash | Downstage truss (front) | 1.5 | -2 | 6 |
+| 104 | LED wash | Downstage truss (front) | 4.5 | -2 | 6 |
+| 105 | LED wash | Upstage truss (back) | -4 | 6 | 7 |
+| 106 | LED wash | Upstage truss (back) | -2 | 6 | 7 |
+| 107 | LED wash | Upstage truss (back) | 2 | 6 | 7 |
+| 108 | LED wash | Upstage truss (back) | 4 | 6 | 7 |
+
+The FIDs and DMX addresses are the ones in the Table section above (movers on FIDs 1 to 4 using 1.001 to 1.072, washes from FID 101 at 1.101), so nothing here changes the patch. FIDs 1 to 4 are the movers and FIDs 101 to 108 are the washes; no FID appears twice.
+
+Graduating to real fixtures (the Martin MAC Viper Profile spot and GLP Impression X4 wash) is covered in `docs/learn/fixtures-guide.md`, section 4. Keep these positions when you repatch.
+
 ## Finding each one in Insert New Fixtures
 
 1. Open `Menu 'Patch'.'Edit'` to get the Insert New Fixtures dialog.
 2. Open the Library tab and choose the MA source.
 3. For the mover, type `moving head` in the search box and pick Manufacturer `Generic`, fixture `Moving Head`, mode `Default`.
-4. For the wash, type `led - irgbw` in the search box and pick the entry under Manufacturer `Generic`. Write down the mode and channel count the dialog shows, then fill in the Unverified section below.
+4. For the wash, type `led - irgbw` in the search box and pick the entry under Manufacturer `Generic`. Patch `LED - IRGBW` and read off its mode name and channel count, then update the wash row in the Table.
 
 ## Unverified
 
-- The wash row: the fixture's display name, its mode names and its channel count. `grandma2/generic@led - irgbw.pxml` could not be read. Other candidate names with the same role include `LED - RGBW` and `LED - RGB`. Confirm in the dialog and update the table.
+- The wash row: the fixture's display name, its mode names and its channel count. `grandma2/generic@led - irgbw.pxml` could not be read. Other candidate names with the same role include `LED - RGBW` and `LED - RGB`.
 - `generic@wash.pxml`, `generic@profile.pxml` and `generic@follow spot.pxml` exist in `grandma2/`. They are probably simple types without per-color control, but this was not confirmed. They are not recommended for this rig.
 - Whether the MA3 dialog displays the `grandma2/` types under the same names as their file names (capitalization, spacing).
 - Whether the 3D viewer shows the generic types with a usable model. Check in the first-hour guide, section 2.
