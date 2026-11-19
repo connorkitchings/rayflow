@@ -1,40 +1,32 @@
 # Concert LDs: The Improvisational Tradition
 
-This directory profiles the key lighting designers in the improvisational concert lighting tradition — the practice of operating the lighting console as a musical instrument, reacting to and co-creating the performance in real time.
+Profiles of lighting designers (LDs) in the improvisational concert tradition, where the LD operates the console live alongside the band.
 
-These LDs share a philosophy: the lighting director must listen like a musician, anticipate the band's moves, and build a console layout that enables instantaneous creative response. Their work spans the lineage from the Grateful Dead's Candace Brightman through today's generation of hybrid busking/timecoded designers.
+## Status of each profile
 
-## The LDs
+Profiles 01 to 06 are the core set. Each follows one template: numbered Sources with URLs, Verified facts (every line cited `[n]`), Signature looks, Copyable on a small rig, and Unverified or removed. Profiles 07 to 09 are **unverified** and carry a banner; do not use them as evidence.
 
-| LD | Primary Act(s) | Era | Style |
-|----|---------------|-----|-------|
-| Candace Brightman | Grateful Dead | 1970s–1995 | The pioneer. Pure busking with conventional fixtures. |
-| Chris Kuroda | Phish | 1989–present | The standard-bearer. Massive rigs, pure busking, speed master mastery. |
-| Andrew Giffin | Phish (programmer for Kuroda) | 2010s–present | Kuroda's programmer. Builds and maintains the Phish show file infrastructure. |
-| Paul Hoffman | Widespread Panic | 1990s–present | Southern rock jam tradition. Organic, warm, band-integrated. |
-| Jefferson Waful | Umphrey's McGee | 2000s–2023 | Hybrid structured/improvisational. Pixel mapping pioneer. |
-| Saxton Waller | STS9, Billy Strings | 2010s–present | Cross-genre versatility. Rental rig specialist. Console agnostic. |
-| Andrew Goedde | Goose | 2010s–present | Modern jam band aesthetic. Visually dense, color-forward. |
-| Ben Factor | Spafford, Umphrey's McGee | 2010s–present | Hybrid busking/timecoded. Evolving rigs, layered programming. |
-| Luke Stratton | Various jam/electronic acts | 2010s–present | Festival and tour LD. Adaptable, efficient busking workflows. |
+| File | LD | Act | Status |
+|------|----|-----|--------|
+| `01-candace-brightman.md` | Candace Brightman | Grateful Dead | Sourced |
+| `02-chris-kuroda.md` | Chris Kuroda | Phish | Sourced |
+| `03-paul-hoffman.md` | Paul Hoffman | Widespread Panic | Sourced (two weak sources, noted in the file) |
+| `04-jefferson-waful.md` | Jefferson Waful | Umphrey's McGee (2008 to 2019 per sources) | Sourced |
+| `05-saxton-waller.md` | Saxton Waller | STS9 (1999 to 2017), Billy Strings (from 2025) | Sourced |
+| `06-andrew-goedde.md` | Andrew Goedde | Goose | Sourced |
+| `07-ben-factor.md` | Ben Factor | Spafford, Umphrey's McGee | Unverified |
+| `08-luke-stratton.md` | Luke Stratton | Various | Unverified |
+| `09-andrew-giffin.md` | Andrew Giffin | Phish (programmer) | Unverified |
+| `10-common-techniques.md` | Shared patterns | All | Only claims supported by 01 to 06 |
 
-## Shared Techniques
+## How to use these
 
-- **Layered sequences:** Multiple executors running independently, blended by the LD in real time
-- **Speed master synchronization:** One fader controls the tempo of all chases, movements, and effects
-- **Palette infrastructure:** 40–100 presets across position, color, beam, and gobo families enabling instant access to any look
-- **Bold contrast:** Darkness-to-explosion dynamics, warm-cool opposition, stillness-to-movement transitions
-- **Anticipation over reaction:** The LD is slightly ahead of the band, having the next look ready before the musical moment arrives
+- For style rules, start from `docs/design/style-guide.md`, which cites these profiles.
+- To add an LD, follow the `ld-research` skill in `.agent/skills/`.
+- Sourcing was limited: Live Design pages returned HTTP 403, and no podcast or video transcripts were retrieved. Claims that could not be checked are listed in each profile's "Unverified or removed" section.
 
-## File Index
+## Follow-ups from the rewrite
 
-- `01-candace-brightman.md` — Grateful Dead
-- `02-chris-kuroda.md` — Phish
-- `09-andrew-giffin.md` — Phish (programmer for Chris Kuroda)
-- `03-paul-hoffman.md` — Widespread Panic
-- `04-jefferson-waful.md` — Umphrey's McGee
-- `05-saxton-waller.md` — STS9, Billy Strings
-- `06-andrew-goedde.md` — Goose
-- `07-ben-factor.md` — Spafford, Umphrey's McGee
-- `08-luke-stratton.md` — Various jam/electronic acts
-- `10-common-techniques.md` — Shared patterns across all LDs
+- `../rig-breakdowns/03-um-early-waful-2009-2014.md` says Waful joined in 2009; sources say 2008.
+- `../rig-breakdowns/02-um-iceland-2022.md` describes a 2022 show, but sources say Waful left Umphrey's McGee in 2019. Needs review.
+- `../rig-breakdowns/06-billy-strings-2025-2026.md` lists the console as "grandMA3 (likely)"; no source confirms it.

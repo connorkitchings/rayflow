@@ -1,120 +1,78 @@
 # Common Techniques Across Improvisational Concert LDs
 
-**Source:** Analysis of shared patterns across the LDs profiled in this directory
-**Parsed:** 2026-05-26
+Techniques that appear in the Verified facts of the six sourced profiles (`01` to `06` in this directory). Each claim cites the lighting designer's surname and that profile's source number, for example `(Brightman [3])` means source [3] in `01-candace-brightman.md`. Anything the profiles do not support is listed at the bottom under "Removed (unsourced)".
 
-## The Universal Principles
+## Techniques supported by the profiles
 
-Every LD in this tradition shares these principles:
+### Learn the music and play the console like an instrument
 
-### 1. Listen Like a Musician
-The console is an instrument. The LD is not a technician executing a plan — they're a performer co-creating the show in real time. This requires deep musical listening, not just cue-list monitoring.
+- Waful's first principle is "Learn the music"; he says it matters more than technical training (Waful [2]).
+- He follows the band "like playing an instrument" because tempos shift and songs change nightly (Waful [1]).
+- Hoffman described Brightman operating the console "like another musical instrument" (Brightman [3]); Hoffman himself says he knows the music "beat-by-beat and note-by-note" (Hoffman [5]).
+- Kuroda improvises cues live ("punts") because Phish has no set list: "It's the only way to light this band." (Kuroda [1])
 
-### 2. Anticipate, Don't React
-The great LDs are slightly ahead of the band. They know the repertoire well enough to predict where an improvisation is heading. Body language, harmonic signals, and energy arcs all inform anticipation.
+### Hybrid shows: cue the composed parts, improvise the rest
 
-### 3. Layer, Don't Sequence
-Timecoded shows run one cue list. Improvisational shows run 10–20 sequences simultaneously. The LD blends layers — intensity, color, position, movement, beam texture — creating unique combinations moment by moment.
+- Goedde's show file mixes cued pages for song sections (verse, chorus, bridge, solos) with punt pages for jams (Goedde [3]).
+- Kuroda has about 30 songs with preprogrammed cues, triggered with a GoTo button (Kuroda [1]). Waful programs cues for covers with iconic light shows but improvises original material (Waful [1]).
+- Goedde keeps a color look for every song and builds from there with the band (Goedde [1]).
+- Tempo can be held without timecode: Goedde's programmer used follow and BPM sequences (Goedde [3]).
 
-### 4. Contrast Creates Emotion
-Darkness defines light. Stillness defines movement. Warm defines cool. The most powerful moments come from contrast, not from everything being big all the time.
+### Look libraries you can jump around in
 
-### 5. Infrastructure Enables, Technique Executes
-A great LD can make magic with 12 PAR cans. But well-built infrastructure — palettes, presets, effect templates, busking layouts — gives the LD vocabulary. The best LDs invest heavily in building infrastructure before they need it.
+- Kuroda controls about 100 base looks and 79 preprogrammed colors, and can change each look's colors, speed, direction and motion (Kuroda [1]).
+- Waller's busked show keeps cue stacks always accessible, with about 130 looks (Waller [3]).
+- For Phish any cue can follow any other (Kuroda [7]).
 
-## The Speed Master Pattern
+### Slow, deliberate movement
 
-Every LD in this tradition uses speed masters:
+- Brightman's style used slow, deliberate movement and large slow sweeps over the audience (Brightman [2]).
+- She began leaving moving lights on while they repositioned, so the audience sees the light travel (Brightman [2]).
+- Waful treats slow-moving lights during a triumphant moment like slow motion in video (Waful [1]).
+- Kuroda favored large, slow sweeps through the audience during choruses (Kuroda [8]).
 
-```
-Global Speed Master → Controls tempo of ALL time-based effects
-  ├── Dimmer chase speed (all fixture groups)
-  ├── Movement generator speed
-  ├── Color chase / sweep speed
-  ├── Strobe pattern speed
-  └── Gobo rotation speed
-```
+### Color: complementary, opposed, layered
 
-Tap tempo keeps everything locked to the band. One fader pulls the entire show into a new tempo.
+- Complementary colors layered on chorus sweeps (Kuroda [8]).
+- UV-style light balanced by pink from the opposite side, rather than stock red/blue/amber/green washes (Brightman [1]).
+- "Dirty" and layered colors widen the palette beyond primaries (Kuroda [2]).
+- A wide lens gives distinct split colors across the beam (Waful [1]).
+- Red and blue marking each bar's downbeat in odd meters (Waful [1]).
+- Sudden color swings are used too: a stage turned blood red, then icy tones, during a slow song (Brightman [1]).
 
-## The Executive Layout Pattern
+### Contrast and restraint
 
-The ten-fader busking layout (Grum Leesmith pattern) provides the template:
+- Waller's brief was drama, contrast and energy with mystery and anticipation (Waller [3]).
+- Brightman built the mood across a night and avoided gimmicky effects (Brightman [1]).
+- Waful wants fans not to notice the lights and avoids "busy" or "flashy" looks (Waful [2]); he calls his style intentionally simple (Waful [1]).
+- Kuroda avoids audience blinders and uses stationary lights for texture (Kuroda [1]).
+- Hoffman uses floor fixtures behind the band for silhouettes and colour washes (Hoffman [2]).
 
-| Position | Primary Function | Secondary (LTP Button) |
-|----------|-----------------|----------------------|
-| 1 | Spots dimmer | Spots color |
-| 2 | Washes dimmer | Washes color |
-| 3 | Position stack | Position advance |
-| 4 | Color + beam stack | Color/beam advance |
-| 5 | Spot movement size | Movement pattern |
-| 6 | Wash movement size | Movement pattern |
-| 7 | Blinders | Blinder pattern |
-| 8 | Strobes | Strobe rate |
-| 9 | Speed master | Tap tempo |
-| 10 | Key light | — |
+### Symmetry (with one counterexample)
 
-## The Palette Infrastructure Pattern
+- Kuroda favors symmetry (Kuroda [1]); Waful keeps fixtures evenly spaced and symmetrical (Waful [1]); Goedde's Tetra2 looks use "digital symmetry" with opposite angles chasing in and out (Goedde [2]).
+- Counterexample: Brightman's designs were asymmetrical and changed each year (Brightman [1]).
 
-Every busking LD builds extensive palette libraries before programming a single cue:
+### Match effects to individual players and moods
 
-| Palette Family | Minimum | Optimal | Purpose |
-|---------------|---------|---------|---------|
-| Position | 15 | 40+ | Stage positions, band positions, audience, aerial, specials |
-| Color | 20 | 50+ | Warm family, cool family, saturated, pastels, band-specific |
-| Beam | 10 | 25+ | Gobo + zoom + focus combinations, with and without prism |
-| Dimmer | 5 | 10 | Full, 75%, 50%, 25%, chase base levels |
+- Waful follows individual instruments, for example strobes on a fast percussion line and slow circles tied to the bass (Waful [2]).
+- Hoffman builds a different look each show, matching lighting mood to the music (Hoffman [5]).
 
-## The Hybrid Cue Stack Pattern (Waful / Factor)
+### Prepare in advance
 
-Song-specific cue stacks that blend structured sections with busking handoff:
+- Kuroda and Giffin build looks in a lighting simulator and spend about five weeks programming before a tour (Kuroda [2]).
+- Goedde's rigs were pre-visualized in Capture (Goedde [2]) and Depence 3 (Goedde [4]).
+- Brightman built presets by day to test ideas (Brightman [1]).
 
-```
-Cue 1–8:   Composed intro and verse   (timecoded, precise)
-Cue 9:     BUSKING HANDOFF             (release to faders)
-Cue 10–14: Jam section                 (LD improvises via busking)
-Cue 15:    RETURN TO STRUCTURE         (timecoded, precise)
-Cue 16–22: Composed outro              (timecoded, precise)
-```
+## Removed (unsourced)
 
-The handoff points are structural markers in the song's arrangement. They're known in advance even though the jam content is not.
+None of the following is supported by the six profiles; several were flagged as unsourced or contradicted in them.
 
-## The "Big Sweep" Pattern (Hoffman)
-
-Slow, 16–32 bar full-rig color transitions that transform the stage without the audience perceiving individual steps:
-
-```
-Bar 1–8:   Warm amber wash, cool lavender back
-Bar 9–16:  Wash shifts amber → orange, back shifts lavender → medium blue
-Bar 17–24: Wash shifts orange → deep red, back shifts medium blue → deep blue
-Bar 25–32: Hold at deep red / deep blue peak, then reverse or cut
-```
-
-## The Blackout → Explosion Pattern (Kuroda / Brightman)
-
-Sudden blackout held for 2–8 beats, then full-rig explosion on the downbeat:
-- Used 1–3 times per show maximum (preserves impact)
-- Most effective after a sustained dense section
-- The explosion should introduce a new color palette, not return to the previous look
-- The contrast creates the emotion; the explosion defines the new section
-
-## The BPM Economy
-
-As song tempo changes, the LD adjusts:
-
-| Band Tempo Change | LD Response |
-|------------------|-------------|
-| Tempo increases | Push speed master forward, chase speed increases proportionally |
-| Half-time feel | Pull speed master to 50%, chases breathe at half speed |
-| Double-time feel | Push speed master to 200%, chases double |
-| Free time / rubato | Freeze effects (speed master = 0%), static look |
-| Tempo unknown | Tap tempo continuously, adjust on the fly |
-
-## Implications for RayFlow
-
-1. **Busking-first authoring model:** RayFlow's primary output should be layered, playable busking infrastructure (palettes, effects, sequences organized by function) rather than monolithic timecoded cue lists.
-2. **Speed master as a data model primitive:** The cue and effect models must support BPM dependency declaration. The export system should generate speed master hierarchies.
-3. **Palette library as show foundation:** Show generation should start with palette generation (40+ positions, 50+ colors, 25+ beams) before any cues are authored.
-4. **Structural contrast planning:** The cue planner should explicitly schedule contrast moments — blackout/explosion pairs, warm/cool transitions, still/moving shifts — based on the song's structural markers.
-5. **Genre-adaptive authoring:** Authoring defaults (palette, pace, density, contrast style) should change based on genre — jam band vs. electronic vs. roots rock vs. acoustic.
-6. **Time-to-deploy awareness:** Generated busking infrastructure should include a complexity budget: can this be loaded and operational in the time an LD has before showtime?
+- The "Universal Principles" as written: "Anticipate, don't react" (no profile supports watching body language; Kuroda [1] only supports reacting live), "run 10 to 20 sequences simultaneously", and "every LD" claims.
+- The Speed Master Pattern and the BPM Economy table (speed master percentages, freezing effects on rubato). Only follow/BPM sequences are sourced (Goedde [3]).
+- The ten-fader "Grum Leesmith" busking layout.
+- Palette-library minimums and optimums (15/40+ positions, 20/50+ colors, and so on). Only Kuroda's ~100 looks and 79 colors (Kuroda [1]) and Waller's ~130 looks (Waller [3]) are sourced.
+- The Hybrid Cue Stack "handoff points" template attributed to Waful and Factor. Goedde's hybrid file is sourced (Goedde [3]); Waful rarely programs sections (Waful [1]); Factor has no sourced profile here.
+- The Hoffman "Big Sweep" 16 to 32 bar amber-to-red transition (removed in the Hoffman profile as likely invented).
+- The "Blackout then Explosion" pattern attributed to Kuroda and Brightman, with its 2 to 8 beat holds and 1 to 3 per show limit (no source in either profile).
+- The "Implications for RayFlow" list: project opinion, not research findings.
