@@ -21,7 +21,7 @@ Restarted from scratch. The previous Python/DMX implementation is preserved at g
 | 0 | Archive and prune | done |
 | 1a | Pre-work: sourced LD research, style guide, learn index, starter rig, glossary, skills | in progress |
 | 1b | Hands-on modules 1-7 in onPC (start: `docs/learn/01-first-hour-ma3.md`), confirm 3D viewer renders on this Mac | next (user) |
-| 2 | Lua plugin spikes in MA3: patch + 3D placement, groups/presets, cues, song sync | blocked on phase 1b |
+| 2 | Lua plugin spikes in MA3: patch + 3D placement, groups/presets, cues, song sync | patch + 3D spike written (`ma3/plugins/spike_patch_3d/`), not yet run; rest blocked on phase 1b |
 | 3 | Minimal generator, Climb to Safety end to end | blocked on phase 2 |
 
 Rule: no generator is built for a step that has not passed its spike.
