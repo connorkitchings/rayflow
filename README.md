@@ -2,9 +2,9 @@
 
 Take a song, build a stage, and make a lit version of the song in real console software, with AI help, as a beginner.
 
-RayFlow targets **grandMA3 onPC** and its **built-in 3D viewer**. No hardware or visualizer purchase is needed. (grandMA3 onPC cannot feed Capture without MA hardware, so Capture is deferred.)
+The current milestone is an editable jam-band stage in Blender and grandMA3 onPC. Compare the same twelve fixture positions from the audience, give one design note, and judge how easily the AI can make that change. The stage files and test results are in the [stage comparison](stage-comparison/README.md).
 
-## Workflow
+## Earlier show-programming plan
 
 1. **Stage** – `rig.yaml` lists fixtures and positions. AI turns it into a grandMA3 Lua plugin that patches, places fixtures in 3D and creates groups.
 2. **Song** – the audio file plus `song.yaml` (sections with timestamps). AI drafts the map, you correct it.
@@ -20,7 +20,8 @@ Restarted from scratch. The previous Python/DMX implementation is preserved at g
 |---|---|---|
 | 0 | Archive and prune | done |
 | 1a | Pre-work: sourced LD research, style guide, learn index, starter rig, glossary, skills | done |
-| 1b | Hands-on modules 1-7 in onPC (start: `docs/learn/01-first-hour-ma3.md`), confirm 3D viewer renders on this Mac | next (user) |
+| Stage comparison | AI builds the rig, checks the editable files and presents two lighting looks | current milestone |
+| 1b | Hands-on modules 1-7 in onPC | available for learning on demand |
 | 2 | Lua plugin spikes in MA3: (a) patch + 3D placement, (b) groups/presets/cues plus one slow position phaser, (c) sound + timecode playback | (a) run 2026-11-19, partial (`ma3/plugins/spike_patch_3d/`, results in `docs/research/ma3-probes/ma3_lua_patch_3d_spike_2_5_1.md`): imports and mover patch worked, wash patch and readback failed, 3D beams not yet confirmed; needs a fix and re-run. (b) and (c) blocked on phase 1b |
 | 3 | Minimal generator, Climb to Safety end to end | blocked on phase 2 |
 
@@ -31,7 +32,7 @@ Rule: no generator is built for a step that has not passed its spike.
 - `docs/research/` – lighting design and grandMA3 research (kept from v1)
 - `docs/research/ma3-probes/` – what was verified on onPC 2.3.2
 - `docs/ai/MA3_*.md` – grandMA3 command and operation references
-- `songs/climb-to-safety/song.yaml` – pilot song section map
+- `songs/climb-to-safety/song.yaml` – earlier draft timing map. The song selection is confirmed. The recording, timestamps and musical design await review.
 - `ma3/plugins/` – Lua plugins (spike results go to `docs/research/ma3-probes/`)
 
 ## Development
