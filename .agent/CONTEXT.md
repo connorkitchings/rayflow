@@ -4,6 +4,8 @@
 
 **Current milestone:** Compare the same jam-band stage in Blender and grandMA3 onPC. AI handles setup and inspection. The user judges the images and gives a design revision. Start with the files and verified results in [the stage comparison](../stage-comparison/README.md). “Climb to Safety” is the song choice. Its recording, section timing and cue design are undecided.
 
+**Resume here:** Blender and its two looks have been verified after reopening. The local grandMA3 bridge moved and restored fixture 1 in the demo. The saved copy `RayFlow_Jam_Stage_01` was active at wrap-up. Import `RayFlow_Stage.mvr` from the user library into that copy through Partial Show Read with scene objects included. Verify the twelve fixtures, four scenery objects and both looks in the native viewer. See the [probe and handoff](../docs/research/ma3-probes/ma3_demo_bridge_2_5_1.md).
+
 **Earlier work:** v1 is archived at `archive/rayflow-v1`. Designer research, the starter layout and learning modules remain available. The November 19 patch plugin imported fixture types on 2.5.1.1, but its failed readback left the full rig unverified. See the [original test record](../docs/research/ma3-probes/ma3_lua_patch_3d_spike_2_5_1.md).
 
 **Rules for agents**
