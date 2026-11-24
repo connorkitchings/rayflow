@@ -2,13 +2,15 @@
 
 **Goal:** AI-assisted lit version of a song in grandMA3 onPC, viewed in its built-in 3D viewer. Beginner user; AI generates, explains, user tweaks.
 
-**State:** Restart after v1 (archived at tag `archive/rayflow-v1`). Phase 0 done. Phase 1a (pre-work: sourced LD research, style guide, learn index/starter rig/glossary, skills) is done. Phase 1b (hands-on modules 1-7 in onPC 2.5, starting with `docs/learn/01-first-hour-ma3.md`, confirming 3D beams render) follows and gates everything. Rig-as-code work (branch `connor/rig-as-code`): the patch+3D Lua spike ran in onPC 2.5.1.1 on 2026-11-19 with partial results (library imports, mode names and the mover patch work; the wash patch and readback failed on a nil `Stages` path; 3D beams, axis directions and rotation property names are unverified), so it needs a scoped fix and re-run; `rigs/starter/rig.yaml` and the generator wait on its result.
+**Current milestone:** Compare the same jam-band stage in Blender and grandMA3 onPC. AI handles setup and inspection. The user judges the images and gives a design revision. Start with the files and verified results in [the stage comparison](../stage-comparison/README.md). “Climb to Safety” is the song choice. Its recording, section timing and cue design are undecided.
 
-**Phases:** 1a pre-work (done) → 1b hands-on learn → 2 Lua spikes: (a) patch+3D, (b) groups/presets/cues plus one slow position phaser, (c) sound + timecode playback → 3 minimal generator (`rig.yaml`, `song.yaml`, `design.yaml` → Jinja templates → Lua plugin + timecode XML).
+**Resume here:** Blender and its two looks have been verified after reopening. The local grandMA3 bridge moved and restored fixture 1 in the demo. The saved copy `RayFlow_Jam_Stage_01` was active at wrap-up. Import `RayFlow_Stage.mvr` from the user library into that copy through Partial Show Read with scene objects included. Verify the twelve fixtures, four scenery objects and both looks in the native viewer. See the [probe and handoff](../docs/research/ma3-probes/ma3_demo_bridge_2_5_1.md).
+
+**Earlier work:** v1 is archived at `archive/rayflow-v1`. Designer research, the starter layout and learning modules remain available. The November 19 patch plugin imported fixture types on 2.5.1.1, but its failed readback left the full rig unverified. See the [original test record](../docs/research/ma3-probes/ma3_lua_patch_3d_spike_2_5_1.md).
 
 **Rules for agents**
 - Do not build a generator for a step that has not passed its spike. Record each spike result with the plugin source in `docs/research/ma3-probes/`.
-- Verified facts: OSC `/cmd` works; timecode XML import/export round-trips on 2.3.2; MVR import blocked; timecode track/event creation by command line was UI-only; Lua plugins are untried.
+- The 2.3.2 probes verified OSC command receipt and timecode XML round trips. Check the newer stage comparison for 2.5.1.1 evidence before relying on those results.
 - Capture cannot be fed from onPC without MA hardware. Do not plan around it.
 - Tooling: `make setup`, `make lint`; Python via `uv run`.
 
